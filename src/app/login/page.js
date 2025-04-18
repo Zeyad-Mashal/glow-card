@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import googleIcon from "../../../public/images/googleIcon.png";
+const googleIcon = "/images/googleIcon.png";
 import SEO from "../../components/SEO";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -52,7 +52,7 @@ export default function Login() {
                         </button>
                         <div>
                             <button className="w-full bg-red-600 text-white py-2 px-4 rounded-md flex items-center justify-center gap-2 google-btn">
-                                <Image src="/images/googleIcon.png" width={50} height={50} alt="google" />
+                                <Image src={googleIcon} width={50} height={50} alt="google" />
                                 تسجيل بواسطة جوجل
                             </button>
                         </div>
