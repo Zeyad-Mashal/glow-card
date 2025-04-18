@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import user from "../../../public/images/user.png";
 import googleIcon from "../../../public/images/googleIcon.png";
 import SEO from "../../components/SEO";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -26,7 +25,7 @@ export default function Login() {
             />
             <main className="flex justify-center items-center min-h-screen p-8 loginMain">
                 <div className="max-w-md w-full login">
-                    <Image src={user} width={150} height={150} alt="user login" />
+                    <Image src="/images/user.png" width={150} height={150} alt="user login" />
                     <h1 className="text-4xl font-bold mb-6">اهلا بك, تسجيل الدخول</h1>
                     <form onSubmit={handleSubmit} className="space-y-4 w-full">
                         <div className="login-form">
@@ -53,7 +52,7 @@ export default function Login() {
                         </button>
                         <div>
                             <button className="w-full bg-red-600 text-white py-2 px-4 rounded-md flex items-center justify-center gap-2 google-btn">
-                                <Image src={googleIcon} width={50} height={50} alt="google" />
+                                <Image src="/images/googleIcon.png" width={50} height={50} alt="google" />
                                 تسجيل بواسطة جوجل
                             </button>
                         </div>
