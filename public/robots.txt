@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://www.yourdomain.com
+Host: https://vercel.com/zeyad-mashaals-projects/glow-card
 
 # Sitemaps
-Sitemap: https://www.yourdomain.com/sitemap.xml
+Sitemap: https://vercel.com/zeyad-mashaals-projects/glow-card/sitemap.xml

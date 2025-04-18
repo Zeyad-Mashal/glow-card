@@ -1,5 +1,5 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-    siteUrl: 'https://www.yourdomain.com',
+    siteUrl: 'https://vercel.com/zeyad-mashaals-projects/glow-card',
     generateRobotsTxt: true,
 };

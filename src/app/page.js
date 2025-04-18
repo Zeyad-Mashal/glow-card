@@ -1,17 +1,27 @@
+// src/app/page.js
+"use client";
+
 import Image from "next/image";
-import img from "../../public/images/0.png"
+import Head from "next/head"; // or just use the layout.js in app directory
+import Link from "next/link";
 export default function Home() {
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1 className="text-4xl font-bold">Hello, I'm Glow Card</h1>
-      <p className="mt-4 text-lg">I&apos;m a digital business card.</p>
-      <Image
-        src={img}
-        alt="Glow Card"
-        width={500}
-        height={500}
-        className="mt-8 rounded-lg shadow-lg"
-      />
-    </main>
+    <>
+      <Head>
+        <title>Home - Glow Card</title>
+        <meta name="description" content="Find the best deals on electronics and more." />
+        <link rel="canonical" href="https://www.myecom.com/" />
+        <meta property="og:title" content="Home - Glow Card" />
+        <meta property="og:description" content="Glow Card" />
+        <meta property="og:url" content="https://vercel.com/zeyad-mashaals-projects/glow-card" />
+        <meta property="og:site_name" content="Glow Card" />
+      </Head>
+
+
+      <Link href="/login" className="m-5">login</Link>
+      <Link href="/otp">otp</Link>
+
+    </>
   );
 }
