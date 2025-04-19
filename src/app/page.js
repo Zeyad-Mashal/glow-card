@@ -1,9 +1,11 @@
 // src/app/page.js
 "use client";
 
-import Image from "next/image";
 import Head from "next/head"; // or just use the layout.js in app directory
-import Link from "next/link";
+import Hero from "@/components/Hero";
+import Banner from "@/components/Banner";
+import Features from "@/components/Features";
+import GlowCards from "@/components/GlowCards";
 export default function Home() {
 
   return (
@@ -19,8 +21,10 @@ export default function Home() {
       </Head>
 
 
-      <Link href="/login" className="m-5">login</Link>
-      <Link href="/otp">otp</Link>
+      <Hero />
+      <Banner />
+      <Features />
+      <GlowCards />
 
     </>
   );
