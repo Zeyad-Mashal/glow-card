@@ -6,6 +6,7 @@ import Hero from "@/components/Hero";
 import Banner from "@/components/Banner";
 import Features from "@/components/Features";
 import GlowCards from "@/components/GlowCards";
+import CardOrder from "@/components/CardOrder";
 export default function Home() {
 
   return (
@@ -24,6 +25,7 @@ export default function Home() {
       <Hero />
       <Banner />
       <Features />
+      <CardOrder />
       <GlowCards />
 
     </>
