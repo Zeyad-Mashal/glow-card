@@ -11,7 +11,7 @@ const Navbar = () => {
         <div className="nav_links">
           <ul>
             <li>
-              <Link href={"/"}>Home</Link>
+              <Link href={"/region"}>شبكة الجهات</Link>
             </li>
             <li>
               <Link href={"/"}>Home</Link>
