@@ -8,83 +8,145 @@
   left: 0;
   width: 100%;
   z-index: 999;
+  background-color: #fff;
+  border-bottom: 1px solid #000;
 }
+
 .nav_container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 95%;
   background-color: #fff;
-  box-shadow: 4px 0px 5px #eee;
-  border-radius: 16px;
-
-  margin-top: 1rem;
+  padding: 10px 0;
+  position: relative;
 }
+
 .logo {
   padding: 10px;
-  text-align: right;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
-  color: #000;
-  width: 150px;
 }
+
 .logo img {
-  width: 50px;
-  height: 50px;
+  width: 120px;
+  height: auto;
 }
+
+/* زرار المينيو */
+.menu_toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 26px;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+/* محتوى المينيو */
+.nav_links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
 .nav_links ul {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 20px;
+  list-style: none;
+  width: 80%;
 }
-.nav_links ul li {
-  background-color: white;
+
+.nav_links ul li a.active {
+  background-color: #0874a4;
+  color: #fff;
   padding: 5px 10px;
   border-radius: 16px;
 }
-.nav_btns {
+
+.nav_links ul li a {
   color: #000;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
-  padding: 10px;
-  height: 70px;
-  text-align: center;
+  font-weight: 600;
+}
+
+/* أزرار تسجيل الدخول */
+.nav_btns {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
-  padding: 10px;
 }
-.nav_btns > img {
-  width: 30px;
-  height: 30px;
+
+.nav_btns svg {
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   padding: 5px;
   color: #000;
   border: 2px solid #000;
+  transition: 0.3s ease;
 }
-.nav_btns input {
+
+.nav_btns svg:hover {
   background-color: #000;
   color: #fff;
-  padding: 3px 10px;
-  border-radius: 10px;
-  border: none;
-  outline: none;
+  cursor: pointer;
 }
-.search_div {
-  position: relative;
+
+.nav_btns a {
+  text-decoration: none;
+  color: #fff;
+  background-color: #000;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 5px 15px;
+  border-radius: 16px;
+  transition: all 0.3s ease;
 }
-.search_div img {
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: translateY(-50%);
-  width: 20px;
-  height: 20px;
-  background-color: #fff;
-  border-radius: 50%;
-  padding: 5px;
+
+/* ====== Responsive design ====== */
+@media screen and (max-width: 768px) {
+  .menu_toggle {
+    display: block;
+  }
+
+  .nav_links {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #fff;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+    border-bottom: 1px solid #ddd;
+    padding: 0 20px;
+  }
+
+  .nav_links.open {
+    max-height: 300px;
+    padding: 15px 20px;
+  }
+
+  .nav_links ul {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .nav_links ul li {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .nav_btns {
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-top: 10px;
+  }
 }

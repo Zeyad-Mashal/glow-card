@@ -1,37 +1,73 @@
-import React from "react";
-import "./Navbar.css";
+"use client";
+import React, { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faEarthAmericas,
+  faUser,
+  faBars,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
+import "./Navbar.css";
+
 const Navbar = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname(); // 👈 بترجع اللينك الحالي
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
   return (
     <div className="navbar">
       <div className="nav_container">
         <div className="logo">
-          <img src="/images/user.png" alt="Logo" className="logo-image" />
-        </div>
-        <div className="nav_links">
-          <ul>
-            <li>
-              <Link href={"/region"}>شبكة الجهات</Link>
-            </li>
-            <li>
-              <Link href={"/"}>Home</Link>
-            </li>
-            <li>
-              <Link href={"/"}>Home</Link>
-            </li>
-            <li>
-              <Link href={"/"}>Home</Link>
-            </li>
-          </ul>
+          <img src="/images/logo.png" alt="Logo" className="logo-image" />
         </div>
 
-        <div className="nav_btns">
-          <div className="search_div">
-            <img src="/images/search.png" alt="" />
-            <input type="text" placeholder="search" />
+        <button className="menu_toggle" onClick={toggleMenu}>
+          <FontAwesomeIcon icon={menuOpen ? faXmark : faBars} />
+        </button>
+
+        <div className={`nav_links ${menuOpen ? "open" : ""}`}>
+          <ul>
+            <li>
+              <Link href="/" className={pathname === "/" ? "active" : ""}>
+                الرئيسية
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/region"
+                className={pathname === "/region" ? "active" : ""}
+              >
+                شبكة الجهات
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/cards"
+                className={pathname === "/cards" ? "active" : ""}
+              >
+                البطاقات
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/contact"
+                className={pathname === "/contact" ? "active" : ""}
+              >
+                تواصل معنا
+              </Link>
+            </li>
+          </ul>
+
+          <div className="nav_btns">
+            <a href="/login">تسجيل دخول</a>
+            <FontAwesomeIcon icon={faEarthAmericas} />
+            <FontAwesomeIcon icon={faUser} />
           </div>
-          <img src="/images/cart.png" alt="" />
-          <img src="/images/user.png" alt="" />
         </div>
       </div>
     </div>

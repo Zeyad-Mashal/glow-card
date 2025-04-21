@@ -1,23 +1,28 @@
-import React from 'react'
+'use client';
+import React from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { EffectCards } from 'swiper/modules';
 
-const CardDetails = () => {
+import 'swiper/css';
+import 'swiper/css/effect-cards';
+import './card.css';
+
+export default function CardDetails() {
     return (
-        <div className='CardDetails'>
-            <div className='cardDetails-header'>
-                <h1>Card Details</h1>
-            </div>
-            <div className='cardDetails-body'>
-                <div className='cardDetails-body-left'>
-                    <h2>Card Number</h2>
-                    <p>1234 5678 9012 3456</p>
-                </div>
-                <div className='cardDetails-body-right'>
-                    <h2>Expiry Date</h2>
-                    <p>12/25</p>
-                </div>
-            </div>
+        <div className="flex justify-center items-center min-h-screen bg-gray-100">
+            <Swiper
+                effect={'cards'}
+                grabCursor={true}
+                modules={[EffectCards]}
+                className="mySwiper"
+            >
+                <SwiperSlide className="card-slide">
+                    <img src="/images/card.png" alt="Visa Front" className="card-img" />
+                </SwiperSlide>
+                <SwiperSlide className="card-slide">
+                    <img src="/images/visa2.png" alt="Visa Back" className="card-img" />
+                </SwiperSlide>
+            </Swiper>
         </div>
-    )
+    );
 }
-
-export default CardDetails

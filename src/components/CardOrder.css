@@ -20,7 +20,7 @@
 .card_order_content_text {
   position: absolute;
   top: 20%;
-  left: 30px;
+  right: 60%;
   width: 50%;
 }
 .card_order_content_text h2 {

@@ -3,34 +3,22 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 2rem 0;
+  margin-top: 6rem;
+  height: 100vh;
 }
 .hero_container {
-  background-image: url("../../public/images/bg.jpg");
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("../../public/images/hero.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   width: 95%;
-  height: 100vh;
+  height: 100%;
   border-radius: 16px;
-  display: flex;
-  justify-content: space-around;
-  align-items: flex-start;
-}
-.hero_user {
-  margin-top: 8rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
-  border-radius: 10px;
-}
-.hero_user img {
-  width: 300px;
 }
 .hero_content {
-  margin-top: 8rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -58,54 +46,7 @@
   cursor: pointer;
   font-size: 1rem;
 }
-.hero_topReview {
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  flex-direction: column;
-  border-radius: 16px;
-  margin-top: 6rem;
-}
-.hero_topReview img {
-  width: 400px;
-  height: 450px;
-}
-.hero_topReview_content {
-  background-color: #fff;
-  width: 250px;
-  padding: 5px;
-  border-bottom-right-radius: 20px;
-  border-bottom-left-radius: 20px;
-  border-top-left-radius: 20px;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-}
-.hero_topReview_content_img img {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background-color: red;
-  padding: 5px;
-}
-.hero_topReview_content_text img {
-  width: 15px;
-  height: 15px;
-}
-.hero_topReview_content_text p {
-  width: 100%;
-  font-size: 0.8rem;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-.hero_star {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 5px;
-}
+
 @keyframes luxuryFadeInUp {
   0% {
     opacity: 0;
@@ -136,4 +77,18 @@
 .hero_content,
 .hero_topReview {
   opacity: 0;
+}
+@media screen and (max-width: 789px) {
+  .hero {
+    height: 60vh;
+  }
+  .hero_content {
+    width: 100%;
+  }
+  .hero_content h1 {
+    font-size: 1.5rem;
+  }
+  .hero_content p {
+    font-size: 1rem;
+  }
 }

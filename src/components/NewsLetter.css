@@ -1,0 +1,91 @@
+.newsletter {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #0874a4;
+  margin: 2rem 0;
+  padding: 2rem 0;
+}
+
+.newsletter_container {
+  width: 100%;
+  max-width: 700px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: center;
+}
+
+.newsletter_container h3 {
+  font-size: 30px;
+  color: #fff;
+  font-weight: bold;
+}
+
+.newsletter_container p {
+  color: #f0f0f0;
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.newsletter_input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: white;
+  transition: box-shadow 0.3s ease;
+}
+
+.newsletter_input:hover {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.newsletter_input input {
+  padding: 1rem;
+  border: none;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  width: 400px;
+  outline: none;
+  color: #333;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.newsletter_input input::placeholder {
+  color: #999;
+}
+
+.newsletter_input input:focus {
+  background-color: #eef9fc;
+}
+
+.newsletter_input button {
+  padding: 1rem;
+  border: none;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  background-color: #000;
+  color: #fff;
+  width: 120px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.newsletter_input button:hover {
+  background-color: #333;
+}
+@media screen and (max-width: 789px) {
+  .newsletter_input input {
+    width: 90%;
+  }
+}

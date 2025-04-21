@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -16,7 +17,7 @@ const GlowCards = () => {
       <h2 data-aos="fade-up">Glow Cards</h2>
       <div className="glow-cards_container">
         <div className="glow-cards_list">
-          {[1, 2, 3, 4].map((_, index) => (
+          {[1, 2, 3, 4, 5, 6].map((_, index) => (
             <div
               key={index}
               className="glow-cards_item"
