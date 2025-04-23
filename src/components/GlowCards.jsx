@@ -29,7 +29,7 @@ const GlowCards = () => {
               <p>Personal card with your name and details.</p>
               <div className="card_item_btn">
                 <span>100SAR</span>
-                <button>Learn More</button>
+                <a href="/card">Learn More</a>
               </div>
             </div>
           ))}

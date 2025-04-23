@@ -1,6 +1,32 @@
+.card {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card_container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 6rem;
+  
+}
+.card_details {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #C49585;
+  border-radius: 20px;
+  padding: 2rem 4rem;
+}
 .mySwiper {
   width: 350px;
   height: 220px;
+  margin: 0;
 }
 
 .card-slide {
@@ -8,6 +34,7 @@
   justify-content: center;
   align-items: center;
   background-color: transparent;
+  width: 100%;
 }
 
 .card-img {
@@ -16,4 +43,213 @@
   object-fit: cover;
   border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+.card_content {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  flex-direction: column;
+  gap: 2rem;
+}
+.card_content h1 {
+  color: #fff;
+  font-size: 2rem;
+  text-align: center;
+  font-weight: bold;
+}
+.card_content p {
+  font-size: 1rem;
+  text-align: center;
+  font-weight: bold;
+  background-color: #fff;
+  padding: 10px 15px;
+  border-radius: 20px;
+}
+.card_content button {
+  background-color: #000;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+.card_discount {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+.card_discount_text {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  position: relative;
+}
+.card_discount_text img {
+  width: 150px;
+  margin-top: 1.1rem;
+}
+.card_discount_text span {
+  position: absolute;
+  top: 25px;
+  left: 40px;
+  font-weight: bold;
+}
+.howItWorks {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.howItWorks_controller {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+}
+.card_container h2 {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #000;
+  cursor: pointer;
+}
+.card_container h2.active {
+  border-bottom: 2px solid #000;
+}
+.howItWorks_container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 2rem;
+}
+.howItWorks_container p {
+  width: 70%;
+  text-align: center;
+}
+.steps {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+.step1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 250px;
+}
+.step1 h3 {
+  border: 2px solid #000;
+  border-radius: 50%;
+  padding: 10px;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.step1 h3::before,
+.step1 h3::after {
+  content: "";
+  width: 100%;
+  height: 1px;
+  background-color: #000;
+  margin: 0 10px;
+}
+.step1 p {
+  margin-top: 2rem;
+  width: 100%;
+}
+.advantages {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 2rem;
+}
+.advantages_list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  width: 90%;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+.advantage_item {
+  width: 300px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+  background-color: #fff;
+  box-shadow: 4px 4px 10px #aaa;
+  border-radius: 20px;
+  padding: 1rem ;
+}
+.item_title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+.item_title svg {
+  color: goldenrod;
+  width: 25px;
+  height: 25px;
+}
+
+.item_title h3 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #000;
+}
+.advantage_item p {
+  text-align: center;
+  font-size: 1rem;
+  color: #000;
+}
+
+.item_img {
+  background-image: url("/images/bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+@media screen and (max-width: 789px) {
+  .card_details {
+    padding: 1rem 2rem;
+    width: 95%;
+    flex-direction: column;
+  }
+  .mySwiper {
+    width: 280px;
+    height: 180px;
+  }
+  .card_content {
+    gap: 0;
+  }
+  .card_content h1 {
+    font-size: 1.5rem;
+    margin-top: 1rem;
+  }
+  .card_content button {
+    margin-top: 1rem;
+  }
+  .steps {
+    flex-direction: column;
+  }
 }

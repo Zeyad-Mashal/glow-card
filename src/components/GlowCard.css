@@ -57,7 +57,7 @@
 .card_item_btn span {
   font-weight: bold;
 }
-.card_item_btn button {
+.card_item_btn a {
   background-color: #000;
   color: #fff;
   border: none;
