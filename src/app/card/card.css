@@ -12,14 +12,13 @@
   flex-direction: column;
   gap: 1rem;
   margin-top: 6rem;
-  
 }
 .card_details {
   width: 90%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #C49585;
+  background-color: #c49585;
   border-radius: 20px;
   padding: 2rem 4rem;
 }
@@ -65,7 +64,7 @@
   padding: 10px 15px;
   border-radius: 20px;
 }
-.card_content button {
+.card_content a {
   background-color: #000;
   color: #fff;
   padding: 10px 20px;
@@ -176,6 +175,20 @@
   flex-direction: column;
   margin-top: 2rem;
 }
+pre {
+  color: #000; /* لون النص */
+  padding: 16px; /* padding حول النص */
+  border-radius: 8px; /* حواف دائرية */
+  white-space: pre-wrap; /* الحفاظ على الأسطر الجديدة والمسافات */
+  word-wrap: break-word; /* تقسيم الكلمات الطويلة لتناسب العرض */
+  overflow-x: auto; /* تمكين التمرير الأفقي إذا كان النص طويل جدًا */
+  margin-top: 16px; /* إضافة مسافة من الأعلى */
+  margin-bottom: 16px; /* إضافة مسافة من الأسفل */
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+  width: 70%;
+}
+
 .advantages_list {
   display: flex;
   justify-content: center;
@@ -196,7 +209,7 @@
   background-color: #fff;
   box-shadow: 4px 4px 10px #aaa;
   border-radius: 20px;
-  padding: 1rem ;
+  padding: 1rem;
 }
 .item_title {
   display: flex;
@@ -251,5 +264,11 @@
   }
   .steps {
     flex-direction: column;
+  }
+  pre {
+    width: 90%;
+  }
+  .advantage_item {
+    width: 90%;
   }
 }

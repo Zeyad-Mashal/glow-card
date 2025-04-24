@@ -1,0 +1,14 @@
+.opt_container {
+  padding: 2rem;
+  gap: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.opt_container > button {
+  padding: 1rem;
+}
+.code_otp {
+  direction: ltr !important;
+}

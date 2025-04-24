@@ -16,7 +16,7 @@
   justify-content: center;
   align-items: flex-start;
   flex-direction: column;
-  gap: 1rem ;
+  gap: 1rem;
   padding: 2rem;
 }
 .login_content > img {
@@ -33,7 +33,6 @@
   width: 100%;
   gap: 10px;
   position: relative;
-
 }
 .form_group input {
   width: 100%;
@@ -46,7 +45,7 @@
 .form_group span {
   position: absolute;
   top: 55%;
-  left:2%;
+  left: 2%;
 }
 .login_btn {
   background-color: #000;
@@ -63,7 +62,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin:  2rem 0;
+  margin: 2rem 0;
 }
 .separator::before,
 .separator::after {
@@ -103,7 +102,8 @@
   background-image: url("/images/login_bg.png");
   background-position: center;
   background-size: cover;
-  background-repeat: no-repeat;  flex-direction: column;
+  background-repeat: no-repeat;
+  flex-direction: column;
   gap: 1rem;
   height: 100vh;
 }
@@ -113,7 +113,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding: 1.5rem 2.5rem; 
+  padding: 1.5rem 2.5rem;
   border-radius: 16px;
   gap: 1rem;
 }
@@ -134,7 +134,16 @@
   width: 400px;
   text-align: center;
 }
-
+.login_card img {
+  width: 350px;
+}
+.error {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: red;
+  margin: 1rem 0;
+  text-align: center;
+}
 @media screen and (max-width: 789px) {
   .login_banner {
     display: none;

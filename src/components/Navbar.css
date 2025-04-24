@@ -97,7 +97,7 @@
   cursor: pointer;
 }
 
-.nav_btns a {
+.nav_btns a:first-of-type {
   text-decoration: none;
   color: #fff;
   background-color: #000;

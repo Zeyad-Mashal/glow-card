@@ -1,37 +1,12 @@
-"use client";
-import React, { useEffect } from "react";
-import AOS from "aos";
-import "aos/dist/aos.css";
-import "./central.css";
+import React, { Suspense } from "react";
+import CentralClient from "./CentralClient";
 
-const Central = () => {
-  useEffect(() => {
-    AOS.init({ duration: 800, once: true });
-  }, []);
+export const dynamic = "force-dynamic"; // 👈 ده يمنع الـ prerender error
 
-  const items = Array(6).fill("وسط الرياض");
-
+export default function CentralPage() {
   return (
-    <div className="central">
-      <div className="central_container">
-        <h2>المنطقة الوسطي</h2>
-        <div className="central_list">
-          <a href="/network">
-            {items.map((item, index) => (
-              <div
-                key={index}
-                className="central_item"
-                data-aos="fade-up"
-                data-aos-delay={index * 100}
-              >
-                <h3>{item}</h3>
-              </div>
-            ))}
-          </a>
-        </div>
-      </div>
-    </div>
+    <Suspense fallback={<div>Loading...</div>}>
+      <CentralClient />
+    </Suspense>
   );
-};
-
-export default Central;
+}

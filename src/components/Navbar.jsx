@@ -66,7 +66,9 @@ const Navbar = () => {
           <div className="nav_btns">
             <a href="/login">تسجيل دخول</a>
             <FontAwesomeIcon icon={faEarthAmericas} />
-            <FontAwesomeIcon icon={faUser} />
+            <a href="/profile">
+              <FontAwesomeIcon icon={faUser} />
+            </a>
           </div>
         </div>
       </div>

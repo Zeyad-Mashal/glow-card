@@ -1,0 +1,50 @@
+"use client";
+import React, { useEffect, useState } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import "./network.css";
+import Foundation from "@/API/Foundation/Foundation.api";
+import { useSearchParams } from "next/navigation";
+
+const NetworkClient = () => {
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [foundations, setFoundations] = useState([]);
+
+  useEffect(() => {
+    getAllFoundations();
+    AOS.init({ duration: 800, once: true });
+  }, [id]); // إعادة التحميل إذا تغير `id`
+
+  const getAllFoundations = () => {
+    Foundation(setLoading, setError, setFoundations, id);
+  };
+
+  return (
+    <div className="Network">
+      <div className="network_container">
+        <h2>شبكه الجهات</h2>
+        <div className="netword_controller">
+          <input type="text" placeholder="ابحث" />
+        </div>
+        <div className="network_list">
+          {foundations.map((item, index) => (
+            <div
+              key={index}
+              className="network_item"
+              data-aos="fade-up"
+              data-aos-delay={index * 100}
+            >
+              <img src={item.images[0]} alt="network page image" />
+              <h3>{item.name}</h3>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default NetworkClient;
