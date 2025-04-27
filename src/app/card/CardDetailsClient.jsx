@@ -11,12 +11,14 @@ import "swiper/css";
 import "swiper/css/effect-cards";
 import "./card.css";
 import CardDetailsApi from "@/API/CardDetails/CardDetailsApi.api";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 
 export default function CardDetailsClient() {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
+  const router = useRouter();
+
   const [activeTab, setActiveTab] = useState("howItWorks");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -38,6 +40,11 @@ export default function CardDetailsClient() {
       return;
     }
     CardDetailsApi(setLoading, setError, setCardDetails, id);
+  };
+
+  const goToApplication = (id, type) => {
+    localStorage.setItem("type", type);
+    router.push(`/application?id=${id}`);
   };
 
   return (
@@ -83,9 +90,11 @@ export default function CardDetailsClient() {
                 <span>{cardDetails.discount}% Discount</span>
               </div>
             </div>
-            <Link href={"/application"}>
+            <button
+              onClick={() => goToApplication(cardDetails._id, cardDetails.type)}
+            >
               <FontAwesomeIcon icon={faArrowUpRightFromSquare} /> Request Card
-            </Link>
+            </button>
           </div>
         </div>
 

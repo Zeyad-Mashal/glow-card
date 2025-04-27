@@ -1,11 +1,14 @@
-import React from "react";
-import "./application.css";
-const Application = () => {
+import React, { Suspense } from "react";
+import Application from "./ApplicationClient"; // غيّر حسب مكان ملفك
+
+export const dynamic = "force-dynamic";
+
+const ApplicationPage = () => {
   return (
-    <div className="application">
-      <h1>انا صفحة الابلكيشن </h1>
-    </div>
+    <Suspense fallback={<div>Loading...</div>}>
+      <Application />
+    </Suspense>
   );
 };
 
-export default Application;
+export default ApplicationPage;
