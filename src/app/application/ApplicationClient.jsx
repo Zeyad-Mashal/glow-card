@@ -1,6 +1,5 @@
 "use client";
-
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./application.css";
 import { useRouter, useSearchParams } from "next/navigation";
 import ApplicationApi from "@/API/Application/ApplicationApi.api";
@@ -9,12 +8,16 @@ import Validator from "./Validator";
 const ApplicationClient = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [type, setType] = useState(null);
-  const [isClient, setIsClient] = useState(false);
+  const [showModal, setShowModal] = useState(false); // حالة لعرض الموديل
 
-  const router = useRouter();
+  const type = localStorage.getItem("type");
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
+  const router = useRouter();
+
+  if (!type) {
+    router.push("/");
+  }
 
   const [step, setStep] = useState(0);
   const [animation, setAnimation] = useState("fade-in");
@@ -25,28 +28,6 @@ const ApplicationClient = () => {
     child1: {},
     child2: {},
   });
-
-  const roles = ["father", "mother", "child1", "child2"];
-  const titles = [
-    "Main Client",
-    "Wife Application",
-    "Child 1 Application",
-    "Child 2 Application",
-  ];
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const storedType = localStorage.getItem("type");
-      setType(storedType);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (isClient && type === null) return;
-    if (!type) {
-      router.push("/");
-    }
-  }, [type, isClient]);
 
   const handleChange = (e, role) => {
     const { name, value } = e.target;
@@ -67,14 +48,13 @@ const ApplicationClient = () => {
     );
 
     document.querySelectorAll(".input_field").forEach((input) => {
-      input.value = "";
+      input.value = ""; // Clear the input fields
     });
-
     setAnimation("fade-out");
     setTimeout(() => {
       setStep((prev) => prev + 1);
       setAnimation("fade-in");
-    }, 500);
+    }, 500); // timing matches CSS duration
   };
 
   const handleBack = () => {
@@ -93,28 +73,38 @@ const ApplicationClient = () => {
     }
 
     let data = {};
-
     if (type === "Annual" || type === "Two-Year") {
-      data = { ...familyData.father, spouse: {}, members: [] };
+      data = familyData.father;
+      data.spouse = {};
+      data.members = [];
     } else if (type === "Newlywed") {
-      data = {
-        ...familyData.father,
-        spouse: { ...familyData.mother, relationship: "wife" },
-      };
+      data = familyData.father;
+      data.spouse = familyData.mother;
+      data.spouse.relationship = "wife";
     } else {
-      data = {
-        ...familyData.father,
-        members: [
-          { ...familyData.mother, relationship: "wife" },
-          { ...familyData.child1, relationship: "son" },
-          { ...familyData.child2, relationship: "son" },
-        ],
-      };
+      data = familyData.father;
+      data.members = [];
+      data.members[0] = familyData.mother;
+      data.members[0].relationship = "wife";
+      data.members[1] = familyData.child1;
+      data.members[1].relationship = "son";
+      data.members[2] = familyData.child2;
+      data.members[2].relationship = "son";
     }
-
     data.type = type;
     ApplicationApi(setLoading, setError, data, router, id);
+
+    // إظهار الموديل بعد الدفع
+    setShowModal(true);
   };
+
+  const roles = ["father", "mother", "child1", "child2"];
+  const titles = [
+    "Main Client",
+    "Wife Application",
+    "Child 1 Application",
+    "Child 2 Application",
+  ];
 
   const renderForm = (role, title) => (
     <div className={`application_form ${animation}`}>
@@ -141,7 +131,6 @@ const ApplicationClient = () => {
         <option value="Male">Male</option>
         <option value="Female">Female</option>
       </select>
-
       <div className="form1">
         <div className="form1_content">
           <label>Address:</label>
@@ -164,7 +153,6 @@ const ApplicationClient = () => {
           />
         </div>
       </div>
-
       <div className="form1">
         <div className="form1_content">
           <label>Date of Birth:</label>
@@ -186,7 +174,6 @@ const ApplicationClient = () => {
           />
         </div>
       </div>
-
       <label>Nationality:</label>
       <input
         className="input_field"
@@ -195,13 +182,9 @@ const ApplicationClient = () => {
         name="nationality"
         onChange={(e) => handleChange(e, role)}
       />
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error}
     </div>
   );
-
-  if (!isClient) {
-    return null;
-  }
 
   return (
     <div className="application">
@@ -214,7 +197,7 @@ const ApplicationClient = () => {
         {type && renderForm(roles[step], titles[step])}
 
         {type === "Family" && (
-          <div style={{ display: "flex", gap: "1rem", marginTop: "1rem" }}>
+          <div style={{ display: "flex", gap: "1rem" }}>
             {step > 0 && (
               <button onClick={handleBack} className="back_button">
                 Back
@@ -231,15 +214,28 @@ const ApplicationClient = () => {
             )}
           </div>
         )}
-
-        {["Annual", "Two-Year", "Newlywed"].includes(type) && (
-          <div style={{ display: "flex", gap: "1rem", marginTop: "1rem" }}>
-            {type === "Newlywed" && step > 0 && (
+        {type === "Annual" && (
+          <div style={{ display: "flex", gap: "1rem" }}>
+            <button onClick={handlePayment} className="back_button">
+              {loading ? "Loading..." : "Payment"}
+            </button>
+          </div>
+        )}
+        {type === "Two-Year" && (
+          <div style={{ display: "flex", gap: "1rem" }}>
+            <button onClick={handlePayment} className="back_button">
+              {loading ? "Loading..." : "Payment"}
+            </button>
+          </div>
+        )}
+        {type === "Newlywed" && (
+          <div style={{ display: "flex", gap: "1rem" }}>
+            {step > 0 && (
               <button onClick={handleBack} className="back_button">
                 Back
               </button>
             )}
-            {type !== "Newlywed" || step < 1 ? (
+            {step < 1 ? (
               <button onClick={handleNext} className="back_button">
                 Next
               </button>
@@ -251,6 +247,17 @@ const ApplicationClient = () => {
           </div>
         )}
       </div>
+
+      {/* الموديل الخاص بالشكر */}
+      {showModal && (
+        <div className="modal">
+          <div className="modal_content">
+            <h2>شكراً لاشتراكك معنا!</h2>
+            <p>يرجى التوجه إلى تفاصيل البطاقة لمتابعة العملية.</p>
+            <button onClick={() => setShowModal(false)}>إغلاق</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -16,7 +16,7 @@
     font-weight: bold;
     text-align: center;
 }
-.appliaction_container > p {
+.appliaction_container > h2 {
     font-size: 1.1rem;
     text-align: center;
     color: #000;
@@ -37,6 +37,11 @@
     padding: 1rem 2rem;
     margin-top: 2rem;
 }
+.application_form > h2 {
+  color: #444;
+  font-weight: bold;
+  text-decoration: underline;
+} 
 .application_form input,
 .application_form select {
     width: 100%;
@@ -80,6 +85,44 @@
   .fade-out {
     animation: fadeOut 0.5s ease-in-out;
   }
+
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal_content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    width: 300px;
+  }
+  
+  .modal_content h2 {
+    margin-bottom: 10px;
+  }
+  
+  .modal_content button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .modal_content button:hover {
+    background-color: #45a049;
+  }
+  
   
   @keyframes fadeIn {
     0% {
@@ -100,6 +143,22 @@
     100% {
       opacity: 0;
       transform: translateY(-20px);
+    }
+  }
+  @media screen and (max-width: 789px) {
+    .appliaction_container > h2 {
+      width: 90%;
+      text-align: center;
+    }
+    .application_form  {
+      width: 95%;
+    }
+    .form1 {
+      flex-direction: column;
+    }
+    .back_button {
+      width: 160px;
+      font-size: 1rem;
     }
   }
   

@@ -81,10 +81,46 @@
 .profile_content_card h2 {
   font-size: 1.5rem;
   font-weight: 600;
-  margin: 0.5rem 0;
 }
 .profile_content_card img {
   width: 500px;
+}
+.profile_content_card > p {
+  width: 60%;
+  text-align: center;
+  color: #555;
+}
+.invitation_link {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.invitation_link p {
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.invitation_link button {
+  padding: 10px 20px;
+  background-color: #000;
+  color: #fff;
+  border-radius: 16px;
+  cursor: pointer;
+}
+.logout_button {
+  margin: 3rem 0;
+  background-color: rgb(203, 0, 0);
+  padding: 10px 20px;
+  border-radius: 16px;
+  color: #fff;
+}
+.profile_content_card > p span {
+  color: red;
+  font-weight: bold;
+  font-size: 1.2rem ;
 }
 .card_info_item {
   width: 100%;
@@ -115,4 +151,16 @@
   padding: 10px;
   width: 150px;
   text-align: center;
+}
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #28a745;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
 }

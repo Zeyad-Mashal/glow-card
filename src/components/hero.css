@@ -10,14 +10,34 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url("../../public/images/hero.png");
-  background-size: cover;
+  background-image: url("../../public/images/bg_banner.jpg");
   background-position: center;
   background-repeat: no-repeat;
+  object-fit: cover; /* لضمان أن الصورة تغطي العنصر بالكامل */
   width: 95%;
-  height: 100%;
-  border-radius: 16px;
+  height: 100vh;
+  position: relative; /* لتحديد موقع overlay */
 }
+
+@media screen and (max-width: 789px) {
+  .hero_container {
+    height: 60vh; 
+    object-fit: none;
+  }
+}
+/* إضافة تأثير Overlay داكن */
+.hero_container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5); /* اللون الداكن مع الشفافية */
+  border-radius: 16px;
+  z-index: 1; /* التأكد من أن overlay يظهر فوق الصورة */
+}
+
 .hero_content {
   display: flex;
   flex-direction: column;
@@ -25,7 +45,10 @@
   align-items: center;
   color: #fff;
   width: 500px;
+  position: relative; /* لجعل المحتوى يظهر فوق overlay */
+  z-index: 2;
 }
+
 .hero_content h1 {
   font-size: 3rem;
   text-align: center;
