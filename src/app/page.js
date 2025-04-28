@@ -27,7 +27,7 @@ export default function Home() {
       <Hero />
       <Banner />
       <Features />
-      <CardOrder />
+      {/* <CardOrder /> */}
       <GlowCards />
       <NewsLetter />
       <Footer />

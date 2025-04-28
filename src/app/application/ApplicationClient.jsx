@@ -4,6 +4,7 @@ import "./application.css";
 import { useRouter, useSearchParams } from "next/navigation";
 import ApplicationApi from "@/API/Application/ApplicationApi.api";
 import Validator from "./Validator";
+import Link from "next/link";
 
 const ApplicationClient = () => {
   const [loading, setLoading] = useState(false);
@@ -92,10 +93,7 @@ const ApplicationClient = () => {
       data.members[2].relationship = "son";
     }
     data.type = type;
-    ApplicationApi(setLoading, setError, data, router, id);
-
-    // إظهار الموديل بعد الدفع
-    setShowModal(true);
+    ApplicationApi(setLoading, setError, data, router, id, setShowModal);
   };
 
   const roles = ["father", "mother", "child1", "child2"];
@@ -254,6 +252,7 @@ const ApplicationClient = () => {
           <div className="modal_content">
             <h2>شكراً لاشتراكك معنا!</h2>
             <p>يرجى التوجه إلى تفاصيل البطاقة لمتابعة العملية.</p>
+            <Link href={"/profile"}>من هنا</Link>
             <button onClick={() => setShowModal(false)}>إغلاق</button>
           </div>
         </div>

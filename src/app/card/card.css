@@ -41,7 +41,6 @@
   height: 100%;
   object-fit: cover;
   border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 .card_content {
   display: flex;
@@ -95,6 +94,9 @@
   top: 25px;
   left: 40px;
   font-weight: bold;
+}
+.card_discount p{
+  padding: 10px;
 }
 .howItWorks {
   width: 100%;
@@ -270,5 +272,15 @@ pre {
   }
   .advantage_item {
     width: 90%;
+  }
+  .card_discount p {
+    font-size: 0.9rem;
+  }
+  .card_discount_text img {
+    width: 140px;
+  }
+  .card_discount_text span {
+    left: 37px;
+    font-size: 0.9rem;
   }
 }

@@ -19,6 +19,9 @@
   font-weight: bold;
   font-size: large;
 }
+.footer_section1 p {
+  text-align: center;
+}
 @media screen and (max-width: 789px) {
   .footer {
     flex-direction: column;
