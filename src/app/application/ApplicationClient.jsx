@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import "./application.css";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import ApplicationApi from "@/API/Application/ApplicationApi.api";
 import Validator from "./Validator";
 import Link from "next/link";
@@ -14,8 +14,6 @@ const ApplicationClient = () => {
   const type = localStorage.getItem("type");
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
-  const router = useRouter();
-
   if (!type) {
     router.push("/");
   }
@@ -93,7 +91,7 @@ const ApplicationClient = () => {
       data.members[2].relationship = "son";
     }
     data.type = type;
-    ApplicationApi(setLoading, setError, data, router, id, setShowModal);
+    ApplicationApi(setLoading, setError, data, id, setShowModal);
   };
 
   const roles = ["father", "mother", "child1", "child2"];

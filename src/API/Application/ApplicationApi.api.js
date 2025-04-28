@@ -1,6 +1,6 @@
 const URL = "https://glow-card.onrender.com/api/v1/card/create/";
 const token = localStorage.getItem("token");
-const ApplicationApi = async (setLoading, setError, data, router, id, setShowModal) => {
+const ApplicationApi = async (setLoading, setError, data, id, setShowModal) => {
     setLoading(true)
     try {
         const response = await fetch(`${URL}${id}`, {
@@ -17,7 +17,6 @@ const ApplicationApi = async (setLoading, setError, data, router, id, setShowMod
         if (response.ok) {
             setShowModal(true)
             setLoading(false);
-            // router.push(`/profile`);
         } else {
             if (response.status == 403) {
                 setError(result.message)
