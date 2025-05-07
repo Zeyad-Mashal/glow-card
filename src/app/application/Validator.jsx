@@ -14,21 +14,21 @@ const Validator = (formData) => {
     const {
       name,
       phone,
+      email,
       address,
       gender,
       nationalID,
       dateOfBirth,
-      age,
       nationality,
     } = father;
     if (
       !name ||
       !phone ||
+      !email ||
       !address ||
       !gender ||
       !nationalID ||
       !dateOfBirth ||
-      !age ||
       !nationality
     ) {
       return false;
@@ -40,21 +40,21 @@ const Validator = (formData) => {
     const {
       name,
       phone,
+      email,
       address,
       gender,
       nationalID,
       dateOfBirth,
-      age,
       nationality,
     } = father;
     if (
       !name ||
       !phone ||
+      !email ||
       !address ||
       !gender ||
       !nationalID ||
       !dateOfBirth ||
-      !age ||
       !nationality
     ) {
       return false;
@@ -62,11 +62,11 @@ const Validator = (formData) => {
     if (
       !mother.name ||
       !mother.phone ||
+      !email.email ||
       !mother.address ||
       !mother.gender ||
       !mother.nationalID ||
       !mother.dateOfBirth ||
-      !mother.age ||
       !mother.nationality
     ) {
       return false;
@@ -78,21 +78,21 @@ const Validator = (formData) => {
     const {
       name,
       phone,
+      email,
       address,
       gender,
       nationalID,
       dateOfBirth,
-      age,
       nationality,
     } = father;
     if (
       !name ||
       !phone ||
+      !email ||
       !address ||
       !gender ||
       !nationalID ||
       !dateOfBirth ||
-      !age ||
       !nationality
     ) {
       return false;
@@ -100,11 +100,11 @@ const Validator = (formData) => {
     if (
       !mother.name ||
       !mother.phone ||
+      !mother.email ||
       !mother.address ||
       !mother.gender ||
       !mother.nationalID ||
       !mother.dateOfBirth ||
-      !mother.age ||
       !mother.nationality
     ) {
       return false;
@@ -112,11 +112,11 @@ const Validator = (formData) => {
     if (
       !child1.name ||
       !child1.phone ||
+      !child1.email ||
       !child1.address ||
       !child1.gender ||
       !child1.nationalID ||
       !child1.dateOfBirth ||
-      !child1.age ||
       !child1.nationality
     ) {
       return false;
@@ -124,11 +124,11 @@ const Validator = (formData) => {
     if (
       !child2.name ||
       !child2.phone ||
+      !child2.email ||
       !child2.address ||
       !child2.gender ||
       !child2.nationalID ||
       !child2.dateOfBirth ||
-      !child2.age ||
       !child2.nationality
     ) {
       return false;

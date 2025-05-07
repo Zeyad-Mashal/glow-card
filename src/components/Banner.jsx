@@ -21,7 +21,12 @@ const Banner = () => {
       {banners.map((item, index) => {
         return (
           <a href={item.url} key={index} target="_blank">
-            <img src={item.banner} alt="Home Banners" data-aos="fade-up" />
+            <img
+              src={item.banner}
+              alt="Home Banners"
+              data-aos="fade-up"
+              loading="lazy"
+            />
           </a>
         );
       })}

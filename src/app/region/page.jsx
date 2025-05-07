@@ -32,7 +32,11 @@ const Region = () => {
                   data-aos="fade-up"
                   data-aos-delay={index * 100}
                 >
-                  <img src="/images/wsta.png" alt="Region Page Image" />
+                  <img
+                    src="/images/wsta.png"
+                    alt="Region Page Image"
+                    loading="lazy"
+                  />
                   <div className="region_item_text">
                     <h3>{item.name}</h3>
                     <Link

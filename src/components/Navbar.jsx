@@ -23,7 +23,12 @@ const Navbar = () => {
     <div className="navbar">
       <div className="nav_container">
         <div className="logo">
-          <img src="/images/logo.png" alt="Logo" className="logo-image" />
+          <img
+            src="/images/logo.png"
+            alt="Logo"
+            className="logo-image"
+            loading="lazy"
+          />
         </div>
 
         <button className="menu_toggle" onClick={toggleMenu}>

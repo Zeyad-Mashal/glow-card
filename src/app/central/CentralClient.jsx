@@ -28,7 +28,9 @@ const CentralClient = () => {
   return (
     <div className="central">
       <div className="central_container">
-        <h2>المنطقة الوسطي</h2>
+        {regions.length > 0 && regions[0]?.city?.name?.ar && (
+          <h2>{regions[0].city.name.ar}</h2>
+        )}
         <div className="central_list">
           {loading
             ? "Loading..."

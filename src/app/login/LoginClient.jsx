@@ -79,14 +79,18 @@ export default function LoginClient() {
             <div className="login_google">
               <button onClick={() => loginWithGoogle()}>
                 <span>سجل دخول بواسطة جوجل</span>
-                <img src="/images/google.png" alt="Google Login" />
+                <img
+                  src="/images/google.png"
+                  alt="Google Login"
+                  loading="lazy"
+                />
               </button>
             </div>
           </div>
           <div className="login_banner">
             <div className="login_card">
               <h1>استمتع براحة استخدام بطاقة الخصم الخاصة بك</h1>
-              <img src="/images/cardfront.png" alt="Card" />
+              <img src="/images/cardfront.png" alt="Card" loading="lazy" />
             </div>
             <h2>إطلاق ميزات جديدة</h2>
             <p>

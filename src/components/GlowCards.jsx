@@ -34,7 +34,7 @@ const GlowCards = () => {
                 data-aos="fade-up"
                 data-aos-delay={index * 200}
               >
-                <img src={card.images[0]} alt="" />
+                <img src={card.images[0]} alt="" loading="lazy" />
                 <h3>{card.name}</h3>
                 <div className="card_item_btn">
                   <span>{card.price}SAR</span>

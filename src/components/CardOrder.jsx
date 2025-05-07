@@ -20,6 +20,7 @@ const CardOrder = () => {
             alt=""
             data-aos="fade-right"
             data-aos-delay="200"
+            loading="lazy"
           />
 
           <div

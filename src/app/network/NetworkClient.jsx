@@ -5,6 +5,7 @@ import "aos/dist/aos.css";
 import "./network.css";
 import Foundation from "@/API/Foundation/Foundation.api";
 import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 
 const NetworkClient = () => {
   const searchParams = useSearchParams();
@@ -30,17 +31,21 @@ const NetworkClient = () => {
           <input type="text" placeholder="ابحث" />
         </div>
         <div className="network_list">
-          {foundations.map((item, index) => (
-            <div
-              key={index}
-              className="network_item"
-              data-aos="fade-up"
-              data-aos-delay={index * 100}
-            >
-              <img src={item.images[0]} alt="network page image" />
-              <h3>{item.name}</h3>
-            </div>
-          ))}
+          {loading
+            ? "Loading ..."
+            : foundations.map((item, index) => (
+                <div
+                  key={index}
+                  className="network_item"
+                  data-aos="fade-up"
+                  data-aos-delay={index * 100}
+                >
+                  <img src={item.images[0]} alt="network page image" />
+                  <Link href={`/foundation-details?id=${item._id}`}>
+                    <h3>{item.name}</h3>
+                  </Link>
+                </div>
+              ))}
         </div>
       </div>
     </div>

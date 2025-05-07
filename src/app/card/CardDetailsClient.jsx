@@ -66,6 +66,7 @@ export default function CardDetailsClient() {
                 }
                 alt="Visa Front"
                 className="card-img"
+                loading="lazy"
               />
             </SwiperSlide>
             <SwiperSlide className="card-slide">
@@ -77,6 +78,7 @@ export default function CardDetailsClient() {
                 }
                 alt="Visa Back"
                 className="card-img"
+                loading="lazy"
               />
             </SwiperSlide>
           </Swiper>

@@ -121,6 +121,14 @@ const ApplicationClient = () => {
         name="phone"
         onChange={(e) => handleChange(e, role)}
       />
+      <label>email:</label>
+      <input
+        className="input_field"
+        type="text"
+        placeholder="email"
+        name="email"
+        onChange={(e) => handleChange(e, role)}
+      />
       <label>Gender:</label>
       <select name="gender" onChange={(e) => handleChange(e, role)}>
         <option value="">Select gender</option>
@@ -156,16 +164,6 @@ const ApplicationClient = () => {
             className="input_field"
             type="date"
             name="dateOfBirth"
-            onChange={(e) => handleChange(e, role)}
-          />
-        </div>
-        <div className="form1_content">
-          <label>Age:</label>
-          <input
-            className="input_field"
-            type="text"
-            placeholder="Age"
-            name="age"
             onChange={(e) => handleChange(e, role)}
           />
         </div>
