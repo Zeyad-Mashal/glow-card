@@ -164,3 +164,38 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   font-size: 16px;
 }
+/* زر الرجوع */
+.back_button {
+  align-self: flex-start;
+  border: 1px solid #000;
+  color: #000;
+  padding: 10px 20px;
+  border-radius: 16px;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  transition: 0.3s ease;
+
+}
+.back_button:hover {
+  background-color: #000;
+  color: #fff;
+}
+.back_button span {
+  transition: 0.3s ease;
+}
+.back_button:hover span {
+  margin-left: 10px;
+}
+/* إخفاء المحتوى على الموبايل لو ما فيش showContentOnMobile */
+@media (max-width: 768px) {
+  .profile_container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .profile_controller {
+    width: 90%;
+  }
+  .profile_content {
+    width: 90%;
+  }
+}
