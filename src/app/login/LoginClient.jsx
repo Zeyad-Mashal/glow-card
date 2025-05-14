@@ -1,14 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SEO from "../../components/SEO";
 import LoginApi from "@/API/Login/LoginApi.api";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useGoogleLogin } from "@react-oauth/google";
 import Google from "@/API/Google/Google.api";
 import "./login.css";
-
+import { Lang } from "@/Lang/lang";
 export default function LoginClient() {
+  const [selectedLanguage, setSelectedLanguage] = useState("en");
+
+  useEffect(() => {
+    const lang = localStorage.getItem("lang") || "en";
+    setSelectedLanguage(lang);
+  }, []);
+
+  const langValue = Lang[selectedLanguage];
   const router = useRouter();
   const searchParams = useSearchParams();
   const query = searchParams.get("code");
@@ -55,9 +63,9 @@ export default function LoginClient() {
         <div className="login_container">
           <div className="login_content">
             <img src="/images/logo.png" alt="Glow Card" />
-            <h1>تسجيل الدخول</h1>
+            <h1>{langValue["Login"]}</h1>
             <div className="form_group">
-              <label htmlFor="phone">رقم الهاتف</label>
+              <label htmlFor="phone">{langValue["phone"]}</label>
               <input
                 type="text"
                 id="phone"
@@ -78,7 +86,7 @@ export default function LoginClient() {
 
             <div className="login_google">
               <button onClick={() => loginWithGoogle()}>
-                <span>سجل دخول بواسطة جوجل</span>
+                <span>{langValue["googleAuth"]}</span>
                 <img
                   src="/images/google.png"
                   alt="Google Login"
@@ -89,13 +97,11 @@ export default function LoginClient() {
           </div>
           <div className="login_banner">
             <div className="login_card">
-              <h1>استمتع براحة استخدام بطاقة الخصم الخاصة بك</h1>
+              <h1>{langValue["loginTitle"]}</h1>
               <img src="/images/cardfront.png" alt="Card" loading="lazy" />
             </div>
-            <h2>إطلاق ميزات جديدة</h2>
-            <p>
-              احصل على أسعار مخفضة في أفضل المراكز الطبية دون دفع السعر الكامل.
-            </p>
+            <h2>{langValue["loginSubTitle"]}</h2>
+            <p>{langValue["loginSubTitle2"]}</p>
           </div>
         </div>
       </div>

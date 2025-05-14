@@ -2,12 +2,13 @@ const URL = "https://glow-card.onrender.com/api/v1/product/get";
 
 const GetCards = async (setloading, setError, setAllCards) => {
     setloading(true)
+    const lang = localStorage.getItem("lang")
     try {
         const response = await fetch(URL, {
             method: 'GET',
             headers: {
                 "Content-Type": "application/json",
-                "accept-language": "ar"
+                "accept-language": `${lang}`
             },
         });
 

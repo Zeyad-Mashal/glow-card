@@ -5,7 +5,16 @@ import "aos/dist/aos.css";
 import "./region.css";
 import City from "@/API/City/City.api";
 import Link from "next/link";
+import { Lang } from "@/Lang/lang";
 const Region = () => {
+  const [selectedLanguage, setSelectedLanguage] = useState("en");
+
+  useEffect(() => {
+    const lang = localStorage.getItem("lang") || "en";
+    setSelectedLanguage(lang);
+  }, []);
+  const langValue = Lang[selectedLanguage];
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [allCities, setAllCities] = useState([]);
@@ -21,7 +30,7 @@ const Region = () => {
   return (
     <div className="Region">
       <div className="region_container">
-        <h2>شبكة جلو كارد</h2>
+        <h2>{langValue["city"]}</h2>
         <div className="region_list">
           {loading
             ? "Loading..."
@@ -43,7 +52,8 @@ const Region = () => {
                       href={`/central?id=${item._id}`}
                       className="btn btn-primary"
                     >
-                      المزيد <span>--&gt;</span>
+                      {langValue["cityBtn"]}
+                      {/* <span>--&gt;</span> */}
                     </Link>
                   </div>
                 </div>

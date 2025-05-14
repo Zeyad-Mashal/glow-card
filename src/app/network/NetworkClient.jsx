@@ -8,11 +8,16 @@ import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 
 const NetworkClient = () => {
+  useEffect(() => {
+    const storedLang = localStorage.getItem("lang") || "en";
+    setLang(storedLang);
+  }, []);
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [foundations, setFoundations] = useState([]);
+  const [lang, setLang] = useState("ar");
 
   useEffect(() => {
     getAllFoundations();
@@ -26,7 +31,7 @@ const NetworkClient = () => {
   return (
     <div className="Network">
       <div className="network_container">
-        <h2>شبكه الجهات</h2>
+        <h2>{lang === "ar" ? "شبكه الجهات" : "Glow Card Foundations"}</h2>
         <div className="netword_controller">
           <input type="text" placeholder="ابحث" />
         </div>

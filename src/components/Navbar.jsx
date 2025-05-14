@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,15 +10,41 @@ import {
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import "./Navbar.css";
-
+import { Lang } from "@/Lang/lang";
 const Navbar = () => {
+  const [selectedLanguage, setSelectedLanguage] = useState("en");
+
+  useEffect(() => {
+    const lang = localStorage.getItem("lang") || "en";
+    setSelectedLanguage(lang);
+  }, []);
+  const langValue = Lang[selectedLanguage];
+
   const [menuOpen, setMenuOpen] = useState(false);
-  const pathname = usePathname(); // 👈 بترجع اللينك الحالي
+  const [language, setLanguage] = useState("ar");
+  const pathname = usePathname();
+
+  useEffect(() => {
+    const lang = localStorage.getItem("lang") || "ar";
+    setLanguage(lang);
+
+    if (lang === "ar") {
+      document.body.style.direction = "rtl";
+    } else {
+      document.body.style.direction = "ltr";
+    }
+  }, []);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
 
+  const toggleLanguage = () => {
+    const newLang = language === "ar" ? "en" : "ar";
+    setLanguage(newLang);
+    localStorage.setItem("lang", newLang);
+    window.location.reload();
+  };
   return (
     <div className="navbar">
       <div className="nav_container">
@@ -39,7 +65,7 @@ const Navbar = () => {
           <ul>
             <li>
               <Link href="/" className={pathname === "/" ? "active" : ""}>
-                الرئيسية
+                {langValue["home"]}
               </Link>
             </li>
             <li>
@@ -47,15 +73,7 @@ const Navbar = () => {
                 href="/region"
                 className={pathname === "/region" ? "active" : ""}
               >
-                شبكة الجهات
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/cards"
-                className={pathname === "/cards" ? "active" : ""}
-              >
-                البطاقات
+                {langValue["network"]}
               </Link>
             </li>
             <li>
@@ -63,14 +81,19 @@ const Navbar = () => {
                 href="/contact"
                 className={pathname === "/contact" ? "active" : ""}
               >
-                تواصل معنا
+                {langValue["contactUs"]}
               </Link>
             </li>
           </ul>
 
           <div className="nav_btns">
-            <a href="/login">تسجيل دخول</a>
-            <FontAwesomeIcon icon={faEarthAmericas} />
+            <a href="/login">{langValue["Login"]}</a>
+            <FontAwesomeIcon
+              icon={faEarthAmericas}
+              onClick={toggleLanguage}
+              style={{ cursor: "pointer" }}
+            />
+            <span>{language}</span>
             <a href="/profile">
               <FontAwesomeIcon icon={faUser} />
             </a>

@@ -13,8 +13,14 @@ import "./card.css";
 import CardDetailsApi from "@/API/CardDetails/CardDetailsApi.api";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
-
+import { Lang } from "@/Lang/lang";
 export default function CardDetailsClient() {
+  const [selectedLanguage, setSelectedLanguage] = useState("en");
+  useEffect(() => {
+    const lang = localStorage.getItem("lang") || "en";
+    setSelectedLanguage(lang);
+  }, []);
+  const langValue = Lang[selectedLanguage];
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
   const router = useRouter();
@@ -86,16 +92,21 @@ export default function CardDetailsClient() {
           <div className="card_content">
             <h1>{cardDetails.name}</h1>
             <div className="card_discount">
-              <p>Price {cardDetails.price} SAR</p>
+              <p>
+                {langValue["price"]} {cardDetails.price} ريال
+              </p>
               <div className="card_discount_text">
                 <img src="/images/discount.png" alt="" />
-                <span>{cardDetails.discount}% Discount</span>
+                <span>
+                  {cardDetails.discount}% {langValue["Discount"]}
+                </span>
               </div>
             </div>
             <button
               onClick={() => goToApplication(cardDetails._id, cardDetails.type)}
             >
-              <FontAwesomeIcon icon={faArrowUpRightFromSquare} /> Request Card
+              <FontAwesomeIcon icon={faArrowUpRightFromSquare} />{" "}
+              {langValue["reqBtn"]}
             </button>
           </div>
         </div>
@@ -106,13 +117,13 @@ export default function CardDetailsClient() {
               className={activeTab === "howItWorks" ? "active" : ""}
               onClick={() => handleTabClick("howItWorks")}
             >
-              How It Works
+              {langValue["howItWorks"]}
             </h2>
             <h2
               className={activeTab === "description" ? "active" : ""}
               onClick={() => handleTabClick("description")}
             >
-              Description
+              {langValue["desc"]}
             </h2>
           </div>
           <div className="howItWorks_container">

@@ -1,18 +1,24 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSackDollar } from "@fortawesome/free-solid-svg-icons";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import "./features.css";
+import { Lang } from "@/Lang/lang";
 
 const Features = () => {
+  const [selectedLanguage, setSelectedLanguage] = useState("en");
+
   useEffect(() => {
+    const lang = localStorage.getItem("lang") || "en";
+    setSelectedLanguage(lang);
     AOS.init({ duration: 1200, once: true, easing: "ease-out-back" });
   }, []);
+  const langValue = Lang[selectedLanguage];
 
   return (
     <div className="features">
-      <h2>Our Features</h2>
+      <h2>{langValue["Features"]}</h2>
       <div className="features_container">
         <div className="features_list">
           <div
