@@ -13,10 +13,12 @@ import "./Navbar.css";
 import { Lang } from "@/Lang/lang";
 const Navbar = () => {
   const [selectedLanguage, setSelectedLanguage] = useState("en");
-
+  const [token, setToken] = useState("");
   useEffect(() => {
     const lang = localStorage.getItem("lang") || "en";
     setSelectedLanguage(lang);
+    const token = localStorage.getItem("token");
+    setToken(token);
   }, []);
   const langValue = Lang[selectedLanguage];
 
@@ -87,16 +89,21 @@ const Navbar = () => {
           </ul>
 
           <div className="nav_btns">
-            <a href="/login">{langValue["Login"]}</a>
             <FontAwesomeIcon
               icon={faEarthAmericas}
               onClick={toggleLanguage}
               style={{ cursor: "pointer" }}
             />
             <span>{language}</span>
-            <a href="/profile">
-              <FontAwesomeIcon icon={faUser} />
-            </a>
+            {token ? (
+              <a href="/profile">
+                <FontAwesomeIcon icon={faUser} />
+              </a>
+            ) : (
+              <a href="/login" className="login">
+                {langValue["Login"]}
+              </a>
+            )}
           </div>
         </div>
       </div>

@@ -97,7 +97,7 @@
   cursor: pointer;
 }
 
-.nav_btns a:first-of-type {
+.nav_btns .login {
   text-decoration: none;
   color: #fff;
   background-color: #000;
@@ -107,7 +107,6 @@
   border-radius: 16px;
   transition: all 0.3s ease;
 }
-
 /* ====== Responsive design ====== */
 @media screen and (max-width: 768px) {
   .menu_toggle {

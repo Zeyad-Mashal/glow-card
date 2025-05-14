@@ -4,13 +4,14 @@ import "./profile.css";
 import InvitationCode from "@/API/InvitationCode/InvitationCode";
 import { Lang } from "@/Lang/lang";
 import { Carousel } from "flowbite-react";
-
+import GetCardInfo from "@/API/CardInfo/GetCardInfo";
 const Profile = () => {
   const [selectedLanguage, setSelectedLanguage] = useState("en");
   useEffect(() => {
     const lang = localStorage.getItem("lang") || "en";
     setSelectedLanguage(lang);
     getInviteCode();
+    getCardInfo();
   }, []);
   const langValue = Lang[selectedLanguage];
   const [activeTab, setActiveTab] = useState("card_info");
@@ -24,6 +25,7 @@ const Profile = () => {
   const [dragStartX, setDragStartX] = useState(0);
   const [dragOffset, setDragOffset] = useState(0); // للمؤثر البصري أثناء السحب
   const [isDragging, setIsDragging] = useState(false);
+  const [cardInfo, setCardInfo] = useState([]);
   useEffect(() => {
     setWindowWidth(window.innerWidth);
 
@@ -72,6 +74,10 @@ const Profile = () => {
 
   const goToSlide = (index) => {
     setCurrent(index);
+  };
+
+  const getCardInfo = () => {
+    GetCardInfo(setLoading, setError, setCardInfo);
   };
 
   return (
@@ -127,87 +133,95 @@ const Profile = () => {
             {activeTab === "card_info" && (
               <div className="profile_content_card card_info">
                 <h2>{langValue["cardInfo"]}</h2>
-                <div
-                  className="w-full flex justify-center items-center h-56 sm:h-64 xl:h-80 2xl:h-96 relative overflow-hidden rounded-xl"
-                  onMouseDown={(e) => {
-                    setDragStartX(e.clientX);
-                    setIsDragging(true);
-                  }}
-                  onMouseMove={(e) => {
-                    if (isDragging) {
-                      setDragOffset(e.clientX - dragStartX); // تحديث المؤثر البصري أثناء السحب
-                    }
-                  }}
-                  onMouseUp={(e) => {
-                    const diff = e.clientX - dragStartX;
-                    if (diff > 50) goToPrev(); // إذا تم السحب لليمين
-                    else if (diff < -50) goToNext(); // إذا تم السحب لليسار
+                {cardInfo.length > 0
+                  ? cardInfo.map((item, index) => {
+                      return (
+                        <div
+                          key={index}
+                          className="w-full flex justify-center items-center h-56 sm:h-64 xl:h-80 2xl:h-96 relative overflow-hidden rounded-xl"
+                          onMouseDown={(e) => {
+                            setDragStartX(e.clientX);
+                            setIsDragging(true);
+                          }}
+                          onMouseMove={(e) => {
+                            if (isDragging) {
+                              setDragOffset(e.clientX - dragStartX); // تحديث المؤثر البصري أثناء السحب
+                            }
+                          }}
+                          onMouseUp={(e) => {
+                            const diff = e.clientX - dragStartX;
+                            if (diff > 50) goToPrev(); // إذا تم السحب لليمين
+                            else if (diff < -50) goToNext(); // إذا تم السحب لليسار
 
-                    // إيقاف السحب
-                    setIsDragging(false);
-                    setDragOffset(0); // إعادة تعيين المؤثر البصري بعد السحب
-                  }}
-                  onMouseLeave={() => {
-                    // إيقاف السحب إذا ترك المستخدم العنصر
-                    setIsDragging(false);
-                    setDragOffset(0);
-                  }}
-                  // دعم للمس (Touch events) على الموبايل
-                  onTouchStart={(e) => {
-                    setDragStartX(e.touches[0].clientX);
-                    setIsDragging(true);
-                  }}
-                  onTouchMove={(e) => {
-                    if (isDragging) {
-                      setDragOffset(e.touches[0].clientX - dragStartX); // تحديث المؤثر البصري أثناء السحب
-                    }
-                  }}
-                  onTouchEnd={(e) => {
-                    const diff = e.changedTouches[0].clientX - dragStartX;
-                    if (diff > 50) goToPrev(); // إذا تم السحب لليمين
-                    else if (diff < -50) goToNext(); // إذا تم السحب لليسار
+                            // إيقاف السحب
+                            setIsDragging(false);
+                            setDragOffset(0); // إعادة تعيين المؤثر البصري بعد السحب
+                          }}
+                          onMouseLeave={() => {
+                            // إيقاف السحب إذا ترك المستخدم العنصر
+                            setIsDragging(false);
+                            setDragOffset(0);
+                          }}
+                          // دعم للمس (Touch events) على الموبايل
+                          onTouchStart={(e) => {
+                            setDragStartX(e.touches[0].clientX);
+                            setIsDragging(true);
+                          }}
+                          onTouchMove={(e) => {
+                            if (isDragging) {
+                              setDragOffset(e.touches[0].clientX - dragStartX); // تحديث المؤثر البصري أثناء السحب
+                            }
+                          }}
+                          onTouchEnd={(e) => {
+                            const diff =
+                              e.changedTouches[0].clientX - dragStartX;
+                            if (diff > 50) goToPrev(); // إذا تم السحب لليمين
+                            else if (diff < -50) goToNext(); // إذا تم السحب لليسار
 
-                    // إيقاف السحب
-                    setIsDragging(false);
-                    setDragOffset(0); // إعادة تعيين المؤثر البصري بعد السحب
-                  }}
-                >
-                  <img
-                    src={images[current]}
-                    alt={`Slide ${current}`}
-                    className={`max-w-full max-h-full object-contain transition-all duration-700 select-none ${
-                      isDragging ? "cursor-grabbing" : "cursor-pointer"
-                    }`}
-                    style={{
-                      transform: `translateX(${dragOffset}px)`, // إضافة تأثير السحب باستخدام translateX
-                    }}
-                    draggable={false}
-                  />
+                            // إيقاف السحب
+                            setIsDragging(false);
+                            setDragOffset(0); // إعادة تعيين المؤثر البصري بعد السحب
+                          }}
+                        >
+                          <img
+                            src={item.card.images}
+                            alt={`Slide ${current}`}
+                            className={`max-w-full max-h-full object-contain transition-all duration-700 select-none ${
+                              isDragging ? "cursor-grabbing" : "cursor-pointer"
+                            }`}
+                            style={{
+                              transform: `translateX(${dragOffset}px)`, // إضافة تأثير السحب باستخدام translateX
+                            }}
+                            draggable={false}
+                          />
 
-                  {/* الدوائر */}
-                  <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 flex space-x-2">
-                    {images.map((_, index) => (
-                      <div
-                        key={index}
-                        onClick={() => goToSlide(index)}
-                        className={`w-3 h-3 rounded-full cursor-pointer ${
-                          current === index ? "bg-black" : "bg-gray-400"
-                        }`}
-                      ></div>
-                    ))}
-                  </div>
-                </div>
+                          {/* الدوائر */}
+                          <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                            {cardInfo.map((_, index) => (
+                              <div
+                                key={index}
+                                onClick={() => goToSlide(index)}
+                                className={`w-3 h-3 rounded-full cursor-pointer ${
+                                  current === index ? "bg-black" : "bg-gray-400"
+                                }`}
+                              ></div>
+                            ))}
+                          </div>
+                        </div>
+                      );
+                    })
+                  : "لا يوجد بطاقات"}
 
                 <div className="card_info">
                   <div className="card_info_item">
-                    <h3>Personal Card</h3>
-                    <p>Zeyad Mashaal</p>
+                    <h3>{cardInfo[0]?.type}</h3>
+                    <p>{cardInfo[0]?.name}</p>
                     <div className="card_info_item_date">
-                      <span>12 / 4 / 2024</span>
+                      <span>{cardInfo[0]?.activationDate}</span>
                       <p>subscription date was</p>
                     </div>
                     <div className="card_info_item_date">
-                      <span>12 / 4 / 2024</span>
+                      <span>{cardInfo[0]?.expiryDate}</span>
                       <p>Expire date at</p>
                     </div>
                   </div>
