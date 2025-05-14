@@ -152,6 +152,25 @@ const Profile = () => {
                     setIsDragging(false);
                     setDragOffset(0);
                   }}
+                  // دعم للمس (Touch events) على الموبايل
+                  onTouchStart={(e) => {
+                    setDragStartX(e.touches[0].clientX);
+                    setIsDragging(true);
+                  }}
+                  onTouchMove={(e) => {
+                    if (isDragging) {
+                      setDragOffset(e.touches[0].clientX - dragStartX); // تحديث المؤثر البصري أثناء السحب
+                    }
+                  }}
+                  onTouchEnd={(e) => {
+                    const diff = e.changedTouches[0].clientX - dragStartX;
+                    if (diff > 50) goToPrev(); // إذا تم السحب لليمين
+                    else if (diff < -50) goToNext(); // إذا تم السحب لليسار
+
+                    // إيقاف السحب
+                    setIsDragging(false);
+                    setDragOffset(0); // إعادة تعيين المؤثر البصري بعد السحب
+                  }}
                 >
                   <img
                     src={images[current]}
