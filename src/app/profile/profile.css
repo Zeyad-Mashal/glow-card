@@ -253,3 +253,27 @@
 .card_info_content_date p {
   font-size: 0.9rem;
 }
+.codeNumber {
+  background-color: #000;
+  color: #fff;
+  font-weight: bold;
+  direction: ltr;
+}
+@media screen  and (max-width: 589px) {
+  .card_info img {
+    height: 170px;
+  }
+  .card_info_content {
+    gap: 5px;
+    top: 30%;
+  }
+  .card_info_content h2  {
+    font-size: 1rem;
+  }
+    .card_info_content h3{
+      font-size: 0.7rem;
+    }
+  .card_info_content_date {
+    display: none;
+  }
+}

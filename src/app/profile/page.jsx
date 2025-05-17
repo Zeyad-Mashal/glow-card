@@ -241,13 +241,20 @@ const Profile = () => {
                   <div className="card_info_item">
                     <h3>{cardInfo[0]?.type}</h3>
                     <p>{cardInfo[0]?.name}</p>
+
+                    <div className="card_info_item_date">
+                      <span className="codeNumber">
+                        {cardInfo[0].code.match(/.{1,2}/g).join(" ")}
+                      </span>
+                      <p>Code Number</p>
+                    </div>
                     <div className="card_info_item_date">
                       <span>{cardInfo[0]?.activationDate}</span>
-                      <p>subscription date was</p>
+                      <p>subscription date</p>
                     </div>
                     <div className="card_info_item_date">
                       <span>{cardInfo[0]?.expiryDate}</span>
-                      <p>Expire date at</p>
+                      <p>Expire date</p>
                     </div>
                   </div>
                 </div>
