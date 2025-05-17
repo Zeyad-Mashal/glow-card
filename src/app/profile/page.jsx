@@ -244,7 +244,7 @@ const Profile = () => {
 
                     <div className="card_info_item_date">
                       <span className="codeNumber">
-                        {cardInfo[0].code.match(/.{1,2}/g).join(" ")}
+                        {cardInfo[0]?.code.match(/.{1,2}/g).join(" ")}
                       </span>
                       <p>Code Number</p>
                     </div>
