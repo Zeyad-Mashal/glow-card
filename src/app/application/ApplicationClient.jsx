@@ -70,6 +70,11 @@ const ApplicationClient = () => {
       alert("كل الحقول مطلوبة!!");
       return;
     }
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      window.location.href = "/login";
+    }
 
     let data = {};
     if (type === "Annual" || type === "Two-Year") {
