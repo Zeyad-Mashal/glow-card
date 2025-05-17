@@ -116,6 +116,7 @@
   padding: 10px 20px;
   border-radius: 16px;
   color: #fff;
+  cursor: pointer;
 }
 .profile_content_card > p span {
   color: red;
@@ -209,4 +210,46 @@
 .slider-appear-active {
   opacity: 1;
   transform: translateY(0);
+}
+.card_info {
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+.card_info img {
+  width: 100%;
+  object-fit: cover;
+  height: 350px;
+  border-radius: 16px;
+}
+.card_info_content {
+  position: absolute;
+  top: 35%;
+  left: 10%;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  flex-direction: column;
+  color: #fff;
+  gap: 1rem;
+}
+.card_info_content h2 {
+  font-size: 2rem;
+}
+.card_info_content h3 {
+  font-size: 1.2rem;
+  color: #fff;
+}
+.card_info_content_date {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 60%;
+}
+.card_info_content_date p {
+  font-size: 0.9rem;
 }

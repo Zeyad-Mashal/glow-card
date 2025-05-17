@@ -7,11 +7,14 @@ import { Carousel } from "flowbite-react";
 import GetCardInfo from "@/API/CardInfo/GetCardInfo";
 const Profile = () => {
   const [selectedLanguage, setSelectedLanguage] = useState("en");
+  const [phone, setPhone] = useState("");
   useEffect(() => {
     const lang = localStorage.getItem("lang") || "en";
     setSelectedLanguage(lang);
     getInviteCode();
     getCardInfo();
+    const phone = localStorage.getItem("phone");
+    setPhone(phone);
   }, []);
   const langValue = Lang[selectedLanguage];
   const [activeTab, setActiveTab] = useState("card_info");
@@ -80,6 +83,15 @@ const Profile = () => {
     GetCardInfo(setLoading, setError, setCardInfo);
   };
 
+  const logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("phone");
+    localStorage.removeItem("type");
+    setTimeout(() => {
+      window.location.replace("/");
+    }, 500);
+  };
+
   return (
     <div className="profile">
       <div className="profile_container">
@@ -88,7 +100,7 @@ const Profile = () => {
             <div className="profile_img">
               <img src="/images/user.png" alt="" />
             </div>
-            <h2>Zeyad Mashaal</h2>
+            <h2>{phone ? phone : "Welcome"}</h2>
             <div className="controller_tabs">
               <div
                 className={`controller_tab ${
@@ -138,7 +150,7 @@ const Profile = () => {
                       return (
                         <div
                           key={index}
-                          className="w-full flex justify-center items-center h-56 sm:h-64 xl:h-80 2xl:h-96 relative overflow-hidden rounded-xl"
+                          className="w-full flex justify-center items-center h-56 sm:h-64 xl:h-80 2xl:h-96 relative rounded-xl"
                           onMouseDown={(e) => {
                             setDragStartX(e.clientX);
                             setIsDragging(true);
@@ -183,18 +195,31 @@ const Profile = () => {
                             setDragOffset(0); // إعادة تعيين المؤثر البصري بعد السحب
                           }}
                         >
-                          <img
-                            src={item.card.images}
-                            alt={`Slide ${current}`}
-                            className={`max-w-full max-h-full object-contain transition-all duration-700 select-none ${
+                          <div
+                            className={`card_info ${
                               isDragging ? "cursor-grabbing" : "cursor-pointer"
                             }`}
                             style={{
                               transform: `translateX(${dragOffset}px)`, // إضافة تأثير السحب باستخدام translateX
                             }}
                             draggable={false}
-                          />
-
+                          >
+                            <img
+                              src="/images/frontempety.png"
+                              alt={`Slide ${current}`}
+                            />
+                            <div className="card_info_content">
+                              <h2 style={{ direction: "ltr" }}>
+                                {item.code.match(/.{1,2}/g).join(" ")}
+                              </h2>
+                              <h3>Name: {item.name}</h3>
+                              <h3>Discount: {item.discount}</h3>
+                              <div className="card_info_content_date">
+                                <p>Ex Date: {item.expiryDate}</p>
+                                <p>start Date: {item.activationDate}</p>
+                              </div>
+                            </div>
+                          </div>
                           {/* الدوائر */}
                           <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 flex space-x-2">
                             {cardInfo.map((_, index) => (
@@ -252,7 +277,9 @@ const Profile = () => {
                   <span>انتبه!!</span> في حال خروجك من هذا الحساب لن تستطيع
                   مشاهدة البطاقة إلا عند التسجيل مرة اخرى!!!
                 </p>
-                <button className="logout_button">Log Out</button>
+                <button className="logout_button" onClick={logout}>
+                  Log Out
+                </button>
               </div>
             )}
           </div>
