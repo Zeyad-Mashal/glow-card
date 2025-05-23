@@ -30,6 +30,7 @@ export const Lang = {
     invitationLinkP:
       "Share this link with your friend to get two free months if they subscribe with us",
     logout: "log Out",
+    cards: "Our Cards",
   },
   ar: {
     Login: "تسجيل دخول",
@@ -62,5 +63,6 @@ export const Lang = {
     invitationLinkP:
       "شارك هذا الرابط مع صديقك للحصول على شهرين مجانيين في حال اشتراكه معنا",
     logout: "تسجيل الخروج",
+    cards: "بطاقاتنا",
   },
 };
