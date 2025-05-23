@@ -59,9 +59,17 @@ const Navbar = () => {
           />
         </div>
 
-        <button className="menu_toggle" onClick={toggleMenu}>
-          <FontAwesomeIcon icon={menuOpen ? faXmark : faBars} />
-        </button>
+        <div className="nav_menu_links">
+          <button className="menu_toggle" onClick={toggleMenu}>
+            <FontAwesomeIcon icon={menuOpen ? faXmark : faBars} />
+          </button>
+          <FontAwesomeIcon
+            icon={faEarthAmericas}
+            onClick={toggleLanguage}
+            style={{ cursor: "pointer" }}
+            className="menu_toggle langSpan"
+          />
+        </div>
 
         <div className={`nav_links ${menuOpen ? "open" : ""}`}>
           <ul>

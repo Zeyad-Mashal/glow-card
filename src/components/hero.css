@@ -113,4 +113,7 @@
   .hero_content p {
     font-size: 1rem;
   }
+  .hero_container {
+      background-image: url("../../public/images/BanarApp.jpg");
+  }
 }

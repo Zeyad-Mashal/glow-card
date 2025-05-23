@@ -33,7 +33,12 @@
   width: 120px;
   height: auto;
 }
-
+.nav_menu_links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
 /* زرار المينيو */
 .menu_toggle {
   display: none;
@@ -107,6 +112,7 @@
   border-radius: 16px;
   transition: all 0.3s ease;
 }
+
 /* ====== Responsive design ====== */
 @media screen and (max-width: 768px) {
   .menu_toggle {
@@ -147,5 +153,8 @@
     flex-direction: row;
     justify-content: flex-start;
     margin-top: 10px;
+  }
+  .langSpan {
+    padding: 0;
   }
 }

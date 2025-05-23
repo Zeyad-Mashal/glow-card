@@ -13,8 +13,10 @@
   width: 100%;
 }
 .glow-cards_list {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 أعمدة */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
   gap: 2rem;
   width: 100%;
   justify-items: center;
@@ -26,7 +28,7 @@
   border-radius: 1rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   padding: 1rem;
-  width: 400px;
+  width: 380px;
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -76,11 +78,26 @@
   }
 }
 @media screen and (max-width: 789px) {
+  .glow-cards_item {
+    width: 45%;
+  }
   .glow-cards_list {
-    grid-template-columns: repeat(1, 1fr); /* 3 أعمدة */
+    gap: 1rem;
     padding: 0;
   }
-  .glow-cards_item {
-    width: 95%;
+  .glow-cards_item img {
+    height: 100px;
   }
+  .glow-cards_item h3 {
+    font-size: 1rem;
+  }
+  /* .glow-cards_item p  {
+    font-size: 0.8rem;
+  } */
+   .card_item_btn span {
+    font-size: 0.8rem;}
+    .card_item_btn a {
+    font-size: 0.8rem;
+      padding: 0.2rem 0.6rem;
+    }
 }
