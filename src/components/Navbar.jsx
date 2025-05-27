@@ -99,7 +99,7 @@ const Navbar = () => {
             />
             <span>{language}</span>
             {token ? (
-              <a href="/profile" className="profile">
+              <a href="/profile" className="profileIcon">
                 <FontAwesomeIcon icon={faUser} />
               </a>
             ) : (
