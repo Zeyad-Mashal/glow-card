@@ -15,7 +15,8 @@ const InvitationCode = async (setloading, setError, setCode) => {
             method: 'GET',
             headers: {
                 "Content-Type": "application/json",
-                "authorization": `glowONW${token}`
+                "authorization": `glowONW${token}`,
+                "accept-language": "ar"
             },
         });
 
@@ -24,6 +25,8 @@ const InvitationCode = async (setloading, setError, setCode) => {
         if (response.ok) {
             setloading(false);
             setCode(result.invitationCode);
+            console.log(result.invitationCode);
+
         } else {
             if (response.status == 404) {
                 setError(result.message);

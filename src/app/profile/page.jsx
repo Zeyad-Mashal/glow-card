@@ -6,10 +6,10 @@ import { Lang } from "@/Lang/lang";
 import { Carousel } from "flowbite-react";
 import GetCardInfo from "@/API/CardInfo/GetCardInfo";
 const Profile = () => {
-  const [selectedLanguage, setSelectedLanguage] = useState("en");
+  const [selectedLanguage, setSelectedLanguage] = useState("ar");
   const [phone, setPhone] = useState("");
   useEffect(() => {
-    const lang = localStorage.getItem("lang") || "en";
+    const lang = localStorage.getItem("lang") || "ar";
     setSelectedLanguage(lang);
     getInviteCode();
     getCardInfo();
