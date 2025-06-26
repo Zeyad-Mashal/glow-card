@@ -1,14 +1,15 @@
 .banner {
   width: 100%;
-  margin-top: 2rem;
+  margin-top: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: 1rem;
+  padding: 0;
 }
 .banner a {
-  width: 100%;
+  width: 48%;
 }
 .banner img {
   width: 100%;

@@ -98,7 +98,7 @@ export default function LoginClient() {
           <div className="login_banner">
             <div className="login_card">
               <h1>{langValue["loginTitle"]}</h1>
-              <img src="/images/cardfront.png" alt="Card" loading="lazy" />
+              <img src="/images/Family.png" alt="Card" loading="lazy" />
             </div>
             <h2>{langValue["loginSubTitle"]}</h2>
             <p>{langValue["loginSubTitle2"]}</p>

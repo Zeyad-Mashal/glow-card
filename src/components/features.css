@@ -4,58 +4,112 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 2rem;
+  margin: 2rem 0;
 }
-
+.features > p {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #000;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
 .features h2 {
   font-size: 2rem;
   font-weight: 700;
-  margin-bottom: 2rem;
-  color: #333;
+  color: #000;
   text-align: center;
 }
 
 .features_container {
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .features_list {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 2rem;
+  gap: 10px;
   width: 100%;
 }
 
 .features_item {
-  width: 330px;
-  height: 300px;
+  width: 150px;
+  height: auto;
   text-align: center;
-  padding: 1.5rem;
   border-radius: 15px;
+  padding: 1rem 0;
+  background-color: #ecf8fe;
+  color: #fff;
 }
 
 .features_item svg {
-  background-color: #0874a4;
-  border-radius: 50%;
-  padding: 1.5rem;
-  font-size: 24px;
-  margin-bottom: 1rem;
+  padding: 0;
+  font-size: 30px;
+  margin-bottom: 5px;
+  color: #00283e;
   transition: transform 0.3s ease-in-out;
 }
 
 .features_item h3 {
-  font-size: 1.3rem;
+  font-size: 0.9rem;
   font-weight: 600;
-  margin-bottom: 0.8rem;
   color: #333;
 }
 
 .features_item p {
   font-size: 1rem;
   font-weight: 400;
-  color: #666;
+  color: #222;
+}
+.features_content {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 1rem;
+}
+.features_content_item {
+  width: 350px;
+  background-color: #ecf8fe;
+  border-radius: 16px;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  padding: 10px;
+}
+.features_content_top {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 10px;
+}
+.features_content_top svg {
+  background-color: #00283e;
+  padding: 9px;
+  font-size: 14px;
+  border-radius: 6px;
+  color: #fff;
+}
+.features_content_top h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #00283e;
+}
+.features_content_item > p {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: #222;
+  margin-top: 10px;
 }
 @media screen and (max-width: 789px) {
   .features_list {

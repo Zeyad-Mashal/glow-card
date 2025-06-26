@@ -14,11 +14,14 @@ import CardDetailsApi from "@/API/CardDetails/CardDetailsApi.api";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Lang } from "@/Lang/lang";
+import Image from "next/image";
+import GetCards from "@/API/GetCards/GetCards.api";
 export default function CardDetailsClient() {
   const [selectedLanguage, setSelectedLanguage] = useState("en");
   useEffect(() => {
     const lang = localStorage.getItem("lang") || "en";
     setSelectedLanguage(lang);
+    getAllCards();
   }, []);
   const langValue = Lang[selectedLanguage];
   const searchParams = useSearchParams();
@@ -29,6 +32,7 @@ export default function CardDetailsClient() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [cardDetails, setCardDetails] = useState({});
+  const [allCards, setAllCards] = useState([]);
 
   useEffect(() => {
     if (id) {
@@ -51,6 +55,10 @@ export default function CardDetailsClient() {
   const goToApplication = (id, type) => {
     localStorage.setItem("type", type);
     router.push(`/application?id=${id}`);
+  };
+
+  const getAllCards = () => {
+    GetCards(setLoading, setError, setAllCards);
   };
 
   return (
@@ -147,26 +155,25 @@ export default function CardDetailsClient() {
               <pre>{cardDetails.description}</pre>
             )}
           </div>
-        </div>
-
-        <div className="advantages">
-          <h2>Advantages</h2>
-          <div className="advantages_list">
-            {[1, 2, 3].map((_, i) => (
-              <React.Fragment key={i}>
-                <div className="advantage_item">
-                  <div className="item_title">
-                    <FontAwesomeIcon icon={faStar} />
-                    <h3>Easy to Use</h3>
+          <div className="cards">
+            <div className="cards_list">
+              {allCards.map((card, index) => {
+                return (
+                  <div className="card_item" key={index}>
+                    <Image
+                      src={card.images[0]}
+                      width={300}
+                      height={200}
+                      alt="related cards"
+                    />
+                    <div className="card_item_content">
+                      <h3>{card.name}</h3>
+                      <p>{card.price} ريال</p>
+                    </div>
                   </div>
-                  <p>
-                    Get discounted rates at top medical centers without paying
-                    full price.
-                  </p>
-                </div>
-                <div className="advantage_item item_img"></div>
-              </React.Fragment>
-            ))}
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>

@@ -1,8 +1,9 @@
 /* Navbar.css */
 .navbar {
   width: 100%;
-  background-color: #fff;
-  border-bottom: 1px solid #ddd;
+  background-color: #00283e;
+  border-bottom: 1px solid #606163;
+  color: #fff;
   position: relative;
   z-index: 10;
   position: fixed;
@@ -28,13 +29,13 @@
 
 .nav_links li a {
   text-decoration: none;
-  color: #333;
+  color: #fff;
 }
 
 .nav_links li a.active {
   font-weight: bold;
   color: #fff;
-  background-color: #007bff;
+  background-color: #606163;
   padding: 10px;
   border-radius: 5px;
 }
