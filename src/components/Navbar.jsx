@@ -83,6 +83,14 @@ const Navbar = () => {
             </li>
             <li>
               <Link
+                href="/about"
+                className={pathname === "/about" ? "active" : ""}
+              >
+                {/* {langValue["contactUs"]} */} About Us
+              </Link>
+            </li>
+            <li>
+              <Link
                 href="/contact"
                 className={pathname === "/contact" ? "active" : ""}
               >
