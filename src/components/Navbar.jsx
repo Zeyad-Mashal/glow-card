@@ -56,6 +56,7 @@ const Navbar = () => {
               alt="Logo"
               className="logo-image"
               loading="lazy"
+              onClick={() => (window.location.href = "/")}
             />
           </div>
 
@@ -79,6 +80,15 @@ const Navbar = () => {
                 className={pathname === "/our_cards" ? "active" : ""}
               >
                 {langValue["cards"]}
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/offers"
+                className={pathname === "/offers" ? "active" : ""}
+                onClick={toggleMenu}
+              >
+                {/* {langValue["cards"]} */} Our offers
               </Link>
             </li>
             <li>
@@ -123,7 +133,12 @@ const Navbar = () => {
       <div className="mobile_top_navbar">
         <div className="mobile_nav_container">
           <div className="mobile_logo">
-            <img src="/images/logo.png" alt="Logo" className="logo-image" />
+            <img
+              src="/images/logo.png"
+              alt="Logo"
+              className="logo-image"
+              onClick={() => (window.location.href = "/")}
+            />
           </div>
           <div className="mobile_nav_actions">
             <button onClick={toggleLanguage}>
@@ -172,6 +187,15 @@ const Navbar = () => {
                 onClick={toggleMenu}
               >
                 {langValue["cards"]}
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/offers"
+                className={pathname === "/offers" ? "active" : ""}
+                onClick={toggleMenu}
+              >
+                {/* {langValue["cards"]} */} Our offers
               </Link>
             </li>
             <li>
