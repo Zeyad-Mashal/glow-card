@@ -90,6 +90,9 @@
     font-size: 18px;
 }
 @media screen and (max-width:789px) {
+    .contact {
+        margin-bottom: 3rem;
+    }
     .contact_container > p {
         width: 90%;
     }

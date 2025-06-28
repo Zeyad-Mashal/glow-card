@@ -119,59 +119,82 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* ✅ Bottom Navbar for Mobile */}
-      <div className="mobile_bottom_navbar">
-        <Link href="/">
-          <FontAwesomeIcon icon={faHome} />
-        </Link>
-        <button onClick={toggleLanguage}>
-          <FontAwesomeIcon icon={faEarthAmericas} />
-        </button>
-        <button onClick={toggleMenu}>
-          <FontAwesomeIcon icon={menuOpen ? faXmark : faBars} />
-        </button>
-        {token ? (
-          <Link href="/profile">
-            <FontAwesomeIcon icon={faUser} />
-          </Link>
-        ) : (
-          <Link href="/login">
-            <FontAwesomeIcon icon={faUser} />
-          </Link>
-        )}
-      </div>
+      {/* ✅ Mobile Navbar (Top) */}
+      <div className="mobile_top_navbar">
+        <div className="mobile_nav_container">
+          <div className="mobile_logo">
+            <img src="/images/logo.png" alt="Logo" className="logo-image" />
+          </div>
+          <div className="mobile_nav_actions">
+            <button onClick={toggleLanguage}>
+              <FontAwesomeIcon icon={faEarthAmericas} />
+            </button>
+            {token ? (
+              <Link href="/profile">
+                <FontAwesomeIcon icon={faUser} />
+              </Link>
+            ) : (
+              <Link href="/login">
+                <FontAwesomeIcon icon={faUser} />
+              </Link>
+            )}
+            <button onClick={toggleMenu}>
+              <FontAwesomeIcon icon={menuOpen ? faXmark : faBars} />
+            </button>
+          </div>
+        </div>
 
-      {/* ✅ Bottom Menu (for Mobile only) */}
-      <div className={`mobile_menu ${menuOpen ? "open" : ""}`}>
-        <ul>
-          <li>
-            <Link
-              href="/region"
-              className={pathname === "/region" ? "active" : ""}
-              onClick={toggleMenu}
-            >
-              {langValue["network"]}
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/our_cards"
-              className={pathname === "/our_cards" ? "active" : ""}
-              onClick={toggleMenu}
-            >
-              {langValue["cards"]}
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/contact"
-              className={pathname === "/contact" ? "active" : ""}
-              onClick={toggleMenu}
-            >
-              {langValue["contactUs"]}
-            </Link>
-          </li>
-        </ul>
+        {/* ✅ Menu Links (Dropdown) */}
+        <div className={`mobile_dropdown_menu ${menuOpen ? "open" : ""}`}>
+          <ul>
+            <li>
+              <Link
+                href="/"
+                className={pathname === "/" ? "active" : ""}
+                onClick={toggleMenu}
+              >
+                {langValue["home"]}
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/region"
+                className={pathname === "/region" ? "active" : ""}
+                onClick={toggleMenu}
+              >
+                {langValue["network"]}
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/our_cards"
+                className={pathname === "/our_cards" ? "active" : ""}
+                onClick={toggleMenu}
+              >
+                {langValue["cards"]}
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/about"
+                className={pathname === "/about" ? "active" : ""}
+                onClick={toggleMenu}
+              >
+                {/* {langValue["contactUs"]} */}
+                About Us
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/contact"
+                className={pathname === "/contact" ? "active" : ""}
+                onClick={toggleMenu}
+              >
+                {langValue["contactUs"]}
+              </Link>
+            </li>
+          </ul>
+        </div>
       </div>
     </>
   );

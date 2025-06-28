@@ -2,7 +2,6 @@
 .navbar {
   width: 100%;
   background-color: #00283e;
-  border-bottom: 1px solid #606163;
   color: #fff;
   position: relative;
   z-index: 10;
@@ -65,83 +64,83 @@
   background-color: #000;
   color: #fff;
 }
-
-/* ✅ Hide bottom nav on desktop */
-.mobile_bottom_navbar {
-  display: none;
-}
-.mobile_menu  {
+/* ✅ Mobile Top Navbar */
+.mobile_top_navbar {
   display: none;
 }
 
 @media (max-width: 768px) {
-  /* ✅ Hide desktop nav */
   .desktop_navbar {
     display: none;
   }
-
-  .mobile_bottom_navbar {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background-color: #f8f9fa;
-    border-top: 1px solid #ddd;
-    position: fixed;
-    bottom: 0;
-    left: 0;
+  .mobile_top_navbar {
+    display: block;
     width: 100%;
-    padding: 8px 0;
-    z-index: 100;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #00283e;
+    color: white;
+    z-index: 1000;
   }
 
-  .mobile_bottom_navbar a,
-  .mobile_bottom_navbar button {
+  .mobile_nav_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 16px;
+  }
+
+  .mobile_logo img {
+    height: 35px;
+  }
+
+  .mobile_nav_actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .mobile_nav_actions button,
+  .mobile_nav_actions a {
     background: none;
     border: none;
-    font-size: 22px;
-    color: #333;
+    color: white;
+    font-size: 20px;
   }
 
-  .mobile_menu {
-    display: block;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    max-height: 0;
-    overflow: hidden;
+  .mobile_dropdown_menu {
     background-color: #fff;
-    border-top: 1px solid #ddd;
+    color: #000;
+    width: 100%;
+    overflow: hidden;
+    max-height: 0;
     transition: max-height 0.3s ease-in-out;
-    z-index: 99;
   }
 
-  .mobile_menu.open {
+  .mobile_dropdown_menu.open {
     max-height: 300px;
     padding: 10px 0;
-    bottom: 30px;
   }
 
-  .mobile_menu ul {
+  .mobile_dropdown_menu ul {
     list-style: none;
     margin: 0;
     padding: 0;
-    text-align: center;
   }
 
-  .mobile_menu ul li {
-    margin-bottom: 10px;
+  .mobile_dropdown_menu ul li {
     border-bottom: 1px solid #ddd;
-    padding-bottom: 10px;
+    padding: 10px 20px;
   }
 
-  .mobile_menu ul li a {
+  .mobile_dropdown_menu ul li a {
     text-decoration: none;
-    color: #333;
+    color: #000;
     display: block;
   }
 
-  .mobile_menu ul li a.active {
+  .mobile_dropdown_menu ul li a.active {
     font-weight: bold;
     color: #007bff;
   }
