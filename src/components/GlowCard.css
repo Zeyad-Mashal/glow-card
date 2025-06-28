@@ -8,6 +8,8 @@
 }
 .glow-cards h2 {
   font-size: 1.5rem;
+  color: #001f3f;
+  font-weight: bold;
 }
 .glow-cards_container {
   width: 100%;

@@ -4,6 +4,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 3rem;
 }
 .contact_container {
     flex-direction: column;
@@ -91,7 +92,7 @@
 }
 @media screen and (max-width:789px) {
     .contact {
-        margin-bottom: 3rem;
+        margin: 3rem 0;
     }
     .contact_container > p {
         width: 90%;
