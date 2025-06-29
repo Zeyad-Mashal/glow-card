@@ -101,6 +101,19 @@ const Navbar = () => {
             </li>
             <li>
               <Link
+                href="/join"
+                className={pathname === "/join" ? "active" : ""}
+              >
+                Join Us
+              </Link>
+            </li>
+            <li>
+              <Link href="/new" className={pathname === "/new" ? "active" : ""}>
+                New Join
+              </Link>
+            </li>
+            <li>
+              <Link
                 href="/contact"
                 className={pathname === "/contact" ? "active" : ""}
               >
@@ -206,6 +219,19 @@ const Navbar = () => {
               >
                 {/* {langValue["contactUs"]} */}
                 About Us
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/join"
+                className={pathname === "/join" ? "active" : ""}
+              >
+                Join Us
+              </Link>
+            </li>
+            <li>
+              <Link href="/new" className={pathname === "/new" ? "active" : ""}>
+                New Join
               </Link>
             </li>
             <li>
