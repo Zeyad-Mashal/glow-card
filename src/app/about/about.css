@@ -136,7 +136,7 @@ box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), 0 4px 8px rgba(0, 0, 0, 0.1);
     .about_container {
         flex-direction: column;
         align-items: center;
-        margin-top: 3rem;
+        margin-top: 3.5rem;
     }
     .qest h3 {
         font-size: 1rem;

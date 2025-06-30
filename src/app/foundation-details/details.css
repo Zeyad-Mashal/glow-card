@@ -121,6 +121,9 @@
   
   /* Responsive text size for small screens */
   @media (max-width: 600px) {
+    .foundation_details_container {
+      margin-top: 6rem;
+    }
     .foundation_details_container h1 {
         font-size: 1.5rem;
     }

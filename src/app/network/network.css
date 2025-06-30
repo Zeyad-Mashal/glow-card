@@ -81,6 +81,9 @@
   font-weight: bold;
 }
 @media screen and (max-width: 768px) {
+  .network_container {
+    margin-top: 2rem;
+  }
   .network_item {
     width: 90%;
   }

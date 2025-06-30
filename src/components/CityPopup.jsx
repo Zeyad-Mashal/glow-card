@@ -62,7 +62,10 @@ const CityPopup = () => {
             <option value="">اختر المدينة</option>
             {allCities.map((item, index) => {
               return (
-                <option key={index} value={item._id}>
+                <option
+                  key={index}
+                  value={JSON.stringify({ id: item._id, name: item.name })}
+                >
                   {item.name}
                 </option>
               );

@@ -12,13 +12,17 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "./Navbar.css";
 import { Lang } from "@/Lang/lang";
-
+import City from "@/API/City/City.api";
 const Navbar = () => {
   const [selectedLanguage, setSelectedLanguage] = useState("en");
   const [token, setToken] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
   const [regionId, setRegionId] = useState("");
+  const [regionName, setRegionName] = useState("");
   const [language, setLanguage] = useState("ar");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [allCities, setAllCities] = useState([]);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -32,8 +36,13 @@ const Navbar = () => {
     setToken(storedToken);
     setLanguage(lang);
 
-    const regionId = localStorage.getItem("user_city");
-    setRegionId(regionId);
+    const cityData = localStorage.getItem("user_city");
+    if (cityData) {
+      const city = JSON.parse(cityData);
+      setRegionId(city.id);
+      setRegionName(city.name);
+    }
+    getAllCities();
   }, []);
 
   const langValue = Lang[selectedLanguage];
@@ -49,6 +58,10 @@ const Navbar = () => {
     window.location.reload();
   };
 
+  const getAllCities = () => {
+    City(setLoading, setError, setAllCities);
+  };
+
   return (
     <>
       {/* ✅ Desktop Navbar */}
@@ -62,6 +75,33 @@ const Navbar = () => {
               loading="lazy"
               onClick={() => (window.location.href = "/")}
             />
+            <select
+              value={regionName}
+              onChange={(e) => {
+                const selectedName = e.target.value;
+                const selectedItem = allCities.find(
+                  (item) => item.name === selectedName
+                );
+
+                if (selectedItem) {
+                  setRegionId(selectedItem._id);
+                  setRegionName(selectedItem.name);
+                  localStorage.setItem(
+                    "user_city",
+                    JSON.stringify({
+                      id: selectedItem._id,
+                      name: selectedItem.name,
+                    })
+                  );
+                }
+              }}
+            >
+              {allCities.map((item, index) => (
+                <option key={index} value={item.name}>
+                  {item.name}
+                </option>
+              ))}
+            </select>
           </div>
 
           <ul className="nav_links">
@@ -177,6 +217,33 @@ const Navbar = () => {
             </button>
           </div>
         </div>
+        <select
+          value={regionName}
+          onChange={(e) => {
+            const selectedName = e.target.value;
+            const selectedItem = allCities.find(
+              (item) => item.name === selectedName
+            );
+
+            if (selectedItem) {
+              setRegionId(selectedItem._id);
+              setRegionName(selectedItem.name);
+              localStorage.setItem(
+                "user_city",
+                JSON.stringify({
+                  id: selectedItem._id,
+                  name: selectedItem.name,
+                })
+              );
+            }
+          }}
+        >
+          {allCities.map((item, index) => (
+            <option key={index} value={item.name}>
+              {item.name}
+            </option>
+          ))}
+        </select>
 
         {/* ✅ Menu Links (Dropdown) */}
         <div className={`mobile_dropdown_menu ${menuOpen ? "open" : ""}`}>
