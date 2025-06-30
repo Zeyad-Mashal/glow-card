@@ -1,3 +1,4 @@
+import CityPopup from "@/components/CityPopup";
 import "./globals.css";
 import ConditionalNavbar from "@/components/ConditionalNavbar";
 import GoogleProviderWrapper from "@/components/GoogleProviderWrapper";
@@ -13,6 +14,7 @@ export default function RootLayout({ children }) {
       <body>
         <GoogleProviderWrapper>
           <ConditionalNavbar />
+          <CityPopup />
           {children}
         </GoogleProviderWrapper>
       </body>

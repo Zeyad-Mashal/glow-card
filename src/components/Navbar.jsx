@@ -17,6 +17,7 @@ const Navbar = () => {
   const [selectedLanguage, setSelectedLanguage] = useState("en");
   const [token, setToken] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
+  const [regionId, setRegionId] = useState("");
   const [language, setLanguage] = useState("ar");
   const pathname = usePathname();
 
@@ -30,6 +31,9 @@ const Navbar = () => {
     const storedToken = localStorage.getItem("token");
     setToken(storedToken);
     setLanguage(lang);
+
+    const regionId = localStorage.getItem("user_city");
+    setRegionId(regionId);
   }, []);
 
   const langValue = Lang[selectedLanguage];
@@ -68,8 +72,10 @@ const Navbar = () => {
             </li>
             <li>
               <Link
-                href="/region"
-                className={pathname === "/region" ? "active" : ""}
+                href={`/central?id=${regionId}`}
+                className={
+                  pathname === `/central?id=${regionId}` ? "active" : ""
+                }
               >
                 {langValue["network"]}
               </Link>
@@ -186,8 +192,10 @@ const Navbar = () => {
             </li>
             <li>
               <Link
-                href="/region"
-                className={pathname === "/region" ? "active" : ""}
+                href={`/central?id=${regionId}`}
+                className={
+                  pathname === `/central?id=${regionId}` ? "active" : ""
+                }
                 onClick={toggleMenu}
               >
                 {langValue["network"]}

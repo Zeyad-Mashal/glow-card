@@ -8,7 +8,6 @@ import Link from "next/link";
 import { Lang } from "@/Lang/lang";
 const Region = () => {
   const [selectedLanguage, setSelectedLanguage] = useState("en");
-
   useEffect(() => {
     const lang = localStorage.getItem("lang") || "en";
     setSelectedLanguage(lang);

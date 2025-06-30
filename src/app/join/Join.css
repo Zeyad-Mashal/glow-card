@@ -75,3 +75,32 @@
 .join_form button:hover {
     background-color: rgb(0, 77, 145);
 }
+.success-popup {
+  background-color: #28a745;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  animation: slideDown 0.5s ease, fadeOut 0.5s ease 2.5s;
+  position: absolute;
+  top: 50%;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
