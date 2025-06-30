@@ -34,6 +34,43 @@ const NetworkClient = () => {
         <h2>{lang === "ar" ? "شبكه الجهات" : "Glow Card Foundations"}</h2>
         <div className="netword_controller">
           <input type="text" placeholder="ابحث" />
+          <div className="filter">
+            <div className="filter_item">
+              <p>عيادات اسنان</p>
+              <label class="switch">
+                <input type="checkbox" />
+                <span class="slider"></span>
+              </label>
+            </div>
+            <div className="filter_item">
+              <p>عيادات جلديه</p>
+              <label class="switch">
+                <input type="checkbox" />
+                <span class="slider"></span>
+              </label>
+            </div>
+            <div className="filter_item">
+              <p>مراكز تجميل</p>
+              <label class="switch">
+                <input type="checkbox" />
+                <span class="slider"></span>
+              </label>
+            </div>
+            <div className="filter_item">
+              <p>مراكز تجميل</p>
+              <label class="switch">
+                <input type="checkbox" />
+                <span class="slider"></span>
+              </label>
+            </div>
+            <div className="filter_item">
+              <p>مراكز تجميل</p>
+              <label class="switch">
+                <input type="checkbox" />
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
         </div>
         <div className="network_list">
           {loading

@@ -60,6 +60,13 @@
 }
 .card_item_btn span {
   font-weight: bold;
+  display: flex;
+  gap: 0.5rem;
+}
+.card_item_btn span img {
+  width: 20px;
+  height: 20px;
+  margin-left: 0.5rem;
 }
 .card_item_btn a {
   background-color: #000;

@@ -44,7 +44,10 @@ const GlowCards = () => {
                 <img src={card.images[0]} alt="" loading="lazy" />
                 <h3>{card.name}</h3>
                 <div className="card_item_btn">
-                  <span>{card.price} ريال</span>
+                  <span>
+                    {card.price}
+                    <img src="/images/reyal.png" alt="reyal currancy" />
+                  </span>
                   <Link href={`/card?id=${card._id}`}>Learn More</Link>
                 </div>
               </div>

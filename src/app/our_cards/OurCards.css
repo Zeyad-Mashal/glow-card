@@ -71,6 +71,16 @@
     align-items: center;
     margin-top: 10px;
 }
+.card_item_details span {
+    font-weight: bold;
+    display: flex;
+    gap: 0.5rem;
+}
+.card_item_details span img {
+    width: 20px;
+    height: 20px;
+    margin-left: 0.5rem;
+}
 .card_item_details button {
     background-color: #000;
     color: #fff;

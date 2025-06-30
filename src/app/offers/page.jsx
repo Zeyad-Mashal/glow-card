@@ -32,7 +32,10 @@ const OurCards = () => {
                   <div className="card_item_content">
                     <h2>{item.name}</h2>
                     <div className="card_item_details">
-                      <span>{item.price} SAR</span>
+                      <span>
+                        {item.price}{" "}
+                        <img src="/images/reyal.png" alt="reyal currancy" />
+                      </span>
                       <button>
                         <Link href={`/card?id=${item._id}`}>
                           {" "}
