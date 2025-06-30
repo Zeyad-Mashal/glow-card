@@ -31,9 +31,3 @@
   filter: blur(0);
 }
 
-/* لو الشاشة صغيرة نخلي ارتفاع الصور أقل */
-@media screen and (max-width: 789px) {
-  .banner img {
-    height: 150px;
-  }
-}
