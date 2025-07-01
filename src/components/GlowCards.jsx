@@ -27,7 +27,6 @@ const GlowCards = () => {
   const getAllCards = () => {
     GetCards(setLoading, setError, setAllCards);
   };
-
   return (
     <div className="glow-cards">
       <h2 data-aos="fade-up">{langValue["cards"]}</h2>
@@ -45,8 +44,12 @@ const GlowCards = () => {
                 <h3>{card.name}</h3>
                 <div className="card_item_btn">
                   <span>
-                    {card.price}
-                    <img src="/images/reyal.png" alt="reyal currancy" />
+                    {card.type === "Custom" ? "اطلب الان" : card.price}
+                    {card.type === "Custom" ? (
+                      ""
+                    ) : (
+                      <img src="/images/reyal.png" alt="reyal currancy" />
+                    )}
                   </span>
                   <Link href={`/card?id=${card._id}`}>Learn More</Link>
                 </div>

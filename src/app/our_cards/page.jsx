@@ -28,22 +28,19 @@ const OurCards = () => {
           : allCards.map((item, index) => {
               return (
                 <div className="card_item" key={index}>
-                  <img src={item.images} alt="glow card image" />
-                  <div className="card_item_content">
-                    <h2>{item.name}</h2>
-                    <div className="card_item_details">
-                      <span>
-                        {item.price}{" "}
-                        <img src="/images/reyal.png" alt="reyal currancy" />
-                      </span>
-                      <button>
-                        <Link href={`/card?id=${item._id}`}>
-                          {" "}
-                          {langValue["reqBtn"]}
-                        </Link>
-                      </button>
+                  <Link href={`/card?id=${item._id}`}>
+                    <img src={item.images} alt="glow card image" />
+                    <div className="card_item_content">
+                      <h2>{item.name}</h2>
+                      <div className="card_item_details">
+                        <span>
+                          {item.price}{" "}
+                          <img src="/images/reyal.png" alt="reyal currancy" />
+                        </span>
+                        <button>{langValue["reqBtn"]}</button>
+                      </div>
                     </div>
-                  </div>
+                  </Link>
                 </div>
               );
             })}

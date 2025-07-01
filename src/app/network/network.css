@@ -43,9 +43,12 @@
   align-items: center;
   flex-direction: column;
   gap: 10px;
+  width: 100%;
 }
 .filter {
   display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 1rem;
   width: 100%;
   overflow-x: auto;
@@ -114,59 +117,84 @@
 
 /* switch */
 
-/* From Uiverse.io by mrhyddenn */ 
+/* From Uiverse.io by NomNomcats */ 
 /* The switch - the box around the slider */
 .switch {
- font-size: 9px;
- position: relative;
- display: inline-block;
- width: 35px;
- height: 20px;
+  font-size: 13px;
+  position: relative;
+  display: inline-block;
+  width: 4em;
+  height: 1.9em;
 }
 
 /* Hide default HTML checkbox */
 .switch input {
- opacity: 1;
- width: 0;
- height: 0;
+  opacity: 0;
+  width: 0;
+  height: 0;
 }
 
 /* The slider */
 .slider {
- position: absolute;
- cursor: pointer;
- top: 0;
- left: 0;
- right: 0;
- bottom: 0px;
- background: #fff;
- transition: .4s;
- border-radius: 30px;
- border: 1px solid #ccc;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 30px;
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.2);
 }
 
 .slider:before {
- position: absolute;
- content: "";
- height: 1.9em;
- width: 1.9em;
- border-radius: 16px;
- left: 1.2px;
- top: 0;
- bottom: 0;
- background-color: white;
- box-shadow: 0 2px 5px #999999;
- transition: .4s;
+  position: absolute;
+  content: "";
+  height: 1.6em;
+  width: 1.6em;
+  border-radius: 20px;
+  left: 0.2em;
+  bottom: 0.2em;
+  background-color: white;
+  transition: 0.4s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-input:checked + .slider {
- background-color: #5fdd54;
- border: 1px solid transparent;
+.switch input:checked + .slider {
+  background-color: #4cc9f0;
 }
 
-input:checked + .slider:before {
- transform: translateX(1.6em);
+.switch input:focus + .slider {
+  box-shadow: 0 0 1px #4cc9f0;
 }
+
+.switch input:checked + .slider:before {
+  transform: translateX(2em);
+  background-color: #4cc9f0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Add some cool effects */
+.slider:after {
+  content: "OFF";
+  color: white;
+  position: absolute;
+  right: 0.5em;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.8em;
+  transition: opacity 0.4s;
+  opacity: 1;
+}
+
+.switch input:checked + .slider:after {
+  content: "ON";
+  left: 0.5em;
+  opacity: 1;
+  right: auto;
+}
+
 @media screen and (max-width: 768px) {
   .network_container {
     margin-top: 2rem;
