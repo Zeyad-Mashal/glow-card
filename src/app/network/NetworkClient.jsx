@@ -6,6 +6,7 @@ import "./network.css";
 import Foundation from "@/API/Foundation/Foundation.api";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
+import getCategories from "@/API/Category/getCategories.api";
 
 const NetworkClient = () => {
   useEffect(() => {
@@ -18,14 +19,19 @@ const NetworkClient = () => {
   const [error, setError] = useState(null);
   const [foundations, setFoundations] = useState([]);
   const [lang, setLang] = useState("ar");
+  const [allCategories, setAllCategories] = useState([]);
 
   useEffect(() => {
     getAllFoundations();
+    getAllCategories();
     AOS.init({ duration: 800, once: true });
   }, [id]); // إعادة التحميل إذا تغير `id`
 
   const getAllFoundations = () => {
     Foundation(setLoading, setError, setFoundations, id);
+  };
+  const getAllCategories = () => {
+    getCategories(setLoading, setError, setAllCategories);
   };
 
   return (
@@ -35,41 +41,17 @@ const NetworkClient = () => {
         <div className="netword_controller">
           <input type="text" placeholder="ابحث" />
           <div className="filter">
-            <div className="filter_item">
-              <p>عيادات اسنان</p>
-              <label class="switch">
-                <input type="checkbox" />
-                <span class="slider"></span>
-              </label>
-            </div>
-            <div className="filter_item">
-              <p>عيادات جلديه</p>
-              <label class="switch">
-                <input type="checkbox" />
-                <span class="slider"></span>
-              </label>
-            </div>
-            <div className="filter_item">
-              <p>مراكز تجميل</p>
-              <label class="switch">
-                <input type="checkbox" />
-                <span class="slider"></span>
-              </label>
-            </div>
-            <div className="filter_item">
-              <p>مراكز تجميل</p>
-              <label class="switch">
-                <input type="checkbox" />
-                <span class="slider"></span>
-              </label>
-            </div>
-            <div className="filter_item">
-              <p>مراكز تجميل</p>
-              <label class="switch">
-                <input type="checkbox" />
-                <span class="slider"></span>
-              </label>
-            </div>
+            {allCategories.map((category, index) => {
+              return (
+                <div className="filter_item" key={index}>
+                  <p>{category.name}</p>
+                  <label class="switch">
+                    <input type="checkbox" />
+                    <span class="slider"></span>
+                  </label>
+                </div>
+              );
+            })}
           </div>
         </div>
         <div className="network_list">

@@ -1,16 +1,25 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import "./about.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuestion } from "@fortawesome/free-solid-svg-icons";
 import Footer from "@/components/Footer";
+import { Lang } from "@/Lang/lang";
 const page = () => {
+  const [selectedLanguage, setSelectedLanguage] = useState("ar");
+
+  useEffect(() => {
+    const lang = localStorage.getItem("lang") || "ar";
+    setSelectedLanguage(lang);
+  }, []);
+  const langValue = Lang[selectedLanguage];
   return (
     <>
       <div className="about">
         <div className="about_container">
           <div className="about_content">
             <h2>Glow Card</h2>
-            <p>street 123, Jada</p>
+            <p>{langValue["street"]}</p>
             <p>Phone: 123-456-7890</p>
             <a href="mailto:zyadomar112@gmail.com">glowcard@gmail.com</a>
           </div>
@@ -19,19 +28,9 @@ const page = () => {
           </div>
         </div>
         <div className="about_description">
-          <h3>About Us</h3>
-          <p>
-            Glow Card is a digital business card platform that allows you to
-            create and share your professional identity with ease. Our mission
-            is to help you connect with others and make a lasting impression in
-            the digital world.
-          </p>
-          <p>
-            Glow Card is a digital business card platform that allows you to
-            create and share your professional identity with ease. Our mission
-            is to help you connect with others and make a lasting impression in
-            the digital world.
-          </p>
+          <h3>{langValue["aboutus"]}</h3>
+          <p>{langValue["aboutusSub1"]}</p>
+          <p>{langValue["aboutusSub1"]}</p>
         </div>
         <div className="about_map">
           <iframe

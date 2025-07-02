@@ -51,7 +51,9 @@ const GlowCards = () => {
                       <img src="/images/reyal.png" alt="reyal currancy" />
                     )}
                   </span>
-                  <Link href={`/card?id=${card._id}`}>Learn More</Link>
+                  <Link href={`/card?id=${card._id}`}>
+                    {langValue["cityBtn"]}
+                  </Link>
                 </div>
               </div>
             );

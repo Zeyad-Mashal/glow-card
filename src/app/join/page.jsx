@@ -1,28 +1,32 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Join.css";
+import { Lang } from "@/Lang/lang";
 
 const Join = () => {
   const [formSubmitted, setFormSubmitted] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // تأكد من أن كل البيانات اتملت (هنا هنفترض إن البيانات كلها اتملت)
-    // ممكن تضيف تحقق فعلي بعدين
-
     setFormSubmitted(true);
     setTimeout(() => setFormSubmitted(false), 3000); // يخفي الرسالة بعد 3 ثواني
   };
 
+  const [selectedLanguage, setSelectedLanguage] = useState("ar");
+
+  useEffect(() => {
+    const lang = localStorage.getItem("lang") || "ar";
+    setSelectedLanguage(lang);
+  }, []);
+  const langValue = Lang[selectedLanguage];
   return (
     <div className="join">
       <div className="join_container">
-        <h1>انضم الي الشبكه</h1>
+        <h1>{langValue["joinUs"]}</h1>
 
         {formSubmitted && (
           <div className="success-popup">
-            <span>✅ تم إرسال الطلب بنجاح</span>
+            <span>✅ {langValue["success"]}</span>
           </div>
         )}
 

@@ -14,7 +14,7 @@ import "./Navbar.css";
 import { Lang } from "@/Lang/lang";
 import City from "@/API/City/City.api";
 const Navbar = () => {
-  const [selectedLanguage, setSelectedLanguage] = useState("en");
+  const [selectedLanguage, setSelectedLanguage] = useState("ar");
   const [token, setToken] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
   const [regionId, setRegionId] = useState("");
@@ -134,15 +134,7 @@ const Navbar = () => {
                 className={pathname === "/offers" ? "active" : ""}
                 onClick={toggleMenu}
               >
-                {/* {langValue["cards"]} */} Our offers
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/about"
-                className={pathname === "/about" ? "active" : ""}
-              >
-                {/* {langValue["contactUs"]} */} About Us
+                {langValue["offers"]}
               </Link>
             </li>
             <li>
@@ -150,12 +142,20 @@ const Navbar = () => {
                 href="/join"
                 className={pathname === "/join" ? "active" : ""}
               >
-                Join Us
+                {langValue["join"]}
               </Link>
             </li>
             <li>
               <Link href="/new" className={pathname === "/new" ? "active" : ""}>
-                New Join
+                {langValue["new"]}
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/glow-club"
+                className={pathname === "/glow-club" ? "active" : ""}
+              >
+                {langValue["club"]}
               </Link>
             </li>
             <li>
@@ -283,17 +283,7 @@ const Navbar = () => {
                 className={pathname === "/offers" ? "active" : ""}
                 onClick={toggleMenu}
               >
-                {/* {langValue["cards"]} */} Our offers
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/about"
-                className={pathname === "/about" ? "active" : ""}
-                onClick={toggleMenu}
-              >
-                {/* {langValue["contactUs"]} */}
-                About Us
+                {langValue["offers"]}
               </Link>
             </li>
             <li>
@@ -301,12 +291,20 @@ const Navbar = () => {
                 href="/join"
                 className={pathname === "/join" ? "active" : ""}
               >
-                Join Us
+                {langValue["join"]}
               </Link>
             </li>
             <li>
               <Link href="/new" className={pathname === "/new" ? "active" : ""}>
-                New Join
+                {langValue["new"]}
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/glow-club"
+                className={pathname === "/glow-club" ? "active" : ""}
+              >
+                {langValue["club"]}
               </Link>
             </li>
             <li>

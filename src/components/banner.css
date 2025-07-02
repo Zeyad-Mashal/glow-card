@@ -4,7 +4,7 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr); /* دا بيخليهم اتنين جنب بعض */
   gap: 1rem;
-  padding: 0;
+  padding: 0 5rem;
 }
 
 .banner a {
@@ -31,3 +31,8 @@
   filter: blur(0);
 }
 
+@media (max-width: 789px) {
+  .banner {
+    padding: 0 1rem;
+  }
+}

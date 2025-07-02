@@ -1,17 +1,20 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./banner3.css";
+import { Lang } from "@/Lang/lang";
 const Banner3 = () => {
+  const [selectedLanguage, setSelectedLanguage] = useState("ar");
+
+  useEffect(() => {
+    const lang = localStorage.getItem("lang") || "ar";
+    setSelectedLanguage(lang);
+  }, []);
+  const langValue = Lang[selectedLanguage];
   return (
     <div className="banner3">
       <div className="banner_container">
-        <h1>Your Local Health Discount Hub</h1>
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorum at
-          perferendis eum quisquam doloribus, eos nemo impedit vitae ipsa dolore
-          ratione necessitatibus tempore praesentium debitis aperiam dicta vero.
-          Nam, praesentium.
-        </p>
-        <button>Discover</button>
+        <h1>{langValue["banner2"]}</h1>
+        <p>{langValue["banner3"]}</p>
+        <button>{langValue["banner4"]}</button>
       </div>
     </div>
   );
