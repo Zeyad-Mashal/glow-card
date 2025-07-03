@@ -6,12 +6,12 @@
     align-items: center;
     flex-direction: column;
     padding: 5rem 0 1rem 0;
-   background: linear-gradient(
+   /* background: linear-gradient(
     to right,
     #002c59,  
     #0074D9,  
     #001f3f   
-  );
+  ); */
 }
 .our-cards h1 {
     font-size: 2rem;
@@ -79,6 +79,18 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+}
+.no_offers {
+  text-align: center;
+}
+.notfound {
+  font-size: 1.2rem;
+  color: #000;
+}
+.no_offers > p {
+  font-size: 1.1rem;
+  color: #0074D9;
+  font-weight: bold;
 }
 @media screen and (max-width: 768px) {
   .our-cards {

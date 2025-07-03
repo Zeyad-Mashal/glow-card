@@ -290,12 +290,17 @@ const Navbar = () => {
               <Link
                 href="/join"
                 className={pathname === "/join" ? "active" : ""}
+                onClick={toggleMenu}
               >
                 {langValue["join"]}
               </Link>
             </li>
             <li>
-              <Link href="/new" className={pathname === "/new" ? "active" : ""}>
+              <Link
+                href="/new"
+                className={pathname === "/new" ? "active" : ""}
+                onClick={toggleMenu}
+              >
                 {langValue["new"]}
               </Link>
             </li>
@@ -303,6 +308,7 @@ const Navbar = () => {
               <Link
                 href="/glow-club"
                 className={pathname === "/glow-club" ? "active" : ""}
+                onClick={toggleMenu}
               >
                 {langValue["club"]}
               </Link>
