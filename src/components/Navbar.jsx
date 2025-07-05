@@ -167,7 +167,6 @@ const Navbar = () => {
               </Link>
             </li>
           </ul>
-
           <div className="nav_btns_desktop">
             <FontAwesomeIcon
               icon={faEarthAmericas}
