@@ -24,6 +24,8 @@ const Navbar = () => {
   const [error, setError] = useState(null);
   const [allCities, setAllCities] = useState([]);
   const pathname = usePathname();
+  const [cityName, setCityName] = useState("");
+  const [path, setPath] = useState();
 
   useEffect(() => {
     const lang = localStorage.getItem("lang") || "en";
@@ -62,6 +64,21 @@ const Navbar = () => {
     City(setLoading, setError, setAllCities);
   };
 
+  const routController = () => {
+    const cityname = JSON.parse(localStorage.getItem("user_city"));
+    const name = cityname.name;
+    const cityId = cityname.id;
+    // setCityName(name);
+    if (name === "الرياض" || name === "جده") {
+      return `/central?id=${cityId}`;
+    } else {
+      return `/network?id=${cityId}`;
+    }
+  };
+  useEffect(() => {
+    setPath(routController());
+  }, []);
+
   return (
     <>
       {/* ✅ Desktop Navbar */}
@@ -93,6 +110,7 @@ const Navbar = () => {
                       name: selectedItem.name,
                     })
                   );
+                  window.location.reload();
                 }
               }}
             >
@@ -112,10 +130,10 @@ const Navbar = () => {
             </li>
             <li>
               <Link
-                href={`/central?id=${regionId}`}
-                className={
-                  pathname === `/central?id=${regionId}` ? "active" : ""
-                }
+                href={`${path}`}
+                // className={
+                //   pathname == `/central?id=${regionId}` ? "active" : ""
+                // }
               >
                 {langValue["network"]}
               </Link>

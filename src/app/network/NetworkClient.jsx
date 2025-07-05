@@ -3,11 +3,11 @@ import React, { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import "./network.css"; // ضمّن التعديلات هنا
-import Foundation from "@/API/Foundation/Foundation.api";
+// import Foundation from "@/API/Foundation/Foundation.api";
 import getCategories from "@/API/Category/getCategories.api";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-
+import AllFoundations from "@/API/Foundation/AllFoundations";
 const NetworkClient = () => {
   /* -------------------- state -------------------- */
   const [loading, setLoading] = useState(false);
@@ -18,7 +18,8 @@ const NetworkClient = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [search, setSearch] = useState(""); // حقل البحث
   const [lang, setLang] = useState("ar");
-
+  const [cityId, setCityId] = useState("");
+  const [regionId, setRegionId] = useState("");
   /* -------------------- طرق المساعد -------------------- */
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
@@ -48,8 +49,20 @@ const NetworkClient = () => {
   }, [allCategories]);
 
   /* -------------------- API Calls -------------------- */
-  const getAllFoundations = () =>
-    Foundation(setLoading, setError, setFoundations, id);
+  const getAllFoundations = () => {
+    const cityData = JSON.parse(localStorage.getItem("user_city"));
+    const name = cityData.name;
+    let region = "";
+    let city = "";
+    if (name === "الرياض" || name === "جده") {
+      setRegionId(id);
+      region = id;
+    } else {
+      setCityId(id);
+      city = id;
+    }
+    AllFoundations(setLoading, setError, setFoundations, city, region);
+  };
 
   const getAllCategories = () =>
     getCategories(setLoading, setError, setAllCategories);
