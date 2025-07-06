@@ -110,7 +110,13 @@ const Navbar = () => {
                       name: selectedItem.name,
                     })
                   );
-                  window.location.reload();
+                  const url =
+                    selectedItem.name === "الرياض" ||
+                    selectedItem.name === "جده"
+                      ? `/central?id=${selectedItem._id}`
+                      : `/network?id=${selectedItem._id}`;
+
+                  window.location.href = url;
                 }
               }}
             >
@@ -129,14 +135,7 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link
-                href={`${path}`}
-                // className={
-                //   pathname == `/central?id=${regionId}` ? "active" : ""
-                // }
-              >
-                {langValue["network"]}
-              </Link>
+              <Link href={`${path}`}>{langValue["network"]}</Link>
             </li>
             <li>
               <Link
@@ -252,6 +251,12 @@ const Navbar = () => {
                   name: selectedItem.name,
                 })
               );
+              const url =
+                selectedItem.name === "الرياض" || selectedItem.name === "جده"
+                  ? `/central?id=${selectedItem._id}`
+                  : `/network?id=${selectedItem._id}`;
+
+              window.location.href = url;
             }
           }}
         >
@@ -275,13 +280,7 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link
-                href={`/central?id=${regionId}`}
-                className={
-                  pathname === `/central?id=${regionId}` ? "active" : ""
-                }
-                onClick={toggleMenu}
-              >
+              <Link href={`${path}`} onClick={toggleMenu}>
                 {langValue["network"]}
               </Link>
             </li>
