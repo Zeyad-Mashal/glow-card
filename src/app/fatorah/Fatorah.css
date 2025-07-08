@@ -1,0 +1,172 @@
+/* === الحاوية العامة === */
+.fatorah {
+  margin-top: 3.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+/* === الصندوق الأساسي === */
+.fatorah_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  background-color: #eee;
+  height: 90vh;
+}
+
+.fatorah_container > h1 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  background-color: #001f3f;
+  padding: 10px;
+  border-radius: 10px;
+  color: #fff;
+  width: 200px;
+  text-align: center;
+  margin: 1rem 0;
+}
+
+/* === تفاصيل الفاتورة (قابلة للطي) === */
+.fatorah_details {
+  width: 600px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 8px 8px 0 0;
+  max-height: 0;                  /* مقفول افتراضياً */
+  transition: max-height 0.4s ease;
+  padding: 0;                     /* بدون فراغ أثناء الطي */
+}
+
+.fatorah_details.open {
+  padding-bottom: 2rem;           /* يُضاف عند الفتح */
+  /* max-height يُضبط ديناميكياً في React */
+}
+
+/* كل سطر داخل التفاصيل */
+.detail1 {
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px dashed #999;
+}
+
+/* === الجزء السفلي: الإجمالي + كوبون === */
+.fatorah_content {
+  background-color: #fff;
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0.5rem;
+  border-radius: 0 0 8px 8px;
+  margin-bottom: 1rem;
+}
+
+/* الإجمالي */
+.total {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.total > h3,
+.total > span {
+  font-weight: bold;
+}
+
+/* === الكوبون === */
+.coupon_section {
+  width: 100%;
+}
+
+.coupon_button {
+  background: none;
+  border: none;
+  color: #d20000;
+  cursor: pointer;
+  font-size: 16px;
+  text-decoration: underline;
+}
+
+.coupon_input_container {
+  margin-top: 10px;
+  display: flex;
+  width: 100%;
+}
+
+.coupon_input {
+  flex: 1;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 0 6px 6px 0;
+  direction: rtl;
+}
+
+.apply_button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px 0 0 6px;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.apply_button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.toggle_details_btn {
+  position: relative;      /* أساس تموضع الـ::before/::after */
+  display: inline-block;   /* يضمن عرضًا وارتفاعًا مضبوطَيْن */
+  font-size: 15px;
+  color: #001f3f;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-top: 8px;
+  padding: 0 28px;         /* نحجز مكانًا للصورتين يمين ويسار */
+  line-height: 1.4;        
+  background-color: #eee;
+  padding: 8px;
+  border-radius: 16px;
+}
+
+.payment_btn {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.payment_btn button {
+    width: 150px;
+    background-color: #001f3f;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 10px;
+    padding: 8px;
+    margin-top: 2rem;
+    cursor: pointer;
+} 
+
+@media (max-width: 789px) {
+    .fatorah_container> h1 {
+        margin-top: 3rem;
+    }
+    .fatorah_content,
+    .fatorah_details {
+        width: 95%;
+    }
+    .toggle_details_btn::before,
+.toggle_details_btn::after {
+    display: none;
+}
+}

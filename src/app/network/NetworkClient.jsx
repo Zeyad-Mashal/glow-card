@@ -20,6 +20,7 @@ const NetworkClient = () => {
   const [lang, setLang] = useState("ar");
   const [cityId, setCityId] = useState("");
   const [regionId, setRegionId] = useState("");
+  const [categoriesIds, setCategoriesIds] = useState([]);
   /* -------------------- طرق المساعد -------------------- */
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
@@ -32,7 +33,7 @@ const NetworkClient = () => {
 
   /* جلب البيانات عند دخول الصفحة أو تغيّر id */
   useEffect(() => {
-    getAllFoundations();
+    getAllFoundations([]);
     getAllCategories();
     AOS.init({ duration: 800, once: true });
   }, [id]);
@@ -49,11 +50,12 @@ const NetworkClient = () => {
   }, [allCategories]);
 
   /* -------------------- API Calls -------------------- */
-  const getAllFoundations = () => {
+  const getAllFoundations = (selectedCategories = categoriesIds) => {
     const cityData = JSON.parse(localStorage.getItem("user_city"));
-    const name = cityData.name;
+    const name = cityData?.name || "";
     let region = "";
     let city = "";
+
     if (name === "الرياض" || name === "جده") {
       setRegionId(id);
       region = id;
@@ -61,26 +63,55 @@ const NetworkClient = () => {
       setCityId(id);
       city = id;
     }
-    AllFoundations(setLoading, setError, setFoundations, city, region);
+
+    AllFoundations(
+      setLoading,
+      setError,
+      setFoundations,
+      city,
+      region,
+      selectedCategories
+    );
   };
+
+  console.log(foundations);
 
   const getAllCategories = () =>
     getCategories(setLoading, setError, setAllCategories);
 
   /* -------------------- فلترة وتفعيل -------------------- */
-  const toggleFilter = (fid) =>
-    setFilters((prev) =>
-      prev.map((f) => (f.id === fid ? { ...f, checked: !f.checked } : f))
+  const toggleFilter = (fid) => {
+    const updatedFilters = filters.map((f) =>
+      f.id === fid ? { ...f, checked: !f.checked } : f
     );
+    setFilters(updatedFilters);
+
+    const selectedIds = updatedFilters
+      .filter((f) => f.checked)
+      .map((f) => f.id);
+
+    setCategoriesIds(selectedIds);
+
+    // نعيد جلب الجهات حسب الفلاتر الجديدة
+    getAllFoundations(selectedIds);
+  };
 
   /* فلتر التأسيسات حسب الفلاتر المختارة */
   const activeFilterIds = filters.filter((f) => f.checked).map((f) => f.id);
   const displayedFoundations = foundations.filter((item) => {
     const byFilter =
-      activeFilterIds.length === 0 || activeFilterIds.includes(item.category);
+      activeFilterIds.length === 0 ||
+      item.categories?.some((cat) => activeFilterIds.includes(cat._id));
     const bySearch = item.name.toLowerCase().includes(search.toLowerCase());
     return byFilter && bySearch;
   });
+
+  const clearAllFilters = () => {
+    const resetFilters = filters.map((f) => ({ ...f, checked: false }));
+    setFilters(resetFilters);
+    setCategoriesIds([]);
+    getAllFoundations([]); // بدون فلاتر
+  };
 
   /* -------------------- JSX -------------------- */
   return (
@@ -109,6 +140,18 @@ const NetworkClient = () => {
               <h2>كل الفلاتر</h2>
 
               <div className="modal_filters">
+                <div className="modal_filter_item" key="all">
+                  <span>الكل</span>
+                  <label className="switch">
+                    <input
+                      type="checkbox"
+                      checked={activeFilterIds.length === 0}
+                      onChange={clearAllFilters}
+                    />
+                    <span className="slider"></span>
+                  </label>
+                </div>
+
                 {filters.map((cat) => (
                   <div className="modal_filter_item" key={cat.id}>
                     <span>{cat.name}</span>
@@ -151,6 +194,29 @@ const NetworkClient = () => {
                 </Link>
               </div>
             ))
+          )}
+          {!loading && displayedFoundations.length === 0 && (
+            <div className="no-results" data-aos="fade-up">
+              <div className="no-results-icon">
+                {/* SVG Animated Icon */}
+                <svg
+                  width="120"
+                  height="120"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#aaa"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                  <line x1="8" y1="11" x2="14" y2="11" />
+                </svg>
+              </div>
+              <h3>لا توجد مؤسسات</h3>
+              <p>لم يتم العثور على نتائج تطابق الفلاتر أو البحث الحالي.</p>
+            </div>
           )}
         </div>
       </div>

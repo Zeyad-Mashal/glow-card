@@ -1,27 +1,32 @@
-const URL = "https://glow-card.onrender.com/api/v1/foundation/get";
-
-const AllFoundations = async (setloading, setError, setFoundations, cityId, regionId, categoriesIds) => {
-    setloading(true)
+const URL = "https://glow-card.onrender.com/api/v1/coupon/apply";
+const ApplayCoupon = async (setloading, setError, data) => {
+    const token = localStorage.getItem("token");
     const lang = localStorage.getItem("lang")
+
+    setloading(true)
     try {
-        const response = await fetch(`${URL}?city=${cityId}&&region=${regionId}&&categories=${categoriesIds}`, {
-            method: 'GET',
+        const response = await fetch(URL, {
+            method: 'POST',
             headers: {
                 "Content-Type": "application/json",
+                "authorization": `glowONW${token}`,
                 "accept-language": `${lang}`
             },
+            body: JSON.stringify(data),
         });
 
         const result = await response.json();
 
         if (response.ok) {
             setloading(false);
-            setFoundations(result.foundations)
+            // setDiscount(result.discount)
+            console.log(result);
+
         } else {
-            if (response.status == 404) {
+            if (response.status == 403) {
                 setError(result.message)
                 setloading(false);
-            } else if (response.status == 500) {
+            } else if (response.status == 502) {
                 console.log(result.message);
                 setError(result.message)
                 setloading(false);
@@ -33,4 +38,4 @@ const AllFoundations = async (setloading, setError, setFoundations, cityId, regi
         setloading(false)
     }
 }
-export default AllFoundations;
+export default ApplayCoupon;
