@@ -16,9 +16,14 @@
     gap: 1rem;
 }
 .join_container h1 {
-    font-size: 2rem;
-    color: #333;
+    font-size: 1.5rem;
+    color: #fff;
     margin: 1rem 0;
+    background-color: #001f3f;
+  padding: 5px 20px;
+  width: 220px;
+  text-align: center;
+  border-radius: 16px;
 }
 .join_list {
     width: 100%;
@@ -103,5 +108,11 @@
   to {
     opacity: 0;
     transform: translateY(-10px);
+  }
+}
+
+@media (max-width: 789px) {
+  .join {
+    margin-top: 5rem;
   }
 }
