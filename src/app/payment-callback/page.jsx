@@ -7,17 +7,11 @@ const Page = () => {
   const [model, setModel] = useState(false);
   const [modelError, setModelError] = useState(false);
   const [loadingModel, setLoadingModel] = useState(true);
-  const [loading, setLoading] = useState(false);
+  const [loading, setloading] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    PaymentCallback(
-      setLoading,
-      setError,
-      setModel,
-      setLoadingModel,
-      setModelError
-    );
+    PaymentCallback(setloading, setModel, setLoadingModel, setModelError);
   }, []);
 
   return (

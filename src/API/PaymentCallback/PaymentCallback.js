@@ -1,5 +1,5 @@
 const URL = "https://glow-card.onrender.com/api/v1/payment/callback";
-const PaymentCallback = async (setloading, setError, setModel, setLoadingModel, setModelError) => {
+const PaymentCallback = async (setloading, setModel, setLoadingModel, setModelError) => {
     setloading(true)
     const invoiceId = localStorage.getItem("invoiceId")
     const token = localStorage.getItem("token");
