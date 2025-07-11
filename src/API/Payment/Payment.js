@@ -1,8 +1,6 @@
-const URL = "https://glow-card.onrender.com/api/v1/coupon/apply";
-const ApplayCoupon = async (setloading, setError, data, setDiscount, setPrice) => {
+const URL = "https://glow-card.onrender.com/api/v1/payment/pay";
+const Payment = async (setloading, setError, data) => {
     const token = localStorage.getItem("token");
-    const lang = localStorage.getItem("lang")
-    const price = localStorage.getItem("price")
     setloading(true)
     try {
         const response = await fetch(URL, {
@@ -10,7 +8,6 @@ const ApplayCoupon = async (setloading, setError, data, setDiscount, setPrice) =
             headers: {
                 "Content-Type": "application/json",
                 "authorization": `glowONW${token}`,
-                "accept-language": `${lang}`
             },
             body: JSON.stringify(data),
         });
@@ -18,15 +15,19 @@ const ApplayCoupon = async (setloading, setError, data, setDiscount, setPrice) =
         const result = await response.json();
 
         if (response.ok) {
+            if (result && result.Url) {
+                localStorage.setItem("invoiceId", result.invoiceId)
+                window.location.href = result.Url
+            } else {
+                alert("error")
+                setError("failed to connect to your payment try again!!")
+            }
             setloading(false);
-            setDiscount(result.discount)
-            let finalPrice = Math.ceil(price - (price * result.discount / 100));
-            setPrice(finalPrice)
         } else {
             if (response.status == 404) {
                 setError(result.message)
                 setloading(false);
-            } else if (response.status == 502) {
+            } else if (response.status == 500) {
                 console.log(result.message);
                 setError(result.message)
                 setloading(false);
@@ -38,4 +39,4 @@ const ApplayCoupon = async (setloading, setError, data, setDiscount, setPrice) =
         setloading(false)
     }
 }
-export default ApplayCoupon;
+export default Payment;

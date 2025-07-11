@@ -52,9 +52,10 @@ export default function CardDetailsClient() {
     CardDetailsApi(setLoading, setError, setCardDetails, id);
   };
 
-  const goToApplication = (id, type) => {
+  const goToApplication = (id, type, price) => {
     localStorage.setItem("type", type);
-    router.push(`/application?id=${id}`);
+    localStorage.setItem("price", price);
+    router.push(`/fatorah?id=${id}`);
   };
 
   const getAllCards = () => {
@@ -111,7 +112,13 @@ export default function CardDetailsClient() {
               </div>
             </div>
             <button
-              onClick={() => goToApplication(cardDetails._id, cardDetails.type)}
+              onClick={() =>
+                goToApplication(
+                  cardDetails._id,
+                  cardDetails.type,
+                  cardDetails.price
+                )
+              }
             >
               <FontAwesomeIcon icon={faArrowUpRightFromSquare} />{" "}
               {langValue["reqBtn"]}
