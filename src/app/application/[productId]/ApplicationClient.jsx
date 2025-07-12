@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import "./application.css";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useParams } from "next/navigation";
 import ApplicationApi from "@/API/Application/ApplicationApi.api";
 import Validator from "./Validator";
 import Link from "next/link";
@@ -15,7 +15,9 @@ const ApplicationClient = () => {
   const [showModal, setShowModal] = useState(false); // حالة لعرض الموديل
   const [type, setType] = useState("");
   const searchParams = useSearchParams();
-  const id = searchParams.get("id");
+  const payId = searchParams.get("payId");
+  const { productId } = useParams();
+
   useEffect(() => {
     const type = localStorage.getItem("type");
     if (!type) {
@@ -103,7 +105,7 @@ const ApplicationClient = () => {
       data.members[2].relationship = "son";
     }
     data.type = type;
-    ApplicationApi(setLoading, setError, data, id, setShowModal);
+    ApplicationApi(setLoading, setError, data, productId, setShowModal, payId);
   };
 
   const roles = ["father", "mother", "child1", "child2"];
@@ -215,7 +217,7 @@ const ApplicationClient = () => {
               </button>
             ) : (
               <button onClick={handlePayment} className="back_button">
-                {loading ? "Loading..." : "Payment"}
+                {loading ? "Loading..." : "Activate"}
               </button>
             )}
           </div>
@@ -223,14 +225,14 @@ const ApplicationClient = () => {
         {type === "Annual" && (
           <div style={{ display: "flex", gap: "1rem" }}>
             <button onClick={handlePayment} className="back_button">
-              {loading ? "Loading..." : "Payment"}
+              {loading ? "Loading..." : "Activate"}
             </button>
           </div>
         )}
         {type === "Two-Year" && (
           <div style={{ display: "flex", gap: "1rem" }}>
             <button onClick={handlePayment} className="back_button">
-              {loading ? "Loading..." : "Payment"}
+              {loading ? "Loading..." : "Activate"}
             </button>
           </div>
         )}
@@ -247,7 +249,7 @@ const ApplicationClient = () => {
               </button>
             ) : (
               <button onClick={handlePayment} className="back_button">
-                {loading ? "Loading..." : "Payment"}
+                {loading ? "Loading..." : "Activate"}
               </button>
             )}
           </div>

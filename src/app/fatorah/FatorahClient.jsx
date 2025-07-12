@@ -138,15 +138,20 @@ const FatorahClient = () => {
                 type="text"
                 value={userName}
                 onChange={(e) => setUserName(e.target.value)}
+                placeholder="احمد محمد"
               />
             </label>
             <label>
               <span>رقم الهاتف</span>
-              <input
-                type="number"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-              />
+              <div className="phoneNumber">
+                <p>+966</p>
+                <input
+                  type="number"
+                  value={phone}
+                  placeholder="5X XXX XXXX"
+                  onChange={(e) => setPhone(e.target.value)}
+                />
+              </div>
             </label>
             <label>
               <span>الايميل</span>
@@ -154,6 +159,7 @@ const FatorahClient = () => {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                placeholder="example@gmail.com"
               />
             </label>
           </div>

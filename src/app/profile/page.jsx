@@ -5,8 +5,11 @@ import InvitationCode from "@/API/InvitationCode/InvitationCode";
 import { Lang } from "@/Lang/lang";
 import GetCardInfo from "@/API/CardInfo/GetCardInfo";
 import ActivateCards from "@/API/ActivateCards/ActivateCards";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
+
 const Profile = () => {
+  const router = useRouter();
+
   const [selectedLanguage, setSelectedLanguage] = useState("ar");
   const [phone, setPhone] = useState("");
   useEffect(() => {
@@ -97,6 +100,11 @@ const Profile = () => {
 
   const getAllCardsActivations = () => {
     ActivateCards(setLoading, setError, setAllCardsActivations);
+  };
+
+  const goToActivate = (productId, payId, type) => {
+    localStorage.setItem("type", type);
+    router.push(`/application/${productId}?payId=${payId}`);
   };
 
   return (
@@ -282,16 +290,24 @@ const Profile = () => {
                   <div className="activation_list">
                     {allCardsActivations.map((item, index) => {
                       return (
-                        <div className="activation_item" key={index}>
-                          <Link href={`/application?id=${item._id}`}>
-                            <div className="card_name">
-                              <h3>{item.product.name.ar}</h3>
-                              <p>{item.product.type}</p>
-                            </div>
-                            <div className="card_price">
-                              {item.totalPrice} ر.س
-                            </div>
-                          </Link>
+                        <div
+                          className="activation_item"
+                          key={index}
+                          onClick={() =>
+                            goToActivate(
+                              item.product._id,
+                              item._id,
+                              item.product.type
+                            )
+                          }
+                        >
+                          <div className="card_name">
+                            <h3>{item.product.name.ar}</h3>
+                            <p>{item.product.type}</p>
+                          </div>
+                          <div className="card_price">
+                            {item.totalPrice} ر.س
+                          </div>
                         </div>
                       );
                     })}

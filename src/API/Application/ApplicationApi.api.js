@@ -1,10 +1,10 @@
 const URL = "https://glow-card.onrender.com/api/v1/card/create/";
-const ApplicationApi = async (setLoading, setError, data, id, setShowModal) => {
+const ApplicationApi = async (setLoading, setError, data, productId, setShowModal, payId) => {
     const token = localStorage.getItem("token");
     setLoading(true)
     const lang = localStorage.getItem("lang")
     try {
-        const response = await fetch(`${URL}${id}`, {
+        const response = await fetch(`${URL}${productId}?payId=${payId}`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",

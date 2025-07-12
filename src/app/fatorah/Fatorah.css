@@ -173,11 +173,28 @@
   flex-direction: column;
   gap: 10px;
 }
-.payment_data label input {
+.payment_data label > input,
+.phoneNumber input {
   width: 100%;
   border: 1px solid #999;
   padding: 5px;
   border-radius: 10px;
+}
+.phoneNumber {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.phoneNumber p {
+  position: absolute;
+  left: 5px;
+  direction: ltr;
+}
+.phoneNumber input {
+  direction: ltr;
+  padding-left: 2.8rem;
 }
 @media (max-width: 789px) {
     .fatorah_container> h1 {
