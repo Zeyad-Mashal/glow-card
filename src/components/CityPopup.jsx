@@ -8,11 +8,13 @@ const CityPopup = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [allCities, setAllCities] = useState([]);
+  const [selectedCity, setSelectedCity] = useState();
 
   useEffect(() => {
     const savedCity = localStorage.getItem("user_city");
-
-    if (!savedCity) {
+    if (savedCity) {
+      setSelectedCity(savedCity);
+    } else {
       setShowPopup(true);
     }
     getAllCities();

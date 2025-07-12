@@ -21,12 +21,15 @@ const FatorahClient = () => {
   const [userName, setUserName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+  const [token, setToken] = useState();
 
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
 
   useEffect(() => {
     const price = localStorage.getItem("price");
+    const token = localStorage.getItem("token");
+    setToken(token);
     setPrice(price);
     if (!detailsRef.current) return;
 
@@ -46,6 +49,12 @@ const FatorahClient = () => {
   };
 
   const paymentGetway = () => {
+    if (userName === "" && email === "" && phone === "") {
+      alert("يجب ملئ جميع البيانات اولا");
+    }
+    if (!token) {
+      alert("يجب تسجيل الدخول اولا");
+    }
     const data = {
       email,
       name: userName,

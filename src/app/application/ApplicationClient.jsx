@@ -1,22 +1,29 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./application.css";
 import { useSearchParams } from "next/navigation";
 import ApplicationApi from "@/API/Application/ApplicationApi.api";
 import Validator from "./Validator";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const ApplicationClient = () => {
+  const router = useRouter();
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false); // حالة لعرض الموديل
-
-  const type = localStorage.getItem("type");
+  const [type, setType] = useState("");
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
-  if (!type) {
-    router.push("/");
-  }
+  useEffect(() => {
+    const type = localStorage.getItem("type");
+    if (!type) {
+      router.push("/");
+    } else {
+      setType(type);
+    }
+  }, []);
 
   const [step, setStep] = useState(0);
   const [animation, setAnimation] = useState("fade-in");

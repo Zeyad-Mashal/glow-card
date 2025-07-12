@@ -3,8 +3,9 @@ import React, { useState, useEffect } from "react";
 import "./profile.css";
 import InvitationCode from "@/API/InvitationCode/InvitationCode";
 import { Lang } from "@/Lang/lang";
-import { Carousel } from "flowbite-react";
 import GetCardInfo from "@/API/CardInfo/GetCardInfo";
+import ActivateCards from "@/API/ActivateCards/ActivateCards";
+import Link from "next/link";
 const Profile = () => {
   const [selectedLanguage, setSelectedLanguage] = useState("ar");
   const [phone, setPhone] = useState("");
@@ -13,6 +14,7 @@ const Profile = () => {
     setSelectedLanguage(lang);
     getInviteCode();
     getCardInfo();
+    getAllCardsActivations();
     const phone = localStorage.getItem("phone");
     setPhone(phone);
   }, []);
@@ -29,6 +31,7 @@ const Profile = () => {
   const [dragOffset, setDragOffset] = useState(0); // للمؤثر البصري أثناء السحب
   const [isDragging, setIsDragging] = useState(false);
   const [cardInfo, setCardInfo] = useState([]);
+  const [allCardsActivations, setAllCardsActivations] = useState([]);
   useEffect(() => {
     setWindowWidth(window.innerWidth);
 
@@ -92,6 +95,10 @@ const Profile = () => {
     }, 500);
   };
 
+  const getAllCardsActivations = () => {
+    ActivateCards(setLoading, setError, setAllCardsActivations);
+  };
+
   return (
     <div className="profile">
       <div className="profile_container">
@@ -109,6 +116,14 @@ const Profile = () => {
                 onClick={() => handleTabClick("card_info")}
               >
                 {langValue["cardInfo"]}
+              </div>
+              <div
+                className={`controller_tab ${
+                  activeTab === "activation" ? "active" : ""
+                }`}
+                onClick={() => handleTabClick("activation")}
+              >
+                activation
               </div>
               <div
                 className={`controller_tab ${
@@ -256,6 +271,30 @@ const Profile = () => {
                       <span>{cardInfo[0]?.expiryDate}</span>
                       <p>Expire date</p>
                     </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {activeTab === "activation" && (
+              <div className="activation">
+                <div className="activation_container">
+                  <div className="activation_list">
+                    {allCardsActivations.map((item, index) => {
+                      return (
+                        <div className="activation_item" key={index}>
+                          <Link href={`/application?id=${item._id}`}>
+                            <div className="card_name">
+                              <h3>{item.product.name.ar}</h3>
+                              <p>{item.product.type}</p>
+                            </div>
+                            <div className="card_price">
+                              {item.totalPrice} ر.س
+                            </div>
+                          </Link>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               </div>

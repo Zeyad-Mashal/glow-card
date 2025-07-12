@@ -66,14 +66,16 @@ const Navbar = () => {
 
   const routController = () => {
     const cityname = JSON.parse(localStorage.getItem("user_city"));
-    const name = cityname.name;
-    const cityId = cityname.id;
-    // setCityName(name);
-    if (name === "الرياض" || name === "جده") {
-      return `/central?id=${cityId}`;
-    } else {
-      return `/network?id=${cityId}`;
+    if (cityname) {
+      const name = cityname.name;
+      const cityId = cityname.id;
+      if (name === "الرياض" || name === "جده") {
+        return `/central?id=${cityId}`;
+      } else {
+        return `/network?id=${cityId}`;
+      }
     }
+    // setCityName(name);
   };
   useEffect(() => {
     setPath(routController());
