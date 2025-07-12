@@ -328,6 +328,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 .activation_list {
   width: 100%;
@@ -342,16 +343,13 @@ body {
   border-radius: 10px;
   width: 100%;
     padding: 10px;
+      display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .activation_item:hover {
   background-color: #ddd;
   cursor: pointer;
-}
-.activation_item a {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 .card_name {
   display: flex;
@@ -367,6 +365,18 @@ body {
 }
 .card_price {
   font-weight: bold;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+}
+.card_price span {
+  background-color: #28a745;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 10px;
+  font-size: 0.9rem;
 }
 /* استجابة الموبايل */
 @media (max-width: 768px) {

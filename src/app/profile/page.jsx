@@ -54,6 +54,16 @@ const Profile = () => {
     });
   };
 
+  const handleGiftCopy = (giftId) => {
+    const link = `https://www.glowcard.com.sa/gift?gift=${giftId}`;
+    navigator.clipboard.writeText(link).then(() => {
+      setToastMessage("تم نسخ الرابط بنجاح!");
+      setTimeout(() => {
+        setToastMessage("");
+      }, 3000);
+    });
+  };
+
   const handleTabClick = (tab) => {
     setActiveTab(tab);
     if (windowWidth < 768) {
@@ -290,23 +300,30 @@ const Profile = () => {
                   <div className="activation_list">
                     {allCardsActivations.map((item, index) => {
                       return (
-                        <div
-                          className="activation_item"
-                          key={index}
-                          onClick={() =>
-                            goToActivate(
-                              item.product._id,
-                              item._id,
-                              item.product.type
-                            )
-                          }
-                        >
-                          <div className="card_name">
+                        <div className="activation_item" key={index}>
+                          <div
+                            className="card_name"
+                            onClick={() =>
+                              goToActivate(
+                                item.product._id,
+                                item._id,
+                                item.product.type
+                              )
+                            }
+                          >
                             <h3>{item.product.name.ar}</h3>
                             <p>{item.product.type}</p>
                           </div>
                           <div className="card_price">
                             {item.totalPrice} ر.س
+                            <span onClick={() => handleGiftCopy(item._id)}>
+                              نسخ رابط الهديه
+                            </span>
+                            {toastMessage && (
+                              <div className="toast">
+                                <p>{toastMessage}</p>
+                              </div>
+                            )}
                           </div>
                         </div>
                       );
