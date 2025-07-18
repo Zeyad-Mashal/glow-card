@@ -166,7 +166,13 @@ export default function CardDetailsClient() {
             <div className="cards_list">
               {allCards.map((card, index) => {
                 return (
-                  <div className="card_item" key={index}>
+                  <div
+                    className="card_item"
+                    key={index}
+                    onClick={() =>
+                      goToApplication(card._id, card.type, card.price)
+                    }
+                  >
                     <Image
                       src={card.images[0]}
                       width={300}

@@ -196,6 +196,23 @@
   direction: ltr;
   padding-left: 2.8rem;
 }
+.cardType {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items:center;
+  border-bottom: #001f3f dashed 1px;
+  padding-bottom: 1rem;
+}
+.cardType > h3 {
+  font-weight: bold;
+}
+.cardType > p {
+  background-color: #001f3f;
+  color: #fff;
+  padding: 5px 15px;
+  border-radius: 6px;
+}
 @media (max-width: 789px) {
     .fatorah_container> h1 {
         margin-top: 3rem;

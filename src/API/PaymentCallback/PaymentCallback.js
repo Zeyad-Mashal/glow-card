@@ -12,6 +12,7 @@ const PaymentCallback = async (setloading, setModel, setLoadingModel, setModelEr
             },
         });
         const result = await response.json();
+
         if (response.ok) {
             setModel(true)
             setLoadingModel(false)

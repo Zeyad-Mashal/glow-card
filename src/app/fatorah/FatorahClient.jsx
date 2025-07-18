@@ -22,6 +22,7 @@ const FatorahClient = () => {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [token, setToken] = useState();
+  const [cardType, setCardType] = useState();
 
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
@@ -29,8 +30,10 @@ const FatorahClient = () => {
   useEffect(() => {
     const price = localStorage.getItem("price");
     const token = localStorage.getItem("token");
+    const cardType = localStorage.getItem("type");
     setToken(token);
     setPrice(price);
+    setCardType(cardType);
     if (!detailsRef.current) return;
 
     if (detailsOpen) {
@@ -118,6 +121,11 @@ const FatorahClient = () => {
                 {error && <p className="error">{error}</p>}
               </div>
             )}
+          </div>
+
+          <div className="cardType">
+            <h3>نوع البطاقه</h3>
+            <p>{cardType}</p>
           </div>
 
           <button
