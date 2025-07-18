@@ -79,10 +79,6 @@ const FatorahClient = () => {
             <span>{price} ر.س</span>
           </div>
           <div className="detail1">
-            <p>تكلفة الشحن</p>
-            <span>20 ر.س</span>
-          </div>
-          <div className="detail1">
             <p>ضريبة القيمة المضافة</p>
             <span>15 ر.س</span>
           </div>
