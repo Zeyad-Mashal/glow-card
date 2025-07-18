@@ -19,7 +19,7 @@ const PaymentCallback = async (setloading, setModel, setLoadingModel, setModelEr
 
             setTimeout(() => {
                 window.location.href = "/"
-            }, 400000);
+            }, 4000);
         } else {
             if (response.status == 404) {
                 setloading(false);
