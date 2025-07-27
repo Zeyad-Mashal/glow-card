@@ -3,10 +3,12 @@ import React, { useState, useEffect } from "react";
 import "./Join.css";
 import { Lang } from "@/Lang/lang";
 import JoinUs from "@/API/Join/JoinUs";
+import getCategories from "@/API/Category/getCategories.api";
 const Join = () => {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [loading, setloading] = useState(false);
   const [error, setError] = useState("");
+  const [allCategories, setAllCategories] = useState([]);
   const [formData, setFormData] = useState({
     fullName: "",
     phone: "",
@@ -59,9 +61,98 @@ const Join = () => {
   useEffect(() => {
     const lang = localStorage.getItem("lang") || "ar";
     setSelectedLanguage(lang);
+    getAllFilters();
   }, []);
 
   const langValue = Lang[selectedLanguage];
+
+  const getAllFilters = () => {
+    getCategories(setloading, setError, setAllCategories);
+  };
+
+  const cities = [
+    "الرياض",
+    "جدة",
+    "مكة المكرمة",
+    "المدينة المنورة",
+    "الدمام",
+    "الخبر",
+    "الظهران",
+    "الجبيل",
+    "القطيف",
+    "الأحساء",
+    "الهفوف",
+    "الطائف",
+    "ينبع",
+    "تبوك",
+    "حائل",
+    "عرعر",
+    "سكاكا",
+    "الجوف",
+    "نجران",
+    "جازان",
+    "أبها",
+    "خميس مشيط",
+    "بيشة",
+    "الباحة",
+    "القنفذة",
+    "صبيا",
+    "محايل عسير",
+    "شرورة",
+    "رفحاء",
+    "طبرجل",
+    "المجمعة",
+    "الزلفي",
+    "الدوادمي",
+    "عنيزة",
+    "بريدة",
+    "الرس",
+    "الخرج",
+    "وادي الدواسر",
+    "السليل",
+    "الحوطة",
+    "ليلى",
+    "رنية",
+    "تربة",
+    "المهد",
+    "العلا",
+    "خيبر",
+    "رابغ",
+    "بحرة",
+    "الليث",
+    "الخرمة",
+    "بارق",
+    "النماص",
+    "بلقرن",
+    "تنومة",
+    "رجال ألمع",
+    "أحد رفيدة",
+    "ظهران الجنوب",
+    "الحرجة",
+    "المضة",
+    "بللسمر",
+    "بللحمر",
+    "المجاردة",
+    "العيدابي",
+    "الدرب",
+    "ضمد",
+    "أبوعريش",
+    "صامطة",
+    "فرسان",
+    "العارضة",
+    "الريث",
+    "فيفاء",
+    "بدر",
+    "البدائع",
+    "رياض الخبراء",
+    "عيون الجواء",
+    "الشماسية",
+  ];
+
+  const [search, setSearch] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
+
+  const filteredCities = cities.filter((city) => city.includes(search));
 
   return (
     <div className="join">
@@ -111,7 +202,7 @@ const Join = () => {
               <input
                 type="email"
                 name="email"
-                placeholder="glowcard@gmail.com"
+                placeholder="example@gmail.com"
                 className="join_input"
                 value={formData.email}
                 onChange={handleInputChange}
@@ -120,19 +211,31 @@ const Join = () => {
             </label>
 
             {/* المدينة */}
-            <label>
-              <span>المدينه</span>
+            <label className="city-label">
+              <span>المدينة</span>
+              <input
+                type="text"
+                placeholder="ابحث عن المدينة"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                style={{ width: "100%", padding: "5px" }}
+              />
               <select
                 name="city"
                 value={formData.city}
                 onChange={handleInputChange}
                 required
+                style={{ width: "100%", padding: "5px" }}
               >
-                <option value="">اختر المدينه</option>
-                <option value="الرياض">الرياض</option>
-                <option value="جده">جده</option>
+                <option value="">اختر المدينة</option>
+                {filteredCities.map((city, index) => (
+                  <option key={index} value={city}>
+                    {city}
+                  </option>
+                ))}
               </select>
             </label>
+
             <label>
               <span>رسالتك</span>
               <textarea
@@ -147,33 +250,19 @@ const Join = () => {
               <span>التخصصات:</span>
 
               <div className="category">
-                <input
-                  type="checkbox"
-                  value="تخصص 1"
-                  onChange={handleCategoryChange}
-                  checked={selectedCategories.includes("تخصص 1")}
-                />
-                <span>تخصص 1</span>
-              </div>
-
-              <div className="category">
-                <input
-                  type="checkbox"
-                  value="تخصص 2"
-                  onChange={handleCategoryChange}
-                  checked={selectedCategories.includes("تخصص 2")}
-                />
-                <span>تخصص 2</span>
-              </div>
-
-              <div className="category">
-                <input
-                  type="checkbox"
-                  value="تخصص 3"
-                  onChange={handleCategoryChange}
-                  checked={selectedCategories.includes("تخصص 3")}
-                />
-                <span>تخصص 3</span>
+                {allCategories.map((category, index) => {
+                  return (
+                    <div key={index} className="category-item">
+                      <input
+                        type="checkbox"
+                        value={category.name}
+                        onChange={handleCategoryChange}
+                        checked={selectedCategories.includes(category.name)}
+                      />
+                      <span>{category.name}</span>
+                    </div>
+                  );
+                })}
               </div>
             </label>
 

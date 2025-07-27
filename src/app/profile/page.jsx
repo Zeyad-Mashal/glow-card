@@ -141,7 +141,7 @@ const Profile = () => {
                 }`}
                 onClick={() => handleTabClick("activation")}
               >
-                activation
+                تفعيل البطاقات
               </div>
               <div
                 className={`controller_tab ${
@@ -178,118 +178,56 @@ const Profile = () => {
             {activeTab === "card_info" && (
               <div className="profile_content_card card_info">
                 <h2>{langValue["cardInfo"]}</h2>
-                {cardInfo.length > 0
-                  ? cardInfo.map((item, index) => {
-                      return (
+
+                <div className="card_details_list">
+                  {cardInfo.map((card, index) => (
+                    <div key={index} className="card_info">
+                      <div className="card_info_item">
                         <div
-                          key={index}
-                          className="w-full flex justify-center items-center h-56 sm:h-64 xl:h-80 2xl:h-96 relative rounded-xl"
-                          onMouseDown={(e) => {
-                            setDragStartX(e.clientX);
-                            setIsDragging(true);
+                          className={`card_info_image ${
+                            isDragging ? "cursor-grabbing" : "cursor-pointer"
+                          }`}
+                          style={{
+                            transform: `translateX(${dragOffset}px)`, // إضافة تأثير السحب باستخدام translateX
                           }}
-                          onMouseMove={(e) => {
-                            if (isDragging) {
-                              setDragOffset(e.clientX - dragStartX); // تحديث المؤثر البصري أثناء السحب
-                            }
-                          }}
-                          onMouseUp={(e) => {
-                            const diff = e.clientX - dragStartX;
-                            if (diff > 50) goToPrev(); // إذا تم السحب لليمين
-                            else if (diff < -50) goToNext(); // إذا تم السحب لليسار
-
-                            // إيقاف السحب
-                            setIsDragging(false);
-                            setDragOffset(0); // إعادة تعيين المؤثر البصري بعد السحب
-                          }}
-                          onMouseLeave={() => {
-                            // إيقاف السحب إذا ترك المستخدم العنصر
-                            setIsDragging(false);
-                            setDragOffset(0);
-                          }}
-                          // دعم للمس (Touch events) على الموبايل
-                          onTouchStart={(e) => {
-                            setDragStartX(e.touches[0].clientX);
-                            setIsDragging(true);
-                          }}
-                          onTouchMove={(e) => {
-                            if (isDragging) {
-                              setDragOffset(e.touches[0].clientX - dragStartX); // تحديث المؤثر البصري أثناء السحب
-                            }
-                          }}
-                          onTouchEnd={(e) => {
-                            const diff =
-                              e.changedTouches[0].clientX - dragStartX;
-                            if (diff > 50) goToPrev(); // إذا تم السحب لليمين
-                            else if (diff < -50) goToNext(); // إذا تم السحب لليسار
-
-                            // إيقاف السحب
-                            setIsDragging(false);
-                            setDragOffset(0); // إعادة تعيين المؤثر البصري بعد السحب
-                          }}
+                          draggable={false}
                         >
-                          <div
-                            className={`card_info ${
-                              isDragging ? "cursor-grabbing" : "cursor-pointer"
-                            }`}
-                            style={{
-                              transform: `translateX(${dragOffset}px)`, // إضافة تأثير السحب باستخدام translateX
-                            }}
-                            draggable={false}
-                          >
-                            <img
-                              src="/images/frontempety.png"
-                              alt={`Slide ${current}`}
-                            />
-                            <div className="card_info_content">
-                              <h2 style={{ direction: "ltr" }}>
-                                {item.code.match(/.{1,2}/g).join(" ")}
-                              </h2>
-                              <h3>Name: {item.name}</h3>
-                              <h3>Discount: {item.discount}</h3>
-                              <div className="card_info_content_date">
-                                <p>Ex Date: {item.expiryDate}</p>
-                                <p>start Date: {item.activationDate}</p>
-                              </div>
+                          <img
+                            src="/images/frontempety.png"
+                            alt={`Slide ${current}`}
+                          />
+                          <div className="card_info_content">
+                            <h2 style={{ direction: "ltr" }}>
+                              {card.code.match(/.{1,2}/g).join(" ")}
+                            </h2>
+                            <h3>Name: {card.name}</h3>
+                            <h3>Discount: {card.discount}</h3>
+                            <div className="card_info_content_date">
+                              <p>Ex Date: {card.expiryDate}</p>
+                              <p>start Date: {card.activationDate}</p>
                             </div>
                           </div>
-                          {/* الدوائر */}
-                          <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 flex space-x-2">
-                            {cardInfo.map((_, index) => (
-                              <div
-                                key={index}
-                                onClick={() => goToSlide(index)}
-                                className={`w-3 h-3 rounded-full cursor-pointer ${
-                                  current === index ? "bg-black" : "bg-gray-400"
-                                }`}
-                              ></div>
-                            ))}
-                          </div>
                         </div>
-                      );
-                    })
-                  : "لا يوجد بطاقات"}
+                        <h3>{card.type}</h3>
+                        <p>{card.name}</p>
 
-                <div className="card_info">
-                  <div className="card_info_item">
-                    <h3>{cardInfo[0]?.type}</h3>
-                    <p>{cardInfo[0]?.name}</p>
-
-                    <div className="card_info_item_date">
-                      <span className="codeNumber">
-                        {cardInfo[0]?.code.match(/.{1,2}/g).join(" ")}
-                      </span>
-                      <p>Code Number</p>
+                        <div className="card_info_item_date">
+                          <span className="codeNumber">
+                            {card.code?.match(/.{1,2}/g).join(" ")}
+                          </span>
+                          <p>Code Number</p>
+                        </div>
+                        <div className="card_info_item_date">
+                          <span>{card.activationDate}</span>
+                          <p>subscription date</p>
+                        </div>
+                        <div className="card_info_item_date">
+                          <span>{card.expiryDate}</span>
+                          <p>Expire date</p>
+                        </div>
+                      </div>
                     </div>
-                    <div className="card_info_item_date">
-                      <span>{cardInfo[0]?.activationDate}</span>
-                      <p>subscription date</p>
-                    </div>
-                    <div className="card_info_item_date">
-                      <span>{cardInfo[0]?.expiryDate}</span>
-                      <p>Expire date</p>
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
             )}

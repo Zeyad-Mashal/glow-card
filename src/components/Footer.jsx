@@ -27,14 +27,15 @@ const Footer = () => {
       <div className="footer_section1">
         <h1>Get In Touch</h1>
         <p>
-          <FontAwesomeIcon icon={faPhone} /> (480) 555-0103
+          <FontAwesomeIcon icon={faPhone} />{" "}
+          <a href="tel:++966512345678">512345678 966+ </a>
         </p>
         <p>
-          <FontAwesomeIcon icon={faLocationDot} /> 4517 Washington Ave.
-          Manchester, Kentucky 39495
+          <FontAwesomeIcon icon={faLocationDot} /> السعوديه, الرياض
         </p>
         <p>
-          <FontAwesomeIcon icon={faEnvelope} /> debra.holt@example.com
+          <FontAwesomeIcon icon={faEnvelope} />{" "}
+          <a href="mailto:+zyadomar112@gmail.com">glowcard1@gmail.com</a>
         </p>
       </div>
     </div>
