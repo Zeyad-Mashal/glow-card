@@ -8,7 +8,7 @@ export const Lang = {
     loginSubTitle2:
       "Get discounted prices at top medical centers without paying the full price.",
     home: "Home",
-    network: "Entity network",
+    network: "Medical Network",
     contactUs: "Contact Us",
     hero: "Save at trusted heatlth & beauty",
     heroBtn: "Join Now",
@@ -69,7 +69,7 @@ export const Lang = {
     loginSubTitle2:
       "احصل على أسعار مخفضة في أفضل المراكز الطبية دون دفع السعر الكامل.",
     home: "الرئيسية",
-    network: "شبكة الجهات",
+    network: "شبكة الطبيه",
     contactUs: "تواصل معنا",
     hero: "وفر في مراكز الصحة والجمال الموثوقة",
     heroBtn: "انضم الان",

@@ -209,7 +209,6 @@ const Join = () => {
                 required
               />
             </label>
-
             {/* المدينة */}
             <label className="city-label">
               <span>المدينة</span>

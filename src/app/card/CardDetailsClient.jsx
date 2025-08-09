@@ -55,7 +55,8 @@ export default function CardDetailsClient() {
   const goToApplication = (id, type, price) => {
     localStorage.setItem("type", type);
     localStorage.setItem("price", price);
-    router.push(`/card?id=${id}`);
+    router.push(`/fatorah?id=${id}`);
+    console.log("test");
   };
 
   const getAllCards = () => {
