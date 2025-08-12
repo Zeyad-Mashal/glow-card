@@ -4,7 +4,9 @@ import React, { useState, useRef, useEffect } from "react";
 import "./Fatorah.css";
 import ApplayCoupon from "@/API/Coupon/ApplayCoupon";
 import Payment from "@/API/Payment/Payment";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
+import ReactCountryFlag from "react-country-flag";
+import Select from "react-select";
 
 const FatorahClient = () => {
   const [showCouponInput, setShowCouponInput] = useState(false);
@@ -26,6 +28,7 @@ const FatorahClient = () => {
 
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
+  const router = useRouter();
 
   useEffect(() => {
     const price = localStorage.getItem("price");
@@ -56,7 +59,7 @@ const FatorahClient = () => {
       alert("يجب ملئ جميع البيانات اولا");
     }
     if (!token) {
-      alert("يجب تسجيل الدخول اولا");
+      router.push("/login");
     }
     const data = {
       email,
@@ -68,6 +71,43 @@ const FatorahClient = () => {
     };
     Payment(setloading, setError, data);
   };
+
+  const countries = [
+    { name: "Saudi Arabia", iso2: "SA", dial_code: "+966" },
+    { name: "United Arab Emirates", iso2: "AE", dial_code: "+971" },
+    { name: "Egypt", iso2: "EG", dial_code: "+20" },
+    { name: "Kuwait", iso2: "KW", dial_code: "+965" },
+    { name: "Qatar", iso2: "QA", dial_code: "+974" },
+    { name: "Bahrain", iso2: "BH", dial_code: "+973" },
+    { name: "Oman", iso2: "OM", dial_code: "+968" },
+    { name: "Jordan", iso2: "JO", dial_code: "+962" },
+    { name: "Lebanon", iso2: "LB", dial_code: "+961" },
+    { name: "Turkey", iso2: "TR", dial_code: "+90" },
+    { name: "India", iso2: "IN", dial_code: "+91" },
+    { name: "Pakistan", iso2: "PK", dial_code: "+92" },
+    { name: "Bangladesh", iso2: "BD", dial_code: "+880" },
+    { name: "Philippines", iso2: "PH", dial_code: "+63" },
+    { name: "Indonesia", iso2: "ID", dial_code: "+62" },
+    { name: "United States", iso2: "US", dial_code: "+1" },
+    { name: "United Kingdom", iso2: "GB", dial_code: "+44" },
+    { name: "Germany", iso2: "DE", dial_code: "+49" },
+    { name: "France", iso2: "FR", dial_code: "+33" },
+    { name: "China", iso2: "CN", dial_code: "+86" },
+  ];
+  const countryOptions = countries.map((c) => ({
+    value: c.dial_code,
+    label: (
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <ReactCountryFlag
+          countryCode={c.iso2}
+          svg
+          style={{ width: "1.5em", height: "1.5em", marginRight: "8px" }}
+        />
+        {c.dial_code}
+      </div>
+    ),
+  }));
+  const [selectedCode, setSelectedCode] = useState("+966");
 
   return (
     <div className="fatorah">
@@ -147,10 +187,28 @@ const FatorahClient = () => {
             </label>
             <label>
               <span>رقم الهاتف</span>
-              <div className="phoneNumber">
-                <p>+966</p>
+              <div
+                className="phoneNumber"
+                style={{ display: "flex", alignItems: "center" }}
+              >
+                <Select
+                  options={countryOptions}
+                  defaultValue={countryOptions.find(
+                    (opt) => opt.value === "+966"
+                  )}
+                  onChange={(selected) => setSelectedCode(selected.value)}
+                  styles={{
+                    control: (base) => ({
+                      ...base,
+                      minWidth: "100px",
+                      marginRight: "8px",
+                    }),
+                  }}
+                />
+
+                {/* حقل إدخال رقم الهاتف */}
                 <input
-                  type="number"
+                  type="text"
                   value={phone}
                   placeholder="5X XXX XXXX"
                   onChange={(e) => setPhone(e.target.value)}

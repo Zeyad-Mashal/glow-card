@@ -192,10 +192,9 @@
   left: 5px;
   direction: ltr;
 }
-.phoneNumber input {
+/* .phoneNumber input {
   direction: ltr;
-  padding-left: 2.8rem;
-}
+} */
 .cardType {
   width: 100%;
   display: flex;

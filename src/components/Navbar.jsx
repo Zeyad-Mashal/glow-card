@@ -187,12 +187,14 @@ const Navbar = () => {
             </li>
           </ul>
           <div className="nav_btns_desktop">
-            <FontAwesomeIcon
-              icon={faEarthAmericas}
-              onClick={toggleLanguage}
-              style={{ cursor: "pointer" }}
-            />
-            <span>{language}</span>
+            <div className="lang">
+              <FontAwesomeIcon
+                icon={faEarthAmericas}
+                onClick={toggleLanguage}
+                style={{ cursor: "pointer" }}
+              />
+              <span>{language}</span>
+            </div>
             {token ? (
               <a href="/profile" className="profileIcon">
                 <FontAwesomeIcon icon={faUser} />

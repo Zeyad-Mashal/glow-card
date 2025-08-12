@@ -64,7 +64,11 @@ const Features = () => {
           </div>
         </div>
         <div className="features_content">
-          <div className="features_content_item">
+          <div
+            className="features_content_item"
+            data-aos="zoom-in-up"
+            data-aos-delay="100"
+          >
             <div className="features_content_top">
               <FontAwesomeIcon icon={faPercent} />
               <h3>{langValue["featuresSub5"]}</h3>
@@ -72,7 +76,11 @@ const Features = () => {
 
             <p>{langValue["featuresSub6"]}</p>
           </div>
-          <div className="features_content_item">
+          <div
+            className="features_content_item"
+            data-aos="zoom-in-up"
+            data-aos-delay="200"
+          >
             <div className="features_content_top">
               <FontAwesomeIcon icon={faCommentsDollar} />{" "}
               <h3>{langValue["featuresSub7"]}</h3>
@@ -80,7 +88,11 @@ const Features = () => {
 
             <p>{langValue["featuresSub8"]}</p>
           </div>
-          <div className="features_content_item">
+          <div
+            className="features_content_item"
+            data-aos="zoom-in-up"
+            data-aos-delay="300"
+          >
             <div className="features_content_top">
               <FontAwesomeIcon icon={faReceipt} />{" "}
               <h3>{langValue["featuresSub9"]}</h3>

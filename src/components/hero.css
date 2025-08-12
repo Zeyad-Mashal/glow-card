@@ -1,6 +1,5 @@
 .hero {
   width: 100%;
-  height: 400px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -8,36 +7,60 @@
 }
 .hero_container {
   width: 100%;
-  height: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   padding: 0 20px;
    background: linear-gradient(
     to right,
-    #001f3f,  /* أزرق غامق */
-    #0074D9,  /* أزرق فاتح */
-    #001f3f   /* أزرق غامق */
+    #001f3f,  
+    #0074D9,  
+    #001f3f   
   );
   color: #fff;
+      /* background-image: url("/images/footer-bg.png");
+    background-size: cover;
+    background-position: bottom;
+    background-repeat: no-repeat;
+            background-color: #0074D9; */
+
 }
 .hero_content {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  gap: 2rem;
+  gap: 1rem;
 }
 .hero_content h1 {
   font-size: 2.2rem;
   font-weight: bold;
-  width: 300px;
+  width: 400px;
+}
+.hero_content p{
+  font-size: 1.2rem;
+  font-weight: bold;
+  width: 95%;
+  max-width: 450px;
+    transition: 0.3s ease;
+
 }
 .hero_content a {
   font-size: 1.2rem;
   border: 1px solid #fff;
   padding: 3px 10px;
-  border-radius: 16px;
+  border-radius: 10px;
+  width: 150px;
+  text-align: center;
+  transition: 0.3s ease;
+}
+.hero_content a:hover {
+  background-color: #fff;
+  color: #001f3f;
+}
+.hero_container > img {
+    margin-top: 3rem;
+
 }
 @media (max-width: 768px) {
   .hero {
@@ -61,4 +84,7 @@
     font-size: 1.8rem;
     width: 100%;
   }
+  .hero_container > img {
+    margin-top: 0rem;
+}
 }
