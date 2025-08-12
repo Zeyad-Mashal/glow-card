@@ -13,6 +13,7 @@ const CentralClient = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [regions, setRegions] = useState([]);
+  console.log(regions);
 
   useEffect(() => {
     if (id) {
@@ -28,9 +29,7 @@ const CentralClient = () => {
   return (
     <div className="central">
       <div className="central_container">
-        {regions.length > 0 && regions[0]?.city?.name?.ar && (
-          <h2>{regions[0].city.name.ar}</h2>
-        )}
+        <h2>{regions[0]?.name}</h2>
         <div className="central_list">
           {loading
             ? "Loading..."
