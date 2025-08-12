@@ -73,6 +73,10 @@
         padding: 1rem 0;
 
   }
+  .hero_container > img {
+    width: 220px;
+    height: auto;
+  }
   .hero_content {
     align-items: center;
     text-align: center;
