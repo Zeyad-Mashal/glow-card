@@ -59,6 +59,9 @@ export const Lang = {
     joinUs: "Join Us Now",
     success: "We Received Your Request Thanks",
     club: "Glow Club",
+    mdia: "Who Us ?",
+    submedia:
+      "Welcome to Glow Card where you can find all medical discount solutions.",
   },
   ar: {
     Login: "تسجيل دخول",
@@ -120,5 +123,7 @@ export const Lang = {
     joinUs: "انضم الينا الان",
     success: "تم إرسال الطلب بنجاح",
     club: "نادي جلو",
+    mdia: "من نحن ؟",
+    submedia: "مرحبا بكم في جلو كارد حيث يوجد جميع حلول الخصومات الطبيه",
   },
 };

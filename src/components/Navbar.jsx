@@ -158,6 +158,15 @@ const Navbar = () => {
             </li>
             <li>
               <Link
+                href="/media"
+                className={pathname === "/media" ? "active" : ""}
+                onClick={toggleMenu}
+              >
+                {langValue["mdia"]}
+              </Link>
+            </li>
+            <li>
+              <Link
                 href="/join"
                 className={pathname === "/join" ? "active" : ""}
               >
