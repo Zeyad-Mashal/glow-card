@@ -62,11 +62,11 @@ const Page = () => {
           <a href="https://instagram.com" target="_blank" rel="noreferrer">
             <FaInstagram />
           </a>
-          <a href="tel:05123456789" target="_blank" rel="noreferrer">
+          <a href="tel:+966542220888" target="_blank" rel="noreferrer">
             <FaPhoneAlt />
           </a>
           <a
-            href="mailto:glowcardinfo@gmail.com"
+            href="mailto:Info@glowcard.com.sa"
             target="_blank"
             rel="noreferrer"
           >

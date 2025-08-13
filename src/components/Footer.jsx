@@ -28,14 +28,14 @@ const Footer = () => {
         <h1>Get In Touch</h1>
         <p>
           <FontAwesomeIcon icon={faPhone} />{" "}
-          <a href="tel:++966512345678">512345678 966+ </a>
+          <a href="tel:+966542220888">+966542220888</a>
         </p>
         <p>
           <FontAwesomeIcon icon={faLocationDot} /> السعوديه, الرياض
         </p>
         <p>
           <FontAwesomeIcon icon={faEnvelope} />{" "}
-          <a href="mailto:+zyadomar112@gmail.com">glowcard1@gmail.com</a>
+          <a href="mailto:Info@glowcard.com.sa">Info@glowcard.com.sa</a>
         </p>
       </div>
     </div>
