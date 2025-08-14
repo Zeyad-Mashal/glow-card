@@ -201,7 +201,7 @@ const FatorahClient = () => {
                   styles={{
                     control: (base) => ({
                       ...base,
-                      minWidth: "100px",
+                      minWidth: "127px",
                       marginRight: "8px",
                     }),
                   }}

@@ -34,6 +34,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   padding: 1rem;
   width: 380px;
+
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -90,8 +91,11 @@
   }
 }
 @media screen and (max-width: 789px) {
-  .glow-cards_item {
+  .glow-cards_list > a {
     width: 45%;
+  }
+  .glow-cards_item {
+    width: 100%;
   }
   .glow-cards_list {
     gap: 1rem;
@@ -108,8 +112,8 @@
   } */
    .card_item_btn span {
     font-size: 0.8rem;}
-    .card_item_btn a {
-    font-size: 0.8rem;
-      padding: 0.2rem 0.6rem;
+    .card_item_btn button {
+    font-size: 0.5rem;
+      padding: 0.5rem 0.4rem; 
     }
 }

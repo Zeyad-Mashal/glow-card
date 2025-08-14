@@ -28,7 +28,7 @@ export default function CardDetailsClient() {
   const id = searchParams.get("id");
   const router = useRouter();
 
-  const [activeTab, setActiveTab] = useState("howItWorks");
+  const [activeTab, setActiveTab] = useState("description");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [cardDetails, setCardDetails] = useState({});
