@@ -6,15 +6,15 @@
     flex-direction: column;
     margin-top: 4rem;
 }
-.our-cards h1 {
-    font-size: 1.5rem;
+.our-cards > h1 {
+    font-size: 1rem;
     margin-bottom: 1rem;
     font-weight: bold;
     background-color: #001f3f;
     color: #fff;
     width: 200px;
     text-align: center;
-    padding: 5px 20px;
+    padding: 10px 20px;
     border-radius: 16px;
 }
 .cards_list {
@@ -104,9 +104,6 @@
   .our-cards {
     margin-top: 6rem;
   }
-    .our-cards h1 {
-        font-size: 1.5rem;
-    }
     .card_item {
         width: 45%;
     }

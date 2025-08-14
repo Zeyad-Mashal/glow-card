@@ -21,13 +21,12 @@ const OurCards = () => {
   };
   return (
     <div className="our-cards">
-      <h1>{allOffers.length <= 0 ? "" : "عروضنا"}</h1>
+      <h1>{allOffers.length <= 0 ? "لا يوجد عروض الان" : "عروضنا"}</h1>
       <div className="cards_list">
         {loading ? (
           "loading..."
         ) : allOffers.length <= 0 ? (
           <div className="no_offers">
-            <h1 className="notfound">لا يوجد عروض الان</h1>
             <p>انتظر اقوي العروض قريبا</p>
             <img src="/images/notfound.png" alt="" width={250} />
           </div>

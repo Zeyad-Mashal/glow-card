@@ -46,8 +46,8 @@ export const Lang = {
     cards: "Our Cards",
     offers: "Our Offers",
     aboutus: "About us",
-    join: "Add You Company",
-    new: "Newest",
+    join: "Add Your Company",
+    new: "Newest Added",
     banner1: "Use 'Glow1' code to get 10% OFF!",
     banner2: "Your Local Health Discount Hub",
     banner3:
