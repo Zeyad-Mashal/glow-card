@@ -20,8 +20,10 @@ const page = () => {
           <div className="about_content">
             <h2>Glow Card</h2>
             <p>{langValue["street"]}</p>
-            <p>Phone: 123-456-7890</p>
-            <a href="mailto:zyadomar112@gmail.com">glowcard@gmail.com</a>
+            <p>
+              <a href="tel:+966542220888">+966542220888</a>
+            </p>
+            <a href="mailto: Info@glowcard.com.sa"> Info@glowcard.com.sa</a>
           </div>
           <div className="about_image">
             <img src="/images/Family.png" alt="About Glow Card" />
@@ -34,10 +36,12 @@ const page = () => {
         </div>
         <div className="about_map">
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13643.909840480976!2d29.97767581131592!3d31.24904728899203!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14f5c52fadf4220f%3A0x7d08dceaad4557bd!2z2LPYp9mGINiz2KrZitmB2KfZhtmIINis2LHYp9mG2K8g2KjZhNin2LLYpw!5e0!3m2!1sar!2seg!4v1751119525270!5m2!1sar!2seg"
-            width="900"
-            height="850"
-            allowFullScreen="allowfullscreen"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d927758.0370684005!2d47.48205835058888!3d24.724997745509423!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2f03890d489399%3A0xba974d1c98e79fd5!2z2KfZhNix2YrYp9i2INin2YTYs9i52YjYr9mK2Kk!5e0!3m2!1sar!2seg!4v1755197947695!5m2!1sar!2seg"
+            style={{
+              width: "600",
+              height: "450",
+              border: "0",
+            }}
             loading="lazy"
           ></iframe>
         </div>

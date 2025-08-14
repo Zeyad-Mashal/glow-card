@@ -17,7 +17,7 @@ const Hero = () => {
   return (
     <div className="hero">
       <div className="hero_container">
-        <div className="hero_content">
+        {/* <div className="hero_content">
           <h1 data-aos="zoom-in-up" data-aos-delay="100">
             {langValue["hero"]}
           </h1>
@@ -36,7 +36,7 @@ const Hero = () => {
           alt="glow card hero image"
           data-aos="zoom-in-up"
           data-aos-delay="400"
-        />
+        /> */}
       </div>
     </div>
   );

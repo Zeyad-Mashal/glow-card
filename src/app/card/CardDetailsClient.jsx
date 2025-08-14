@@ -59,6 +59,13 @@ export default function CardDetailsClient() {
     console.log("test");
   };
 
+  const goToCard = (id, type, price) => {
+    localStorage.setItem("type", type);
+    localStorage.setItem("price", price);
+    router.push(`/card?id=${id}`);
+    console.log("test");
+  };
+
   const getAllCards = () => {
     GetCards(setLoading, setError, setAllCards);
   };
@@ -170,9 +177,7 @@ export default function CardDetailsClient() {
                   <div
                     className="card_item"
                     key={index}
-                    onClick={() =>
-                      goToApplication(card._id, card.type, card.price)
-                    }
+                    onClick={() => goToCard(card._id, card.type, card.price)}
                   >
                     <Image
                       src={card.images[0]}

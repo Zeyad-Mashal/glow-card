@@ -53,7 +53,7 @@ export const Lang = {
     banner3:
       "One card, easy to use – choose the card that suits your needs now!",
     banner4: "Discover",
-    street: "street 123, Jada",
+    street: " المملكة العربية السعودية ، الرياض",
     aboutusSub1:
       "Glow Card is a digital business card platform that allows you to create and share your professional identity with ease. Our mission is to help you connect with others and make a lasting impression in the digital world.",
     joinUs: "Join Us Now",
@@ -117,7 +117,7 @@ export const Lang = {
     banner3:
       "بطاقة واحدة، سهلة الاستخدام – اختر البطاقة التي تناسب احتياجاتك الآن!",
     banner4: "اكتشف",
-    street: "شارع 123, جده",
+    street: " المملكة العربية السعودية ، الرياض",
     aboutusSub1:
       "Glow Card هي منصة بطاقات أعمال رقمية تُمكّنك من إنشاء هويتك المهنية ومشاركتها بسهولة. مهمتنا هي مساعدتك على التواصل مع الآخرين وترك انطباع دائم في العالم الرقمي.",
     joinUs: "انضم الينا الان",

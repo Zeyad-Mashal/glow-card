@@ -14,7 +14,13 @@ const Google = async (setError, data, router) => {
 
         if (response.ok) {
             localStorage.setItem("token", result.token);
-            router.push(`/`);
+            const redirectUrl = localStorage.getItem("redirectAfterLogin");
+            if (redirectUrl) {
+                localStorage.removeItem("redirectAfterLogin");
+                router.push(redirectUrl);
+            } else {
+                router.push(`/`);
+            }
         } else {
             if (response.status == 403) {
                 setError(result.message)

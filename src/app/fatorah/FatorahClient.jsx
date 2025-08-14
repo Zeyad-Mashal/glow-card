@@ -59,6 +59,7 @@ const FatorahClient = () => {
       alert("يجب ملئ جميع البيانات اولا");
     }
     if (!token) {
+      localStorage.setItem("redirectAfterLogin", window.location.href);
       router.push("/login");
     }
     const data = {
