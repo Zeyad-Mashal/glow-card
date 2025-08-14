@@ -157,23 +157,6 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link
-                href="/media"
-                className={pathname === "/media" ? "active" : ""}
-                onClick={toggleMenu}
-              >
-                {langValue["mdia"]}
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/join"
-                className={pathname === "/join" ? "active" : ""}
-              >
-                {langValue["join"]}
-              </Link>
-            </li>
-            <li>
               <Link href="/new" className={pathname === "/new" ? "active" : ""}>
                 {langValue["new"]}
               </Link>
@@ -186,6 +169,15 @@ const Navbar = () => {
                 {langValue["club"]}
               </Link>
             </li>
+            <li>
+              <Link
+                href="/join"
+                className={pathname === "/join" ? "active" : ""}
+              >
+                {langValue["join"]}
+              </Link>
+            </li>
+
             <li>
               <Link
                 href="/contact"
@@ -317,15 +309,6 @@ const Navbar = () => {
             </li>
             <li>
               <Link
-                href="/join"
-                className={pathname === "/join" ? "active" : ""}
-                onClick={toggleMenu}
-              >
-                {langValue["join"]}
-              </Link>
-            </li>
-            <li>
-              <Link
                 href="/new"
                 className={pathname === "/new" ? "active" : ""}
                 onClick={toggleMenu}
@@ -342,6 +325,16 @@ const Navbar = () => {
                 {langValue["club"]}
               </Link>
             </li>
+            <li>
+              <Link
+                href="/join"
+                className={pathname === "/join" ? "active" : ""}
+                onClick={toggleMenu}
+              >
+                {langValue["join"]}
+              </Link>
+            </li>
+
             <li>
               <Link
                 href="/contact"

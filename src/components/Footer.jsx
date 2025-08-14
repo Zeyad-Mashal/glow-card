@@ -6,6 +6,7 @@ import {
   faEnvelope,
 } from "@fortawesome/free-solid-svg-icons";
 import "./Footer.css";
+import Link from "next/link";
 const Footer = () => {
   return (
     <div className="footer">
@@ -13,16 +14,14 @@ const Footer = () => {
         <img src="/images/logo.png" alt="" loading="lazy" />
       </div>
       <div className="footer_section1">
-        <h1>Company Info</h1>
-        <p>About Us</p>
-        <p>Carrier</p>
-        <p>We are hiring</p>
+        <h1>تفاصيل اخري</h1>
+        <Link href={"/offers"}>العروض</Link>
+        <Link href={"/media"}>من نحن</Link>
+        <a href="mailto:Info@glowcard.com.sa">التوظيف</a>
       </div>
       <div className="footer_section1">
-        <h1>Company Info</h1>
-        <p>About Us</p>
-        <p>Carrier</p>
-        <p>We are hiring</p>
+        <h1>بيانات الشركه</h1>
+        <Link href={"/about"}>عن جلو كارد</Link>
       </div>
       <div className="footer_section1">
         <h1>Get In Touch</h1>
@@ -31,7 +30,8 @@ const Footer = () => {
           <a href="tel:+966542220888">+966542220888</a>
         </p>
         <p>
-          <FontAwesomeIcon icon={faLocationDot} /> السعوديه, الرياض
+          <FontAwesomeIcon icon={faLocationDot} /> المملكة العربية
+          السعودية ، الرياض
         </p>
         <p>
           <FontAwesomeIcon icon={faEnvelope} />{" "}

@@ -34,28 +34,27 @@ const GlowCards = () => {
         <div className="glow-cards_list">
           {allCards.map((card, index) => {
             return (
-              <div
-                key={card._id}
-                className="glow-cards_item"
-                data-aos="fade-up"
-                data-aos-delay={index * 200}
-              >
-                <img src={card.images[0]} alt="" loading="lazy" />
-                <h3>{card.name}</h3>
-                <div className="card_item_btn">
-                  <span>
-                    {card.type === "Custom" ? "اطلب الان" : card.price}
-                    {card.type === "Custom" ? (
-                      ""
-                    ) : (
-                      <img src="/images/reyal.png" alt="reyal currancy" />
-                    )}
-                  </span>
-                  <Link href={`/card?id=${card._id}`}>
-                    {langValue["cityBtn"]}
-                  </Link>
+              <Link href={`/card?id=${card._id}`} key={card._id}>
+                <div
+                  className="glow-cards_item"
+                  data-aos="fade-up"
+                  data-aos-delay={index * 200}
+                >
+                  <img src={card.images[0]} alt="" loading="lazy" />
+                  <h3>{card.name}</h3>
+                  <div className="card_item_btn">
+                    <span>
+                      {card.type === "Custom" ? "اطلب الان" : card.price}
+                      {card.type === "Custom" ? (
+                        ""
+                      ) : (
+                        <img src="/images/reyal.png" alt="reyal currancy" />
+                      )}
+                    </span>
+                    <button>{langValue["cityBtn"]}</button>
+                  </div>
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>

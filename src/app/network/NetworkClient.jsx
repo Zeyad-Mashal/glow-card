@@ -188,8 +188,8 @@ const NetworkClient = () => {
                 data-aos="fade-up"
                 data-aos-delay={index * 100}
               >
-                <img src={item.images[0]} alt={item.name} />
                 <Link href={`/foundation-details?id=${item._id}`}>
+                  <img src={item.images[0]} alt={item.name} />
                   <h3>{item.name}</h3>
                 </Link>
               </div>
