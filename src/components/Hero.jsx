@@ -17,26 +17,17 @@ const Hero = () => {
   return (
     <div className="hero">
       <div className="hero_container">
-        {/* <div className="hero_content">
+        <div className="hero_content">
           <h1 data-aos="zoom-in-up" data-aos-delay="100">
             {langValue["hero"]}
           </h1>
           <p data-aos="zoom-in-up" data-aos-delay="250">
-            "استفيد بالخصومات الحصرية على أفضل المستشفيات والمراكز الصحية
-            والتجميلية"
+            {langValue["heroSub"]}
           </p>
           <Link href={"/our_cards"} data-aos="zoom-in-up" data-aos-delay="350">
             {langValue["heroBtn"]}
           </Link>
         </div>
-        <Image
-          src={"/images/heroai.png"}
-          width={450}
-          height={400}
-          alt="glow card hero image"
-          data-aos="zoom-in-up"
-          data-aos-delay="400"
-        /> */}
       </div>
     </div>
   );

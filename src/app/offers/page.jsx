@@ -12,6 +12,8 @@ const OurCards = () => {
   const [allOffers, setAllOffers] = useState([]);
   useEffect(() => {
     const lang = localStorage.getItem("lang") || "ar";
+    setSelectedLanguage(lang);
+
     getAllOffers();
   }, []);
   const langValue = Lang[selectedLanguage];
