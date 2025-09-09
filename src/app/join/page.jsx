@@ -4,6 +4,7 @@ import "./Join.css";
 import { Lang } from "@/Lang/lang";
 import JoinUs from "@/API/Join/JoinUs";
 import getCategories from "@/API/Category/getCategories.api";
+import Image from "next/image";
 const Join = () => {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [loading, setloading] = useState(false);
@@ -156,6 +157,14 @@ const Join = () => {
 
   return (
     <div className="join">
+      <div className="join_banner">
+        <Image
+          src={"/images/join.png"}
+          width={500}
+          height={200}
+          alt="join us banner"
+        />
+      </div>
       <div className="join_container">
         <h1>{langValue["joinUs"]}</h1>
 

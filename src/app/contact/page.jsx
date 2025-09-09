@@ -6,6 +6,7 @@ import {
   faLocationDot,
   faEnvelope,
 } from "@fortawesome/free-solid-svg-icons";
+import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 const page = () => {
   return (
     <div className="contact">
@@ -30,11 +31,23 @@ const page = () => {
                 <a href="tel:+966542220888">+966542220888</a>
               </p>
               <p>
-                <FontAwesomeIcon icon={faLocationDot} /> السعوديه, الرياض
+                <FontAwesomeIcon icon={faLocationDot} /> المملكه العربيه
+                السعوديه, الرياض
               </p>
               <p>
-                <FontAwesomeIcon icon={faEnvelope} />
+                <FontAwesomeIcon icon={faEnvelope} />{" "}
                 <a href="mailto:Info@glowcard.com.sa">Info@glowcard.com.sa</a>
+              </p>
+              <p>
+                <FontAwesomeIcon icon={faWhatsapp} aria-label="WhatsApp" />{" "}
+                <a
+                  href="https://wa.me/966542220888"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="contact-link"
+                >
+                  https://wa.me/966542220888
+                </a>
               </p>
             </div>
           </div>

@@ -37,11 +37,11 @@
 }
 
 .features_item {
-  width: 150px;
+  width: 300px;
   height: auto;
   text-align: center;
   border-radius: 15px;
-  padding: 1rem 0;
+  padding: 1rem 10px;
   background-color: #ecf8fe;
   color: #fff;
 }
@@ -127,7 +127,7 @@
   height: auto;
   text-align: center;
   border-radius: 15px;
-  padding: 1rem 0;
+  padding: 1rem 10px;
   background-color: #ecf8fe;
   color: #000; 
 }
