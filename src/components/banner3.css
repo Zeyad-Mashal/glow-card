@@ -46,3 +46,17 @@
     background-color: #fff;
     cursor: pointer;
 }
+@media (max-width: 689px) {
+    .banner3 h1 {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+    .banner3 p {
+        font-size: 1rem;
+    }
+    .banner3 button {
+        width: 120px;
+        font-size: 0.9rem;
+        padding: 8px;
+    }
+}

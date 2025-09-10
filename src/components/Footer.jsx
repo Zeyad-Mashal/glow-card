@@ -25,14 +25,14 @@ const Footer = () => {
       <div className="footer_section1">
         <h1>{langValue["other"]}</h1>
         <Link href={"/offers"}>{langValue["offers"]}</Link>
-        <Link href={"/media"}>{langValue["mdia"]}</Link>
-        <a href="mailto:Info@glowcard.com.sa">{langValue["career"]}</a>
+        <Link href={"/join"}>{langValue["join"]}</Link>
+        <Link href={"/contact"}>{langValue["contactUs"]}</Link>
       </div>
       <div className="footer_section1">
         <h1>{langValue["aboutcompany"]}</h1>
         <Link href={"/about"}>{langValue["aboutus"]}</Link>
-        <Link href={"/join"}>{langValue["join"]}</Link>
-        <Link href={"/contact"}>{langValue["contactUs"]}</Link>
+        <Link href={"/media"}>{langValue["mdia"]}</Link>
+        <a href="mailto:Info@glowcard.com.sa">{langValue["career"]}</a>
       </div>
       <div className="footer_section1">
         <h1>{langValue["contactUs"]}</h1>
