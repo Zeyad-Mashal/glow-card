@@ -1,10 +1,19 @@
 /* ======= التصميم القديم ======= */
 .glowClub {
-  margin-top: 5rem;
+  margin-top: 3.5rem;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+}
+.glowClub_banner {
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0;
+}
+.glowClub_banner img {
+  width: 100%;
 }
 .glowClub_container {
   width: 100%;
@@ -13,6 +22,7 @@
   align-items: center;
   flex-direction: column;
   gap: 1rem;
+  margin-bottom: 1rem;
 }
 .glowClub_container > h2 {
       font-size: 1.5rem;
@@ -133,6 +143,9 @@
   }
 }
 @media (max-width: 789px) {
+  .glowClub {
+    margin-top: 5.5rem;
+  }
     .glowClub_list {
         width: 95%;
     }

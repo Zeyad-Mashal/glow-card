@@ -4,7 +4,15 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin-top: 4rem;
+    margin-top: 0rem;
+}
+.offers_banner {
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0;
+}
+.offers_banner img {
+  width: 100% ;
 }
 .our-cards > h1 {
     font-size: 1rem;
@@ -102,7 +110,7 @@
 }
 @media screen and (max-width: 768px) {
   .our-cards {
-    margin-top: 6rem;
+    margin-top: 0rem;
   }
     .card_item {
         width: 45%;

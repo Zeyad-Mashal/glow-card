@@ -4,8 +4,15 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding: 2rem;
-    margin-top: 4rem;
+    margin-top: 2rem;
+}
+.new_banner {
+    width: 100%;
+    padding: 0;
+    margin-bottom: 1rem;
+}
+.new_banner img {
+    width: 100%;
 }
 .new_container {
     width: 100%;
@@ -60,4 +67,9 @@
 .new_item h2 {
     font-size: 1.2rem;
     margin: 0.5rem 0;
+}
+@media (max-width: 789px) {
+    .new {
+        margin-top: 5.5rem;
+    }
 }

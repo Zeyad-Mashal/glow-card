@@ -10,6 +10,7 @@ import {
 } from "react-icons/fa";
 import GetCards from "@/API/GetCards/GetCards.api";
 import { Lang } from "@/Lang/lang";
+import Image from "next/image";
 const Page = () => {
   const [selectedLanguage, setSelectedLanguage] = useState("ar");
   useEffect(() => {
@@ -30,6 +31,14 @@ const Page = () => {
 
   return (
     <div className="media">
+      <div className="media_banner">
+        <Image
+          src={"/images/glow card banners-06.png"}
+          width={1000}
+          height={500}
+          alt="about us banner"
+        />
+      </div>
       <div className="media_container">
         <h1>{langValue["mdia"]}</h1>
         <p>{langValue["submedia"]}</p>

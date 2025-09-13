@@ -4,6 +4,7 @@ import "./offers.css";
 import GetOffers from "@/API/GetOffers/GetOffers";
 import Link from "next/link";
 import { Lang } from "@/Lang/lang";
+import Image from "next/image";
 
 const OurCards = () => {
   const [selectedLanguage, setSelectedLanguage] = useState("ar");
@@ -23,6 +24,14 @@ const OurCards = () => {
   };
   return (
     <div className="our-cards">
+      <div className="offers_banner">
+        <Image
+          src={"/images/glow card banners-03.png"}
+          width={1000}
+          height={500}
+          alt="offers banner"
+        />
+      </div>
       <h1>{allOffers.length <= 0 ? "لا يوجد عروض الان" : "عروضنا"}</h1>
       <div className="cards_list">
         {loading ? (

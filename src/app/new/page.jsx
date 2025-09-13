@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import "./New.css";
 import Link from "next/link";
 import LatestFoundation from "@/API/LatestFoundation/LatestFoundation";
+import Image from "next/image";
 const page = () => {
   useEffect(() => {
     getLatestFoundations();
@@ -15,6 +16,14 @@ const page = () => {
   };
   return (
     <div className="new">
+      <div className="new_banner">
+        <Image
+          src={"/images/glow card banners-05.png"}
+          width={1000}
+          height={500}
+          alt="new foundations banner"
+        />
+      </div>
       <div className="new_container">
         <h1>انضم حديثا</h1>
         <div className="new_list">

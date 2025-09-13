@@ -6,7 +6,7 @@ import "./central.css";
 import Regions from "@/API/Regions/Regions.api";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-
+import Image from "next/image";
 const CentralClient = () => {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
@@ -28,6 +28,14 @@ const CentralClient = () => {
 
   return (
     <div className="central">
+      <div className="central_banner">
+        <Image
+          src={"/images/glow card banners-01.png"}
+          width={1000}
+          height={500}
+          alt="network banner"
+        />
+      </div>
       <div className="central_container">
         <h2>{regions[0]?.name}</h2>
         <div className="central_list">

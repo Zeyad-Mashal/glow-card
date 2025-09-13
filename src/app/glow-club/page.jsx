@@ -1,6 +1,7 @@
 "use client"; // لو كنت تعمل داخل مجلد app في Next.js
 import React, { useState } from "react";
 import "./glowClub.css";
+import Image from "next/image";
 
 const items = [
   { id: 1, title: "Glow Card", discount: "15%", code: "GLOW15" },
@@ -32,6 +33,14 @@ export default function GlowClubPage() {
   return (
     <>
       <div className="glowClub">
+        <div className="glowClub_banner">
+          <Image
+            src={"/images/glow card banners-04.png"}
+            width={1000}
+            height={500}
+            alt="glow club banner"
+          />
+        </div>
         <div className="glowClub_container">
           <h2>نادي جلو</h2>
 

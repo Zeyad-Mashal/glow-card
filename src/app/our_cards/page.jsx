@@ -4,6 +4,7 @@ import "./OurCards.css";
 import GetCards from "@/API/GetCards/GetCards.api";
 import Link from "next/link";
 import { Lang } from "@/Lang/lang";
+import Image from "next/image";
 
 const OurCards = () => {
   const [selectedLanguage, setSelectedLanguage] = useState("ar");
@@ -22,6 +23,14 @@ const OurCards = () => {
   };
   return (
     <div className="our-cards">
+      <div className="cards_banner">
+        <Image
+          src={"/images/glow card banners-02.png"}
+          width={1000}
+          height={500}
+          alt="cards banner"
+        />
+      </div>
       <h1>{langValue["cards"]}</h1>
       <div className="cards_list">
         {loading
