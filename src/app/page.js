@@ -1,7 +1,5 @@
-// src/app/page.js
-"use client";
-
-import Head from "next/head"; // or just use the layout.js in app directory
+'use client'
+import Head from "next/head";
 import Hero from "@/components/Hero";
 import Banner from "@/components/Banner";
 import Features from "@/components/Features";

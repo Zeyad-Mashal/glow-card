@@ -44,6 +44,24 @@ const Page = () => {
         <p>{langValue["submedia"]}</p>
         <video src={"/images/media.mp4"} controls loop autoPlay></video>
 
+        <div className="pdf_file">
+          <h2>{langValue["pdf"]}</h2>
+          <embed
+            src="/images/profile.pdf"
+            type="application/pdf"
+            width="100%"
+            height="500px"
+          />
+          <a
+            href="/images/profile.pdf"
+            target="_blank"
+            rel="noreferrer"
+            className="open_pdf_btn"
+          >
+            عرض الملف كامل
+          </a>
+        </div>
+
         <h3>{langValue["cards"]}</h3>
         <div className="media_gallery">
           {loading ? (

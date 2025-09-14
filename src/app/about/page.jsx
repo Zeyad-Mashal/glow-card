@@ -32,7 +32,8 @@ const page = () => {
         <div className="about_description">
           <h3>{langValue["aboutus"]}</h3>
           <p>{langValue["aboutusSub1"]}</p>
-          <p>{langValue["aboutusSub1"]}</p>
+          <p>{langValue["aboutusSub2"]}</p>
+          <p>{langValue["aboutusSub3"]}</p>
         </div>
         <div className="about_map">
           <iframe

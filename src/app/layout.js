@@ -2,6 +2,7 @@ import CityPopup from "@/components/CityPopup";
 import "./globals.css";
 import ConditionalNavbar from "@/components/ConditionalNavbar";
 import GoogleProviderWrapper from "@/components/GoogleProviderWrapper";
+import WhatsappButton from "@/components/WhatsappButton";
 
 export const metadata = {
   title: "Glow Card",
@@ -16,6 +17,7 @@ export default function RootLayout({ children }) {
           <ConditionalNavbar />
           <CityPopup />
           {children}
+          <WhatsappButton />
         </GoogleProviderWrapper>
       </body>
     </html>

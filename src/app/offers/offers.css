@@ -5,6 +5,7 @@
     align-items: center;
     flex-direction: column;
     margin-top: 0rem;
+        padding: 3.5rem 0 1rem 0;
 }
 .offers_banner {
   width: 100%;
@@ -111,6 +112,7 @@
 @media screen and (max-width: 768px) {
   .our-cards {
     margin-top: 0rem;
+        padding: 5.5rem 0 1rem 0;
   }
     .card_item {
         width: 45%;

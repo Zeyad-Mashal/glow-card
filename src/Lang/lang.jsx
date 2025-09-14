@@ -57,7 +57,11 @@ export const Lang = {
     banner4: "Discover",
     street: " المملكة العربية السعودية ، الرياض",
     aboutusSub1:
-      "Glow Card is a digital business card platform that allows you to create and share your professional identity with ease. Our mission is to help you connect with others and make a lasting impression in the digital world.",
+      "Glow Card is a digital discount card that builds strong and lasting partnerships between businesses and clients.",
+    aboutusSub2:
+      "We provide discounts of up to 70% across a wide network of clinics, beauty centers, wellness hubs, and health providers in the Kingdom.",
+    aboutusSub3:
+      "With Glow Card, you enjoy more than just savings—it’s your digital companion for beauty, wellness, and health.",
     joinUs: "Join Us Now",
     success: "We Received Your Request Thanks",
     club: "Glow Club",
@@ -67,6 +71,7 @@ export const Lang = {
     other: "Other Details",
     career: "Careers",
     location: "Saudi Arabia, Riyadh",
+    pdf: "Glow Card Portfolio",
   },
   ar: {
     Login: "تسجيل دخول",
@@ -126,7 +131,11 @@ export const Lang = {
     banner4: "اكتشف",
     street: " المملكة العربية السعودية ، الرياض",
     aboutusSub1:
-      "Glow Card هي منصة بطاقات أعمال رقمية تُمكّنك من إنشاء هويتك المهنية ومشاركتها بسهولة. مهمتنا هي مساعدتك على التواصل مع الآخرين وترك انطباع دائم في العالم الرقمي.",
+      "جلو كارد هي بطاقة خصومات رقمية تهدف إلى بناء شراكات ناجحة بين مختلف المؤسسات والعملاء",
+    aboutusSub2:
+      "‎نوفّر خصومات تصل حتى %70 ضمن شبكة واسعة من العيادات، مراكز التجميل، مراكز العناية بالصحة والرفاهية، والعديد من مقدّمي الخدمات في المملكة.",
+    aboutusSub3:
+      "مع جلو كارد، تحصل على أكثر من مجرد خصومات، فهي رفيقك الرقمي للجمال، الصحة، والرفاهية",
     joinUs: "انضم الينا الان",
     success: "تم إرسال الطلب بنجاح",
     club: "نادي جلو",
@@ -135,5 +144,6 @@ export const Lang = {
     other: "تفاصيل اخري",
     career: "التوظيف",
     location: "المملكة العربية السعودية ، الرياض",
+    pdf: "الملف لتعريفي",
   },
 };
