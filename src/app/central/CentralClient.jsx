@@ -13,12 +13,14 @@ const CentralClient = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [regions, setRegions] = useState([]);
-  console.log(regions);
+  const [lang, setLang] = useState("");
 
   useEffect(() => {
     if (id) {
       getAllRegions();
     }
+    let langToken = localStorage.getItem("lang");
+    setLang(langToken);
     AOS.init({ duration: 800, once: true });
   }, [id]);
 
@@ -29,12 +31,21 @@ const CentralClient = () => {
   return (
     <div className="central">
       <div className="central_banner">
-        <Image
-          src={"/images/glow card banners-01.png"}
-          width={1000}
-          height={500}
-          alt="network banner"
-        />
+        {lang === "ar" ? (
+          <Image
+            src={"/images/glow card banners-01.png"}
+            width={1000}
+            height={500}
+            alt="network banner"
+          />
+        ) : (
+          <Image
+            src={"/images/glow card banners-07.png"}
+            width={1000}
+            height={500}
+            alt="network banner"
+          />
+        )}
       </div>
       <div className="central_container">
         <h2>{regions[0]?.name}</h2>

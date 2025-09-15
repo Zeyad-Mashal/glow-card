@@ -25,12 +25,21 @@ const OurCards = () => {
   return (
     <div className="our-cards">
       <div className="offers_banner">
-        <Image
-          src={"/images/glow card banners-03.png"}
-          width={1000}
-          height={500}
-          alt="offers banner"
-        />
+        {selectedLanguage === "ar" ? (
+          <Image
+            src={"/images/glow card banners-03.png"}
+            width={1000}
+            height={500}
+            alt="offers banner"
+          />
+        ) : (
+          <Image
+            src={"/images/glow card banners-09.png"}
+            width={1000}
+            height={500}
+            alt="offers banner"
+          />
+        )}
       </div>
       <h1>{allOffers.length <= 0 ? "لا يوجد عروض الان" : "عروضنا"}</h1>
       <div className="cards_list">

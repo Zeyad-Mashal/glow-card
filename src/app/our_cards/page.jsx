@@ -11,8 +11,9 @@ const OurCards = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [allCards, setAllCards] = useState([]);
+
   useEffect(() => {
-    const lang = localStorage.getItem("lang") || "ar";
+    const lang = localStorage.getItem("lang");
     setSelectedLanguage(lang);
     getAllCArds();
   }, []);
@@ -24,12 +25,21 @@ const OurCards = () => {
   return (
     <div className="our-cards">
       <div className="cards_banner">
-        <Image
-          src={"/images/glow card banners-02.png"}
-          width={1000}
-          height={500}
-          alt="cards banner"
-        />
+        {selectedLanguage === "ar" ? (
+          <Image
+            src={"/images/glow card banners-02.png"}
+            width={1000}
+            height={500}
+            alt="cards banner"
+          />
+        ) : (
+          <Image
+            src={"/images/glow card banners-08.png"}
+            width={1000}
+            height={500}
+            alt="cards banner"
+          />
+        )}
       </div>
       <h1>{langValue["cards"]}</h1>
       <div className="cards_list">

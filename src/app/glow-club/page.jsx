@@ -1,5 +1,5 @@
 "use client"; // لو كنت تعمل داخل مجلد app في Next.js
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./glowClub.css";
 import Image from "next/image";
 
@@ -15,6 +15,7 @@ const items = [
 export default function GlowClubPage() {
   const [open, setOpen] = useState(false);
   const [current, setCurrent] = useState(null);
+  const [lang, setLang] = useState("");
 
   const handleClick = (item) => {
     setCurrent(item);
@@ -29,17 +30,30 @@ export default function GlowClubPage() {
       alert("❌ لم يتم النسخ، جرّب يدويًا.");
     }
   };
+  useEffect(() => {
+    const langToken = localStorage.getItem("lang");
+    setLang(langToken);
+  }, []);
 
   return (
     <>
       <div className="glowClub">
         <div className="glowClub_banner">
-          <Image
-            src={"/images/glow card banners-04.png"}
-            width={1000}
-            height={500}
-            alt="glow club banner"
-          />
+          {lang === "ar" ? (
+            <Image
+              src={"/images/glow card banners-04.png"}
+              width={1000}
+              height={500}
+              alt="glow club banner"
+            />
+          ) : (
+            <Image
+              src={"/images/glow card banners-10.png"}
+              width={1000}
+              height={500}
+              alt="glow club banner"
+            />
+          )}
         </div>
         <div className="glowClub_container">
           <h2>نادي جلو</h2>

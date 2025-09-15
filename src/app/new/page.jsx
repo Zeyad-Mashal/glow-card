@@ -7,22 +7,35 @@ import Image from "next/image";
 const page = () => {
   useEffect(() => {
     getLatestFoundations();
+    let langToken = localStorage.getItem("lang");
+    setLang(langToken);
   }, []);
   const [loading, setloading] = useState(false);
   const [error, setError] = useState("");
   const [allLatestFoundation, setAllLatestFoundation] = useState([]);
+  const [lang, setLang] = useState("");
+
   const getLatestFoundations = () => {
     LatestFoundation(setloading, setError, setAllLatestFoundation);
   };
   return (
     <div className="new">
       <div className="new_banner">
-        <Image
-          src={"/images/glow card banners-05.png"}
-          width={1000}
-          height={500}
-          alt="new foundations banner"
-        />
+        {lang === "ar" ? (
+          <Image
+            src={"/images/glow card banners-05.png"}
+            width={1000}
+            height={500}
+            alt="new foundations banner"
+          />
+        ) : (
+          <Image
+            src={"/images/glow card banners-11.png"}
+            width={1000}
+            height={500}
+            alt="new foundations banner"
+          />
+        )}
       </div>
       <div className="new_container">
         <h1>انضم حديثا</h1>

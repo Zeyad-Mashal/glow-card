@@ -32,12 +32,21 @@ const Page = () => {
   return (
     <div className="media">
       <div className="media_banner">
-        <Image
-          src={"/images/glow card banners-06.png"}
-          width={1000}
-          height={500}
-          alt="about us banner"
-        />
+        {selectedLanguage === "ar" ? (
+          <Image
+            src={"/images/glow card banners-06.png"}
+            width={1000}
+            height={500}
+            alt="about us banner"
+          />
+        ) : (
+          <Image
+            src={"/images/glow card banners-12.png"}
+            width={1000}
+            height={500}
+            alt="about us banner"
+          />
+        )}
       </div>
       <div className="media_container">
         <h1>{langValue["mdia"]}</h1>

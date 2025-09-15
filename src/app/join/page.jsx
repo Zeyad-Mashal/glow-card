@@ -158,12 +158,21 @@ const Join = () => {
   return (
     <div className="join">
       <div className="join_banner">
-        <Image
-          src={"/images/join.png"}
-          width={500}
-          height={200}
-          alt="join us banner"
-        />
+        {selectedLanguage === "ar" ? (
+          <Image
+            src={"/images/join.png"}
+            width={500}
+            height={200}
+            alt="join us banner"
+          />
+        ) : (
+          <Image
+            src={"/images/How to join glow card 2 english-01.png"}
+            width={500}
+            height={200}
+            alt="join us banner"
+          />
+        )}
       </div>
       <div className="join_container">
         <h1>{langValue["joinUs"]}</h1>
