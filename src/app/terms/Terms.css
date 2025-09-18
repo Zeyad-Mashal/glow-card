@@ -1,0 +1,31 @@
+.policy {
+    width: 100%;
+    background-color: #fff;
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    margin-top: 5rem;
+    padding: 1rem 4rem;
+}
+.policy > h1 {
+    font-weight: bold;
+    font-size: 2rem;
+    text-align: center;
+}
+.policy > p {
+    width: 100%;
+    max-width: 800px;
+}
+.policy > h2 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #0074D9;
+}
+.policy > ul li{
+    list-style: disc;
+}
+@media (max-width: 789px) {
+    .policy {
+        padding: 1rem 1.7rem;
+    }
+}

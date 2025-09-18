@@ -3,95 +3,77 @@ import React, { useState, useEffect } from "react";
 import "./policy.css";
 import { Lang } from "@/Lang/lang";
 
-const page = () => {
+const Page = () => {
   const [selectedLanguage, setSelectedLanguage] = useState("ar");
 
   useEffect(() => {
     const lang = localStorage.getItem("lang") || "ar";
     setSelectedLanguage(lang);
   }, []);
-  const langValue = Lang[selectedLanguage];
+
+  const t = Lang[selectedLanguage];
+
   return (
     <div className="policy">
-      <h1>سياسة الخصوصية</h1>
-      <span>تاريخ السريان: 2025/09/01</span>
+      <h1>{t.policyTitle}</h1>
+      <span>{t.policyDate}</span>
+      <p>{t.policyIntro}</p>
+
+      <h2>1. {t.policySection1Title}</h2>
+      <ul>
+        <li>{t.policySection1_1}</li>
+        <li>{t.policySection1_2}</li>
+        <li>{t.policySection1_3}</li>
+      </ul>
+
+      <h2>2. {t.policySection2Title}</h2>
+      <ul>
+        <li>{t.policySection2_1}</li>
+        <li>{t.policySection2_2}</li>
+        <li>{t.policySection2_3}</li>
+        <li>{t.policySection2_4}</li>
+      </ul>
+
+      <h2>3. {t.policySection3Title}</h2>
+      <p>{t.policySection3Intro}</p>
+      <ul>
+        <li>{t.policySection3_1}</li>
+        <li>{t.policySection3_2}</li>
+        <li>{t.policySection3_3}</li>
+      </ul>
+
+      <h2>4. {t.policySection4Title}</h2>
+      <ul>
+        <li>{t.policySection4_1}</li>
+        <li>{t.policySection4_2}</li>
+      </ul>
+
+      <h2>5. {t.policySection5Title}</h2>
+      <p>{t.policySection5Intro}</p>
+      <ul>
+        <li>{t.policySection5_1}</li>
+        <li>{t.policySection5_2}</li>
+        <li>{t.policySection5_3}</li>
+        <li>{t.policySection5_4}</li>
+      </ul>
+
+      <h2>6. {t.policySection6Title}</h2>
+      <ul>
+        <li>{t.policySection6_1}</li>
+      </ul>
+
+      <h2>7. {t.policySection7Title}</h2>
+      <ul>
+        <li>{t.policySection7_1}</li>
+      </ul>
+
+      <h2>8. {t.policySection8Title}</h2>
       <p>
-        نحن في Glow Card ملتزمون بحماية خصوصية وسرية بيانات عملائنا بما يتوافق
-        مع نظام حماية البيانات الشخصية في المملكة العربية السعودية واللوائح ذات
-        الصلة. باستخدامك لخدماتنا، فإنك توافق على هذه السياسة:
+        {t.policySection8Intro}{" "}
+        <a href="mailto:support@glowcard.com.sa">📩 support@glowcard.com.sa</a>
       </p>
-      <h2>1. المعلومات التي نجمعه </h2>
-      <ul>
-        <li>بيانات التعريف الشخصية: الاسم، البريد الإلكتروني، رقم الجوال.</li>
-        <li>
-          بيانات الدفع: تتم معالجة المدفوعات عبر مزودي دفع معتمدين وآمنين، ولا
-          نقوم بتخزين بيانات البطاقات البنكية.
-        </li>
-        <li>
-          بيانات الاستخدام: مثل سجل الاشتراكات، تفاعلك مع الخدمات، وزياراتك عبر
-          الموقع أو التطبيق.
-        </li>
-      </ul>
-      <h2>2. كيفية استخدام البيانات</h2>
-      <ul>
-        <li>كيفية استخدام البيانات</li>
-        <li>إدارة حسابك وتقديم الدعم الفني.</li>
-        <li>إرسال التنبيهات، التحديثات، والعروض الخاصة بالخدمة.</li>
-        <li>تحسين جودة الخدمات والتجربة الرقمية.</li>
-        <li>الالتزام بالمتطلبات القانونية والتنظيمية.</li>
-      </ul>
-      <h2>3. مشاركة البيانات</h2>• لا تتم مشاركة بياناتك مع أي طرف ثالث إلا في
-      الحالات التالية:
-      <ul>
-        <li>مع مزودي الخدمة الضروريين (مثل مزودي الدفع، الدعم الفني).</li>
-        <li>
-          عند وجود التزام قانوني أو طلب رسمي من الجهات المختصة في المملكة
-          العربية السعودية.
-        </li>
-        <li>لن يتم بيع أو تأجير بياناتك لأي جهة خارجية تحت أي ظرف.</li>
-      </ul>
-      <h2>4. حماية البيانات</h2>
-      <ul>
-        <li>
-          نتخذ إجراءات تقنية وتنظيمية صارمة لحماية بياناتك من الوصول غير المصرح
-          به، أو الاستخدام، أو التغيير، أو الإفشاء.
-        </li>
-        <li>
-          يتم التعامل مع جميع البيانات وفق أعلى معايير الأمان وبما يتوافق مع
-          اللوائح المحلية.
-        </li>
-      </ul>
-      <h2>5. حقوق المستخدم</h2>
-      وفقًا للأنظمة السعودية، يحق لك:
-      <ul>
-        <li>طلب الاطلاع على بياناتك الشخصية.</li>
-        <li>طلب تعديل أو تحديث بياناتك.</li>
-        <li>طلب حذف بياناتك (ما لم يكن الاحتفاظ بها مطلوبًا قانونيًا).</li>
-        <li>
-          سحب موافقتك على المعالجة في أي وقت (قد يؤثر ذلك على إمكانية استمرار
-          تقديم الخدمة).
-        </li>
-      </ul>
-      <h2>6. الاحتفاظ بالبيانات</h2>
-      <ul>
-        <li>
-          يتم الاحتفاظ ببياناتك فقط للمدة اللازمة لتحقيق الأغراض المذكورة أعلاه
-          أو حسب ما يقتضيه النظام.
-        </li>
-      </ul>
-      <h2>7. التعديلات على السياسة</h2>
-      <ul>
-        <li>
-          تحتفظ Glow Card بحقها في تحديث أو تعديل سياسة الخصوصية في أي وقت.
-          وسيتم إشعارك عبر التطبيق أو البريد الإلكتروني عند إجراء تغييرات
-          جوهرية.
-        </li>
-      </ul>
-      <h2>8. التواصل معنا</h2>
-      للاستفسارات أو ممارسة حقوقك المتعلقة ببياناتك، يرجى التواصل معنا عبر:
-      <a href="mailto:support@glowcard.com.sa">📩 support@glowcard.com.sa</a>
     </div>
   );
 };
 
-export default page;
+export default Page;
