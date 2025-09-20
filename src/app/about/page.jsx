@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuestion } from "@fortawesome/free-solid-svg-icons";
 import Footer from "@/components/Footer";
 import { Lang } from "@/Lang/lang";
+import Link from "next/link";
 const page = () => {
   const [selectedLanguage, setSelectedLanguage] = useState("ar");
 
@@ -47,36 +48,44 @@ const page = () => {
           ></iframe>
         </div>
         <div className="about_qest">
-          <div className="about_quest_item">
-            <div className="qest">
-              <FontAwesomeIcon icon={faQuestion} />
-              <h3>Have Questions?</h3>
+          <Link href={"/policy"}>
+            <div className="about_quest_item">
+              <div className="qest">
+                <FontAwesomeIcon icon={faQuestion} />
+                <h3>{langValue["policyTitle"]}</h3>
+              </div>
+              <p>{langValue["policyIntro"]}</p>
             </div>
-            <p>
-              If you have any questions or need assistance, feel free to reach
-              out to us at
-            </p>
-          </div>
-          <div className="about_quest_item">
-            <div className="qest">
-              <FontAwesomeIcon icon={faQuestion} />
-              <h3>Have Questions?</h3>
+          </Link>
+
+          <Link href={"terms"}>
+            <div className="about_quest_item">
+              <div className="qest">
+                <FontAwesomeIcon icon={faQuestion} />
+                <h3>{langValue["termsTitle"]}</h3>
+              </div>
+              <p>{langValue["termsSection1_1"]}</p>
             </div>
-            <p>
-              If you have any questions or need assistance, feel free to reach
-              out to us at
-            </p>
-          </div>
-          <div className="about_quest_item">
-            <div className="qest">
-              <FontAwesomeIcon icon={faQuestion} />
-              <h3>Have Questions?</h3>
+          </Link>
+
+          <Link href={"refund"}>
+            <div className="about_quest_item">
+              <div className="qest">
+                <FontAwesomeIcon icon={faQuestion} />
+                <h3>{langValue["returnTitle"]}</h3>
+              </div>
+              <p>{langValue["returnSection1_1"]}</p>
             </div>
-            <p>
-              If you have any questions or need assistance, feel free to reach
-              out to us at
-            </p>
-          </div>
+          </Link>
+          <Link href={"usage"}>
+            <div className="about_quest_item">
+              <div className="qest">
+                <FontAwesomeIcon icon={faQuestion} />
+                <h3>{langValue["salesTitle"]}</h3>
+              </div>
+              <p>{langValue["salesSection1_1"]}</p>
+            </div>
+          </Link>
         </div>
       </div>
       <Footer />

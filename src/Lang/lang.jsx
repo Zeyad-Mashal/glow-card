@@ -186,6 +186,80 @@ export const Lang = {
       "The subscription duration is determined according to the chosen package.",
     termsSection10_2:
       "Glow Card has the right to suspend or terminate a subscriber’s service if the terms are violated, without any financial liability.",
+    returnTitle: "Return and Refund Policy",
+
+    returnSection1Title: "1. No Refunds After Activation",
+    returnSection1_1:
+      "Subscribers are not entitled to refund or return the subscription fee once the digital card has been activated or used in any Glow Card service.",
+
+    returnSection2Title: "2. Grace Period Before Activation",
+    returnSection2_1:
+      "If the card is not activated within 7 days from the date of purchase, the customer is entitled to request a full refund.",
+    returnSection2_2:
+      "The refund will be processed using the same payment method within a maximum of 14 business days.",
+
+    returnSection3Title: "3. Technical Issues",
+    returnSection3_1:
+      "If a technical issue prevents the subscriber from using the card or accessing services, they are entitled to:",
+    returnSection3_2:
+      "Request technical support to resolve the issue, or request a replacement card.",
+    returnSection3_3:
+      "If the issue cannot be resolved, the customer is entitled to a full refund.",
+
+    returnSection4Title: "4. Exceptions",
+    returnSection4_1: "Refunds do not apply in cases resulting from:",
+    returnSection4_2:
+      "Incorrect data entered by the customer, unauthorized use, or violation of the terms and conditions.",
+    returnSection4_3:
+      "Issues caused by partner clinics or centers (service quality or appointments).",
+
+    returnSection5Title: "5. Refund Request Procedure",
+    returnSection5_1:
+      "The customer must submit an official request via email to: support@glowcard.com.sa, clearly stating the reason and attaching purchase details.",
+    returnSection5_2:
+      "Glow Card reserves the right to verify the validity of the request before approving a refund or replacement.",
+    salesTitle: "Sales and Usage Policy",
+
+    salesSection1Title: "1. Nature of the Cards",
+    salesSection1_1:
+      "All Glow Card subscriptions are 100% digital and are issued electronically via the website or application after successful payment.",
+    salesSection1_2: "No physical cards are shipped or delivered.",
+
+    salesSection2Title: "2. Subscription Start and Activation",
+    salesSection2_1:
+      "The subscription begins immediately upon payment confirmation and issuance of the digital card to the user.",
+    salesSection2_2:
+      "The subscription is personal, linked to the user’s account, and cannot be transferred or shared with others.",
+
+    salesSection3Title: "3. Prices and Fees",
+    salesSection3_1:
+      "All published prices include VAT applicable in the Kingdom of Saudi Arabia in accordance with the law.",
+    salesSection3_2:
+      "Glow Card reserves the right to modify subscription or package prices at any time, with official announcements made before application.",
+
+    salesSection4Title: "4. Permitted Usage",
+    salesSection4_1:
+      "Glow Card services are limited to enjoying discounts and offers within its contracted medical, cosmetic, and wellness network.",
+    salesSection4_2:
+      "Reselling the card or exploiting it for commercial or illegal purposes is strictly prohibited.",
+    salesSection4_3:
+      "Any violation of these terms will result in immediate subscription cancellation without refund.",
+
+    salesSection5Title: "5. No Refund or Cancellation",
+    salesSection5_1:
+      "Subscription fees are non-refundable once payment is completed and the digital card is activated, regardless of usage.",
+    salesSection5_2:
+      "Subscribers are not entitled to refunds in case of network changes, center removals, or discount modifications.",
+
+    salesSection6Title: "6. Network and Service Changes",
+    salesSection6_1:
+      "Glow Card reserves the right to add or remove any center or modify discounts within its network during the subscription period, subject to partner contract renewals or adjustments.",
+    salesSection6_2:
+      "Continued use of the card is considered implicit acceptance of these changes.",
+
+    salesSection7Title: "7. Liability",
+    salesSection7_1:
+      "Glow Card bears no responsibility for the quality of services provided by partner centers or clinics. Its role is limited to offering the discount card as a tool to connect subscribers with partners.",
   },
   ar: {
     Login: "تسجيل دخول",
@@ -369,5 +443,78 @@ export const Lang = {
     termsSection10_1: "مدة الاشتراك تُحدد وفق الباقة المختارة.",
     termsSection10_2:
       "لـ Glow Card الحق في إيقاف أو إنهاء الخدمة للمشترك في حال مخالفة الشروط دون التزام بأي تعويض مالي.",
+    returnTitle: "سياسة الإرجاع والاسترداد",
+
+    returnSection1Title: "1. عدم الاسترجاع بعد التفعيل",
+    returnSection1_1:
+      "لا يحق للمشترك استرجاع أو استرداد قيمة الاشتراك بعد تفعيل البطاقة الرقمية أو استخدامها في أي من خدمات Glow Card.",
+
+    returnSection2Title: "2. فترة السماح قبل التفعيل",
+    returnSection2_1:
+      "إذا لم يتم تفعيل البطاقة خلال 7 أيام من تاريخ الشراء، يحق للعميل طلب استرداد كامل المبلغ المدفوع.",
+    returnSection2_2:
+      "تتم عملية الاسترداد عبر نفس وسيلة الدفع المستخدمة، خلال مدة لا تتجاوز 14 يوم عمل.",
+
+    returnSection3Title: "3. المشكلات التقنية",
+    returnSection3_1:
+      "في حال وجود مشكلة تقنية تمنع المشترك من الاستفادة من البطاقة أو استخدام الخدمات بشكل كامل، يحق له:",
+    returnSection3_2:
+      "طلب حل المشكلة التقنية من فريق الدعم، أو استبدال البطاقة ببطاقة جديدة.",
+    returnSection3_3: "أو استرداد المبلغ كاملاً في حال تعذر الحل.",
+
+    returnSection4Title: "4. الاستثناءات",
+    returnSection4_1: "لا يشمل الاسترداد الحالات الناتجة عن:",
+    returnSection4_2:
+      "إدخال بيانات خاطئة من قبل العميل، استخدام غير مصرح به أو مخالف للشروط والأحكام.",
+    returnSection4_3:
+      "مشاكل ناتجة عن المراكز أو العيادات الشريكة (جودة الخدمة أو مواعيدها).",
+
+    returnSection5Title: "5. إجراءات طلب الاسترداد",
+    returnSection5_1:
+      "على العميل التقدم بطلب رسمي عبر البريد الإلكتروني المخصص: support@glowcard.com.sa مع توضيح سبب الطلب وإرفاق بيانات الشراء.",
+    returnSection5_2:
+      "تحتفظ Glow Card بحق التحقق من صحة الطلب قبل الموافقة على الاسترداد أو الاستبدال.",
+    salesTitle: "سياسة البيع والاستخدام",
+
+    salesSection1Title: "1. طبيعة البطاقات",
+    salesSection1_1:
+      "جميع بطاقات Glow Card رقمية 100%، ويتم إصدارها إلكترونيًا عبر الموقع أو التطبيق بعد إتمام الدفع بنجاح.",
+    salesSection1_2: "لا يتم شحن أو تسليم أي بطاقات مادية.",
+
+    salesSection2Title: "2. بدء الاشتراك وتفعيله",
+    salesSection2_1:
+      "يبدأ الاشتراك فور تأكيد عملية الدفع وإصدار البطاقة الرقمية للمستخدم.",
+    salesSection2_2:
+      "الاشتراك شخصي ومقترن بحساب المستخدم ولا يجوز مشاركته أو نقله للغير.",
+
+    salesSection3Title: "3. الأسعار والرسوم",
+    salesSection3_1:
+      "جميع الأسعار المعلنة تشمل ضريبة القيمة المضافة المطبقة في المملكة العربية السعودية وفق النظام.",
+    salesSection3_2:
+      "يحق لـ Glow Card تعديل أسعار الاشتراكات أو الباقات في أي وقت، مع الإعلان عنها بشكل رسمي قبل التطبيق.",
+
+    salesSection4Title: "4. الاستخدام المسموح",
+    salesSection4_1:
+      "تقتصر خدمات Glow Card على الاستفادة من الخصومات والعروض داخل شبكة المراكز الطبية والتجميلية والصحية المتعاقدة مع الشركة.",
+    salesSection4_2:
+      "يحظر إعادة بيع البطاقة أو استغلالها لأغراض تجارية أو غير قانونية.",
+    salesSection4_3:
+      "أي استخدام مخالف للشروط يؤدي إلى إلغاء الاشتراك فورًا دون استرداد أي مبالغ.",
+
+    salesSection5Title: "5. عدم الاسترداد أو الإلغاء",
+    salesSection5_1:
+      "رسوم الاشتراك غير قابلة للاسترداد بعد إتمام عملية الدفع وتفعيل البطاقة الرقمية، سواء تم استخدام البطاقة أو لم يتم استخدامها.",
+    salesSection5_2:
+      "لا يحق للمشترك المطالبة باسترداد قيمة الاشتراك عند تغيير أو إلغاء أحد المراكز أو تعديل نسب الخصومات.",
+
+    salesSection6Title: "6. تغييرات الشبكة والخدمات",
+    salesSection6_1:
+      "تحتفظ Glow Card بحقها في إضافة أو حذف أي مركز أو تعديل نسب الخصومات ضمن شبكتها خلال فترة الاشتراك، تبعًا لتجديد أو تعديل العقود مع الشركاء.",
+    salesSection6_2:
+      "استمرار استخدام البطاقة يُعد موافقة ضمنية من المشترك على هذه التغييرات.",
+
+    salesSection7Title: "7. المسؤولية",
+    salesSection7_1:
+      "Glow Card لا تتحمل أي التزام أو مسؤولية عن جودة الخدمات المقدمة من المراكز أو العيادات الشريكة، حيث يقتصر دورها على توفير البطاقة كوسيلة خصم وربط المشترك بالشركاء.",
   },
 };
