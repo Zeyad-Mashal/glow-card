@@ -29,21 +29,22 @@
 }
 
 .features_list {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  justify-items: center;
+  width: 40%;
 }
 
 .features_item {
-  width: 300px;
+  width: 150px;
   height: auto;
   text-align: center;
   border-radius: 15px;
   padding: 1rem 10px;
   background-color: #ecf8fe;
   color: #fff;
+  cursor: pointer;
 }
 
 .features_item svg {
@@ -113,23 +114,7 @@
 }
 @media screen and (max-width: 789px) {
   .features_list {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); 
-  gap: 1rem;
   width: 100%;
-  justify-items: center; 
-  padding: 10px;
-}
-  .features_item {
-  width: 100%;
-  margin: 0.5rem 0;
-  max-width: 150px;
-  height: auto;
-  text-align: center;
-  border-radius: 15px;
-  padding: 1rem 10px;
-  background-color: #ecf8fe;
-  color: #000; 
 }
 .features_content {
   flex-direction: column; 
