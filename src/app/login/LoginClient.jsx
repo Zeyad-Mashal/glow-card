@@ -12,14 +12,14 @@ import Select from "react-select";
 import ReactCountryFlag from "react-country-flag";
 
 export default function LoginClient() {
-  const [selectedLanguage, setSelectedLanguage] = useState("en");
+  const [selectedLanguage, setSelectedLanguage] = useState("ar");
   const [selectedCode, setSelectedCode] = useState("+966"); // المفتاح الافتراضي
   const [phone, setPhone] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const lang = localStorage.getItem("lang") || "en";
+    const lang = localStorage.getItem("lang") || "ar";
     setSelectedLanguage(lang);
   }, []);
 
@@ -141,7 +141,13 @@ export default function LoginClient() {
 
             {error && <p className="error">{error}</p>}
             <button className="login_btn" onClick={handleLogin}>
-              {loading ? "جاري تسجيل الدخول..." : "تسجيل الدخول"}
+              {selectedLanguage === "ar"
+                ? loading
+                  ? "جاري تسجيل الدخول..."
+                  : "تسجيل الدخول"
+                : loading
+                ? "Logging in..."
+                : "Login"}
             </button>
 
             <span className="separator">أو</span>

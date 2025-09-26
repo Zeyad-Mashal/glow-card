@@ -20,7 +20,7 @@ const page = () => {
         <div className="about_container">
           <div className="about_content">
             <h2>Glow Card</h2>
-            <p>{langValue["street"]}</p>
+            <p>{langValue["location"]}</p>
             <p>
               <a href="tel:+966542220888">+966542220888</a>
             </p>

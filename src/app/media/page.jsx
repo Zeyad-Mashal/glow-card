@@ -67,7 +67,7 @@ const Page = () => {
             rel="noreferrer"
             className="open_pdf_btn"
           >
-            عرض الملف كامل
+            {langValue["open_pdf_btn"]}
           </a>
         </div>
 

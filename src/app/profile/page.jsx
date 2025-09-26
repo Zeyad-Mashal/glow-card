@@ -141,7 +141,7 @@ const Profile = () => {
                 }`}
                 onClick={() => handleTabClick("activation")}
               >
-                تفعيل البطاقات
+                {langValue["activation"]}
               </div>
               <div
                 className={`controller_tab ${

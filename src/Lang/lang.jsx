@@ -260,6 +260,14 @@ export const Lang = {
     salesSection7Title: "7. Liability",
     salesSection7_1:
       "Glow Card bears no responsibility for the quality of services provided by partner centers or clinics. Its role is limited to offering the discount card as a tool to connect subscribers with partners.",
+    userName: "User Name",
+    email: "Email",
+    city: "City",
+    choose: "Choose City",
+    message: "Your Message",
+    special: "Specializations",
+    open_pdf_btn: "Open Portfolio",
+    activation: "Card Activation",
   },
   ar: {
     Login: "تسجيل دخول",
@@ -516,5 +524,13 @@ export const Lang = {
     salesSection7Title: "7. المسؤولية",
     salesSection7_1:
       "Glow Card لا تتحمل أي التزام أو مسؤولية عن جودة الخدمات المقدمة من المراكز أو العيادات الشريكة، حيث يقتصر دورها على توفير البطاقة كوسيلة خصم وربط المشترك بالشركاء.",
+    userName: "اسم المستخدم",
+    email: "البريد الإلكتروني",
+    city: "المدينة",
+    choose: "اختر المدينة",
+    message: "الرسالة",
+    special: "التخصصات",
+    open_pdf_btn: "فتح الملف التعريفي",
+    activation: "تفعيل البطاقات",
   },
 };

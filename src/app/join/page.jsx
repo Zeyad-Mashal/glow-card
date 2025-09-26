@@ -188,11 +188,10 @@ const Join = () => {
           <form className="join_form" onSubmit={handleSubmit}>
             {/* اسم */}
             <label>
-              <span>اسم</span>
+              <span>{langValue["userName"]}</span>
               <input
                 type="text"
                 name="fullName"
-                placeholder="اسم"
                 className="join_input"
                 value={formData.fullName}
                 onChange={handleInputChange}
@@ -202,7 +201,7 @@ const Join = () => {
 
             {/* رقم الجوال */}
             <label>
-              <span>رقم الجوال</span>
+              <span>{langValue["phone"]}</span>
               <input
                 type="text"
                 name="phone"
@@ -216,7 +215,7 @@ const Join = () => {
 
             {/* البريد الإلكتروني */}
             <label>
-              <span>البريد الالكتروني</span>
+              <span>{langValue["email"]}</span>
               <input
                 type="email"
                 name="email"
@@ -229,10 +228,10 @@ const Join = () => {
             </label>
             {/* المدينة */}
             <label className="city-label">
-              <span>المدينة</span>
+              <span>{langValue["city"]}</span>
               <input
                 type="text"
-                placeholder="ابحث عن المدينة"
+                placeholder="Search..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 style={{ width: "100%", padding: "5px" }}
@@ -244,7 +243,7 @@ const Join = () => {
                 required
                 style={{ width: "100%", padding: "5px" }}
               >
-                <option value="">اختر المدينة</option>
+                <option value="">{langValue["choose"]}</option>
                 {filteredCities.map((city, index) => (
                   <option key={index} value={city}>
                     {city}
@@ -254,7 +253,7 @@ const Join = () => {
             </label>
 
             <label>
-              <span>رسالتك</span>
+              <span>{langValue["message"]}</span>
               <textarea
                 name="message"
                 value={formData.message}
@@ -264,7 +263,7 @@ const Join = () => {
 
             {/* التخصصات */}
             <label>
-              <span>التخصصات:</span>
+              <span>{langValue["special"]}:</span>
 
               <div className="category">
                 {allCategories.map((category, index) => {
@@ -283,7 +282,15 @@ const Join = () => {
               </div>
             </label>
 
-            <button type="submit">{loading ? "تحميل ..." : "ارسال طلب"}</button>
+            <button type="submit">
+              {selectedLanguage === "ar"
+                ? loading
+                  ? "تحميل ..."
+                  : "ارسال طلب"
+                : loading
+                ? "Loading ..."
+                : "Send Request"}
+            </button>
           </form>
         </div>
       </div>
