@@ -293,7 +293,7 @@ export const Lang = {
     cards: "بطاقات جلو",
     city: "شبكة جلو كارد",
     cityBtn: "<-- المزيد",
-    Discount: "يتم خصم",
+    Discount: "خصم",
     price: "سعر",
     reqBtn: "اشترك الان",
     howItWorks: "طريقة الاستخدام",

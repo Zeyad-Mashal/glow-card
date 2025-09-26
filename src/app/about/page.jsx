@@ -51,7 +51,6 @@ const page = () => {
           <Link href={"/policy"}>
             <div className="about_quest_item">
               <div className="qest">
-                <FontAwesomeIcon icon={faQuestion} />
                 <h3>{langValue["policyTitle"]}</h3>
               </div>
               <p>{langValue["policyIntro"]}</p>
@@ -61,7 +60,6 @@ const page = () => {
           <Link href={"terms"}>
             <div className="about_quest_item">
               <div className="qest">
-                <FontAwesomeIcon icon={faQuestion} />
                 <h3>{langValue["termsTitle"]}</h3>
               </div>
               <p>{langValue["termsSection1_1"]}</p>
@@ -71,7 +69,6 @@ const page = () => {
           <Link href={"refund"}>
             <div className="about_quest_item">
               <div className="qest">
-                <FontAwesomeIcon icon={faQuestion} />
                 <h3>{langValue["returnTitle"]}</h3>
               </div>
               <p>{langValue["returnSection1_1"]}</p>
@@ -80,7 +77,6 @@ const page = () => {
           <Link href={"usage"}>
             <div className="about_quest_item">
               <div className="qest">
-                <FontAwesomeIcon icon={faQuestion} />
                 <h3>{langValue["salesTitle"]}</h3>
               </div>
               <p>{langValue["salesSection1_1"]}</p>

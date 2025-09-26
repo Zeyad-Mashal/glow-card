@@ -14,7 +14,13 @@ const Banner3 = () => {
       <div className="banner_container">
         <h1>{langValue["banner2"]}</h1>
         <p>{langValue["banner3"]}</p>
-        <button>{langValue["banner4"]}</button>
+        <button
+          onClick={() => {
+            window.location.href = "/our_cards";
+          }}
+        >
+          {langValue["banner4"]}
+        </button>
       </div>
     </div>
   );
