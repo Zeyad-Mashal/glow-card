@@ -8,11 +8,11 @@ import {
   faUser,
   faBars,
   faXmark,
-  faHome,
 } from "@fortawesome/free-solid-svg-icons";
 import "./Navbar.css";
 import { Lang } from "@/Lang/lang";
 import City from "@/API/City/City.api";
+
 const Navbar = () => {
   const [selectedLanguage, setSelectedLanguage] = useState("ar");
   const [token, setToken] = useState("");
@@ -24,34 +24,38 @@ const Navbar = () => {
   const [error, setError] = useState(null);
   const [allCities, setAllCities] = useState([]);
   const pathname = usePathname();
-  const [cityName, setCityName] = useState("");
-  const [path, setPath] = useState();
+  const [path, setPath] = useState("/");
 
   useEffect(() => {
-    const lang = localStorage.getItem("lang") || "en";
-    setSelectedLanguage(lang);
+    try {
+      const lang = localStorage.getItem("lang") || "ar";
+      setSelectedLanguage(lang);
+      setLanguage(lang);
 
-    const langDir = lang === "ar" ? "rtl" : "ltr";
-    document.body.style.direction = langDir;
+      const langDir = lang === "ar" ? "rtl" : "ltr";
+      document.body.style.direction = langDir;
 
-    const storedToken = localStorage.getItem("token");
-    setToken(storedToken);
-    setLanguage(lang);
+      const storedToken = localStorage.getItem("token") || "";
+      setToken(storedToken);
 
-    const cityData = localStorage.getItem("user_city");
-    if (cityData) {
-      const city = JSON.parse(cityData);
-      setRegionId(city.id);
-      setRegionName(city.name);
+      const cityData = localStorage.getItem("user_city");
+      if (cityData) {
+        const city = JSON.parse(cityData);
+        if (city?.id && city?.name) {
+          setRegionId(city.id);
+          setRegionName(city.name);
+        }
+      }
+    } catch (err) {
+      console.warn("Error reading from localStorage:", err);
     }
+
     getAllCities();
   }, []);
 
   const langValue = Lang[selectedLanguage];
 
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
+  const toggleMenu = () => setMenuOpen((prev) => !prev);
 
   const toggleLanguage = () => {
     const newLang = language === "ar" ? "en" : "ar";
@@ -65,18 +69,22 @@ const Navbar = () => {
   };
 
   const routController = () => {
-    const cityname = JSON.parse(localStorage.getItem("user_city"));
-    if (cityname) {
-      const name = cityname.name;
-      const cityId = cityname.id;
-      if (name === "الرياض" || name === "جده") {
-        return `/central?id=${cityId}`;
+    try {
+      const cityData = localStorage.getItem("user_city");
+      if (!cityData) return "/";
+      const city = JSON.parse(cityData);
+      if (!city?.id || !city?.name) return "/";
+
+      if (city.name === "الرياض" || city.name === "جده") {
+        return `/central?id=${city.id}`;
       } else {
-        return `/network?id=${cityId}`;
+        return `/network?id=${city.id}`;
       }
+    } catch {
+      return "/";
     }
-    // setCityName(name);
   };
+
   useEffect(() => {
     setPath(routController());
   }, []);
@@ -94,6 +102,7 @@ const Navbar = () => {
               loading="lazy"
               onClick={() => (window.location.href = "/")}
             />
+
             <select
               value={regionName}
               onChange={(e) => {
@@ -112,6 +121,7 @@ const Navbar = () => {
                       name: selectedItem.name,
                     })
                   );
+
                   const url =
                     selectedItem.name === "الرياض" ||
                     selectedItem.name === "جده"
@@ -122,8 +132,8 @@ const Navbar = () => {
                 }
               }}
             >
-              {allCities.map((item, index) => (
-                <option key={index} value={item.name}>
+              {allCities.map((item) => (
+                <option key={item._id} value={item.name}>
                   {item.name}
                 </option>
               ))}
@@ -137,7 +147,7 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link href={`${path}`}>{langValue["network"]}</Link>
+              <Link href={path}>{langValue["network"]}</Link>
             </li>
             <li>
               <Link
@@ -151,7 +161,6 @@ const Navbar = () => {
               <Link
                 href="/offers"
                 className={pathname === "/offers" ? "active" : ""}
-                onClick={toggleMenu}
               >
                 {langValue["offers"]}
               </Link>
@@ -177,7 +186,6 @@ const Navbar = () => {
                 {langValue["join"]}
               </Link>
             </li>
-
             <li>
               <Link
                 href="/contact"
@@ -187,6 +195,7 @@ const Navbar = () => {
               </Link>
             </li>
           </ul>
+
           <div className="nav_btns_desktop">
             <div className="lang">
               <FontAwesomeIcon
@@ -209,7 +218,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* ✅ Mobile Navbar (Top) */}
+      {/* ✅ Mobile Navbar */}
       <div className="mobile_top_navbar">
         <div className="mobile_nav_container">
           <div className="mobile_logo">
@@ -238,6 +247,7 @@ const Navbar = () => {
             </button>
           </div>
         </div>
+
         <select
           value={regionName}
           onChange={(e) => {
@@ -265,14 +275,13 @@ const Navbar = () => {
             }
           }}
         >
-          {allCities.map((item, index) => (
-            <option key={index} value={item.name}>
+          {allCities.map((item) => (
+            <option key={item._id} value={item.name}>
               {item.name}
             </option>
           ))}
         </select>
 
-        {/* ✅ Menu Links (Dropdown) */}
         <div className={`mobile_dropdown_menu ${menuOpen ? "open" : ""}`}>
           <ul>
             <li>
@@ -285,7 +294,7 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link href={`${path}`} onClick={toggleMenu}>
+              <Link href={path} onClick={toggleMenu}>
                 {langValue["network"]}
               </Link>
             </li>
@@ -334,7 +343,6 @@ const Navbar = () => {
                 {langValue["join"]}
               </Link>
             </li>
-
             <li>
               <Link
                 href="/contact"

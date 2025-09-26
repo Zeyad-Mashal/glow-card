@@ -21,11 +21,27 @@ const Features = () => {
   useEffect(() => {
     const lang = localStorage.getItem("lang") || "ar";
     setSelectedLanguage(lang);
-    const city = JSON.parse(localStorage.getItem("user_city"));
-    setCityId(city.id);
+
+    const storedCity = localStorage.getItem("user_city");
+    if (storedCity) {
+      try {
+        const city = JSON.parse(storedCity);
+        if (city && city.id) {
+          setCityId(city.id);
+        } else {
+          setCityId("68126b325bbea06332ee8e7b"); // fallback
+        }
+      } catch (err) {
+        console.error("Invalid user_city in localStorage", err);
+        setCityId("68126b325bbea06332ee8e7b"); // fallback
+      }
+    } else {
+      setCityId("68126b325bbea06332ee8e7b"); // fallback
+    }
 
     AOS.init({ duration: 1200, once: true, easing: "ease-out-back" });
   }, []);
+
   const langValue = Lang[selectedLanguage];
 
   return (
