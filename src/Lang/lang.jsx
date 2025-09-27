@@ -268,6 +268,21 @@ export const Lang = {
     special: "Specializations",
     open_pdf_btn: "Open Portfolio",
     activation: "Card Activation",
+    contact: "Contact Us",
+    subContact:
+      "We are here for you! Feel free to reach out to our friendly team anytime — we are happy to guide you, answer your questions, and help you start saving on healthcare costs today.",
+    subContact2: "Ready to start using your card?",
+    subContact3:
+      "Let us turn your vision into reality. Contact us today to discuss how we can help you innovate and grow.",
+    contactways: "Contact Methods",
+    howItWorks2:
+      "Enjoy easy and quick access to your digital card through the app by following simple steps:",
+    howItWorks3: "- Subscribe Now – Sign up to get your digital card",
+    howItWorks4: "- Activate the card – in easy and quick steps",
+    howItWorks5: "- Start saving – Enjoy exclusive discounts and offers",
+    howItWorks6: "- Renew your subscription – to continue enjoying discounts",
+    howItWorks7:
+      "- Share with friends – Get additional benefits when you invite your friends to subscribe",
   },
   ar: {
     Login: "تسجيل دخول",
@@ -532,5 +547,20 @@ export const Lang = {
     special: "التخصصات",
     open_pdf_btn: "فتح الملف التعريفي",
     activation: "تفعيل البطاقات",
+    contact: "تواصل معنا",
+    subContact:
+      "نحن هنا من أجلك! لا تتردد في التواصل مع فريقنا الودود في أي وقت — يسعدنا إرشادك، والإجابة على أسئلتك، ومساعدتك في البدء بتوفير تكاليف الرعاية الصحية اليوم.",
+    subContact2: "جاهز تبدء تستخدم بطاقتك ؟",
+    subContact3:
+      "دعنا نحول رؤيتك إلى واقع. تواصل معنا اليوم لنتحدث عن كيفية مساعدتك على الابتكار والنمو.",
+    contactways: "طرق التواصل",
+    howItWorks2:
+      "استمتع بسهولة وسرعة الوصول إلى بطاقتك الرقمية عبر التطبيق، باتباع خطوات بسيطة:",
+    howItWorks3: "- اشترك الآن – قم بالتسجيل للحصول على بطاقتك الرقمية",
+    howItWorks4: "- قم بتفعيل البطاقة – في خطوات سهلة وسريعة",
+    howItWorks5: "- ابدأ التوفير – استمتع بالخصومات والعروض الحصرية",
+    howItWorks6: "- جدد اشتراكك – للحفاظ على استمرارية الاستفادة من الخصومات",
+    howItWorks7:
+      "- شارك مع الأصدقاء – احصل على مزايا إضافية عند دعوة أصدقائك للاشتراك",
   },
 };

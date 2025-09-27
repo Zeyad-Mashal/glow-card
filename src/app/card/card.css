@@ -252,6 +252,47 @@ pre {
   background-position: center;
   background-repeat: no-repeat;
 }
+.product-description,
+.product-description-pre {
+  background: #f9f9f9;          /* خلفية فاتحة */
+  border: 1px solid #e0e0e0;    /* إطار خفيف */
+  border-radius: 12px;          /* حواف دائرية */
+  padding: 20px 25px;
+  margin-top: 25px;
+  line-height: 1.8;
+  font-size: 16px;
+  color: #333;                  /* لون النص */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+.product-description-pre {
+    color: #000; /* لون النص */
+  padding: 16px; /* padding حول النص */
+  border-radius: 8px; /* حواف دائرية */
+  white-space: pre-wrap; /* الحفاظ على الأسطر الجديدة والمسافات */
+  word-wrap: break-word; /* تقسيم الكلمات الطويلة لتناسب العرض */
+  overflow-x: auto; /* تمكين التمرير الأفقي إذا كان النص طويل جدًا */
+  margin-top: 16px; /* إضافة مسافة من الأعلى */
+  margin-bottom: 16px; /* إضافة مسافة من الأسفل */
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+  width: 50%;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.product-description h2 {
+  font-size: 20px;
+  color: #0072c6;               /* لون مميز للعنوان */
+  margin-bottom: 15px;
+  text-align: right;            /* لأنه عربي */
+}
+
+.product-description p {
+  margin: 0;
+  text-align: right;            /* محاذاة لليمين */
+  white-space: pre-line;        /* يحافظ على الأسطر */
+}
+
 
 @media screen and (max-width: 789px) {
   .card_details {
@@ -300,5 +341,9 @@ pre {
   .card_discount_text span {
     left: 37px;
     font-size: 0.9rem;
+  }
+  .product-description-pre,
+  .product-description {
+    width: 95%;
   }
 }

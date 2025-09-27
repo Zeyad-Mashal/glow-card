@@ -28,6 +28,23 @@
 .footer_section1 p {
   text-align: center;
 }
+.footer_social {
+  margin-top: 15px;
+  display: flex;
+  gap: 15px;
+}
+
+.footer_social a {
+  color: #fff; /* تقدر تغير اللون حسب التصميم */
+  font-size: 20px;
+  transition: 0.3s ease;
+}
+
+.footer_social a:hover {
+  color: #000; /* لون مميز عند الهوفر */
+  transform: scale(1.2);
+}
+
 @media screen and (max-width: 789px) {
   .footer {
     flex-direction: column;

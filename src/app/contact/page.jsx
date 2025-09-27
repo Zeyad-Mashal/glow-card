@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import "./contact.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -7,32 +8,32 @@ import {
   faEnvelope,
 } from "@fortawesome/free-solid-svg-icons";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
+import { Lang } from "@/Lang/lang";
 const page = () => {
+  const [selectedLanguage, setSelectedLanguage] = useState("ar");
+  useEffect(() => {
+    const lang = localStorage.getItem("lang") || "en";
+    setSelectedLanguage(lang);
+  }, []);
+  const langValue = Lang[selectedLanguage];
   return (
     <div className="contact">
       <div className="contact_container">
-        <h1>تواصل معنا</h1>
-        <p>
-          نحن هنا من أجلك! لا تتردد في التواصل مع فريقنا الودود في أي وقت —
-          يسعدنا إرشادك، والإجابة على أسئلتك، ومساعدتك في البدء بتوفير تكاليف
-          الرعاية الصحية اليوم.
-        </p>
+        <h1>{langValue["contact"]}</h1>
+        <p>{langValue["subContact"]}</p>
         <div className="contact_content">
           <div className="content_text">
-            <h3>جاهز تبدء تستخدم بطاقتك ؟</h3>
-            <p>
-              دعنا نحول رؤيتك إلى واقع. تواصل معنا اليوم لنتحدث عن كيفية مساعدتك
-              على الابتكار والنمو.
-            </p>
+            <h3>{langValue["subContact2"]}</h3>
+            <p>{langValue["subContact3"]}</p>
             <div className="content_text_info">
-              <h2>طرق التواصل</h2>
+              <h2>{langValue["contactways"]}</h2>
               <p>
                 <FontAwesomeIcon icon={faPhone} />{" "}
                 <a href="tel:+966542220888">+966542220888</a>
               </p>
               <p>
-                <FontAwesomeIcon icon={faLocationDot} /> المملكه العربيه
-                السعوديه, الرياض
+                <FontAwesomeIcon icon={faLocationDot} />
+                {langValue["location"]}
               </p>
               <p>
                 <FontAwesomeIcon icon={faEnvelope} />{" "}
@@ -52,13 +53,13 @@ const page = () => {
             </div>
           </div>
           <div className="content_form">
-            <label>الاسم بالكامل</label>
-            <input type="text" placeholder="الاسم" />
-            <label>الايميل</label>
-            <input type="text" placeholder="الايميل" />
-            <label>رسالتك لنا</label>
-            <textarea placeholder="رسالتك لنا"></textarea>
-            <button>ارسال</button>
+            <label>{langValue["userName"]}</label>
+            <input type="text" />
+            <label>{langValue["email"]}</label>
+            <input type="text" />
+            <label>{langValue["message"]}</label>
+            <textarea></textarea>
+            <button>{selectedLanguage === "ar" ? "ارسال" : "Send"}</button>
           </div>
         </div>
       </div>

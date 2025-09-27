@@ -17,7 +17,7 @@ import { Lang } from "@/Lang/lang";
 import Image from "next/image";
 import GetCards from "@/API/GetCards/GetCards.api";
 export default function CardDetailsClient() {
-  const [selectedLanguage, setSelectedLanguage] = useState("en");
+  const [selectedLanguage, setSelectedLanguage] = useState("ar");
   useEffect(() => {
     const lang = localStorage.getItem("lang") || "en";
     setSelectedLanguage(lang);
@@ -152,22 +152,25 @@ export default function CardDetailsClient() {
           <div className="howItWorks_container">
             {activeTab === "howItWorks" ? (
               <>
-                <p>
-                  Your pay-by-bank solution, built in weeks. We help you deliver
-                  a frictionless payment experience for your customers while
-                  keeping your devs happy. No need for PCI compliance.
-                </p>
-                <div className="steps">
-                  {[1, 2, 3, 4].map((step) => (
-                    <div className="step1" key={step}>
-                      <h3>{step}</h3>
-                      <p>Card created with mechanics</p>
-                    </div>
-                  ))}
+                <div class="product-description">
+                  <h2>{langValue["howItWorks"]}</h2>
+                  <p>
+                    {langValue["howItWorks2"]}
+                    <br />
+                    {langValue["howItWorks3"]}
+                    <br /> {langValue["howItWorks4"]}
+                    <br /> {langValue["howItWorks5"]}
+                    <br /> {langValue["howItWorks6"]}
+                    <br />
+                    <br />
+                    {langValue["howItWorks7"]}
+                  </p>
                 </div>
               </>
             ) : (
-              <pre>{cardDetails.description}</pre>
+              <pre className="product-description-pre">
+                {cardDetails.description}
+              </pre>
             )}
           </div>
           <div className="cards">
