@@ -13,15 +13,17 @@ const OurCards = () => {
   const [allCards, setAllCards] = useState([]);
 
   useEffect(() => {
-    const lang = localStorage.getItem("lang");
+    const lang = localStorage.getItem("lang") || "ar"; // fallback to "ar" if null
     setSelectedLanguage(lang);
-    getAllCArds();
+    getAllCards();
   }, []);
-  const langValue = Lang[selectedLanguage];
 
-  const getAllCArds = () => {
+  const langValue = Lang[selectedLanguage] || {}; // prevent undefined
+
+  const getAllCards = () => {
     GetCards(setLoading, setError, setAllCards);
   };
+
   return (
     <div className="our-cards">
       <div className="cards_banner">
@@ -41,29 +43,29 @@ const OurCards = () => {
           />
         )}
       </div>
-      <h1>{langValue["cards"]}</h1>
+
+      <h1>{langValue["cards"] || "Cards"}</h1>
+
       <div className="cards_list">
         {loading
           ? "loading..."
-          : allCards.map((item, index) => {
-              return (
-                <div className="card_item" key={index}>
-                  <Link href={`/card?id=${item._id}`}>
-                    <img src={item.images} alt="glow card image" />
-                    <div className="card_item_content">
-                      <h2>{item.name}</h2>
-                      <div className="card_item_details">
-                        <span>
-                          {item.price}{" "}
-                          <img src="/images/reyal.png" alt="reyal currancy" />
-                        </span>
-                        <button>{langValue["reqBtn"]}</button>
-                      </div>
+          : allCards?.map((item, index) => (
+              <div className="card_item" key={index}>
+                <Link href={`/card?id=${item._id}`}>
+                  <img src={item.images} alt="glow card image" />
+                  <div className="card_item_content">
+                    <h2>{item.name}</h2>
+                    <div className="card_item_details">
+                      <span>
+                        {item.price}{" "}
+                        <img src="/images/reyal.png" alt="reyal currency" />
+                      </span>
+                      <button>{langValue["reqBtn"] || "Request"}</button>
                     </div>
-                  </Link>
-                </div>
-              );
-            })}
+                  </div>
+                </Link>
+              </div>
+            ))}
       </div>
     </div>
   );
