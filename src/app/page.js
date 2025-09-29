@@ -24,6 +24,7 @@ export default function Home() {
       </Head>
 
 
+
       <Hero />
       <Banner />
       <Banner2 />

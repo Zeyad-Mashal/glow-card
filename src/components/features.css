@@ -45,18 +45,25 @@
   background-color: #ecf8fe;
   color: #fff;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
-.features_item svg {
+.features_item svg,
+.features_item img {
   padding: 0;
   font-size: 30px;
   margin-bottom: 5px;
+  width: auto;
+  height: 40px;
   color: #00283e;
   transition: transform 0.3s ease-in-out;
 }
 
 .features_item h3 {
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: 600;
   color: #333;
 }

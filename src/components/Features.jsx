@@ -14,6 +14,7 @@ import "aos/dist/aos.css";
 import "./features.css";
 import { Lang } from "@/Lang/lang";
 import Link from "next/link";
+import Image from "next/image";
 
 const Features = () => {
   const [selectedLanguage, setSelectedLanguage] = useState("ar");
@@ -56,7 +57,12 @@ const Features = () => {
               data-aos="zoom-in-up"
               data-aos-delay="100"
             >
-              <FontAwesomeIcon icon={faUserDoctor} />{" "}
+              <Image
+                src={"/images/glow card icons-02.png"}
+                width={500}
+                height={500}
+                alt="medical network"
+              />{" "}
               <h3>{langValue["featuresSub1"]}</h3>
             </div>
           </Link>
@@ -66,7 +72,12 @@ const Features = () => {
               data-aos="flip-up"
               data-aos-delay="200"
             >
-              <FontAwesomeIcon icon={faAddressCard} />{" "}
+              <Image
+                src={"/images/glow card icons-03.png"}
+                width={500}
+                height={500}
+                alt="glow card Cards"
+              />{" "}
               <h3>{langValue["featuresSub2"]}</h3>
             </div>
           </Link>
@@ -86,7 +97,12 @@ const Features = () => {
               data-aos="zoom-in-up"
               data-aos-delay="300"
             >
-              <FontAwesomeIcon icon={faLeaf} />{" "}
+              <Image
+                src={"/images/glow card icons-05.png"}
+                width={500}
+                height={500}
+                alt="glow club"
+              />{" "}
               <h3>{langValue["featuresSub4"]}</h3>
             </div>
           </Link>

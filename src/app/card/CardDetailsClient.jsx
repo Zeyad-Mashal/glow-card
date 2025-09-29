@@ -152,25 +152,32 @@ export default function CardDetailsClient() {
           <div className="howItWorks_container">
             {activeTab === "howItWorks" ? (
               <>
-                <div class="product-description">
-                  <h2>{langValue["howItWorks"]}</h2>
-                  <p>
-                    {langValue["howItWorks2"]}
-                    <br />
-                    {langValue["howItWorks3"]}
-                    <br /> {langValue["howItWorks4"]}
-                    <br /> {langValue["howItWorks5"]}
-                    <br /> {langValue["howItWorks6"]}
-                    <br />
-                    <br />
-                    {langValue["howItWorks7"]}
-                  </p>
+                <p>{langValue["howItWorks2"]}</p>
+                <div className="steps">
+                  <div className="step1">
+                    <h3>1</h3>
+                    <p>{langValue["howItWorks3"]}</p>
+                  </div>
+
+                  <div className="step1">
+                    <h3>2</h3>
+                    <p>{langValue["howItWorks4"]}</p>
+                  </div>
+
+                  <div className="step1">
+                    <h3>3</h3>
+                    <p>{langValue["howItWorks5"]}</p>
+                  </div>
+
+                  <div className="step1">
+                    <h3>4</h3>
+                    <p>{langValue["howItWorks6"]}</p>
+                  </div>
                 </div>
+                <p className="howItWorks8">{langValue["howItWorks7"]}</p>
               </>
             ) : (
-              <pre className="product-description-pre">
-                {cardDetails.description}
-              </pre>
+              <pre>{cardDetails.description}</pre>
             )}
           </div>
           <div className="cards">
