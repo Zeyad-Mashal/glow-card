@@ -4,12 +4,19 @@ import "./New.css";
 import Link from "next/link";
 import LatestFoundation from "@/API/LatestFoundation/LatestFoundation";
 import Image from "next/image";
+import { Lang } from "@/Lang/lang";
 const page = () => {
+  const [selectedLanguage, setSelectedLanguage] = useState("ar");
+
   useEffect(() => {
     getLatestFoundations();
     let langToken = localStorage.getItem("lang");
     setLang(langToken);
+    const lang = localStorage.getItem("lang") || "ar";
+    setSelectedLanguage(lang);
   }, []);
+  const langValue = Lang[selectedLanguage];
+
   const [loading, setloading] = useState(false);
   const [error, setError] = useState("");
   const [allLatestFoundation, setAllLatestFoundation] = useState([]);
@@ -38,7 +45,7 @@ const page = () => {
         )}
       </div>
       <div className="new_container">
-        <h1>انضم حديثا</h1>
+        <h1>{langValue["new"]}</h1>
         <div className="new_list">
           {loading
             ? "Loading..."

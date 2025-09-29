@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import "./glowClub.css";
 import Image from "next/image";
-
+import { Lang } from "@/Lang/lang";
 const items = [
   { id: 1, title: "Glow Card", discount: "15%", code: "GLOW15" },
   { id: 2, title: "Glow Card", discount: "15%", code: "GLOW15" },
@@ -16,6 +16,7 @@ export default function GlowClubPage() {
   const [open, setOpen] = useState(false);
   const [current, setCurrent] = useState(null);
   const [lang, setLang] = useState("");
+  const [selectedLanguage, setSelectedLanguage] = useState("ar");
 
   const handleClick = (item) => {
     setCurrent(item);
@@ -33,7 +34,10 @@ export default function GlowClubPage() {
   useEffect(() => {
     const langToken = localStorage.getItem("lang");
     setLang(langToken);
+    const lang = localStorage.getItem("lang") || "ar";
+    setSelectedLanguage(lang);
   }, []);
+  const langValue = Lang[selectedLanguage];
 
   return (
     <>
@@ -56,7 +60,7 @@ export default function GlowClubPage() {
           )}
         </div>
         <div className="glowClub_container">
-          <h2>نادي جلو</h2>
+          <h2>{langValue["club"]}</h2>
 
           <div className="glowClub_list">
             {items.map((item) => (
