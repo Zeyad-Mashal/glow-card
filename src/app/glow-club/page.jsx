@@ -98,7 +98,7 @@ export default function GlowClubPage() {
             <p className="coupon_code">{current.code}</p>
 
             <button className="copy_btn" onClick={copyCode}>
-              نسخ الكوبون
+              {selectedLanguage === "ar" ? "انسخ الكود" : "Copy Code"}
             </button>
           </div>
         </div>

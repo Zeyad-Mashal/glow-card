@@ -58,7 +58,11 @@ const OurCards = () => {
                     <div className="card_item_details">
                       <span>
                         {item.price}{" "}
-                        <img src="/images/reyal.png" alt="reyal currency" />
+                        {selectedLanguage === "ar" ? (
+                          <img src="/images/reyal.png" alt="reyal currency" />
+                        ) : (
+                          "SAR"
+                        )}
                       </span>
                       <button>{langValue["reqBtn"] || "Request"}</button>
                     </div>

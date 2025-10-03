@@ -41,13 +41,25 @@ const OurCards = () => {
           />
         )}
       </div>
-      <h1>{allOffers.length <= 0 ? "لا يوجد عروض الان" : "عروضنا"}</h1>
+      <h1>
+        {allOffers.length <= 0
+          ? selectedLanguage === "ar"
+            ? "لا يوجد عروض الان"
+            : "No Offers Found"
+          : selectedLanguage === "ar"
+          ? "عروضنا"
+          : "Our Offers"}
+      </h1>
       <div className="cards_list">
         {loading ? (
           "loading..."
         ) : allOffers.length <= 0 ? (
           <div className="no_offers">
-            <p>انتظر اقوي العروض قريبا</p>
+            <p>
+              {selectedLanguage === "ar"
+                ? "انتظر اقوي العروض قريبا"
+                : "Top Offers Coming Soon..."}
+            </p>
             <img src="/images/notfound.png" alt="" width={250} />
           </div>
         ) : (

@@ -8,6 +8,7 @@ import getCategories from "@/API/Category/getCategories.api";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import AllFoundations from "@/API/Foundation/AllFoundations";
+import { Lang } from "@/Lang/lang";
 const NetworkClient = () => {
   /* -------------------- state -------------------- */
   const [loading, setLoading] = useState(false);
@@ -24,6 +25,7 @@ const NetworkClient = () => {
   /* -------------------- طرق المساعد -------------------- */
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
+  const langValue = Lang[lang];
 
   /* -------------------- Effects -------------------- */
   /* ثبّت اللغة */
@@ -117,13 +119,11 @@ const NetworkClient = () => {
   return (
     <div className="Network">
       <div className="network_container">
-        {/* <h2>{lang === "ar" ? "شبكة الجهات" : "Glow Card Foundations"}</h2> */}
-
         {/* ======= شريط البحث والفلاتر ======= */}
         <div className="netword_controller">
           <input
             type="text"
-            placeholder="ابحث"
+            placeholder={lang === "ar" ? "ابحث عن مؤسسة..." : "Search..."}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
@@ -137,11 +137,11 @@ const NetworkClient = () => {
         {modalOpen && (
           <div className="modal_backdrop" onClick={() => setModalOpen(false)}>
             <div className="modal" onClick={(e) => e.stopPropagation()}>
-              <h2>كل الفلاتر</h2>
+              <h2>{lang === "ar" ? "جميع الفلاتر" : "Filters"}</h2>
 
               <div className="modal_filters">
                 <div className="modal_filter_item" key="all">
-                  <span>الكل</span>
+                  <span>{lang === "ar" ? "الكل" : "All"}</span>
                   <label className="switch">
                     <input
                       type="checkbox"
@@ -169,7 +169,7 @@ const NetworkClient = () => {
 
               <div className="actions">
                 <button className="btn" onClick={() => setModalOpen(false)}>
-                  إغلاق
+                  {lang === "ar" ? "إغلاق" : "Close"}
                 </button>
               </div>
             </div>
@@ -214,8 +214,14 @@ const NetworkClient = () => {
                   <line x1="8" y1="11" x2="14" y2="11" />
                 </svg>
               </div>
-              <h3>لا توجد مؤسسات</h3>
-              <p>لم يتم العثور على نتائج تطابق الفلاتر أو البحث الحالي.</p>
+              <h3>
+                {lang === "ar" ? "لا توجد مؤسسات" : "No Foundations Found"}
+              </h3>
+              <p>
+                {lang === "ar"
+                  ? "لم يتم العثور على نتائج تطابق الفلاتر أو البحث الحالي."
+                  : "No results were found that match your filters or current search."}
+              </p>
             </div>
           )}
         </div>

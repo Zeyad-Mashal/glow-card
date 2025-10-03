@@ -29,6 +29,12 @@ const FatorahClient = () => {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
   const router = useRouter();
+  const [selectedLang, setSelectedLang] = useState("ar");
+
+  useEffect(() => {
+    const lang = localStorage.getItem("lang") || "ar";
+    setSelectedLang(lang);
+  }, []);
 
   useEffect(() => {
     const price = localStorage.getItem("price");
@@ -113,25 +119,29 @@ const FatorahClient = () => {
   return (
     <div className="fatorah">
       <div className="fatorah_container">
-        <h1>تفاصيل الطلب</h1>
+        <h1>{selectedLang === "ar" ? "تفاصيل الطلب" : "Order Details"}</h1>
         <div
           ref={detailsRef}
           className={`fatorah_details ${detailsOpen ? "open" : ""}`}
         >
           <div className="detail1">
-            <p>ملخص السلة</p>
-            <span>{price} ر.س</span>
+            <p>{selectedLang === "ar" ? "ملخص السلة" : "Cart Summary"}</p>
+            <span>
+              {price} {selectedLang === "ar" ? "ر.س" : "SAR"}
+            </span>
           </div>
           <div className="detail1">
-            <p>ضريبة القيمة المضافة</p>
-            <span>15 ر.س</span>
+            <p>{selectedLang === "ar" ? "ضريبة القيمة المضافة" : "VAT"}</p>
+            <span>15 {selectedLang === "ar" ? "ر.س" : "SAR"}</span>
           </div>
         </div>
 
         <div className="fatorah_content">
           <div className="total">
-            <h3>الإجمالي</h3>
-            <span>{price} ر.س</span>
+            <h3>{selectedLang === "ar" ? "الإجمالي" : "Total"}</h3>
+            <span>
+              {price} {selectedLang === "ar" ? "ر.س" : "SAR"}
+            </span>
           </div>
 
           <div className="coupon_section">
@@ -139,14 +149,24 @@ const FatorahClient = () => {
               className="coupon_button"
               onClick={() => setShowCouponInput(!showCouponInput)}
             >
-              {showCouponInput ? "إلغاء" : "لديك كوبون تخفيض؟"}
+              {showCouponInput
+                ? selectedLang === "ar"
+                  ? "إلغاء"
+                  : "Cancel"
+                : selectedLang === "ar"
+                ? "لديك كوبون تخفيض؟"
+                : "Have a coupon?"}
             </button>
 
             {showCouponInput && (
               <div className="coupon_input_container">
                 <input
                   type="text"
-                  placeholder="اكتب الكوبون"
+                  placeholder={
+                    selectedLang === "ar"
+                      ? "ادخل كود الكوبون"
+                      : "Enter Coupon Code"
+                  }
                   value={couponApi}
                   onChange={(e) => setCouponApi(e.target.value)}
                   className="coupon_input"
@@ -157,7 +177,7 @@ const FatorahClient = () => {
                   onClick={handleApplyCoupon}
                   disabled={!isCouponValid}
                 >
-                  تطبيق
+                  {selectedLang === "ar" ? "تطبيق" : "Apply"}
                 </button>
                 {error && <p className="error">{error}</p>}
               </div>
@@ -165,7 +185,7 @@ const FatorahClient = () => {
           </div>
 
           <div className="cardType">
-            <h3>نوع البطاقه</h3>
+            <h3>{selectedLang === "ar" ? "نوع البطاقه" : "Card Type"}</h3>
             <p>{cardType}</p>
           </div>
 
@@ -173,21 +193,31 @@ const FatorahClient = () => {
             className="toggle_details_btn"
             onClick={() => setDetailsOpen(!detailsOpen)}
           >
-            {detailsOpen ? "إخفاء التفاصيل ▲" : "تفاصيل الفاتورة ▼"}
+            {detailsOpen
+              ? selectedLang === "ar"
+                ? "إخفاء التفاصيل ▲"
+                : "Hide Details ▲"
+              : selectedLang === "ar"
+              ? "عرض التفاصيل ▼"
+              : "Show Details ▼"}
           </button>
 
           <div className="payment_data">
             <label>
-              <span>الاسم</span>
+              <span>{selectedLang === "ar" ? "الاسم" : "Name"}</span>
               <input
                 type="text"
                 value={userName}
                 onChange={(e) => setUserName(e.target.value)}
-                placeholder="احمد محمد"
+                placeholder={
+                  selectedCode === "ar" ? "ادخل الاسم كامل" : "Enter Full Name"
+                }
               />
             </label>
             <label>
-              <span>رقم الهاتف</span>
+              <span>
+                {selectedLang === "ar" ? "رقم الهاتف" : "Phone Number"}
+              </span>
               <div
                 className="phoneNumber"
                 style={{ display: "flex", alignItems: "center" }}
@@ -217,7 +247,7 @@ const FatorahClient = () => {
               </div>
             </label>
             <label>
-              <span>الايميل</span>
+              <span>{selectedLang === "ar" ? "الايميل" : "Email"}</span>
               <input
                 type="email"
                 value={email}
@@ -228,7 +258,9 @@ const FatorahClient = () => {
           </div>
 
           <div className="payment_btn">
-            <button onClick={paymentGetway}>ادفع الان</button>
+            <button onClick={paymentGetway}>
+              {selectedLang === "ar" ? "ادفع الان" : "Pay Now"}
+            </button>
           </div>
         </div>
       </div>

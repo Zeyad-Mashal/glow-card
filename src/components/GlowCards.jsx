@@ -7,10 +7,10 @@ import GetCards from "@/API/GetCards/GetCards.api";
 import Link from "next/link";
 import { Lang } from "@/Lang/lang";
 const GlowCards = () => {
-  const [selectedLanguage, setSelectedLanguage] = useState("en");
+  const [selectedLanguage, setSelectedLanguage] = useState("ar");
 
   useEffect(() => {
-    const lang = localStorage.getItem("lang") || "en";
+    const lang = localStorage.getItem("lang") || "ar";
     setSelectedLanguage(lang);
     getAllCards();
     AOS.init({
@@ -47,8 +47,10 @@ const GlowCards = () => {
                       {card.type === "Custom" ? "اطلب الان" : card.price}
                       {card.type === "Custom" ? (
                         ""
-                      ) : (
+                      ) : selectedLanguage === "ar" ? (
                         <img src="/images/reyal.png" alt="reyal currancy" />
+                      ) : (
+                        " SAR"
                       )}
                     </span>
                     <button>{langValue["cityBtn"]}</button>

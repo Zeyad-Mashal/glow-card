@@ -110,14 +110,19 @@ export default function CardDetailsClient() {
             <h1>{cardDetails.name}</h1>
             <div className="card_discount">
               <p>
-                {langValue["price"]} {cardDetails.price} ريال
+                {cardDetails.price}
+                {selectedLanguage === "ar" ? (
+                  <img src="/images/reyal.png" alt="reyal currency" />
+                ) : (
+                  " SAR"
+                )}
               </p>
-              <div className="card_discount_text">
+              {/* <div className="card_discount_text">
                 <img src="/images/discount.png" alt="" />
                 <span>
                   {cardDetails.discount}% {langValue["Discount"]}
                 </span>
-              </div>
+              </div> */}
             </div>
             <button
               onClick={() =>
@@ -197,7 +202,10 @@ export default function CardDetailsClient() {
                     />
                     <div className="card_item_content">
                       <h3>{card.name}</h3>
-                      <p>{card.price} ريال</p>
+                      <p>
+                        {card.price}{" "}
+                        {selectedLanguage === "ar" ? "ريال" : " SAR"}
+                      </p>
                     </div>
                   </div>
                 );

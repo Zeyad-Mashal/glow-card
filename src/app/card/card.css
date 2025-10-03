@@ -101,6 +101,13 @@
 }
 .card_discount p{
   padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+.card_discount p img {
+  width: 20px;
 }
 .howItWorks {
   width: 100%;

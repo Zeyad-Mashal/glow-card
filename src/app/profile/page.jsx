@@ -171,7 +171,8 @@ const Profile = () => {
                 className="back_button"
                 onClick={() => setShowContentOnMobile(false)}
               >
-                <span>&lt;--</span> Back to Profile
+                <span>&lt;--</span>{" "}
+                {selectedLanguage === "ar" ? "رجوع" : "Back"}
               </button>
             )}
 
@@ -193,7 +194,7 @@ const Profile = () => {
                           draggable={false}
                         >
                           <img
-                            src="/images/frontempety.png"
+                            src="/images/Silver Card@2x.png"
                             alt={`Slide ${current}`}
                           />
                           <div className="card_info_content">
@@ -249,14 +250,19 @@ const Profile = () => {
                               )
                             }
                           >
-                            <h3>{item.product.name.ar}</h3>
+                            {selectedLanguage === "ar" ? (
+                              <h3>{item.product.name.ar}</h3>
+                            ) : (
+                              <h3>{item.product.name.en}</h3>
+                            )}
                             <p>{item.product.type}</p>
                           </div>
                           <div className="card_price">
-                            {item.totalPrice} ر.س
-                            <span onClick={() => handleGiftCopy(item._id)}>
+                            {item.totalPrice}{" "}
+                            {selectedLanguage === "ar" ? "ريال" : " SAR"}
+                            {/* <span onClick={() => handleGiftCopy(item._id)}>
                               نسخ رابط الهديه
-                            </span>
+                            </span> */}
                             {toastMessage && (
                               <div className="toast">
                                 <p>{toastMessage}</p>
@@ -291,11 +297,12 @@ const Profile = () => {
               <div className="profile_content_card logout">
                 <h2> {langValue["logout"]}</h2>
                 <p>
-                  <span>انتبه!!</span> في حال خروجك من هذا الحساب لن تستطيع
-                  مشاهدة البطاقة إلا عند التسجيل مرة اخرى!!!
+                  {selectedLanguage === "ar"
+                    ? `انتبه!!في حال خروجك من هذا الحساب لن تستطيع مشاهدة البطاقة إلا عند التسجيل مرة اخرى!!!`
+                    : "Attention!! If you log out of this account, you will not be able to view the card unless you log in again!!!"}
                 </p>
                 <button className="logout_button" onClick={logout}>
-                  Log Out
+                  {langValue["logout"]}
                 </button>
               </div>
             )}
