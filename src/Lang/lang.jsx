@@ -283,6 +283,10 @@ export const Lang = {
     howItWorks6: "- Renew your subscription – to continue enjoying discounts",
     howItWorks7:
       "- Share with friends – Get additional benefits when you invite your friends to subscribe",
+    RequestCompanyCard: "Request Company Card",
+    companyName: "Company Name",
+    CompanyEmployees: "Number of Company Employees",
+    AllFieldsRequired: "All fields are required",
   },
   ar: {
     Login: "تسجيل دخول",
@@ -562,5 +566,9 @@ export const Lang = {
     howItWorks6: "- جدد اشتراكك – للحفاظ على استمرارية الاستفادة من الخصومات",
     howItWorks7:
       "- شارك مع الأصدقاء – احصل على مزايا إضافية عند دعوة أصدقائك للاشتراك",
+    RequestCompanyCard: "طلب بطاقة شركة",
+    companyName: "اسم الشركة",
+    CompanyEmployees: "عدد موظفي الشركة",
+    AllFieldsRequired: "جميع الحقول مطلوبة",
   },
 };

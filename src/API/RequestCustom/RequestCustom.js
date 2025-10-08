@@ -1,7 +1,7 @@
-const URL = "https://glow-card.onrender.com/api/v1/contact/send?type=User";
+const URL = "https://glow-card.onrender.com/api/v1/contact/send?type=Company";
 
-const JoinUs = async (setloading, setError, data) => {
-    setloading(true)
+const RequestCustom = async (setRequestLoading, setRequestError, data) => {
+    setRequestLoading(true)
     const lang = localStorage.getItem("lang")
     try {
         const response = await fetch(URL, {
@@ -16,21 +16,21 @@ const JoinUs = async (setloading, setError, data) => {
         const result = await response.json();
 
         if (response.ok) {
-            setloading(false);
+            setRequestLoading(false);
         } else {
             if (response.status == 404) {
-                setError(result.message)
-                setloading(false);
+                setRequestError(result.message)
+                setRequestLoading(false);
             } else if (response.status == 500) {
                 console.log(result.message);
-                setError(result.message)
-                setloading(false);
+                setRequestError(result.message)
+                setRequestLoading(false);
             }
-            setloading(false)
+            setRequestLoading(false)
         }
     } catch (error) {
-        setError('An error occurred');
-        setloading(false)
+        setRequestError('An error occurred');
+        setRequestLoading(false)
     }
 }
-export default JoinUs;
+export default RequestCustom;

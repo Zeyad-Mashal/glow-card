@@ -39,6 +39,9 @@ export default function CardDetailsClient() {
       getCardDetails();
     }
   }, [id]);
+  useEffect(() => {
+    router.prefetch("/fatorah");
+  }, []);
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
@@ -52,11 +55,14 @@ export default function CardDetailsClient() {
     CardDetailsApi(setLoading, setError, setCardDetails, id);
   };
 
+  const [navigating, setNavigating] = useState(false);
+
   const goToApplication = (id, type, price) => {
+    setNavigating(true);
     localStorage.setItem("type", type);
     localStorage.setItem("price", price);
+
     router.push(`/fatorah?id=${id}`);
-    console.log("test");
   };
 
   const goToCard = (id, type, price) => {
@@ -126,15 +132,28 @@ export default function CardDetailsClient() {
             </div>
             <button
               onClick={() =>
-                goToApplication(
-                  cardDetails._id,
-                  cardDetails.type,
-                  cardDetails.price
-                )
+                cardDetails.type === "Custom"
+                  ? router.push("/request-card")
+                  : goToApplication(
+                      cardDetails._id,
+                      cardDetails.type,
+                      cardDetails.price
+                    )
               }
+              disabled={navigating}
             >
-              <FontAwesomeIcon icon={faArrowUpRightFromSquare} />{" "}
-              {langValue["reqBtn"]}
+              {navigating ? (
+                selectedLanguage === "ar" ? (
+                  "جارٍ التحميل..."
+                ) : (
+                  "Loading..."
+                )
+              ) : (
+                <>
+                  <FontAwesomeIcon icon={faArrowUpRightFromSquare} />{" "}
+                  {langValue["reqBtn"]}
+                </>
+              )}
             </button>
           </div>
         </div>
