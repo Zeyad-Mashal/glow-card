@@ -5,7 +5,7 @@ import Navbar from "./Navbar";
 
 export default function ConditionalNavbar() {
   const pathname = usePathname();
-  const hideNavbarPaths = ["/login", "/verify-otp"];
+  const hideNavbarPaths = ["/login", "/verify-otp", "/glow-club-mobile"];
 
   return !hideNavbarPaths.includes(pathname) ? <Navbar /> : null;
 }

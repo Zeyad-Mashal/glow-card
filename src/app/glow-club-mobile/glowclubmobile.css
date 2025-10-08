@@ -1,0 +1,161 @@
+/* ======= التصميم القديم ======= */
+.glowClub {
+  margin-top: 3.5rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.glowClub_banner {
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0;
+}
+.glowClub_banner img {
+  width: 100%;
+}
+.glowClub_container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.glowClub_container > h2 {
+      font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    background-color: #001f3f;
+    color: #fff;
+    border-radius: 16px;
+    padding: 5px 20px;
+    padding: 5px 20px;
+    width: 200px;
+}
+.glowClub_list {
+  width: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  background-color: #eee;
+  border-radius: 8px;
+  padding: 10px;
+  flex-wrap: wrap;
+}
+.glowClub_item {
+  width: 49%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  background-color: #ddd;
+  padding: 10px;
+  border-radius: 16px;
+  transition: 0.3s ease;
+  cursor: pointer;
+}
+.glowClub_item:hover {
+  background-color: #aaa;
+}
+.glowClub_item > img {
+  width: 150px;
+}
+.item_content {
+  text-align: center;
+}
+.item_content > h3 {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+.item_content > p {
+  font-weight: bold;
+  color: #002c59;
+}
+
+/* ======= Popup Styles ======= */
+.popup_overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup_card {
+  position: relative;
+  background: #fff;
+  padding: 2rem 1.5rem;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 350px;
+  text-align: center;
+  animation: popupScale 0.3s ease forwards;
+}
+
+.popup_close {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  border: none;
+  background: transparent;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.coupon_code {
+  font-size: 1.4rem;
+  margin: 1rem 0;
+  font-weight: bold;
+  color: #002c59;
+  letter-spacing: 1px;
+}
+
+.copy_btn {
+  border: none;
+  padding: 0.6rem 1.2rem;
+  background: #002c59;
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+.copy_btn:hover {
+  opacity: 0.85;
+}
+.popup_card > h3 {
+    font-weight: bold;
+}
+
+@keyframes popupScale {
+  from {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@media (max-width: 789px) {
+  .glowClub {
+    margin-top: 5.5rem;
+  }
+    .glowClub_list {
+        width: 95%;
+    }
+    .glowClub_item {
+        width: 100%;
+    }
+    .glowClub_item > img {
+        width: 94px;
+    }
+    .item_content > h3 {
+        font-size: 1rem;
+    }
+}
