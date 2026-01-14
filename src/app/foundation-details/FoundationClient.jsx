@@ -6,11 +6,15 @@ import {
   faLocationDot,
   faHouse,
   faPhone,
+  faChevronLeft,
+  faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { useSearchParams } from "next/navigation";
 import FoundationDetails from "@/API/FoundationDetails/FoundationDetails";
 
 const FoundationClient = () => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
   useEffect(() => {
     foundationDetailsApi();
   }, []);
@@ -23,16 +27,89 @@ const FoundationClient = () => {
   const foundationDetailsApi = () => {
     FoundationDetails(setLoading, setError, setFoundationDetails, id);
   };
+
+  const nextImage = () => {
+    if (foundationDetails?.images?.length) {
+      setCurrentImageIndex((prev) =>
+        prev === foundationDetails.images.length - 1 ? 0 : prev + 1
+      );
+    }
+  };
+
+  const prevImage = () => {
+    if (foundationDetails?.images?.length) {
+      setCurrentImageIndex((prev) =>
+        prev === 0 ? foundationDetails.images.length - 1 : prev - 1
+      );
+    }
+  };
+
+  const goToImage = (index) => {
+    setCurrentImageIndex(index);
+  };
+
+  useEffect(() => {
+    if (foundationDetails?.images?.length) {
+      setCurrentImageIndex(0);
+    }
+  }, [foundationDetails?.images]);
+
   return (
     <div className="foundation_details">
       <div className="foundation_details_container">
         <h1>{foundationDetails.name}</h1>
         {foundationDetails?.images && foundationDetails.images.length > 0 && (
-          <img
-            src={foundationDetails.images[0]}
-            alt="foundation image"
-            loading="lazy"
-          />
+          <div className="foundation_images_slider">
+            <div className="slider_main_image">
+              {foundationDetails.images.length > 1 && (
+                <button
+                  className="slider_nav_btn slider_prev_btn"
+                  onClick={prevImage}
+                  aria-label="Previous image"
+                >
+                  <FontAwesomeIcon icon={faChevronLeft} />
+                </button>
+              )}
+              <img
+                src={foundationDetails.images[currentImageIndex]}
+                alt={`foundation image ${currentImageIndex + 1}`}
+                loading="lazy"
+              />
+              {foundationDetails.images.length > 1 && (
+                <button
+                  className="slider_nav_btn slider_next_btn"
+                  onClick={nextImage}
+                  aria-label="Next image"
+                >
+                  <FontAwesomeIcon icon={faChevronRight} />
+                </button>
+              )}
+            </div>
+            {foundationDetails.images.length > 1 && (
+              <div className="slider_thumbnails">
+                {foundationDetails.images.map((img, index) => (
+                  <button
+                    key={index}
+                    className={`slider_thumbnail ${
+                      index === currentImageIndex ? "active" : ""
+                    }`}
+                    onClick={() => goToImage(index)}
+                  >
+                    <img
+                      src={img}
+                      alt={`thumbnail ${index + 1}`}
+                      loading="lazy"
+                    />
+                  </button>
+                ))}
+              </div>
+            )}
+            {foundationDetails.images.length > 1 && (
+              <div className="slider_indicator">
+                {currentImageIndex + 1} / {foundationDetails.images.length}
+              </div>
+            )}
+          </div>
         )}
 
         <div className="foundation_details_header">
