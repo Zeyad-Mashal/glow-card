@@ -11,6 +11,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useSearchParams } from "next/navigation";
 import FoundationDetails from "@/API/FoundationDetails/FoundationDetails";
+import { Lang } from "@/Lang/lang";
 
 const FoundationClient = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -54,6 +55,18 @@ const FoundationClient = () => {
     }
   }, [foundationDetails?.images]);
 
+  const phoneNumber = () => {
+    const phone = foundationDetails.phone
+    if (phone?.includes("https://")) {
+      return phone;
+    }
+    return `tel:${phone}`;
+  }
+  const [lang, setLang] = useState("");
+  useEffect(() => {
+    const langValue = localStorage.getItem("lang") || "ar";
+    setLang(langValue)
+  }, [])
   return (
     <div className="foundation_details">
       <div className="foundation_details_container">
@@ -115,15 +128,22 @@ const FoundationClient = () => {
         <div className="foundation_details_header">
           <div className="foundation_details_header_info">
             <FontAwesomeIcon icon={faHouse} />
-            {foundationDetails?.address?.map((branch, index) => (
-              <a key={index} href={branch.map} target="_blanck">
-                الفرع {index + 1} : {branch.ar}
-              </a>
-            ))}
+            {foundationDetails?.address?.map((branch, index) => {
+              const hasGoogle = branch.map?.toLowerCase().includes("maps");
+              return (
+                <a key={index} href={branch.map} target="_blanck">
+                  {hasGoogle ? (
+                    <>الفرع {index + 1} : {branch.ar}</>
+                  ) : (
+                    <>{lang === "ar" ? "جميع الفروع اختر الاقرب اليك" : "All branches choose the closest one to you"}</>
+                  )}
+                </a>
+              );
+            })}
           </div>
           <div className="foundation_details_header_info">
             <FontAwesomeIcon icon={faPhone} />
-            <p>هاتف : {foundationDetails.phone}</p>
+            <p>للتواصل : <a href={phoneNumber()} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "underline" }}>{foundationDetails.phone}</a></p>
           </div>
           <div className="foundation_details_header_info">
             <img src="/images/googleMap.png" alt="google map" loading="lazy" />
