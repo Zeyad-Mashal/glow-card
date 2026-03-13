@@ -115,10 +115,30 @@ const NetworkClient = () => {
     getAllFoundations([]); // بدون فلاتر
   };
 
+  const specialtyKeys = ["networkSpec1", "networkSpec2", "networkSpec3", "networkSpec4", "networkSpec5", "networkSpec6", "networkSpec7", "networkSpec8", "networkSpec9"];
+
   /* -------------------- JSX -------------------- */
   return (
     <div className="Network">
       <div className="network_container">
+        {/* ======= عنوان ووصف الصفحة ======= */}
+        <header className="network_header">
+          <h1 className="network_title">{langValue["networkPageTitle"]}</h1>
+          <p className="network_desc">{langValue["networkPageDesc"]}</p>
+        </header>
+
+        {/* ======= التخصصات ======= */}
+        <section className="network_specialties">
+          <h2 className="network_spec_heading">{lang === "ar" ? "التخصصات" : "Specialties"}</h2>
+          <div className="network_spec_grid">
+            {specialtyKeys.map((key, i) => (
+              <div key={key} className="network_spec_card" data-aos="fade-up" data-aos-delay={i * 50}>
+                <span className="network_spec_text">{langValue[key]}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+
         {/* ======= شريط البحث والفلاتر ======= */}
         <div className="netword_controller">
           <input

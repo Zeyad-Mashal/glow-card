@@ -12,17 +12,20 @@
   justify-content: space-around;
   align-items: center;
   padding: 0 20px;
-   /* background: linear-gradient(
-    to right,
-    #001f3f,  
-    #0074D9,  
-    #001f3f   
-  );
-  color: #fff; */
-
-            background-image: url("/images/glow card pics-06.png");
-            background-repeat: no-repeat;
-            background-size: cover;
+  position: relative;
+  background-image: url("/images/glow card pics-06.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.hero_overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+}
+.hero_content {
+  position: relative;
+  z-index: 1;
 }
 .hero_content {
   display: flex;
@@ -59,6 +62,37 @@
   background-color: #fff;
   color: #001f3f;
 }
+.hero_bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.hero_bullets li {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  width: 100%;
+  max-width: 420px;
+}
+.hero_cta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+.hero_cta .hero_btn {
+  width: auto;
+font-size: 1.2rem;  
+}
+.hero_trust {
+  font-size: 0.9rem !important;
+  font-weight: 600;
+  margin: 0;
+  opacity: 0.95;
+}
 .hero_container > img {
     margin-top: 3rem;
 
@@ -89,17 +123,30 @@
     font-size: 1.8rem;
     width: 100%;
   }
+  .hero_bullets {
+    align-items: center;
+  }
+  .hero_bullets li {
+    text-align: center;
+  }
+  .hero_cta {
+    align-items: center;
+  }
   .hero_container > img {
     margin-top: 0rem;
+}
+.hero_cta .hero_btn  {
+  font-size: 1rem;
 }
 }
 @media (max-width: 589px) {
   .hero_container {
-    height: 350px;
+    height: 400px;
   }
 }
 @media (max-width: 390px) {
   .hero_container {
-    height: 250px;
+    height: 400px
+    ;
   }
 }

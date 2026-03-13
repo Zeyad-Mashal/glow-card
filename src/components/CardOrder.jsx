@@ -28,9 +28,9 @@ const CardOrder = () => {
             data-aos="fade-left"
             data-aos-delay="400"
           >
-            <h2>Get Your Card Today !</h2>
+            <h2>Get Your Membership Today!</h2>
             <p>
-              Sign up for your HealthSaver card now and start enjoying exclusive
+              Subscribe to your membership now and start enjoying exclusive
               healthcare benefits tailored for you!
             </p>
             <button>Sign In</button>

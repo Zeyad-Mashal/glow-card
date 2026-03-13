@@ -197,9 +197,9 @@ const ApplicationClient = () => {
   return (
     <div className="application">
       <div className="appliaction_container">
-        <h1>Request Card</h1>
+        <h1>Subscribe</h1>
         <h2>
-          One card, easy to use – choose the card that suits your needs now!
+          One membership, easy to use – choose the membership that suits your needs now!
         </h2>
 
         {type && renderForm(roles[step], titles[step])}
@@ -261,7 +261,7 @@ const ApplicationClient = () => {
         <div className="modal">
           <div className="modal_content">
             <h2>شكراً لاشتراكك معنا!</h2>
-            <p>يرجى التوجه إلى تفاصيل البطاقة لمتابعة العملية.</p>
+            <p>يرجى التوجه إلى تفاصيل العضوية لمتابعة العملية.</p>
             <Link href={"/profile"}>من هنا</Link>
             <button onClick={() => setShowModal(false)}>إغلاق</button>
           </div>

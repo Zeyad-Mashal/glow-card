@@ -44,7 +44,8 @@ const OurCards = () => {
         )}
       </div>
 
-      <h1>{langValue["cards"] || "Cards"}</h1>
+      <h1 className="our_cards_title">{langValue["membershipsPageTitle"] || langValue["cards"] || "Cards"}</h1>
+      <p className="our_cards_desc">{langValue["membershipsPageDesc"]}</p>
 
       <div className="cards_list">
         {loading

@@ -17,16 +17,22 @@ const Hero = () => {
   return (
     <div className="hero">
       <div className="hero_container">
+        <div className="hero_overlay" aria-hidden="true" />
         <div className="hero_content">
           <h1 data-aos="zoom-in-up" data-aos-delay="100">
             {langValue["hero"]}
           </h1>
-          <p data-aos="zoom-in-up" data-aos-delay="250">
-            {langValue["heroSub"]}
-          </p>
-          <Link href={"/our_cards"} data-aos="zoom-in-up" data-aos-delay="350">
-            {langValue["heroBtn"]}
-          </Link>
+          <ul className="hero_bullets" data-aos="zoom-in-up" data-aos-delay="200">
+            <li>{langValue["heroBullet1"]}</li>
+            <li>{langValue["heroBullet2"]}</li>
+            <li>{langValue["heroBullet3"]}</li>
+          </ul>
+          <div className="hero_cta" data-aos="zoom-in-up" data-aos-delay="300">
+            <Link href={"/our_cards"} className="hero_btn">
+              {langValue["heroBtn"]}
+            </Link>
+            <p className="hero_trust">{langValue["heroTrust"]}</p>
+          </div>
         </div>
       </div>
     </div>

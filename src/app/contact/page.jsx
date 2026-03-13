@@ -12,43 +12,41 @@ import { Lang } from "@/Lang/lang";
 const page = () => {
   const [selectedLanguage, setSelectedLanguage] = useState("ar");
   useEffect(() => {
-    const lang = localStorage.getItem("lang") || "en";
+    const lang = localStorage.getItem("lang") || "ar";
     setSelectedLanguage(lang);
   }, []);
   const langValue = Lang[selectedLanguage];
   return (
     <div className="contact">
       <div className="contact_container">
-        <h1>{langValue["contact"]}</h1>
-        <p>{langValue["subContact"]}</p>
+        <h1 className="contact_page_title">{langValue["contactPageTitle"]}</h1>
+        <p className="contact_page_sub">{langValue["contactPageSub"]}</p>
+
+        <a
+          href="https://wa.me/966542220888"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="contact_whatsapp_btn"
+        >
+          <FontAwesomeIcon icon={faWhatsapp} /> {langValue["contactWhatsAppBtn"]}
+        </a>
+
         <div className="contact_content">
           <div className="content_text">
-            <h3>{langValue["subContact2"]}</h3>
-            <p>{langValue["subContact3"]}</p>
+            <h2>{langValue["contactways"]}</h2>
             <div className="content_text_info">
-              <h2>{langValue["contactways"]}</h2>
               <p>
-                <FontAwesomeIcon icon={faPhone} />{" "}
-                <a href="tel:+966542220888">+966542220888</a>
+                <FontAwesomeIcon icon={faLocationDot} /> {langValue["contactLocation"]}
               </p>
               <p>
-                <FontAwesomeIcon icon={faLocationDot} />
-                {langValue["location"]}
+                <FontAwesomeIcon icon={faPhone} />{" "}
+                <a href="tel:+966542220888">{langValue["contactPhone"]}</a>
+                <span className="contact_label"> {selectedLanguage === "ar" ? "واتساب / الهاتف" : "WhatsApp / Phone"}</span>
               </p>
               <p>
                 <FontAwesomeIcon icon={faEnvelope} />{" "}
-                <a href="mailto:Info@glowcard.com.sa">Info@glowcard.com.sa</a>
-              </p>
-              <p>
-                <FontAwesomeIcon icon={faWhatsapp} aria-label="WhatsApp" />{" "}
-                <a
-                  href="https://wa.me/966542220888"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="contact-link"
-                >
-                  https://wa.me/966542220888
-                </a>
+                <a href={`mailto:${langValue["contactEmail"]}`}>{langValue["contactEmail"]}</a>
+                <span className="contact_label"> {selectedLanguage === "ar" ? "البريد الإلكتروني" : "Email"}</span>
               </p>
             </div>
           </div>

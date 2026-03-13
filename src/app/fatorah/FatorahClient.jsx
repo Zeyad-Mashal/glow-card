@@ -185,7 +185,7 @@ const FatorahClient = () => {
           </div>
 
           <div className="cardType">
-            <h3>{selectedLang === "ar" ? "نوع البطاقه" : "Card Type"}</h3>
+            <h3>{selectedLang === "ar" ? "نوع العضوية" : "Membership Type"}</h3>
             <p>{cardType}</p>
           </div>
 

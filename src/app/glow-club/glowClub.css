@@ -24,16 +24,21 @@
   gap: 1rem;
   margin-bottom: 1rem;
 }
-.glowClub_container > h2 {
-      font-size: 1.5rem;
-    font-weight: bold;
-    text-align: center;
-    background-color: #001f3f;
-    color: #fff;
-    border-radius: 16px;
-    padding: 5px 20px;
-    padding: 5px 20px;
-    width: 200px;
+.glowClub_title {
+  font-size: 1.6rem;
+  font-weight: bold;
+  text-align: center;
+  margin: 0 0 0.5rem 0;
+  color: #001f3f;
+  max-width: 700px;
+}
+.glowClub_desc {
+  font-size: 1.05rem;
+  text-align: center;
+  margin: 0 0 1.5rem 0;
+  color: #555;
+  max-width: 560px;
+  line-height: 1.6;
 }
 .glowClub_list {
   width: 70%;

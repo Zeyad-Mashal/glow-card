@@ -31,10 +31,12 @@ const page = () => {
           </div>
         </div>
         <div className="about_description">
-          <h3>{langValue["aboutus"]}</h3>
-          <p>{langValue["aboutusSub1"]}</p>
-          <p>{langValue["aboutusSub2"]}</p>
-          <p>{langValue["aboutusSub3"]}</p>
+          <h1 className="about_page_title">{langValue["aboutPageTitle"]}</h1>
+          <p className="about_question">{langValue["aboutQuestion"]}</p>
+          <p className="about_story">{langValue["aboutStory"]}</p>
+          <p className="about_story2">{langValue["aboutStory2"]}</p>
+          <p className="about_mission">{langValue["aboutMission"]}</p>
+          <p className="about_vision">{langValue["aboutVision"]}</p>
         </div>
         <div className="about_map">
           <iframe

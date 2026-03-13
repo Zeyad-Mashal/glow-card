@@ -60,7 +60,8 @@ export default function GlowClubPage() {
           )}
         </div>
         <div className="glowClub_container">
-          <h2>{langValue["club"]}</h2>
+          <h1 className="glowClub_title">{langValue["glowClubPageTitle"]}</h1>
+          <p className="glowClub_desc">{langValue["glowClubPageDesc"]}</p>
 
           <div className="glowClub_list">
             {items.map((item) => (

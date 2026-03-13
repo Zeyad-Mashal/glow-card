@@ -175,7 +175,39 @@ const Join = () => {
         )}
       </div>
       <div className="join_container">
-        <h1>{langValue["joinUs"]}</h1>
+        <h1 className="join_page_title">{langValue["joinPageTitle"]}</h1>
+        <p className="join_page_desc">{langValue["joinPageDesc"]}</p>
+
+        {/* المزايا */}
+        <section className="join_benefits">
+          <div className="join_benefit_card" data-benefit="1">
+            <span className="join_benefit_icon" aria-hidden="true">📈</span>
+            <p>{langValue["joinBenefit1"]}</p>
+          </div>
+          <div className="join_benefit_card" data-benefit="2">
+            <span className="join_benefit_icon" aria-hidden="true">📣</span>
+            <p>{langValue["joinBenefit2"]}</p>
+          </div>
+          <div className="join_benefit_card" data-benefit="3">
+            <span className="join_benefit_icon" aria-hidden="true">📊</span>
+            <p>{langValue["joinBenefit3"]}</p>
+          </div>
+          <div className="join_benefit_card" data-benefit="4">
+            <span className="join_benefit_icon" aria-hidden="true">🛡️</span>
+            <p>{langValue["joinBenefit4"]}</p>
+          </div>
+        </section>
+
+        {/* خطوات الانضمام */}
+        <section className="join_steps_section">
+          <h2 className="join_steps_heading">{langValue["joinStepsHeading"]}</h2>
+          <ol className="join_steps_list">
+            <li>{langValue["joinStep1"]}</li>
+            <li>{langValue["joinStep2"]}</li>
+            <li>{langValue["joinStep3"]}</li>
+            <li>{langValue["joinStep4"]}</li>
+          </ol>
+        </section>
 
         {/* نافذة النجاح */}
         {formSubmitted && (
@@ -282,14 +314,8 @@ const Join = () => {
               </div>
             </label>
 
-            <button type="submit">
-              {selectedLanguage === "ar"
-                ? loading
-                  ? "تحميل ..."
-                  : "ارسال طلب"
-                : loading
-                ? "Loading ..."
-                : "Send Request"}
+            <button type="submit" className="join_cta_btn">
+              {loading ? (selectedLanguage === "ar" ? "تحميل ..." : "Loading ...") : langValue["joinCtaBtn"]}
             </button>
           </form>
         </div>

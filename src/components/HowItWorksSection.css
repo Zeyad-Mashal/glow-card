@@ -1,0 +1,77 @@
+.how_section {
+  width: 100%;
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1.5rem 1rem;
+  text-align: center;
+}
+
+.how_title {
+  font-size: 1.75rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  color: #001f3f;
+}
+
+.how_steps {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  counter-reset: step;
+}
+
+.how_steps li {
+  position: relative;
+  padding: 1rem 1rem 1rem 3.5rem;
+  margin-bottom: 1rem;
+  text-align: start;
+  background: #f8f9fa;
+  border-radius: 12px;
+  border-right: 4px solid #0074d9;
+  counter-increment: step;
+}
+
+.how_steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  background: #0074d9;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+[dir="rtl"] .how_steps li {
+  border-right: none;
+  border-left: 4px solid #0074d9;
+  padding-left: 1rem;
+  padding-right: 3.5rem;
+}
+
+[dir="rtl"] .how_steps li::before {
+  left: auto;
+  right: 1rem;
+}
+
+@media (max-width: 600px) {
+  .how_title {
+    font-size: 1.4rem;
+  }
+  .how_steps li {
+    padding: 0.9rem 0.9rem 0.9rem 3rem;
+    font-size: 0.95rem;
+  }
+  .how_steps li::before {
+    width: 24px;
+    height: 24px;
+    font-size: 0.8rem;
+  }
+}

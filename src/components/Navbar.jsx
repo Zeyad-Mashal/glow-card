@@ -167,7 +167,7 @@ const Navbar = () => {
             </li>
             <li>
               <Link href="/new" className={pathname === "/new" ? "active" : ""}>
-                {langValue["new"]}
+                {langValue["navNew"] || langValue["new"]}
               </Link>
             </li>
             <li>
@@ -322,7 +322,7 @@ const Navbar = () => {
                 className={pathname === "/new" ? "active" : ""}
                 onClick={toggleMenu}
               >
-                {langValue["new"]}
+                {langValue["navNew"] || langValue["new"]}
               </Link>
             </li>
             <li>

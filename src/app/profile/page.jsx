@@ -298,8 +298,8 @@ const Profile = () => {
                 <h2> {langValue["logout"]}</h2>
                 <p>
                   {selectedLanguage === "ar"
-                    ? `انتبه!!في حال خروجك من هذا الحساب لن تستطيع مشاهدة البطاقة إلا عند التسجيل مرة اخرى!!!`
-                    : "Attention!! If you log out of this account, you will not be able to view the card unless you log in again!!!"}
+                    ? `انتبه!!في حال خروجك من هذا الحساب لن تستطيع مشاهدة عضويتك إلا عند التسجيل مرة اخرى!!!`
+                    : "Attention!! If you log out of this account, you will not be able to view your membership unless you log in again!!!"}
                 </p>
                 <button className="logout_button" onClick={logout}>
                   {langValue["logout"]}

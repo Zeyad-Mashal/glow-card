@@ -24,6 +24,71 @@
   text-align: center;
 }
 
+/* ✅ عنوان ووصف صفحة الشبكة */
+.network_header {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.network_title {
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin: 0 0 0.75rem 0;
+  color: #001f3f;
+}
+.network_desc {
+  font-size: 1.05rem;
+  margin: 0;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* ✅ قسم التخصصات */
+.network_specialties {
+  width: 100%;
+  margin-bottom: 2rem;
+}
+.network_spec_heading {
+  font-size: 1.35rem;
+  font-weight: bold;
+  margin: 0 0 1rem 0;
+  text-align: center;
+  color: #001f3f;
+}
+.network_spec_grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+}
+.network_spec_card {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  border-right: 4px solid #0074d9;
+  text-align: start;
+}
+[dir="rtl"] .network_spec_card {
+  border-right: none;
+  border-left: 4px solid #0074d9;
+}
+.network_spec_text {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #333;
+}
+
+@media (max-width: 600px) {
+  .network_title {
+    font-size: 1.35rem;
+  }
+  .network_spec_grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ✅ شريط البحث والفلاتر */
 .netword_controller {
   width: 100%;

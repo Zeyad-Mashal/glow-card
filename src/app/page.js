@@ -1,36 +1,27 @@
 'use client'
-import Head from "next/head";
 import Hero from "@/components/Hero";
 import Banner from "@/components/Banner";
 import Features from "@/components/Features";
 import GlowCards from "@/components/GlowCards";
-import CardOrder from "@/components/CardOrder";
-import NewsLetter from "@/components/NewsLetter";
 import Footer from "@/components/Footer";
 import Banner2 from "@/components/Banner2";
 import Banner3 from "@/components/Banner3";
+import HowItWorksSection from "@/components/HowItWorksSection";
+import WhyGlowCard from "@/components/WhyGlowCard";
+import FinalCTA from "@/components/FinalCTA";
 export default function Home() {
 
   return (
     <>
-      <Head>
-        <title>Home - Glow Card</title>
-        <meta name="description" content="Find the best deals on electronics and more." />
-        <link rel="canonical" href="https://www.myecom.com/" />
-        <meta property="og:title" content="Home - Glow Card" />
-        <meta property="og:description" content="Glow Card" />
-        <meta property="og:url" content="https://vercel.com/zeyad-mashaals-projects/glow-card" />
-        <meta property="og:site_name" content="Glow Card" />
-      </Head>
-
-
-
       <Hero />
       <Banner />
       <Banner2 />
       <Features />
       <Banner3 />
+      <HowItWorksSection />
+      <WhyGlowCard />
       <GlowCards />
+      <FinalCTA />
       <Footer />
     </>
   );

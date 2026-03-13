@@ -54,6 +54,26 @@
 box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 90%;
 }
+.about_page_title {
+    font-size: 1.75rem;
+    color: #00283e;
+    font-weight: bold;
+    margin: 0 0 1rem 0;
+    text-align: center;
+}
+.about_question {
+    font-size: 1.2rem;
+    color: #0074d9;
+    font-weight: 600;
+    margin: 0 0 1rem 0;
+    text-align: center;
+}
+.about_story,
+.about_story2,
+.about_mission,
+.about_vision {
+    margin: 0 0 0.75rem 0;
+}
 .about_description h3 {
     font-size: 1.8rem;
     color: #00283e;
