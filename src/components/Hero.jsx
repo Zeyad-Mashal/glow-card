@@ -22,16 +22,31 @@ const Hero = () => {
           <h1 data-aos="zoom-in-up" data-aos-delay="100">
             {langValue["hero"]}
           </h1>
-          <ul className="hero_bullets" data-aos="zoom-in-up" data-aos-delay="200">
-            <li>{langValue["heroBullet1"]}</li>
-            <li>{langValue["heroBullet2"]}</li>
-            <li>{langValue["heroBullet3"]}</li>
-          </ul>
-          <div className="hero_cta" data-aos="zoom-in-up" data-aos-delay="300">
+          <div className="hero_cta" data-aos="zoom-in-up" data-aos-delay="200">
             <Link href={"/our_cards"} className="hero_btn">
               {langValue["heroBtn"]}
             </Link>
             <p className="hero_trust">{langValue["heroTrust"]}</p>
+          </div>
+        </div>
+      </div>
+      <div className="hero_ticker" aria-hidden="true">
+        <div className="hero_ticker_inner">
+          <div className="hero_ticker_track">
+            <div className="hero_ticker_segment">
+              <span className="hero_ticker_item">{langValue["heroBullet1"]}</span>
+              <span className="hero_ticker_dot">✦</span>
+              <span className="hero_ticker_item">{langValue["heroBullet2"]}</span>
+              <span className="hero_ticker_dot">✦</span>
+              <span className="hero_ticker_item">{langValue["heroBullet3"]}</span>
+            </div>
+            <div className="hero_ticker_segment">
+              <span className="hero_ticker_item">{langValue["heroBullet1"]}</span>
+              <span className="hero_ticker_dot">✦</span>
+              <span className="hero_ticker_item">{langValue["heroBullet2"]}</span>
+              <span className="hero_ticker_dot">✦</span>
+              <span className="hero_ticker_item">{langValue["heroBullet3"]}</span>
+            </div>
           </div>
         </div>
       </div>

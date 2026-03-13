@@ -62,21 +62,6 @@
   background-color: #fff;
   color: #001f3f;
 }
-.hero_bullets {
-  list-style: none;
-  padding: 0;
-  margin: 0.5rem 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-.hero_bullets li {
-  font-size: 1rem;
-  font-weight: 600;
-  color: #fff;
-  width: 100%;
-  max-width: 420px;
-}
 .hero_cta {
   display: flex;
   flex-direction: column;
@@ -86,6 +71,7 @@
 .hero_cta .hero_btn {
   width: auto;
 font-size: 1.2rem;  
+background-color: green;
 }
 .hero_trust {
   font-size: 0.9rem !important;
@@ -97,6 +83,70 @@ font-size: 1.2rem;
     margin-top: 3rem;
 
 }
+
+/* Ticker / Slider text — لوب سلس: يختفي من جهة ويظهر التكملة من الجهة الثانية */
+.hero_ticker {
+  width: 100%;
+  overflow: hidden;
+  background: linear-gradient(90deg, #001f3f 0%, #0074d9 50%, #001f3f 100%);
+  padding: 0.85rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+.hero_ticker_inner {
+  width: 100%;
+  overflow: hidden;
+}
+.hero_ticker_track {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  width: max-content;
+  flex-shrink: 0;
+  animation: hero_ticker_scroll 40s linear infinite;
+  will-change: transform;
+}
+.hero_ticker_segment {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-shrink: 0;
+  padding: 0 1rem;
+}
+[dir="rtl"] .hero_ticker_track {
+  animation: hero_ticker_scroll_rtl 40s linear infinite;
+}
+.hero_ticker_item,
+.hero_ticker_dot {
+  color: #fff;
+  font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+.hero_ticker_dot {
+  opacity: 0.85;
+  user-select: none;
+}
+/* لوب سلس: تحريك بنسبة 50% بالضبط لأن المحتوى مكرر مرتين — أول ما يختفي من جهة تظهر التكملة من الثانية */
+@keyframes hero_ticker_scroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+@keyframes hero_ticker_scroll_rtl {
+  from {
+    transform: translate3d(-50%, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
 @media (max-width: 768px) {
   .hero {
     height: auto;
@@ -123,11 +173,8 @@ font-size: 1.2rem;
     font-size: 1.8rem;
     width: 100%;
   }
-  .hero_bullets {
-    align-items: center;
-  }
-  .hero_bullets li {
-    text-align: center;
+  .hero_ticker_track {
+    gap: 1.25rem;
   }
   .hero_cta {
     align-items: center;

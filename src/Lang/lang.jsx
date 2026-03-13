@@ -12,32 +12,43 @@ export const Lang = {
     contactUs: "Contact Us",
     hero: "Celebrity membership — your beauty deserves it",
     heroSub: "Your gateway to exclusive membership in health and beauty",
-    heroBullet1: "Exclusive discounts up to 80% ✦ Trusted, growing clinic network",
+    heroBullet1:
+      "Exclusive discounts up to 80% ✦ Trusted, growing clinic network",
     heroBullet2: "Full digital membership — 299 SAR / year",
     heroBullet3: "Active instantly ✓ No hidden terms",
-    heroBtn: "Get your membership — save from your first visit",
+    heroBtn: "Get your membership",
     heroTrust: "✓ 100% digital ✓ Active instantly ✓ No hidden terms",
     howSectionTitle: "How does Glow Card work?",
-    howStep1: "Choose your membership — Classic, Premium, Couples, Family, or Business — or pick what fits your life",
-    howStep2: "Activate your membership — Pay 299 SAR, your membership activates instantly and you start saving right away",
-    howStep3: "Choose your clinic — Browse our growing network of trusted beauty and wellness clinics in your city",
-    howStep4: "Show your digital membership at the clinic — Save and get your discount on the spot, no papers or coupons",
+    howStep1:
+      "Choose your membership — Classic, Premium, Couples, Family, or Business — or pick what fits your life",
+    howStep2:
+      "Activate your membership — Pay 299 SAR, your membership activates instantly and you start saving right away",
+    howStep3:
+      "Choose your clinic — Browse our growing network of trusted beauty and wellness clinics in your city",
+    howStep4:
+      "Show your digital membership at the clinic — Save and get your discount on the spot, no papers or coupons",
     whySectionTitle: "Why Glow Card?",
     why1Title: "Network that grows every week",
-    why1Text: "Your options increase day by day — new clinics and centers join constantly",
+    why1Text:
+      "Your options increase day by day — new clinics and centers join constantly",
     why2Title: "Real discounts, no empty promises",
     why2Text: "Real savings up to 80% at clinics that carry our trusted seal",
     why3Title: "100% digital",
-    why3Text: "Instant activation, instant use — everything on your phone, no paperwork",
+    why3Text:
+      "Instant activation, instant use — everything on your phone, no paperwork",
     why4Title: "299 SAR for everything",
-    why4Text: "One transparent price for a full year — no hidden fees, no surprises",
+    why4Text:
+      "One transparent price for a full year — no hidden fees, no surprises",
     finalCtaTitle: "How much will you save this year?",
-    finalCtaSub: "Get your membership today with code GLOW1 and enjoy 10% off your first subscription.",
+    finalCtaSub:
+      "Get your membership today with code GLOW1 and enjoy 10% off your first subscription.",
     finalCtaBtn: "Start saving now",
     finalCtaTrust: "✓ Your membership ready in one minute ✓ No commitments",
     networkPageTitle: "Our network grows every week — and so do your options",
-    networkPageDesc: "One membership opens the door to clinics from beauty to dental, laser and skin, and health centers that never stop.",
-    networkSpec1: "Beauty & skin clinics — Feel the difference from the first session",
+    networkPageDesc:
+      "One membership opens the door to clinics from beauty to dental, laser and skin, and health centers that never stop.",
+    networkSpec1:
+      "Beauty & skin clinics — Feel the difference from the first session",
     networkSpec2: "Dental clinics — Your smile deserves the best",
     networkSpec3: "Laser clinics — Lasting results at affordable prices",
     networkSpec4: "Dermatology clinics — Your real care starts here",
@@ -47,7 +58,8 @@ export const Lang = {
     networkSpec8: "Sports clubs — Your fitness is part of your beauty",
     networkSpec9: "Beauty centers — Everything you need, with value and price",
     membershipsPageTitle: "Which one suits you? — A membership for every life",
-    membershipsPageDesc: "Five memberships, exclusive network, unlimited savings",
+    membershipsPageDesc:
+      "Five memberships, exclusive network, unlimited savings",
     Features: "our Features",
     featuresSub: "Save money on trusted services and providers",
     featuresSub1: "Medical Network",
@@ -85,16 +97,25 @@ export const Lang = {
     aboutcompany: "Company Info",
     join: "Add Your Company",
     joinPageTitle: "Glow Card + your clinic = new clients every week",
-    joinPageDesc: "Join the fastest-growing network in Saudi Arabia for beauty and wellness clinics — no joining fees, no financial commitments.",
-    joinBenefit1: "Partner clinics in our network achieved this growth — 25–35% growth in new client numbers",
-    joinBenefit2: "Free visibility in our marketing campaigns — your logo and offer reach thousands of subscribers monthly",
-    joinBenefit3: "Reports and precise analytics — know where your new clients come from and how they behave",
-    joinBenefit4: "Zero risk — no joining fees, no mandatory contracts, join with peace of mind",
+    joinPageDesc:
+      "Join the fastest-growing network in Saudi Arabia for beauty and wellness clinics — no joining fees, no financial commitments.",
+    joinBenefit1:
+      "Partner clinics in our network achieved this growth — 25–35% growth in new client numbers",
+    joinBenefit2:
+      "Free visibility in our marketing campaigns — your logo and offer reach thousands of subscribers monthly",
+    joinBenefit3:
+      "Reports and precise analytics — know where your new clients come from and how they behave",
+    joinBenefit4:
+      "Zero risk — no joining fees, no mandatory contracts, join with peace of mind",
     joinStepsHeading: "Steps to join",
-    joinStep1: "Contact us — via website, phone or email — we respond within 24 hours",
-    joinStep2: "Register your clinic — enter your business details in minutes, no complicated paperwork",
-    joinStep3: "Set your offers — choose the services and discounts you provide",
-    joinStep4: "Your clinic appears on the Glow Card network right away — approval to start immediately",
+    joinStep1:
+      "Contact us — via website, phone or email — we respond within 24 hours",
+    joinStep2:
+      "Register your clinic — enter your business details in minutes, no complicated paperwork",
+    joinStep3:
+      "Set your offers — choose the services and discounts you provide",
+    joinStep4:
+      "Your clinic appears on the Glow Card network right away — approval to start immediately",
     joinCtaBtn: "Add your clinic now — free",
     new: "Newest Added",
     navNew: "Join recently",
@@ -111,16 +132,22 @@ export const Lang = {
     aboutusSub3:
       "With Glow Card, you enjoy more than just savings—it’s your digital companion for beauty, wellness, and health.",
     aboutPageTitle: "Our story started with a simple question",
-    aboutQuestion: "Why should care for beauty and health be a privilege for the few?",
-    aboutStory: "Glow Card was born from this question — a simple idea that everyone deserves access to the best beauty and wellness clinics at a fair price.",
-    aboutStory2: "Center by center, clinic by clinic — we're building the largest and most trusted network in the Kingdom today.",
-    aboutMission: "Our mission: Build the largest specialized discount network that enables clinics and centers to grow and their customers to save.",
-    aboutVision: "Our vision: To be the first trusted partner for every beauty and wellness clinic in the Kingdom of Saudi Arabia.",
+    aboutQuestion:
+      "Why should care for beauty and health be a privilege for the few?",
+    aboutStory:
+      "Glow Card was born from this question — a simple idea that everyone deserves access to the best beauty and wellness clinics at a fair price.",
+    aboutStory2:
+      "Center by center, clinic by clinic — we're building the largest and most trusted network in the Kingdom today.",
+    aboutMission:
+      "Our mission: Build the largest specialized discount network that enables clinics and centers to grow and their customers to save.",
+    aboutVision:
+      "Our vision: To be the first trusted partner for every beauty and wellness clinic in the Kingdom of Saudi Arabia.",
     joinUs: "Join Us Now",
     success: "We Received Your Request Thanks",
     club: "Glow Club",
     glowClubPageTitle: "Welcome to Glow Club — where beauty meets excellence",
-    glowClubPageDesc: "Glow Club is not just a membership — a community of conscious women who know the value of their time and money.",
+    glowClubPageDesc:
+      "Glow Club is not just a membership — a community of conscious women who know the value of their time and money.",
     mdia: "Who Us ?",
     submedia:
       "Welcome to Glow Card where you can find all medical discount solutions.",
@@ -326,7 +353,8 @@ export const Lang = {
     activation: "Membership Activation",
     contact: "Contact Us",
     contactPageTitle: "We're here — talk to us",
-    contactPageSub: "Whether you're a subscriber with a question or want to join — a clinic or company looking for corporate membership — our team responds within hours.",
+    contactPageSub:
+      "Whether you're a subscriber with a question or want to join — a clinic or company looking for corporate membership — our team responds within hours.",
     contactLocation: "Riyadh — Kingdom of Saudi Arabia",
     contactPhone: "966+ 542220888",
     contactEmail: "info@glowcard.com.sa",
@@ -361,18 +389,22 @@ export const Lang = {
     home: "الرئيسية",
     network: "العيادات والمراكز",
     contactUs: "معنا تواصل",
-    hero: "عضوية المشاهير — يستحق جمالك",
+    hero: "يستحق جمالك عضوية المشاهير",
     heroSub: "عضوية المشاهير في الجمال والصحة",
     heroBullet1: "خصومات حصرية تصل إلى 80% ✦ شبكة عيادات معتمدة ومتنامية",
     heroBullet2: "عضوية رقمية كاملة بـ 299 ريال / السنة",
     heroBullet3: "فعّالة فوراً ✓ بدون شروط خفية",
-    heroBtn: "احصلي على عضويتك — وفّري من أول زيارة",
+    heroBtn: "احصلي على عضويتك",
     heroTrust: "✓ رقمية بالكامل ✓ فعّالة فوراً ✓ بدون شروط خفية",
     howSectionTitle: "كيف تعمل جلو كارد؟",
-    howStep1: "اختاري عضويتك — كلاسيك، بريميوم، أزواج، عائلات، شركات — أو اختاري ما يناسب حياتك",
-    howStep2: "فعّلي عضويتك — ادفعي 299 ريال، تنشط عضويتك في نفس اللحظة وتبدأ توفيرك فوراً",
-    howStep3: "اختاري عيادتك — تصفّحي شبكتنا المتنامية من عيادات الجمال والصحة المعتمدة في مدينتك",
-    howStep4: "اعرضي عضويتك الرقمية في العيادة — وفّري واحصلي على خصمك فوراً، بدون أوراق أو كوبونات",
+    howStep1:
+      "اختاري عضويتك — كلاسيك، بريميوم، أزواج، عائلات، شركات — أو اختاري ما يناسب حياتك",
+    howStep2:
+      "فعّلي عضويتك — ادفعي 299 ريال، تنشط عضويتك في نفس اللحظة وتبدأ توفيرك فوراً",
+    howStep3:
+      "اختاري عيادتك — تصفّحي شبكتنا المتنامية من عيادات الجمال والصحة المعتمدة في مدينتك",
+    howStep4:
+      "اعرضي عضويتك الرقمية في العيادة — وفّري واحصلي على خصمك فوراً، بدون أوراق أو كوبونات",
     whySectionTitle: "لماذا جلو كارد؟",
     why1Title: "شبكة تتوسع كل أسبوع",
     why1Text: "خياراتك تزيد يوم بعد يوم — عيادات ومراكز جديدة تنضم باستمرار",
@@ -383,11 +415,13 @@ export const Lang = {
     why4Title: "299 ريال — شيء واحد",
     why4Text: "سعر واحد شفاف وكامل لسنة — لا رسوم خفية، لا مفاجآت",
     finalCtaTitle: "كم ستوفّرين هذا العام؟",
-    finalCtaSub: "احصلي على عضويتك اليوم بكود GLOW1 واستمتعي بخصم 10% على أول اشتراك.",
+    finalCtaSub:
+      "احصلي على عضويتك اليوم بكود GLOW1 واستمتعي بخصم 10% على أول اشتراك.",
     finalCtaBtn: "ابدئي التوفير الآن",
     finalCtaTrust: "✓ عضويتك جاهزة خلال دقيقة واحدة ✓ بدون أي التزامات",
     networkPageTitle: "شبكتنا تكبر كل أسبوع — معها خياراتك",
-    networkPageDesc: "عضوية واحدة تفتح لك أبواب عيادات من التجميل إلى الأسنان والليزر والجلدية ومراكز الصحّة — لا تنتهي.",
+    networkPageDesc:
+      "عضوية واحدة تفتح لك أبواب عيادات من التجميل إلى الأسنان والليزر والجلدية ومراكز الصحّة — لا تنتهي.",
     networkSpec1: "✨ عيادات التجميل والبشرة — أشعري بالفرق من أول جلسة",
     networkSpec2: "🦷 عيادات الأسنان — ابتسامتك تستحق الأفضل",
     networkSpec3: "⚡ عيادات الليزر — نتائج دائمة بأسعار ممكنة",
@@ -436,21 +470,29 @@ export const Lang = {
     aboutcompany: "بيانات الشركة",
     join: "أضيفي عيادتك",
     joinPageTitle: "كارد جلو + عيادتك = عملاء جدد كل أسبوع",
-    joinPageDesc: "انضم إلى أسرع شبكة نمواً في السعودية لعيادات الجمال والصحة — انضمام بدون رسوم، بدون التزامات مالية.",
-    joinBenefit1: "عيادات شريكة فعلية في شبكتنا حققت هذا النمو — نمو 25–35% في عدد العملاء الجدد",
-    joinBenefit2: "ظهور مجاني في حملاتنا التسويقية — شعارك وعرضك يصل لآلاف المشتركين شهرياً",
-    joinBenefit3: "تقارير وتحليلات دقيقة — اعرف من أين يأتي عملاؤك الجدد وكيف يتصرفون",
-    joinBenefit4: "صفر مخاطر — لا رسوم انضمام، لا عقود إلزامية، انضمي وأنت مرتاحة",
+    joinPageDesc:
+      "انضم إلى أسرع شبكة نمواً في السعودية لعيادات الجمال والصحة — انضمام بدون رسوم، بدون التزامات مالية.",
+    joinBenefit1:
+      "عيادات شريكة فعلية في شبكتنا حققت هذا النمو — نمو 25–35% في عدد العملاء الجدد",
+    joinBenefit2:
+      "ظهور مجاني في حملاتنا التسويقية — شعارك وعرضك يصل لآلاف المشتركين شهرياً",
+    joinBenefit3:
+      "تقارير وتحليلات دقيقة — اعرف من أين يأتي عملاؤك الجدد وكيف يتصرفون",
+    joinBenefit4:
+      "صفر مخاطر — لا رسوم انضمام، لا عقود إلزامية، انضمي وأنت مرتاحة",
     joinStepsHeading: "خطوات الانضمام",
-    joinStep1: "تواصلي معنا — عبر الموقع أو الهاتف أو البريد — نرد خلال 24 ساعة",
-    joinStep2: "سجّل عيادتك — أدخلي بيانات نشاطك التجاري في دقائق، بدون أوراق معقدة",
+    joinStep1:
+      "تواصلي معنا — عبر الموقع أو الهاتف أو البريد — نرد خلال 24 ساعة",
+    joinStep2:
+      "سجّل عيادتك — أدخلي بيانات نشاطك التجاري في دقائق، بدون أوراق معقدة",
     joinStep3: "حدّدي عروضك — من أن تختاري الخدمات والخصومات التي تقدمينها",
     joinStep4: "فوراً — عيادتك تظهر في شبكة جلو كارد، الموافقة فور البدء",
     joinCtaBtn: "أضيفي عيادتك الآن — مجاناً",
     new: "انضمّي حديثاً",
     navNew: "انضمّي حديثاً",
     banner1: "استخدم كود 'Glow1' للحصول على خصم 10%!",
-    banner2: "مركز الخصم الصحي المحلي الخاص بك — تفتح لك عالم من الخصومات في أكبر شبكة عيادات جمالية وصحية في المملكة",
+    banner2:
+      "مركز الخصم الصحي المحلي الخاص بك — تفتح لك عالم من الخصومات في أكبر شبكة عيادات جمالية وصحية في المملكة",
     banner3:
       "عضوية واحدة، سهل الاستخدام – اختر العضوية التي تناسب احتياجاتك الآن!",
     banner4: "اكتشف",
@@ -463,15 +505,20 @@ export const Lang = {
       "مع جلو كارد، تحصل على أكثر من مجرد خصومات، فهي رفيقك الرقمي للجمال، الصحة، والرفاهية",
     aboutPageTitle: "قصتنا بدأت من سؤال بسيط",
     aboutQuestion: "لماذا يجب أن تكون العناية بالجمال والصحة امتيازاً للقلة؟",
-    aboutStory: "جلو كارد وُلدت من هذا السؤال — فكرة بسيطة تؤمن بأن كل شخص يستحق الوصول إلى أفضل عيادات الجمال والصحة بسعر عادل.",
-    aboutStory2: "مركز مركز، عيادة عيادة — نبني اليوم الأكبر والأكثر ثقة في المملكة.",
-    aboutMission: "رسالتنا: نبني أكبر شبكة خصومات متخصصة تُمكّن العيادات والمراكز من النمو وعملاءها من التوفير.",
-    aboutVision: "رؤيتنا: أن نكون الشريك الموثوق الأول لكل عيادة جمال وصحة في المملكة العربية السعودية.",
+    aboutStory:
+      "جلو كارد وُلدت من هذا السؤال — فكرة بسيطة تؤمن بأن كل شخص يستحق الوصول إلى أفضل عيادات الجمال والصحة بسعر عادل.",
+    aboutStory2:
+      "مركز مركز، عيادة عيادة — نبني اليوم الأكبر والأكثر ثقة في المملكة.",
+    aboutMission:
+      "رسالتنا: نبني أكبر شبكة خصومات متخصصة تُمكّن العيادات والمراكز من النمو وعملاءها من التوفير.",
+    aboutVision:
+      "رؤيتنا: أن نكون الشريك الموثوق الأول لكل عيادة جمال وصحة في المملكة العربية السعودية.",
     joinUs: "انضم الينا الان",
     success: "تم إرسال الطلب بنجاح",
     club: "نادي جلو",
     glowClubPageTitle: "مرحباً بك في نادي جلو — حيث يلتقي الجمال بالامتياز",
-    glowClubPageDesc: "نادي جلو ليس مجرد عضوية — مجتمع نساء واعيات يعرفن قيمة وقتهن ومالهن.",
+    glowClubPageDesc:
+      "نادي جلو ليس مجرد عضوية — مجتمع نساء واعيات يعرفن قيمة وقتهن ومالهن.",
     mdia: "من نحن؟",
     submedia: "مرحبا بكم في جلو كارد حيث يوجد جميع حلول الخصومات الطبية",
     other: "تفاصيل أخرى",
@@ -671,7 +718,8 @@ export const Lang = {
     activation: "تفعيل العضويات",
     contact: "تواصل معنا",
     contactPageTitle: "نحن هنا — تحدّثي معنا",
-    contactPageSub: "سواء كنت مشتركة أو لديها سؤال أو تريد الانضمام — عيادة أو شركة تبحث عن عضوية مؤسسية، فريقنا يرد خلال ساعات.",
+    contactPageSub:
+      "سواء كنت مشتركة أو لديها سؤال أو تريد الانضمام — عيادة أو شركة تبحث عن عضوية مؤسسية، فريقنا يرد خلال ساعات.",
     contactLocation: "الرياض — المملكة العربية السعودية",
     contactPhone: "966+ 542220888",
     contactEmail: "info@glowcard.com.sa",
