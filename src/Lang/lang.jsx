@@ -10,7 +10,7 @@ export const Lang = {
     home: "Home",
     network: "Medical Network",
     contactUs: "Contact Us",
-    hero: "Celebrity membership — your beauty deserves it",
+    hero: "Celebrity membership your beauty deserves it",
     heroSub: "Your gateway to exclusive membership in health and beauty",
     heroBullet1:
       "Exclusive discounts up to 80% ✦ Trusted, growing clinic network",
@@ -389,7 +389,7 @@ export const Lang = {
     home: "الرئيسية",
     network: "العيادات والمراكز",
     contactUs: "معنا تواصل",
-    hero: "يستحق جمالك عضوية المشاهير",
+    hero: "جمالك يستحق عضوية المشاهير",
     heroSub: "عضوية المشاهير في الجمال والصحة",
     heroBullet1: "خصومات حصرية تصل إلى 80% ✦ شبكة عيادات معتمدة ومتنامية",
     heroBullet2: "عضوية رقمية كاملة بـ 299 ريال / السنة",
