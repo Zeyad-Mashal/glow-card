@@ -115,7 +115,7 @@ const NetworkClient = () => {
     getAllFoundations([]); // بدون فلاتر
   };
 
-  const specialtyKeys = ["networkSpec1", "networkSpec2", "networkSpec3", "networkSpec4", "networkSpec5", "networkSpec6", "networkSpec7", "networkSpec8", "networkSpec9"];
+  const specialtyKeys = ["networkSpec1", "networkSpec2", "networkSpec3", "networkSpec4", "networkSpec5", "networkSpec6", "networkSpec7", "networkSpec8", "networkSpec9", "networkSpec10"];
 
   /* -------------------- JSX -------------------- */
   return (

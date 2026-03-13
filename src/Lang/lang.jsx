@@ -56,7 +56,8 @@ export const Lang = {
     networkSpec6: "Eye clinics — Clear vision at a fair price",
     networkSpec7: "Nutrition clinics — Beauty starts from within",
     networkSpec8: "Sports clubs — Your fitness is part of your beauty",
-    networkSpec9: "Beauty centers — Everything you need, with value and price",
+    networkSpec9: "Beauty salons — Everything you need, with value and price",
+    networkSpec10: "Spa centers — Moments of rest you deserve",
     membershipsPageTitle: "Which one suits you? — A membership for every life",
     membershipsPageDesc:
       "Five memberships, exclusive network, unlimited savings",
@@ -128,7 +129,7 @@ export const Lang = {
     aboutusSub1:
       "Glow Card is a digital membership that builds strong and lasting partnerships between businesses and clients.",
     aboutusSub2:
-      "We provide discounts of up to 70% across a wide network of clinics, beauty centers, wellness hubs, and health providers in the Kingdom.",
+      "We provide discounts of up to 70% across a wide network of clinics, beauty salons, spa centers, wellness hubs, and health providers in the Kingdom.",
     aboutusSub3:
       "With Glow Card, you enjoy more than just savings—it’s your digital companion for beauty, wellness, and health.",
     aboutPageTitle: "Our story started with a simple question",
@@ -430,7 +431,8 @@ export const Lang = {
     networkSpec6: "👁️ عيادات العيون — وضوح الرؤية بثمن يُقدّر",
     networkSpec7: "🥗 عيادات التغذية — الجمال يبدأ من الداخل",
     networkSpec8: "💪 نوادي رياضية — لياقتك جزء من جمالك",
-    networkSpec9: "💄 مراكز التجميل — كل ما تحتاجينه بميزة وسعر",
+    networkSpec9: "💄 صالونات التجميل — كل ما تحتاجينه بميزة وسعر",
+    networkSpec10: "🛁 مراكز السبا — لحظات راحة تستحقينها",
     membershipsPageTitle: "أيّتها تناسبك؟ — حياة لكل عضوية",
     membershipsPageDesc: "خمس عضويات، شبكة حصرية، توفير لا محدود",
     Features: "مميزاتنا",
@@ -500,7 +502,7 @@ export const Lang = {
     aboutusSub1:
       "جلو كارد هي عضوية رقمية تهدف إلى بناء شراكات ناجحة بين مختلف المؤسسات والعملاء",
     aboutusSub2:
-      "‎نوفّر خصومات تصل حتى %70 ضمن شبكة واسعة من العيادات، مراكز التجميل، مراكز العناية بالصحة والرفاهية، والعديد من مقدّمي الخدمات في المملكة.",
+      "‎نوفّر خصومات تصل حتى %70 ضمن شبكة واسعة من العيادات، صالونات التجميل، مراكز السبا والعناية بالصحة والرفاهية، والعديد من مقدّمي الخدمات في المملكة.",
     aboutusSub3:
       "مع جلو كارد، تحصل على أكثر من مجرد خصومات، فهي رفيقك الرقمي للجمال، الصحة، والرفاهية",
     aboutPageTitle: "قصتنا بدأت من سؤال بسيط",
