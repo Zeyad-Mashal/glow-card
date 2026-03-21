@@ -1,46 +1,116 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import "./network.css"; // ضمّن التعديلات هنا
-// import Foundation from "@/API/Foundation/Foundation.api";
+import "./network.css";
 import getCategories from "@/API/Category/getCategories.api";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import AllFoundations from "@/API/Foundation/AllFoundations";
 import { Lang } from "@/Lang/lang";
+import City from "@/API/City/City.api";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { categoryIconForName } from "./networkFilters";
+
 const NetworkClient = () => {
-  /* -------------------- state -------------------- */
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [foundations, setFoundations] = useState([]);
   const [allCategories, setAllCategories] = useState([]);
-  const [filters, setFilters] = useState([]); // ← حالة الفلاتر
-  const [modalOpen, setModalOpen] = useState(false);
-  const [search, setSearch] = useState(""); // حقل البحث
+  const [filters, setFilters] = useState([]);
+  const [search, setSearch] = useState("");
   const [lang, setLang] = useState("ar");
-  const [cityId, setCityId] = useState("");
-  const [regionId, setRegionId] = useState("");
   const [categoriesIds, setCategoriesIds] = useState([]);
-  /* -------------------- طرق المساعد -------------------- */
+  const [citiesLoading, setCitiesLoading] = useState(false);
+  const [citiesError, setCitiesError] = useState(null);
+  const [allCities, setAllCities] = useState([]);
+
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
+  const viewAll = searchParams.get("view") === "all";
+
+  const categoriesIdsRef = useRef(categoriesIds);
+  useEffect(() => {
+    categoriesIdsRef.current = categoriesIds;
+  }, [categoriesIds]);
+
   const langValue = Lang[lang];
 
-  /* -------------------- Effects -------------------- */
-  /* ثبّت اللغة */
+  const getAllCategories = () =>
+    getCategories(setLoading, setError, setAllCategories);
+
+  const getAllFoundations = useCallback(
+    (selectedCategories) => {
+      const ids =
+        selectedCategories !== undefined
+          ? selectedCategories
+          : categoriesIdsRef.current;
+
+      if (viewAll) {
+        AllFoundations(setLoading, setError, setFoundations, "", "", ids);
+        return;
+      }
+
+      let region = "";
+      let city = "";
+
+      try {
+        const raw = localStorage.getItem("user_city");
+        const cityData = raw ? JSON.parse(raw) : null;
+        const name = cityData?.name || "";
+
+        if (name === "الرياض" || name === "جده") {
+          region = id || "";
+        } else {
+          city = id || "";
+        }
+      } catch {
+        city = id || "";
+      }
+
+      AllFoundations(
+        setLoading,
+        setError,
+        setFoundations,
+        city,
+        region,
+        ids
+      );
+    },
+    [id, viewAll]
+  );
+
   useEffect(() => {
-    setLang(localStorage.getItem("lang") || "en");
+    setLang(localStorage.getItem("lang") || "ar");
   }, []);
 
-  /* جلب البيانات عند دخول الصفحة أو تغيّر id */
   useEffect(() => {
-    getAllFoundations([]);
-    getAllCategories();
-    AOS.init({ duration: 800, once: true });
-  }, [id]);
+    if (id || viewAll) return;
+    try {
+      const raw = localStorage.getItem("user_city");
+      if (!raw) return;
+      const c = JSON.parse(raw);
+      if (c?.id && c?.name) {
+        const url =
+          c.name === "الرياض" || c.name === "جده"
+            ? `/central?id=${c.id}`
+            : `/network?id=${c.id}`;
+        window.location.replace(url);
+      }
+    } catch {
+      /* ignore */
+    }
+  }, [id, viewAll]);
 
-  /* مزامنة filters مع allCategories */
+  useEffect(() => {
+    getAllCategories();
+  }, []);
+
+  useEffect(() => {
+    getAllFoundations(categoriesIdsRef.current);
+    AOS.init({ duration: 800, once: true });
+  }, [id, viewAll, getAllFoundations]);
+
   useEffect(() => {
     setFilters(
       allCategories.map((cat) => ({
@@ -51,37 +121,10 @@ const NetworkClient = () => {
     );
   }, [allCategories]);
 
-  /* -------------------- API Calls -------------------- */
-  const getAllFoundations = (selectedCategories = categoriesIds) => {
-    const cityData = JSON.parse(localStorage.getItem("user_city"));
-    const name = cityData?.name || "";
-    let region = "";
-    let city = "";
+  useEffect(() => {
+    City(setCitiesLoading, setCitiesError, setAllCities);
+  }, []);
 
-    if (name === "الرياض" || name === "جده") {
-      setRegionId(id);
-      region = id;
-    } else {
-      setCityId(id);
-      city = id;
-    }
-
-    AllFoundations(
-      setLoading,
-      setError,
-      setFoundations,
-      city,
-      region,
-      selectedCategories
-    );
-  };
-
-  console.log(foundations);
-
-  const getAllCategories = () =>
-    getCategories(setLoading, setError, setAllCategories);
-
-  /* -------------------- فلترة وتفعيل -------------------- */
   const toggleFilter = (fid) => {
     const updatedFilters = filters.map((f) =>
       f.id === fid ? { ...f, checked: !f.checked } : f
@@ -93,12 +136,16 @@ const NetworkClient = () => {
       .map((f) => f.id);
 
     setCategoriesIds(selectedIds);
-
-    // نعيد جلب الجهات حسب الفلاتر الجديدة
     getAllFoundations(selectedIds);
   };
 
-  /* فلتر التأسيسات حسب الفلاتر المختارة */
+  const clearAllFilters = () => {
+    const resetFilters = filters.map((f) => ({ ...f, checked: false }));
+    setFilters(resetFilters);
+    setCategoriesIds([]);
+    getAllFoundations([]);
+  };
+
   const activeFilterIds = filters.filter((f) => f.checked).map((f) => f.id);
   const displayedFoundations = foundations.filter((item) => {
     const byFilter =
@@ -108,38 +155,101 @@ const NetworkClient = () => {
     return byFilter && bySearch;
   });
 
-  const clearAllFilters = () => {
-    const resetFilters = filters.map((f) => ({ ...f, checked: false }));
-    setFilters(resetFilters);
-    setCategoriesIds([]);
-    getAllFoundations([]); // بدون فلاتر
+  const selectCity = (item) => {
+    localStorage.setItem(
+      "user_city",
+      JSON.stringify({ id: item._id, name: item.name })
+    );
+    const url =
+      item.name === "الرياض" || item.name === "جده"
+        ? `/central?id=${item._id}`
+        : `/network?id=${item._id}`;
+    window.location.href = url;
   };
 
-  const specialtyKeys = ["networkSpec1", "networkSpec2", "networkSpec3", "networkSpec4", "networkSpec5", "networkSpec6", "networkSpec7", "networkSpec8", "networkSpec9", "networkSpec10"];
+  const selectAllCitiesView = () => {
+    window.location.href = "/network?view=all";
+  };
 
-  /* -------------------- JSX -------------------- */
+  const allCitiesLabel = lang === "ar" ? "الكل" : "All";
+  const citiesSectionLabel = lang === "ar" ? "المدن" : "Cities";
+  const specialtiesLabel = lang === "ar" ? "التخصصات" : "Specialties";
+
+  const isCityTabActive = (cityItem) => {
+    if (viewAll) return false;
+    return cityItem._id === id;
+  };
+
   return (
     <div className="Network">
       <div className="network_container">
-        {/* ======= عنوان ووصف الصفحة ======= */}
         <header className="network_header">
           <h1 className="network_title">{langValue["networkPageTitle"]}</h1>
           <p className="network_desc">{langValue["networkPageDesc"]}</p>
         </header>
+      </div>
 
-        {/* ======= التخصصات ======= */}
-        <section className="network_specialties">
-          <h2 className="network_spec_heading">{lang === "ar" ? "التخصصات" : "Specialties"}</h2>
-          <div className="network_spec_grid">
-            {specialtyKeys.map((key, i) => (
-              <div key={key} className="network_spec_card" data-aos="fade-up" data-aos-delay={i * 50}>
-                <span className="network_spec_text">{langValue[key]}</span>
-              </div>
+      <section
+        className="network_filters_shell"
+        dir={lang === "ar" ? "rtl" : "ltr"}
+      >
+        <div className="network_filters_inner">
+          <p className="network_filters_label">{citiesSectionLabel}</p>
+          <div className="network_city_tabs">
+            <button
+              type="button"
+              className={`network_city_tab ${viewAll ? "network_city_tab_active" : ""}`}
+              onClick={selectAllCitiesView}
+            >
+              {allCitiesLabel}
+            </button>
+            {citiesLoading && (
+              <span className="network_filters_muted">…</span>
+            )}
+            {citiesError && (
+              <span className="network_filters_muted">{citiesError}</span>
+            )}
+            {!citiesLoading &&
+              allCities.map((item) => (
+                <button
+                  key={item._id}
+                  type="button"
+                  className={`network_city_tab ${isCityTabActive(item) ? "network_city_tab_active" : ""}`}
+                  onClick={() => selectCity(item)}
+                >
+                  {item.name}
+                </button>
+              ))}
+          </div>
+
+          <div className="network_filters_divider" />
+
+          <p className="network_filters_label">{specialtiesLabel}</p>
+          <div className="network_spec_chips">
+            <button
+              type="button"
+              className={`network_spec_chip ${activeFilterIds.length === 0 ? "network_spec_chip_active" : ""}`}
+              onClick={clearAllFilters}
+            >
+              <FontAwesomeIcon icon={categoryIconForName("all")} />
+              <span>{allCitiesLabel}</span>
+            </button>
+            {filters.map((cat) => (
+              <button
+                key={cat.id}
+                type="button"
+                className={`network_spec_chip ${cat.checked ? "network_spec_chip_active" : ""}`}
+                onClick={() => toggleFilter(cat.id)}
+              >
+                <FontAwesomeIcon icon={categoryIconForName(cat.name)} />
+                <span>{cat.name}</span>
+              </button>
             ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* ======= شريط البحث والفلاتر ======= */}
+      <div className="network_container">
         <div className="netword_controller">
           <input
             type="text"
@@ -147,56 +257,8 @@ const NetworkClient = () => {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-
-          <button className="filter_btn" onClick={() => setModalOpen(true)}>
-            <img src="/images/filter.png" alt="" />
-          </button>
         </div>
 
-        {/* ======= المودال ======= */}
-        {modalOpen && (
-          <div className="modal_backdrop" onClick={() => setModalOpen(false)}>
-            <div className="modal" onClick={(e) => e.stopPropagation()}>
-              <h2>{lang === "ar" ? "جميع الفلاتر" : "Filters"}</h2>
-
-              <div className="modal_filters">
-                <div className="modal_filter_item" key="all">
-                  <span>{lang === "ar" ? "الكل" : "All"}</span>
-                  <label className="switch">
-                    <input
-                      type="checkbox"
-                      checked={activeFilterIds.length === 0}
-                      onChange={clearAllFilters}
-                    />
-                    <span className="slider"></span>
-                  </label>
-                </div>
-
-                {filters.map((cat) => (
-                  <div className="modal_filter_item" key={cat.id}>
-                    <span>{cat.name}</span>
-                    <label className="switch">
-                      <input
-                        type="checkbox"
-                        checked={cat.checked}
-                        onChange={() => toggleFilter(cat.id)}
-                      />
-                      <span className="slider"></span>
-                    </label>
-                  </div>
-                ))}
-              </div>
-
-              <div className="actions">
-                <button className="btn" onClick={() => setModalOpen(false)}>
-                  {lang === "ar" ? "إغلاق" : "Close"}
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* ======= قائمة الجهات ======= */}
         <div className="network_list">
           {loading ? (
             <p>Loading...</p>
@@ -218,7 +280,6 @@ const NetworkClient = () => {
           {!loading && displayedFoundations.length === 0 && (
             <div className="no-results" data-aos="fade-up">
               <div className="no-results-icon">
-                {/* SVG Animated Icon */}
                 <svg
                   width="120"
                   height="120"

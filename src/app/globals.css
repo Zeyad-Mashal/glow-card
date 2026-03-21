@@ -7,6 +7,14 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+html {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
 body {
   direction: rtl;
+  overflow-x: hidden;
+  max-width: 100%;
 }

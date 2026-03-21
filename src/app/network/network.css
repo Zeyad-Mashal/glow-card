@@ -1,16 +1,24 @@
 /* ✅ الحاوية الرئيسية */
 .Network {
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  align-items: stretch;
   margin-top: 4rem;
+  overflow-x: clip;
 }
 
 .network_container {
   width: 100%;
   max-width: 1200px;
+  min-width: 0;
+  margin-left: auto;
+  margin-right: auto;
   padding: 1rem;
+  box-sizing: border-box;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -46,46 +54,183 @@
   line-height: 1.6;
 }
 
-/* ✅ قسم التخصصات */
-.network_specialties {
+/* ✅ شريط المدن والتخصصات (داكن) */
+.network_filters_shell {
   width: 100%;
-  margin-bottom: 2rem;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  background: #0b1622;
+  padding: 1.15rem 0 1.35rem;
+  margin-bottom: 1.5rem;
+  overflow-x: clip;
 }
-.network_spec_heading {
-  font-size: 1.35rem;
-  font-weight: bold;
-  margin: 0 0 1rem 0;
-  text-align: center;
-  color: #001f3f;
+
+.network_filters_inner {
+  width: 100%;
+  max-width: 1200px;
+  min-width: 0;
+  margin: 0 auto;
+  padding: 0 1rem;
+  box-sizing: border-box;
+  overflow-x: clip;
 }
-.network_spec_grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 1rem;
+
+.network_filters_label {
+  margin: 0 0 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.45);
+  text-transform: uppercase;
 }
-.network_spec_card {
-  background: #f8f9fa;
-  border-radius: 12px;
-  padding: 1rem 1.25rem;
-  border-right: 4px solid #0074d9;
-  text-align: start;
+
+/* مدن: سكرول أفقي داخل الصف فقط */
+.network_city_tabs {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 0.35rem 1.25rem;
+  justify-content: flex-start;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  padding-bottom: 0.45rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #26a69a transparent;
 }
-[dir="rtl"] .network_spec_card {
-  border-right: none;
-  border-left: 4px solid #0074d9;
+.network_city_tabs::-webkit-scrollbar {
+  height: 4px;
 }
-.network_spec_text {
+.network_city_tabs::-webkit-scrollbar-thumb {
+  background: #26a69a;
+  border-radius: 4px;
+}
+
+.network_city_tab {
+  flex: 0 0 auto;
+  background: none;
+  border: none;
+  padding: 0.4rem 0.15rem 0.55rem;
   font-size: 0.95rem;
-  line-height: 1.5;
-  color: #333;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.72);
+  cursor: pointer;
+  position: relative;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.network_city_tab:hover {
+  color: #fff;
+}
+
+.network_city_tab_active {
+  color: #26a69a;
+}
+
+.network_city_tab_active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: #26a69a;
+  border-radius: 2px 2px 0 0;
+  box-shadow: 0 0 12px rgba(38, 166, 154, 0.55);
+}
+
+.network_filters_divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 1rem 0 1rem;
+}
+
+.network_filters_muted {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.4);
+  align-self: center;
+  padding: 0 0.5rem;
+}
+
+/* تخصصات: سكرول أفقي داخل الصف فقط — بدون سكرول أفقي للصفحة */
+.network_spec_chips {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: flex-start;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  padding: 0.15rem 0 0.45rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #26a69a transparent;
+}
+.network_spec_chips::-webkit-scrollbar {
+  height: 4px;
+}
+.network_spec_chips::-webkit-scrollbar-thumb {
+  background: #26a69a;
+  border-radius: 4px;
+}
+
+.network_spec_chip {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.55rem 1rem;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid rgba(38, 166, 154, 0.65);
+  background: transparent;
+  color: #fff;
+  transition: background 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.network_spec_chip svg {
+  font-size: 1rem;
+  opacity: 0.95;
+}
+
+.network_spec_chip:hover {
+  border-color: #26a69a;
+  background: rgba(38, 166, 154, 0.12);
+}
+
+.network_spec_chip_active {
+  background: #26a69a;
+  border-color: #26a69a;
+  box-shadow: 0 0 18px rgba(38, 166, 154, 0.35);
+}
+
+.network_spec_chip_active:hover {
+  background: #2dbbad;
+  border-color: #2dbbad;
 }
 
 @media (max-width: 600px) {
   .network_title {
     font-size: 1.35rem;
   }
-  .network_spec_grid {
-    grid-template-columns: 1fr;
+  .network_city_tab {
+    font-size: 0.88rem;
+  }
+  .network_spec_chip {
+    font-size: 0.82rem;
+    padding: 0.5rem 0.85rem;
   }
 }
 
@@ -103,7 +248,9 @@
 .netword_controller > input,
 .netword_controller select {
   flex: 1 1 250px;
-  min-width: 180px;
+  min-width: 0;
+  max-width: 100%;
+  width: 100%;
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 0.5rem;
@@ -162,7 +309,8 @@
 }
 
 .network_item {
-  width: 350px;
+  width: min(350px, 100%);
+  max-width: 100%;
   height: 220px;
   display: flex;
   flex-direction: column;

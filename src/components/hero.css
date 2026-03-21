@@ -1,56 +1,72 @@
+/* الهيرو + التيكر = شاشة واحدة كاملة بدون سكرول عمودي داخل القسم */
 .hero {
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
+  margin-top: 4.5rem;
+  height: calc(100svh - 4.5rem);
+  max-height: calc(100svh - 4.5rem);
+  overflow: hidden;
 }
+
 .hero_container {
+  flex: 1 1 auto;
+  min-height: 0;
   width: 100%;
-  height: 500px;
   display: flex;
-  justify-content: space-around;
+  flex-direction: row;
+  justify-content: flex-start;
   align-items: center;
-  padding: 0 20px;
+  padding: 0 clamp(0.75rem, 3vw, 1.5rem);
   position: relative;
   background-image: url("/images/glow card pics-06.png");
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center;
 }
+
 .hero_overlay {
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.4);
   pointer-events: none;
 }
+
 .hero_content {
   position: relative;
   z-index: 1;
-}
-.hero_content {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  gap: 1rem;
-  width: 100%;
+  gap: clamp(0.5rem, 2vh, 1rem);
+  width: min(100%, 460px);
   color: #fff;
+  box-sizing: border-box;
+  padding: 0.5rem 0;
 }
+
 .hero_content h1 {
-  font-size: 2.2rem;
+  font-size: clamp(1.35rem, 3.8vw, 2.2rem);
   font-weight: bold;
-  width: 400px;
+  width: 100%;
+  max-width: 400px;
+  line-height: 1.25;
+  box-sizing: border-box;
 }
-.hero_content p{
-  font-size: 1.2rem;
+
+.hero_content p {
+  font-size: clamp(0.95rem, 2vw, 1.2rem);
   font-weight: bold;
   width: 95%;
   max-width: 450px;
-    transition: 0.3s ease;
-
+  transition: 0.3s ease;
 }
+
 .hero_content a {
-  font-size: 1.2rem;
+  font-size: clamp(1rem, 2vw, 1.2rem);
   border: 1px solid #fff;
   padding: 3px 10px;
   border-radius: 10px;
@@ -58,45 +74,55 @@
   text-align: center;
   transition: 0.3s ease;
 }
+
 .hero_content a:hover {
   background-color: #fff;
   color: #001f3f;
 }
+
 .hero_cta {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 0.5rem;
 }
+
 .hero_cta .hero_btn {
   width: auto;
-font-size: 1.2rem;  
-background-color: green;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  background-color: green;
 }
+
 .hero_trust {
-  font-size: 0.9rem !important;
+  font-size: clamp(0.8rem, 1.6vw, 0.9rem) !important;
   font-weight: 600;
   margin: 0;
   opacity: 0.95;
+  line-height: 1.35;
 }
+
 .hero_container > img {
-    margin-top: 3rem;
-
+  margin-top: 3rem;
 }
 
-/* Ticker / Slider text — لوب سلس: يختفي من جهة ويظهر التكملة من الجهة الثانية */
+/* التيكر ثابت أسفل الهيرو داخل نفس ارتفاع الشاشة — بدون دفع المحتوى لتحت */
 .hero_ticker {
+  flex: 0 0 auto;
   width: 100%;
+  max-width: 100%;
   overflow: hidden;
   background: linear-gradient(90deg, #001f3f 0%, #0074d9 50%, #001f3f 100%);
-  padding: 0.85rem 0;
+  padding: 0.65rem 0;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  box-sizing: border-box;
 }
+
 .hero_ticker_inner {
   width: 100%;
   overflow: hidden;
 }
+
 .hero_ticker_track {
   display: flex;
   align-items: center;
@@ -107,6 +133,7 @@ background-color: green;
   will-change: transform;
   direction: rtl;
 }
+
 .hero_ticker_segment {
   display: flex;
   align-items: center;
@@ -114,23 +141,22 @@ background-color: green;
   flex-shrink: 0;
   padding: 0 1rem;
 }
-/* [dir="rtl"] .hero_ticker_track {
-  animation: hero_ticker_scroll 40s linear infinite;
-} */
+
 .hero_ticker_item,
 .hero_ticker_dot {
   color: #fff;
-  font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+  font-size: clamp(0.8rem, 2.2vw, 1.05rem);
   font-weight: 600;
   white-space: nowrap;
   opacity: 1;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
+
 .hero_ticker_dot {
   opacity: 0.85;
   user-select: none;
 }
-/* لوب سلس: تحريك بنسبة 50% بالضبط لأن المحتوى مكرر مرتين — أول ما يختفي من جهة تظهر التكملة من الثانية */
+
 @keyframes hero_ticker_scroll {
   from {
     transform: translate3d(0, 0, 0);
@@ -139,62 +165,63 @@ background-color: green;
     transform: translate3d(50%, 0, 0);
   }
 }
-/* @keyframes hero_ticker_scroll_rtl {
-  from {
-    transform: translate3d(-50%, 0, 0);
-  }
-  to {
-    transform: translate3d(0, 0, 0);
-  }
-} */
 
-@media (max-width: 768px) {
+/* شريط علوي أصغر على الديسكتوب */
+@media (min-width: 1027px) {
   .hero {
-    height: auto;
-    margin-top: 4.5rem;
+    margin-top: 3.75rem;
+    height: calc(100svh - 3.75rem);
+    max-height: calc(100svh - 3.75rem);
   }
+}
+
+/* موبايل: عمودي في المنتصف */
+@media (max-width: 767px) {
   .hero_container {
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-        padding: 1rem 0;
-        height: 400px;
+    padding: 0.5rem 1rem;
   }
-  .hero_container > img {
-    width: 220px;
-    height: auto;
-  }
+
   .hero_content {
     align-items: center;
     text-align: center;
-    margin-bottom: 1rem;
-    gap: 1rem;
+    width: 100%;
+    max-width: 100%;
   }
+
   .hero_content h1 {
     text-align: center;
-    font-size: 1.8rem;
-    width: 100%;
+    max-width: 100%;
   }
-  .hero_ticker_track {
-    gap: 1.25rem;
-  }
+
   .hero_cta {
     align-items: center;
   }
+
+  .hero_ticker_segment {
+    gap: 1.25rem;
+  }
+
+  .hero_cta .hero_btn {
+    font-size: 1rem;
+  }
+
   .hero_container > img {
-    margin-top: 0rem;
-}
-.hero_cta .hero_btn  {
-  font-size: 1rem;
-}
-}
-@media (max-width: 589px) {
-  .hero_container {
-    height: 400px;
+    margin-top: 0;
+    width: 220px;
+    height: auto;
   }
 }
-@media (max-width: 390px) {
-  .hero_container {
-    height: 400px
-    ;
+
+/* شاشات قصيرة جداً: تقليل التيكر قليلاً */
+@media (max-height: 520px) {
+  .hero_ticker {
+    padding: 0.45rem 0;
+  }
+
+  .hero_content {
+    gap: 0.35rem;
   }
 }
