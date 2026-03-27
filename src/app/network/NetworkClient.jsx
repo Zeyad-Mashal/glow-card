@@ -11,6 +11,8 @@ import { Lang } from "@/Lang/lang";
 import City from "@/API/City/City.api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { categoryIconForName } from "./networkFilters";
+import NearbyMapModal from "@/components/NearbyMapModal";
+import { faMapLocationDot } from "@fortawesome/free-solid-svg-icons";
 
 const NetworkClient = () => {
   const [loading, setLoading] = useState(false);
@@ -24,6 +26,7 @@ const NetworkClient = () => {
   const [citiesLoading, setCitiesLoading] = useState(false);
   const [citiesError, setCitiesError] = useState(null);
   const [allCities, setAllCities] = useState([]);
+  const [mapOpen, setMapOpen] = useState(false);
 
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
@@ -257,6 +260,14 @@ const NetworkClient = () => {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
+          <button
+            type="button"
+            className="network_map_btn"
+            onClick={() => setMapOpen(true)}
+          >
+            <FontAwesomeIcon icon={faMapLocationDot} />
+            {lang === "ar" ? "الخريطة" : "Map"}
+          </button>
         </div>
 
         <div className="network_list">
@@ -307,6 +318,8 @@ const NetworkClient = () => {
           )}
         </div>
       </div>
+
+      <NearbyMapModal open={mapOpen} onClose={() => setMapOpen(false)} lang={lang} />
     </div>
   );
 };

@@ -258,6 +258,33 @@
   outline: none;
 }
 
+.network_map_btn {
+  flex: 0 0 auto;
+  border: none;
+  background: #001f3f;
+  color: #fff;
+  border-radius: 10px;
+  padding: 0.65rem 1rem;
+  font-size: 0.95rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  white-space: nowrap;
+}
+
+.network_map_btn:hover {
+  background: #004080;
+}
+
+@media (max-width: 600px) {
+  .network_map_btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
 /* ✅ زر التصفية */
 .filter_btn {
   border: none;
