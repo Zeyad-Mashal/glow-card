@@ -48,7 +48,7 @@ const Region = () => {
                   <div className="region_item_text">
                     <h3>{item.name}</h3>
                     <Link
-                      href={`/central?id=${item._id}`}
+                      href={`/network?id=${item._id}`}
                       className="btn btn-primary"
                     >
                       {langValue["cityBtn"]}

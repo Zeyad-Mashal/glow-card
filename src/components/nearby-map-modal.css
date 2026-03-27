@@ -160,3 +160,115 @@
   border-top-color: transparent !important;
 }
 
+.nearby_gmarker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 14px;
+  padding: 6px 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(38, 166, 154, 0.35);
+  max-width: 240px;
+  transform: translate(-50%, -100%);
+  pointer-events: auto;
+}
+
+.nearby_gmarker_logo {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex: 0 0 auto;
+}
+
+.nearby_gmarker_name {
+  font-size: 0.82rem;
+  font-weight: 900;
+  color: #001f3f;
+  max-width: 130px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nearby_gmarker_link {
+  color: #26a69a;
+  font-weight: 900;
+  text-decoration: none;
+  font-size: 0.82rem;
+  flex: 0 0 auto;
+}
+
+.nearby_gmarker_link:hover {
+  text-decoration: underline;
+}
+
+.nearby_maplibre_user_pin {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #26a69a;
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 0 6px rgba(38, 166, 154, 0.25);
+}
+
+.nearby_maplibre_marker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 14px;
+  padding: 6px 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(38, 166, 154, 0.35);
+  max-width: 230px;
+  transform: translateY(-10px);
+}
+
+.nearby_maplibre_marker_logo {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex: 0 0 auto;
+}
+
+.nearby_maplibre_marker_name {
+  font-size: 0.82rem;
+  font-weight: 900;
+  color: #001f3f;
+  max-width: 145px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nearby_maplibre_marker_content {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.nearby_maplibre_marker_distance {
+  font-size: 0.72rem;
+  color: #26a69a;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.nearby_maplibre_hint {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 2;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 10px;
+  padding: 0.4rem 0.6rem;
+  font-weight: 700;
+  font-size: 0.78rem;
+  pointer-events: none;
+}
+

@@ -31,8 +31,8 @@ function pickName(f) {
 }
 
 function pickLogo(f) {
-  if (Array.isArray(f?.images) && f.images.length > 0) return f.images[0];
   if (typeof f?.image === "string" && f.image.trim()) return f.image;
+  if (Array.isArray(f?.images) && f.images.length > 0) return f.images[0];
   return f?.logo ?? "/images/logo.png";
 }
 

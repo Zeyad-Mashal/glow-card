@@ -55,21 +55,7 @@ const NetworkClient = () => {
       }
 
       let region = "";
-      let city = "";
-
-      try {
-        const raw = localStorage.getItem("user_city");
-        const cityData = raw ? JSON.parse(raw) : null;
-        const name = cityData?.name || "";
-
-        if (name === "الرياض" || name === "جده") {
-          region = id || "";
-        } else {
-          city = id || "";
-        }
-      } catch {
-        city = id || "";
-      }
+      let city = id || "";
 
       AllFoundations(
         setLoading,
@@ -94,10 +80,7 @@ const NetworkClient = () => {
       if (!raw) return;
       const c = JSON.parse(raw);
       if (c?.id && c?.name) {
-        const url =
-          c.name === "الرياض" || c.name === "جده"
-            ? `/central?id=${c.id}`
-            : `/network?id=${c.id}`;
+        const url = `/network?id=${c.id}`;
         window.location.replace(url);
       }
     } catch {
@@ -163,10 +146,7 @@ const NetworkClient = () => {
       "user_city",
       JSON.stringify({ id: item._id, name: item.name })
     );
-    const url =
-      item.name === "الرياض" || item.name === "جده"
-        ? `/central?id=${item._id}`
-        : `/network?id=${item._id}`;
+    const url = `/network?id=${item._id}`;
     window.location.href = url;
   };
 
@@ -199,13 +179,6 @@ const NetworkClient = () => {
         <div className="network_filters_inner">
           <p className="network_filters_label">{citiesSectionLabel}</p>
           <div className="network_city_tabs">
-            <button
-              type="button"
-              className={`network_city_tab ${viewAll ? "network_city_tab_active" : ""}`}
-              onClick={selectAllCitiesView}
-            >
-              {allCitiesLabel}
-            </button>
             {citiesLoading && (
               <span className="network_filters_muted">…</span>
             )}

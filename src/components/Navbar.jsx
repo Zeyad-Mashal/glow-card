@@ -75,11 +75,7 @@ const Navbar = () => {
       const city = JSON.parse(cityData);
       if (!city?.id || !city?.name) return "/";
 
-      if (city.name === "الرياض" || city.name === "جده") {
-        return `/central?id=${city.id}`;
-      } else {
-        return `/network?id=${city.id}`;
-      }
+      return `/network?id=${city.id}`;
     } catch {
       return "/";
     }
@@ -122,11 +118,7 @@ const Navbar = () => {
                     })
                   );
 
-                  const url =
-                    selectedItem.name === "الرياض" ||
-                    selectedItem.name === "جده"
-                      ? `/central?id=${selectedItem._id}`
-                      : `/network?id=${selectedItem._id}`;
+                  const url = `/network?id=${selectedItem._id}`;
 
                   window.location.href = url;
                 }
@@ -266,10 +258,7 @@ const Navbar = () => {
                   name: selectedItem.name,
                 })
               );
-              const url =
-                selectedItem.name === "الرياض" || selectedItem.name === "جده"
-                  ? `/central?id=${selectedItem._id}`
-                  : `/network?id=${selectedItem._id}`;
+              const url = `/network?id=${selectedItem._id}`;
 
               window.location.href = url;
             }

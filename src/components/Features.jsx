@@ -51,7 +51,7 @@ const Features = () => {
       <p>{langValue["featuresSub"]}</p>
       <div className="features_container">
         <div className="features_list">
-          <Link href={`/central?id=${cityId}`}>
+          <Link href={`/network?id=${cityId}`}>
             <div
               className="features_item"
               data-aos="zoom-in-up"

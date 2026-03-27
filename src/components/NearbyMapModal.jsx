@@ -7,8 +7,8 @@ import getNearbyFoundations from "@/API/Foundation/getNearbyFoundations.api";
 
 const defaultCenter = { lat: 24.7136, lng: 46.6753 }; // Riyadh (fallback)
 
-const NearbyMapLeafletView = dynamic(
-  () => import("./NearbyMapLeafletView"),
+const NearbyMapMapLibreView = dynamic(
+  () => import("./NearbyMapMapLibreView"),
   { ssr: false }
 );
 
@@ -110,7 +110,7 @@ const NearbyMapModal = ({ open, onClose, lang }) => {
           )}
 
           <div className="nearby_map_wrapper">
-            <NearbyMapLeafletView
+            <NearbyMapMapLibreView
               center={center ?? defaultCenter}
               nearby={nearby}
               lang={lang}

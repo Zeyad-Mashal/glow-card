@@ -11,22 +11,19 @@ const getNearbyFoundations = async (
   const lang = localStorage.getItem("lang");
 
   try {
-    const response = await fetch(
-      `${URL}?lat=${lat}&&lng=${lng}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "accept-language": `${lang}`,
-        },
-      }
-    );
+    const response = await fetch(`${URL}?lat=${lat}&lng=${lng}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "accept-language": `${lang}`,
+      },
+    });
 
     const result = await response.json();
 
     if (response.ok) {
       setloading(false);
-      // backend may return different shapes; keep the most likely arrays
+      // backend returns array in the nearby endpoint (see example response)
       const payload = Array.isArray(result)
         ? result
         : result?.foundations ?? result?.nearby ?? result?.data ?? [];
