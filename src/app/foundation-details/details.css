@@ -186,12 +186,12 @@
   
   /* Container for responsive scroll */
   .table-responsive {
-    width: 100%;
-    overflow-x: auto;
+    width: 95%;
+    /* overflow-x: auto; */
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 2rem;
+    margin-bottom: 6rem;
 }
   
   /* Table styling */
