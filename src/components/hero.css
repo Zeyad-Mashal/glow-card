@@ -178,7 +178,7 @@
 /* موبايل: عمودي في المنتصف */
 @media (max-width: 767px) {
   .hero {
-    height: calc(100svh - 20rem);
+    height: calc(100svh - 25rem);
   }
   .hero_container {
     flex-direction: column;
