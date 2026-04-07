@@ -105,7 +105,7 @@ function formatDistance(distance, lang) {
   const d = toNumber(distance);
   if (d == null) return "";
   const value = Number.isInteger(d) ? String(d) : d.toFixed(1);
-  return lang === "ar" ? `${value} متر` : `${value} m`;
+  return lang === "ar" ? `${value} كيلو متر` : `${value} km`;
 }
 
 const NearbyMapMapLibreView = ({ center, nearby, lang }) => {

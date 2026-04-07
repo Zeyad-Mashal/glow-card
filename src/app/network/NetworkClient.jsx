@@ -15,7 +15,10 @@ import NearbyMapModal from "@/components/NearbyMapModal";
 import { faMapLocationDot } from "@fortawesome/free-solid-svg-icons";
 
 const NetworkClient = () => {
+  const PAGE_SIZE = 20;
   const [loading, setLoading] = useState(false);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [hasNextPage, setHasNextPage] = useState(true);
   const [error, setError] = useState(null);
   const [foundations, setFoundations] = useState([]);
   const [allCategories, setAllCategories] = useState([]);
@@ -43,30 +46,43 @@ const NetworkClient = () => {
     getCategories(setLoading, setError, setAllCategories);
 
   const getAllFoundations = useCallback(
-    (selectedCategories) => {
+    async (selectedCategories, pageToLoad = 1) => {
       const ids =
         selectedCategories !== undefined
           ? selectedCategories
           : categoriesIdsRef.current;
 
       if (viewAll) {
-        AllFoundations(setLoading, setError, setFoundations, "", "", ids);
+        const payload = await AllFoundations(
+          setLoading,
+          setError,
+          setFoundations,
+          "",
+          "",
+          ids,
+          pageToLoad,
+          PAGE_SIZE,
+        );
+        setHasNextPage((payload?.length ?? 0) >= PAGE_SIZE);
         return;
       }
 
       let region = "";
       let city = id || "";
 
-      AllFoundations(
+      const payload = await AllFoundations(
         setLoading,
         setError,
         setFoundations,
         city,
         region,
-        ids
+        ids,
+        pageToLoad,
+        PAGE_SIZE,
       );
+      setHasNextPage((payload?.length ?? 0) >= PAGE_SIZE);
     },
-    [id, viewAll]
+    [id, viewAll],
   );
 
   useEffect(() => {
@@ -93,9 +109,17 @@ const NetworkClient = () => {
   }, []);
 
   useEffect(() => {
-    getAllFoundations(categoriesIdsRef.current);
     AOS.init({ duration: 800, once: true });
-  }, [id, viewAll, getAllFoundations]);
+  }, []);
+
+  useEffect(() => {
+    setPageNumber(1);
+    setHasNextPage(true);
+  }, [id, viewAll]);
+
+  useEffect(() => {
+    getAllFoundations(undefined, pageNumber);
+  }, [pageNumber, id, viewAll, categoriesIds, getAllFoundations]);
 
   useEffect(() => {
     setFilters(
@@ -103,7 +127,7 @@ const NetworkClient = () => {
         id: cat.id ?? cat._id ?? cat.name,
         name: cat.name,
         checked: false,
-      }))
+      })),
     );
   }, [allCategories]);
 
@@ -113,7 +137,7 @@ const NetworkClient = () => {
 
   const toggleFilter = (fid) => {
     const updatedFilters = filters.map((f) =>
-      f.id === fid ? { ...f, checked: !f.checked } : f
+      f.id === fid ? { ...f, checked: !f.checked } : f,
     );
     setFilters(updatedFilters);
 
@@ -122,14 +146,28 @@ const NetworkClient = () => {
       .map((f) => f.id);
 
     setCategoriesIds(selectedIds);
-    getAllFoundations(selectedIds);
+    setPageNumber(1);
+    setHasNextPage(true);
   };
 
   const clearAllFilters = () => {
     const resetFilters = filters.map((f) => ({ ...f, checked: false }));
     setFilters(resetFilters);
     setCategoriesIds([]);
-    getAllFoundations([]);
+    setPageNumber(1);
+    setHasNextPage(true);
+  };
+
+  const goNextPage = async () => {
+    if (loading || !hasNextPage) return;
+    const nextPage = pageNumber + 1;
+    setPageNumber(nextPage);
+  };
+
+  const goPrevPage = async () => {
+    if (loading || pageNumber <= 1) return;
+    const prevPage = pageNumber - 1;
+    setPageNumber(prevPage);
   };
 
   const activeFilterIds = filters.filter((f) => f.checked).map((f) => f.id);
@@ -144,7 +182,7 @@ const NetworkClient = () => {
   const selectCity = (item) => {
     localStorage.setItem(
       "user_city",
-      JSON.stringify({ id: item._id, name: item.name })
+      JSON.stringify({ id: item._id, name: item.name }),
     );
     const url = `/network?id=${item._id}`;
     window.location.href = url;
@@ -179,9 +217,7 @@ const NetworkClient = () => {
         <div className="network_filters_inner">
           <p className="network_filters_label">{citiesSectionLabel}</p>
           <div className="network_city_tabs">
-            {citiesLoading && (
-              <span className="network_filters_muted">…</span>
-            )}
+            {citiesLoading && <span className="network_filters_muted">…</span>}
             {citiesError && (
               <span className="network_filters_muted">{citiesError}</span>
             )}
@@ -290,9 +326,36 @@ const NetworkClient = () => {
             </div>
           )}
         </div>
+        {!loading && displayedFoundations.length > 0 && (
+          <div className="network_pagination">
+            <button
+              type="button"
+              className="network_page_btn"
+              onClick={goPrevPage}
+              disabled={pageNumber <= 1}
+            >
+              {lang === "ar" ? "السابق" : "Previous"}
+            </button>
+            <span className="network_page_number">
+              {lang === "ar" ? `صفحة ${pageNumber}` : `Page ${pageNumber}`}
+            </span>
+            <button
+              type="button"
+              className="network_page_btn"
+              onClick={goNextPage}
+              disabled={!hasNextPage}
+            >
+              {lang === "ar" ? "التالي" : "Next"}
+            </button>
+          </div>
+        )}
       </div>
 
-      <NearbyMapModal open={mapOpen} onClose={() => setMapOpen(false)} lang={lang} />
+      <NearbyMapModal
+        open={mapOpen}
+        onClose={() => setMapOpen(false)}
+        lang={lang}
+      />
     </div>
   );
 };

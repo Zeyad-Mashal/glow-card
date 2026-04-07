@@ -370,6 +370,45 @@
   text-align: center;
 }
 
+.network_pagination {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.network_page_btn {
+  border: none;
+  background: #001f3f;
+  color: #fff;
+  border-radius: 10px;
+  padding: 0.6rem 1.1rem;
+  font-size: 0.9rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background 0.2s ease, opacity 0.2s ease;
+}
+
+.network_page_btn:hover {
+  background: #004080;
+}
+
+.network_page_btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.network_page_number {
+  min-width: 95px;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #001f3f;
+}
+
 /* ✅ السويتش */
 .switch {
   position: relative;
