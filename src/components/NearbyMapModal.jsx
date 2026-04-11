@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import "./nearby-map-modal.css";
 import getNearbyFoundations from "@/API/Foundation/getNearbyFoundations.api";
+import getAllInMapFoundations from "@/API/Foundation/getAllInMapFoundations.api";
 
 const defaultCenter = { lat: 24.7136, lng: 46.6753 }; // Riyadh (fallback)
 
@@ -36,11 +37,8 @@ const NearbyMapModal = ({ open, onClose, lang }) => {
 
   const load = useCallback(async () => {
     if (!navigator?.geolocation) {
-      setGeoError(
-        lang === "ar"
-          ? "Geolocation غير مدعوم على هذا المتصفح."
-          : "Geolocation not supported."
-      );
+      setCenter(defaultCenter);
+      await getAllInMapFoundations(setLoading, setGeoError, setNearby);
       return;
     }
 
@@ -61,13 +59,14 @@ const NearbyMapModal = ({ open, onClose, lang }) => {
           lng
         );
       },
-      () => {
+      async () => {
+        setCenter(defaultCenter);
         setGeoError(
           lang === "ar"
-            ? "لا يمكن تحديد موقعك. يرجى السماح من المتصفح."
-            : "Unable to access location. Please allow location permission."
+            ? "تم عرض كل العيادات على الخريطة لأن إذن الموقع غير متاح."
+            : "Showing all clinics on map because location permission is unavailable."
         );
-        setLoading(false);
+        await getAllInMapFoundations(setLoading, setGeoError, setNearby);
       },
       { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 }
     );

@@ -203,12 +203,14 @@ const NetworkClient = () => {
 
   return (
     <div className="Network">
-      <div className="network_container">
-        <header className="network_header">
-          <h1 className="network_title">{langValue["networkPageTitle"]}</h1>
-          <p className="network_desc">{langValue["networkPageDesc"]}</p>
-        </header>
-      </div>
+      <section className="network_hero_shell">
+        <div className="network_hero_inner">
+          <header className="network_header">
+            <h1 className="network_title">{langValue["networkPageTitle"]}</h1>
+            <p className="network_desc">{langValue["networkPageDesc"]}</p>
+          </header>
+        </div>
+      </section>
 
       <section
         className="network_filters_shell"

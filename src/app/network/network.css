@@ -32,17 +32,40 @@
   text-align: center;
 }
 
-/* ✅ عنوان ووصف صفحة الشبكة */
+/* ✅ عنوان ووصف صفحة الشبكة — نفس خلفية شريط تحميل التطبيق (Banner2) */
+.network_hero_shell {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  background-color: #0074d9;
+  background-image: url("/images/footer-bg.png");
+  background-size: cover;
+  background-position: bottom;
+  background-repeat: no-repeat;
+  padding: 2rem 1rem 2.25rem;
+  /* margin-bottom: 1.5rem; */
+  overflow-x: clip;
+}
+
+.network_hero_inner {
+  width: 100%;
+  max-width: 1200px;
+  min-width: 0;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
 .network_header {
   width: 100%;
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 0;
 }
 .network_title {
   font-size: 1.6rem;
   font-weight: bold;
   margin: 0 0 0.75rem 0;
-  color: #001f3f;
+  color: #fff;
 }
 .network_desc {
   font-size: 1.05rem;
@@ -50,7 +73,7 @@
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
-  color: #555;
+  color: rgba(255, 255, 255, 0.92);
   line-height: 1.6;
 }
 

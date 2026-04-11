@@ -1,11 +1,18 @@
 .foundation_details {
     width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 0 0.75rem;
 }
 .foundation_details_container {
     width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -139,10 +146,12 @@
     justify-content: flex-start;
     align-items: center;
     gap: 10px;
-    width: 800px;
+    width: 100%;
+    max-width: 800px;
     flex-wrap: wrap;
     background-color: #eee;
     padding: 5px;
+    box-sizing: border-box;
 }
 .foundation_details_header_info > svg {
     background-color: #5893B0;
@@ -164,59 +173,77 @@
 }
 .foundation_details_content {
     width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
+
 .foundation_details_content h2 {
     border: 1px solid #000;
     font-size: 1.2rem;
     font-weight: 600;
     padding: 10px;
-    margin: 0;
+    margin: 0 0 20px 0;
     border-radius: 16px;
     width: fit-content;
+    max-width: 100%;
+    box-sizing: border-box;
 }
-  .foundation_details_content h2 {
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin-bottom: 20px;
-  }
-  
-  /* Container for responsive scroll */
+
+  /* Container for responsive scroll — iPhone / narrow RTL */
   .table-responsive {
-    width: 95%;
-    /* overflow-x: auto; */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
     margin-bottom: 6rem;
-}
-  
+    padding: 0 2px;
+  }
+
   /* Table styling */
   .discounts-table {
-    width: 800px;
-    max-width: 100%;
+    width: 100%;
+    min-width: 0;
+    max-width: 800px;
+    margin: 0 auto;
     border-collapse: collapse;
+    table-layout: fixed;
     text-align: center;
     border-top-right-radius: 20px;
     border-top-left-radius: 20px;
-    /* overflow: hidden; */
   }
-  
+
   .discounts-table th {
     background-color: #f7f1ef;
     padding: 10px;
     border: 1px solid #ddd;
-    width: 25%;
     text-align: center;
+    word-break: break-word;
+    overflow-wrap: anywhere;
   }
-  
+
+  .discounts-table th:nth-child(1) {
+    width: 62%;
+  }
+
+  .discounts-table th:nth-child(2) {
+    width: 38%;
+  }
+
   .discounts-table td {
     padding: 10px;
     border: 1px solid #ddd;
     text-align: center;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    hyphens: auto;
   }
   
   .discounts-table tr:nth-child(even) {
@@ -248,10 +275,6 @@
       font-size: 14px;
       padding: 8px;
     }
-    .discounts-table th:last-of-type {
-        width: 25%;
-    }
-
     /* Slider responsive styles */
     .foundation_images_slider {
       padding: 0 0.5rem;

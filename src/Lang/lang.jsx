@@ -120,7 +120,10 @@ export const Lang = {
     joinCtaBtn: "Add your clinic now — free",
     new: "Newest Added",
     navNew: "Join recently",
-    banner1: "Use 'GLOW1' code to get 10% OFF!",
+    banner1:
+      "Download the Glow Card app on Android & iOS — faster access to your discounts and clinics.",
+    banner1GooglePlay: "Google Play",
+    banner1AppStore: "App Store",
     banner2: "Your Local Health Discount Hub",
     banner3:
       "One membership, easy to use – choose the membership that suits your needs now!",
@@ -492,7 +495,10 @@ export const Lang = {
     joinCtaBtn: "أضيفي عيادتك الآن — مجاناً",
     new: "إنضمّ حديثاً",
     navNew: "إنضمّ حديثاً",
-    banner1: "استخدم كود 'GLOW1' للحصول على خصم 10%!",
+    banner1:
+      "حمّل تطبيق جلو كارد على Android و iOS — وصول أسرع لخصوماتك وعياداتك.",
+    banner1GooglePlay: "Google Play",
+    banner1AppStore: "App Store",
     banner2:
       "مركز الخصم الصحي المحلي الخاص بك — تفتح لك عالم من الخصومات في أكبر شبكة عيادات جمالية وصحية في المملكة",
     banner3:

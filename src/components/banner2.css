@@ -19,6 +19,58 @@
     border-radius: 16px;
     text-align: center;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 1rem;
+}
+
+.banner2_text {
+  margin: 0;
+  font-size: clamp(1rem, 2.8vw, 1.35rem);
+  font-weight: 700;
+  line-height: 1.45;
+  max-width: 52rem;
+}
+
+.banner2_store_row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.banner2_store_btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.15rem;
+  border-radius: 999px;
+  font-size: 0.92rem;
+  font-weight: 800;
+  text-decoration: none;
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.banner2_store_icon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.banner2_store_btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.65);
+}
+
+.banner2_store_btn_android {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.banner2_store_btn_ios {
+  background: rgba(255, 255, 255, 0.18);
 }
