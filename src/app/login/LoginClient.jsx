@@ -66,7 +66,7 @@ export default function LoginClient() {
   }));
 
   const handleLogin = () => {
-    const fullPhone = `${selectedCode}${phone}`;
+    const fullPhone = `${phone}`;
     const data = {
       identifier: fullPhone,
       code: query ? query : "",
@@ -92,7 +92,6 @@ export default function LoginClient() {
       Google(setError, data, router);
     },
   });
-
   return (
     <>
       <SEO
@@ -126,7 +125,7 @@ export default function LoginClient() {
                 <Select
                   options={countryOptions}
                   defaultValue={countryOptions.find(
-                    (opt) => opt.value === "+966"
+                    (opt) => opt.value === "+966",
                   )}
                   onChange={(selected) => setSelectedCode(selected.value)}
                   styles={{
@@ -146,8 +145,8 @@ export default function LoginClient() {
                   ? "جاري تسجيل الدخول..."
                   : "تسجيل الدخول"
                 : loading
-                ? "Logging in..."
-                : "Login"}
+                  ? "Logging in..."
+                  : "Login"}
             </button>
 
             <span className="separator">أو</span>

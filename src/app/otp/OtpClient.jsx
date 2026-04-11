@@ -11,7 +11,8 @@ export default function OtpClient() {
   const query = searchParams.get("phone");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [otp, setOtp] = useState(Array(6).fill(""));
+  const OTP_LENGTH = 4;
+  const [otp, setOtp] = useState(Array(OTP_LENGTH).fill(""));
   const inputsRef = useRef([]);
 
   const handleChange = (e, index) => {
@@ -22,7 +23,7 @@ export default function OtpClient() {
     setOtp(newOtp);
 
     // Move to next input
-    if (index < 5 && inputsRef.current[index + 1]) {
+    if (index < OTP_LENGTH - 1 && inputsRef.current[index + 1]) {
       inputsRef.current[index + 1].focus();
     }
   };
@@ -36,7 +37,7 @@ export default function OtpClient() {
   const handleSubmit = () => {
     const fullOtp = otp.join("");
 
-    if (fullOtp.length < 6) {
+    if (fullOtp.length < OTP_LENGTH) {
       setError("من فضلك ادخل الكود كاملاً.");
       return;
     }
@@ -45,7 +46,7 @@ export default function OtpClient() {
       return;
     }
     const data = {
-      phone: query,
+      identifier: query,
       code: fullOtp,
     };
     OTP(setLoading, setError, data, router);
@@ -56,7 +57,7 @@ export default function OtpClient() {
       <div className="max-w-sm w-full bg-white p-6 rounded-2xl shadow-md opt_container">
         <h1 className="text-2xl font-bold mb-4 text-center">ادخل الكود</h1>
         <p className="mb-6 text-center text-gray-600">
-          تم ارسال كود مكون من 6 ارقام الى رقم هاتفك, الرقم من اليسار الى
+          تم ارسال كود مكون من 4 ارقام الى رقم هاتفك, الرقم من اليسار الى
           اليمين.
         </p>
 
