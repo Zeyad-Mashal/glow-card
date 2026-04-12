@@ -76,6 +76,13 @@ const FatorahClient = () => {
       coupon: couponApi || undefined,
       totalPrice: price,
     };
+    if (id) {
+      try {
+        localStorage.setItem("pendingActivationProductId", id);
+      } catch {
+        /* ignore */
+      }
+    }
     Payment(setloading, setError, data);
   };
 

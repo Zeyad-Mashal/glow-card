@@ -28,7 +28,7 @@ const Page = () => {
           <div className="status success">
             <div className="icon success-icon">&#10004;</div>
             <h2>تمت عملية الدفع بنجاح</h2>
-            <p>سيتم تحويلك الي Glow Card خلال 5 ثوان</p>
+            <p>سيتم تحويلك إلى صفحة تفعيل البطاقة خلال ثوانٍ</p>
           </div>
         )}
 
