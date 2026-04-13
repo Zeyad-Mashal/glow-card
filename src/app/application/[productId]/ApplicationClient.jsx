@@ -99,7 +99,13 @@ const ApplicationClient = () => {
   const handlePayment = () => {
     const isValidator = Validator(familyData);
     if (!isValidator) {
-      alert(langValue.appAlertAllRequired);
+      alert(
+        `${langValue.appAlertAllRequired}\n${
+          lang === "ar"
+            ? "الاسم يجب أن يكون ثلاث كلمات على الأقل."
+            : "Name must contain at least 3 words."
+        }`
+      );
       return;
     }
     const token = localStorage.getItem("token");

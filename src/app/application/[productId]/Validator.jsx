@@ -1,4 +1,10 @@
 const Validator = (formData) => {
+  const hasAtLeastThreeWords = (value) => {
+    if (typeof value !== "string") return false;
+    const words = value.trim().split(/\s+/).filter(Boolean);
+    return words.length >= 3;
+  };
+
   let type = null;
 
   // تحقق إذا كانت البيئة هي بيئة المتصفح (client-side)
@@ -23,6 +29,7 @@ const Validator = (formData) => {
     } = father;
     if (
       !name ||
+      !hasAtLeastThreeWords(name) ||
       !phone ||
       !email ||
       !address ||
@@ -49,6 +56,7 @@ const Validator = (formData) => {
     } = father;
     if (
       !name ||
+      !hasAtLeastThreeWords(name) ||
       !phone ||
       !email ||
       !address ||
@@ -61,6 +69,7 @@ const Validator = (formData) => {
     }
     if (
       !mother.name ||
+      !hasAtLeastThreeWords(mother.name) ||
       !mother.phone ||
       !email.email ||
       !mother.address ||
@@ -87,6 +96,7 @@ const Validator = (formData) => {
     } = father;
     if (
       !name ||
+      !hasAtLeastThreeWords(name) ||
       !phone ||
       !email ||
       !address ||
@@ -99,6 +109,7 @@ const Validator = (formData) => {
     }
     if (
       !mother.name ||
+      !hasAtLeastThreeWords(mother.name) ||
       !mother.phone ||
       !mother.email ||
       !mother.address ||
@@ -111,6 +122,7 @@ const Validator = (formData) => {
     }
     if (
       !child1.name ||
+      !hasAtLeastThreeWords(child1.name) ||
       !child1.phone ||
       !child1.email ||
       !child1.address ||
@@ -123,6 +135,7 @@ const Validator = (formData) => {
     }
     if (
       !child2.name ||
+      !hasAtLeastThreeWords(child2.name) ||
       !child2.phone ||
       !child2.email ||
       !child2.address ||
