@@ -34,25 +34,26 @@ const AllFoundations = async (
   try {
     const coords = await getGeoCoords();
 
-    const query = new URLSearchParams();
-    if (coords) {
-      query.set("lng", String(coords.lng));
-      query.set("lat", String(coords.lat));
-    }
-    query.set("city", cityId || "");
-    query.set("region", regionId || "");
-    query.set(
-      "categories",
-      Array.isArray(categoriesIds)
-        ? categoriesIds.join(",")
-        : categoriesIds || "",
-    );
-    query.set("pageNumber", String(pageNumber));
-    // keep both keys to support backend variants
-    query.set("page", String(pageNumber));
-    query.set("limit", String(limit));
+    const categoriesValue = Array.isArray(categoriesIds)
+      ? categoriesIds.join(",")
+      : categoriesIds || "";
 
-    const response = await fetch(`${URL}?${query.toString()}`, {
+    const parts = [];
+    parts.push(`city=${encodeURIComponent(cityId || "")}`);
+    if (coords) {
+      parts.push(`lng=${encodeURIComponent(String(coords.lng))}`);
+      parts.push(`lat=${encodeURIComponent(String(coords.lat))}`);
+    }
+    parts.push(`region=${encodeURIComponent(regionId || "")}`);
+    parts.push(`categories=${encodeURIComponent(categoriesValue)}`);
+    parts.push(`pageNumber=${encodeURIComponent(String(pageNumber))}`);
+    // keep both keys to support backend variants
+    parts.push(`page=${encodeURIComponent(String(pageNumber))}`);
+    parts.push(`limit=${encodeURIComponent(String(limit))}`);
+
+    const queryString = parts.join("&");
+
+    const response = await fetch(`${URL}?${queryString}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

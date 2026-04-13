@@ -55,8 +55,8 @@ const NearbyMapModal = ({ open, onClose, lang }) => {
           setLoading,
           setGeoError,
           setNearby,
+          lng,
           lat,
-          lng
         );
       },
       async () => {
