@@ -59,6 +59,18 @@ const ApplicationClient = () => {
     child1: {},
     child2: {},
   });
+  const [nameErrors, setNameErrors] = useState({});
+
+  const hasAtLeastThreeWords = (value) => {
+    if (typeof value !== "string") return false;
+    const words = value.trim().split(/\s+/).filter(Boolean);
+    return words.length >= 3;
+  };
+
+  const nameErrorText =
+    lang === "ar"
+      ? "الاسم يجب أن يكون ثلاث كلمات على الأقل."
+      : "Name must contain at least 3 words.";
 
   const handleChange = (e, role) => {
     const { name, value } = e.target;
@@ -69,6 +81,14 @@ const ApplicationClient = () => {
         [name]: value,
       },
     }));
+
+    if (name === "name") {
+      setNameErrors((prev) => ({
+        ...prev,
+        [role]:
+          value.trim() && !hasAtLeastThreeWords(value) ? nameErrorText : "",
+      }));
+    }
   };
 
   const handleNext = () => {
@@ -99,13 +119,28 @@ const ApplicationClient = () => {
   const handlePayment = () => {
     const isValidator = Validator(familyData);
     if (!isValidator) {
-      alert(
-        `${langValue.appAlertAllRequired}\n${
-          lang === "ar"
-            ? "الاسم يجب أن يكون ثلاث كلمات على الأقل."
-            : "Name must contain at least 3 words."
-        }`
-      );
+      const requiredRolesByType = {
+        Annual: ["father"],
+        "Two-Year": ["father"],
+        Newlywed: ["father", "mother"],
+        Family: ["father", "mother", "child1", "child2"],
+      };
+      const roleOrder = requiredRolesByType[type] || ["father"];
+      const invalidRole = roleOrder.find((role) => {
+        const currentName = familyData?.[role]?.name || "";
+        return currentName && !hasAtLeastThreeWords(currentName);
+      });
+
+      if (invalidRole) {
+        const roleIndex = roles.indexOf(invalidRole);
+        if (roleIndex >= 0) {
+          setStep(roleIndex);
+        }
+        setNameErrors((prev) => ({
+          ...prev,
+          [invalidRole]: nameErrorText,
+        }));
+      }
       return;
     }
     const token = localStorage.getItem("token");
@@ -150,6 +185,7 @@ const ApplicationClient = () => {
         name="name"
         onChange={(e) => handleChange(e, role)}
       />
+      {nameErrors[role] && <p className="input_error">{nameErrors[role]}</p>}
       <label>{langValue.appLabelPhone}</label>
       <input
         className="input_field"

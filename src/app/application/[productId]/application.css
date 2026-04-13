@@ -54,6 +54,11 @@
     color: #000;
     font-weight: bold;
 }
+.application_form .input_error {
+    color: #d93025;
+    font-size: 0.9rem;
+    margin-top: -0.5rem;
+}
 .form1 {
     width: 100%;
     display: flex;
