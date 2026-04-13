@@ -34,22 +34,23 @@ const AllFoundations = async (
   try {
     const coords = await getGeoCoords();
 
-    const query = new URLSearchParams({
-      city: cityId || "",
-      region: regionId || "",
-      categories: Array.isArray(categoriesIds)
+    const query = new URLSearchParams();
+    if (coords) {
+      query.set("lng", String(coords.lng));
+      query.set("lat", String(coords.lat));
+    }
+    query.set("city", cityId || "");
+    query.set("region", regionId || "");
+    query.set(
+      "categories",
+      Array.isArray(categoriesIds)
         ? categoriesIds.join(",")
         : categoriesIds || "",
-      pageNumber: String(pageNumber),
-      // keep both keys to support backend variants
-      page: String(pageNumber),
-      limit: String(limit),
-    });
-
-    if (coords) {
-      query.set("lat", String(coords.lat));
-      query.set("lng", String(coords.lng));
-    }
+    );
+    query.set("pageNumber", String(pageNumber));
+    // keep both keys to support backend variants
+    query.set("page", String(pageNumber));
+    query.set("limit", String(limit));
 
     const response = await fetch(`${URL}?${query.toString()}`, {
       method: "GET",

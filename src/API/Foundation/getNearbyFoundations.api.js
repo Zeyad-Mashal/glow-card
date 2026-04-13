@@ -11,7 +11,10 @@ const getNearbyFoundations = async (
   const lang = localStorage.getItem("lang");
 
   try {
-    const response = await fetch(`${URL}?lat=${lat}&lng=${lng}`, {
+    const params = new URLSearchParams();
+    params.set("lng", String(lng));
+    params.set("lat", String(lat));
+    const response = await fetch(`${URL}?${params.toString()}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
