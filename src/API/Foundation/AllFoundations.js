@@ -1,5 +1,24 @@
 const URL = "https://glow-card.onrender.com/api/v1/foundation/get";
 
+function getGeoCoords() {
+  return new Promise((resolve) => {
+    if (typeof window === "undefined" || !navigator?.geolocation) {
+      resolve(null);
+      return;
+    }
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        resolve({
+          lat: pos.coords.latitude,
+          lng: pos.coords.longitude,
+        });
+      },
+      () => resolve(null),
+      { enableHighAccuracy: false, timeout: 12000, maximumAge: 300000 },
+    );
+  });
+}
+
 const AllFoundations = async (
   setloading,
   setError,
@@ -13,6 +32,8 @@ const AllFoundations = async (
   setloading(true);
   const lang = localStorage.getItem("lang");
   try {
+    const coords = await getGeoCoords();
+
     const query = new URLSearchParams({
       city: cityId || "",
       region: regionId || "",
@@ -24,6 +45,11 @@ const AllFoundations = async (
       page: String(pageNumber),
       limit: String(limit),
     });
+
+    if (coords) {
+      query.set("lat", String(coords.lat));
+      query.set("lng", String(coords.lng));
+    }
 
     const response = await fetch(`${URL}?${query.toString()}`, {
       method: "GET",

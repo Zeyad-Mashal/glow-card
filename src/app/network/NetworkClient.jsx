@@ -109,7 +109,12 @@ const NetworkClient = () => {
   }, []);
 
   useEffect(() => {
-    AOS.init({ duration: 800, once: true });
+    AOS.init({
+      duration: 320,
+      once: true,
+      offset: 16,
+      easing: "ease-out-cubic",
+    });
   }, []);
 
   useEffect(() => {
@@ -179,6 +184,21 @@ const NetworkClient = () => {
     return byFilter && bySearch;
   });
 
+  useEffect(() => {
+    if (loading) return;
+    const t = window.setTimeout(() => {
+      AOS.refresh();
+    }, 0);
+    return () => window.clearTimeout(t);
+  }, [
+    loading,
+    foundations,
+    pageNumber,
+    search,
+    activeFilterIds.join(","),
+    displayedFoundations.length,
+  ]);
+
   const selectCity = (item) => {
     localStorage.setItem(
       "user_city",
@@ -199,6 +219,25 @@ const NetworkClient = () => {
   const isCityTabActive = (cityItem) => {
     if (viewAll) return false;
     return cityItem._id === id;
+  };
+
+  const categoryDisplayName = (cat) => {
+    const n = cat?.name;
+    if (n == null) return "";
+    if (typeof n === "string") return n;
+    if (typeof n === "object") {
+      return n[lang] ?? n.ar ?? n.en ?? "";
+    }
+    return "";
+  };
+
+  const formatDistance = (d) => {
+    if (d == null || d === "") return null;
+    const meters = typeof d === "string" ? parseFloat(d) : Number(d);
+    if (!Number.isFinite(meters)) return typeof d === "string" ? d : null;
+    const km = meters / 1000;
+    const unit = lang === "ar" ? "كم" : "km";
+    return `${km.toFixed(1)} ${unit}`;
   };
 
   return (
@@ -285,22 +324,55 @@ const NetworkClient = () => {
           {loading ? (
             <p>Loading...</p>
           ) : (
-            displayedFoundations.map((item, index) => (
-              <div
-                key={item._id ?? index}
-                className="network_item"
-                data-aos="fade-up"
-                data-aos-delay={index * 100}
-              >
-                <Link href={`/foundation-details?id=${item._id}`}>
-                  <img src={item.images[0]} alt={item.name} />
-                  <h3>{item.name}</h3>
-                </Link>
-              </div>
-            ))
+            displayedFoundations.map((item, index) => {
+              const distLabel = formatDistance(item.distance);
+              return (
+                <div
+                  key={item._id ?? index}
+                  className="network_item"
+                  data-aos="fade-up"
+                  data-aos-duration="320"
+                  data-aos-delay={Math.min(index * 24, 160)}
+                >
+                  <Link href={`/foundation-details?id=${item._id}`}>
+                    <img src={item.images[0]} alt={item.name} />
+                    {distLabel && (
+                      <p className="network_item_distance">
+                        {lang === "ar" ? "المسافة: " : "Distance: "}
+                        {distLabel}
+                      </p>
+                    )}
+                    <h3>{item.name}</h3>
+                    {Array.isArray(item.categories) &&
+                      item.categories.length > 0 && (
+                        <div className="network_item_categories">
+                          {item.categories.map((cat, catIndex) => {
+                            const label = categoryDisplayName(cat);
+                            if (!label) return null;
+                            return (
+                              <span
+                                key={
+                                  cat._id ?? cat.id ?? `${catIndex}-${label}`
+                                }
+                                className="network_item_category"
+                              >
+                                {label}
+                              </span>
+                            );
+                          })}
+                        </div>
+                      )}
+                  </Link>
+                </div>
+              );
+            })
           )}
           {!loading && displayedFoundations.length === 0 && (
-            <div className="no-results" data-aos="fade-up">
+            <div
+              className="no-results"
+              data-aos="fade-up"
+              data-aos-duration="320"
+            >
               <div className="no-results-icon">
                 <svg
                   width="120"
