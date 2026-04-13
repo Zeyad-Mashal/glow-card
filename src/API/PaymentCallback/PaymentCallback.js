@@ -26,6 +26,20 @@ function activationPathFromCallback(result, invoiceId) {
     return `/application/${encodeURIComponent(productId)}?payId=${encodeURIComponent(payId)}`;
 }
 
+function resolveActivationType(result) {
+    const pendingType =
+        typeof window !== "undefined"
+            ? localStorage.getItem("pendingActivationType")
+            : null;
+
+    return (
+        result?.product?.type ??
+        result?.type ??
+        result?.cardType ??
+        pendingType
+    );
+}
+
 const PaymentCallback = async (setloading, setModel, setLoadingModel, setModelError) => {
     setloading(true)
     const invoiceId = localStorage.getItem("invoiceId")
@@ -47,13 +61,18 @@ const PaymentCallback = async (setloading, setModel, setLoadingModel, setModelEr
 
             setTimeout(() => {
                 const next = activationPathFromCallback(result, invoiceId);
+                const type = resolveActivationType(result);
                 try {
+                    if (type) {
+                        localStorage.setItem("type", type);
+                    }
                     localStorage.removeItem("pendingActivationProductId");
+                    localStorage.removeItem("pendingActivationType");
                 } catch {
                     /* ignore */
                 }
                 window.location.href = next;
-            }, 4000);
+            }, 500);
         } else {
             if (response.status == 404) {
                 setloading(false);

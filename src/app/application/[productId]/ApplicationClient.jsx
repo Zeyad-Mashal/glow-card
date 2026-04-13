@@ -1,31 +1,54 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import "./application.css";
 import { useSearchParams, useParams } from "next/navigation";
 import ApplicationApi from "@/API/Application/ApplicationApi.api";
 import Validator from "./Validator";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { Lang } from "@/Lang/lang";
+
+const STEP_TITLE_KEYS = [
+  "appFormStepFather",
+  "appFormStepMother",
+  "appFormStepChild1",
+  "appFormStepChild2",
+];
 
 const ApplicationClient = () => {
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [showModal, setShowModal] = useState(false); // حالة لعرض الموديل
+  const [showModal, setShowModal] = useState(false);
   const [type, setType] = useState("");
+  const [lang, setLang] = useState(() => {
+    if (typeof window === "undefined") return "ar";
+    return localStorage.getItem("lang") || "ar";
+  });
+
   const searchParams = useSearchParams();
   const payId = searchParams.get("payId");
   const { productId } = useParams();
 
+  const langValue = useMemo(() => Lang[lang] ?? Lang.ar, [lang]);
+
   useEffect(() => {
-    const type = localStorage.getItem("type");
-    if (!type) {
+    const v = localStorage.getItem("lang") || "ar";
+    setLang(v);
+    const dir = v === "ar" ? "rtl" : "ltr";
+    document.body.style.direction = dir;
+    document.documentElement.lang = v === "ar" ? "ar" : "en";
+  }, []);
+
+  useEffect(() => {
+    const storedType = localStorage.getItem("type");
+    if (!storedType) {
       router.push("/");
     } else {
-      setType(type);
+      setType(storedType);
     }
-  }, []);
+  }, [router]);
 
   const [step, setStep] = useState(0);
   const [animation, setAnimation] = useState("fade-in");
@@ -56,13 +79,13 @@ const ApplicationClient = () => {
     );
 
     document.querySelectorAll(".input_field").forEach((input) => {
-      input.value = ""; // Clear the input fields
+      input.value = "";
     });
     setAnimation("fade-out");
     setTimeout(() => {
       setStep((prev) => prev + 1);
       setAnimation("fade-in");
-    }, 500); // timing matches CSS duration
+    }, 500);
   };
 
   const handleBack = () => {
@@ -76,7 +99,7 @@ const ApplicationClient = () => {
   const handlePayment = () => {
     const isValidator = Validator(familyData);
     if (!isValidator) {
-      alert("كل الحقول مطلوبة!!");
+      alert(langValue.appAlertAllRequired);
       return;
     }
     const token = localStorage.getItem("token");
@@ -109,63 +132,57 @@ const ApplicationClient = () => {
   };
 
   const roles = ["father", "mother", "child1", "child2"];
-  const titles = [
-    "Main Client",
-    "Wife Application",
-    "Child 1 Application",
-    "Child 2 Application",
-  ];
 
   const renderForm = (role, title) => (
     <div className={`application_form ${animation}`}>
       <h2>{title}</h2>
-      <label>Your Name:</label>
+      <label>{langValue.appLabelName}</label>
       <input
         className="input_field"
         type="text"
-        placeholder="Your Name"
+        placeholder={langValue.appPhName}
         name="name"
         onChange={(e) => handleChange(e, role)}
       />
-      <label>Phone:</label>
+      <label>{langValue.appLabelPhone}</label>
       <input
         className="input_field"
         type="text"
-        placeholder="Phone"
+        placeholder={langValue.appPhPhone}
         name="phone"
         onChange={(e) => handleChange(e, role)}
       />
-      <label>email:</label>
+      <label>{langValue.appLabelEmail}</label>
       <input
         className="input_field"
         type="text"
-        placeholder="email"
+        placeholder={langValue.appPhEmail}
         name="email"
         onChange={(e) => handleChange(e, role)}
       />
-      <label>Gender:</label>
+      <label>{langValue.appLabelGender}</label>
       <select name="gender" onChange={(e) => handleChange(e, role)}>
-        <option value="">Select gender</option>
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
+        <option value="">{langValue.appGenderPlaceholder}</option>
+        <option value="Male">{langValue.appGenderMale}</option>
+        <option value="Female">{langValue.appGenderFemale}</option>
       </select>
       <div className="form1">
         <div className="form1_content">
-          <label>Address:</label>
+          <label>{langValue.appLabelAddress}</label>
           <input
             className="input_field"
             type="text"
-            placeholder="Address"
+            placeholder={langValue.appPhAddress}
             name="address"
             onChange={(e) => handleChange(e, role)}
           />
         </div>
         <div className="form1_content">
-          <label>National ID:</label>
+          <label>{langValue.appLabelNationalId}</label>
           <input
             className="input_field"
             type="text"
-            placeholder="National ID"
+            placeholder={langValue.appPhNationalId}
             name="nationalID"
             onChange={(e) => handleChange(e, role)}
           />
@@ -173,7 +190,7 @@ const ApplicationClient = () => {
       </div>
       <div className="form1">
         <div className="form1_content">
-          <label>Date of Birth:</label>
+          <label>{langValue.appLabelDob}</label>
           <input
             className="input_field"
             type="date"
@@ -182,11 +199,11 @@ const ApplicationClient = () => {
           />
         </div>
       </div>
-      <label>Nationality:</label>
+      <label>{langValue.appLabelNationality}</label>
       <input
         className="input_field"
         type="text"
-        placeholder="Nationality"
+        placeholder={langValue.appPhNationality}
         name="nationality"
         onChange={(e) => handleChange(e, role)}
       />
@@ -194,30 +211,31 @@ const ApplicationClient = () => {
     </div>
   );
 
+  const stepTitle =
+    langValue[STEP_TITLE_KEYS[step]] ?? langValue.appFormStepFather;
+
   return (
     <div className="application">
       <div className="appliaction_container">
-        <h1>Subscribe</h1>
-        <h2>
-          One membership, easy to use – choose the membership that suits your needs now!
-        </h2>
+        <h1>{langValue.appPageTitle}</h1>
+        <h2>{langValue.appPageSubtitle}</h2>
 
-        {type && renderForm(roles[step], titles[step])}
+        {type && renderForm(roles[step], stepTitle)}
 
         {type === "Family" && (
           <div style={{ display: "flex", gap: "1rem" }}>
             {step > 0 && (
               <button onClick={handleBack} className="back_button">
-                Back
+                {langValue.appBtnBack}
               </button>
             )}
             {step < 3 ? (
               <button onClick={handleNext} className="back_button">
-                Next
+                {langValue.appBtnNext}
               </button>
             ) : (
               <button onClick={handlePayment} className="back_button">
-                {loading ? "Loading..." : "Activate"}
+                {loading ? langValue.appBtnLoading : langValue.appBtnActivate}
               </button>
             )}
           </div>
@@ -225,14 +243,14 @@ const ApplicationClient = () => {
         {type === "Annual" && (
           <div style={{ display: "flex", gap: "1rem" }}>
             <button onClick={handlePayment} className="back_button">
-              {loading ? "Loading..." : "Activate"}
+              {loading ? langValue.appBtnLoading : langValue.appBtnActivate}
             </button>
           </div>
         )}
         {type === "Two-Year" && (
           <div style={{ display: "flex", gap: "1rem" }}>
             <button onClick={handlePayment} className="back_button">
-              {loading ? "Loading..." : "Activate"}
+              {loading ? langValue.appBtnLoading : langValue.appBtnActivate}
             </button>
           </div>
         )}
@@ -240,30 +258,31 @@ const ApplicationClient = () => {
           <div style={{ display: "flex", gap: "1rem" }}>
             {step > 0 && (
               <button onClick={handleBack} className="back_button">
-                Back
+                {langValue.appBtnBack}
               </button>
             )}
             {step < 1 ? (
               <button onClick={handleNext} className="back_button">
-                Next
+                {langValue.appBtnNext}
               </button>
             ) : (
               <button onClick={handlePayment} className="back_button">
-                {loading ? "Loading..." : "Activate"}
+                {loading ? langValue.appBtnLoading : langValue.appBtnActivate}
               </button>
             )}
           </div>
         )}
       </div>
 
-      {/* الموديل الخاص بالشكر */}
       {showModal && (
         <div className="modal">
           <div className="modal_content">
-            <h2>شكراً لاشتراكك معنا!</h2>
-            <p>يرجى التوجه إلى تفاصيل العضوية لمتابعة العملية.</p>
-            <Link href={"/profile"}>من هنا</Link>
-            <button onClick={() => setShowModal(false)}>إغلاق</button>
+            <h2>{langValue.appModalThanks}</h2>
+            <p>{langValue.appModalDesc}</p>
+            <Link href={"/profile"}>{langValue.appModalLink}</Link>
+            <button onClick={() => setShowModal(false)}>
+              {langValue.appModalClose}
+            </button>
           </div>
         </div>
       )}

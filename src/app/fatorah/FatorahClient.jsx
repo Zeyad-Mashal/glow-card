@@ -79,6 +79,10 @@ const FatorahClient = () => {
     if (id) {
       try {
         localStorage.setItem("pendingActivationProductId", id);
+        const pendingType = cardType || localStorage.getItem("type");
+        if (pendingType) {
+          localStorage.setItem("pendingActivationType", pendingType);
+        }
       } catch {
         /* ignore */
       }
