@@ -28,6 +28,90 @@
 .footer_section1 p {
   text-align: center;
 }
+.footer_payment_info {
+  margin-top: 6px;
+}
+.footer_payment_info p {
+  margin: 0;
+  text-align: start;
+  font-size: 0.95rem;
+}
+.footer_payment_icons {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.footer_payment_icons svg {
+  font-size: 1.8rem;
+}
+.payment_icon {
+  font-size: 1.8rem;
+}
+.payment_icon_applepay {
+  color: #111;
+  background: #fff;
+  border-radius: 8px;
+  padding: 4px 8px;
+}
+.payment_chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 48px;
+  height: 28px;
+  border-radius: 6px;
+  background: #fff;
+  color: #1384df;
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  padding: 0 8px;
+}
+.payment_chip_mada {
+  background: #f3fff8;
+  color: #00a98f;
+  border: 1px solid #00a98f;
+}
+.payment_chip_stcpay {
+  background: #4f008c;
+  color: #fff;
+  border: 1px solid #4f008c;
+}
+.payment_logo {
+  height: 28px;
+  min-width: 58px;
+  border-radius: 6px;
+  background: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+.payment_logo_visa {
+  color: #1a1f71;
+  font-weight: 900;
+  letter-spacing: 0.4px;
+  font-size: 0.95rem;
+}
+.payment_logo_mastercard {
+  min-width: 62px;
+  gap: 0;
+}
+.mc_circle {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+}
+.mc_circle_red {
+  background: #eb001b;
+  margin-right: -5px;
+}
+.mc_circle_orange {
+  background: #f79e1b;
+}
 .footer_social {
   margin-top: 15px;
   display: flex;
@@ -55,5 +139,14 @@
   }
   .footer_section1 {
     align-items: center;
+  }
+  .footer_payment_info {
+    text-align: center;
+  }
+  .footer_payment_info p {
+    text-align: center;
+  }
+  .footer_payment_icons {
+    justify-content: center;
   }
 }

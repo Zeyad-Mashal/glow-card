@@ -12,6 +12,7 @@ import {
   faLinkedinIn,
   faXTwitter,
   faTiktok,
+  faApplePay,
 } from "@fortawesome/free-brands-svg-icons";
 import "./Footer.css";
 import Link from "next/link";
@@ -58,6 +59,35 @@ const Footer = () => {
           <FontAwesomeIcon icon={faEnvelope} />{" "}
           <a href="mailto:Info@glowcard.com.sa">Info@glowcard.com.sa</a>
         </p>
+        <div className="footer_payment_info">
+          <p>
+            {selectedLanguage === "ar" ? "الاسم التجاري" : "Commercial Name"}:
+            مؤسسة غلو كارد
+          </p>
+          <p>
+            {selectedLanguage === "ar"
+              ? "رقم السجل التجاري"
+              : "Commercial Registration No."}
+            : 7049105724
+          </p>
+          <p>
+            {selectedLanguage === "ar" ? "الرقم الضريبي" : "Tax Number"}:
+            3128826799000003
+          </p>
+          <div className="footer_payment_icons" aria-label="payment methods">
+            <span className="payment_chip payment_chip_mada">mada</span>
+            <span className="payment_logo payment_logo_visa">VISA</span>
+            <span className="payment_logo payment_logo_mastercard">
+              <span className="mc_circle mc_circle_red" />
+              <span className="mc_circle mc_circle_orange" />
+            </span>
+            <FontAwesomeIcon
+              icon={faApplePay}
+              className="payment_icon payment_icon_applepay"
+            />
+            <span className="payment_chip payment_chip_stcpay">stc pay</span>
+          </div>
+        </div>
 
         {/* 🌐 Social Media Links */}
         <div className="footer_social">

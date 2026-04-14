@@ -4,7 +4,6 @@ import "./application.css";
 import { useSearchParams, useParams } from "next/navigation";
 import ApplicationApi from "@/API/Application/ApplicationApi.api";
 import Validator from "./Validator";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Lang } from "@/Lang/lang";
 
@@ -21,6 +20,7 @@ const ApplicationClient = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [redirectSeconds, setRedirectSeconds] = useState(5);
   const [type, setType] = useState("");
   const [lang, setLang] = useState(() => {
     if (typeof window === "undefined") return "ar";
@@ -49,6 +49,23 @@ const ApplicationClient = () => {
       setType(storedType);
     }
   }, [router]);
+
+  useEffect(() => {
+    if (!showModal) return;
+    setRedirectSeconds(5);
+    const redirectPath = `/card?id=${encodeURIComponent(productId)}`;
+    const countdown = window.setInterval(() => {
+      setRedirectSeconds((prev) => (prev > 1 ? prev - 1 : 1));
+    }, 1000);
+    const timer = window.setTimeout(() => {
+      router.push(redirectPath);
+    }, 5000);
+
+    return () => {
+      window.clearInterval(countdown);
+      window.clearTimeout(timer);
+    };
+  }, [showModal, router, productId]);
 
   const [step, setStep] = useState(0);
   const [animation, setAnimation] = useState("fade-in");
@@ -318,13 +335,21 @@ const ApplicationClient = () => {
 
       {showModal && (
         <div className="modal">
-          <div className="modal_content">
-            <h2>{langValue.appModalThanks}</h2>
-            <p>{langValue.appModalDesc}</p>
-            <Link href={"/profile"}>{langValue.appModalLink}</Link>
-            <button onClick={() => setShowModal(false)}>
-              {langValue.appModalClose}
-            </button>
+          <div className="modal_content activation_success_modal">
+            <div className="activation_success_icon">✓</div>
+            <h2>
+              {lang === "ar" ? "تم التفعيل بنجاح" : "Activation Completed"}
+            </h2>
+            <p>
+              {lang === "ar"
+                ? "تم تفعيل البطاقة وسيتم تحويلك إلى صفحة تفاصيل البطاقة."
+                : "Your card is activated. You will be redirected to the card details page."}
+            </p>
+            <p className="activation_redirect_countdown">
+              {lang === "ar"
+                ? `سيتم التحويل خلال ${redirectSeconds} ثوانٍ...`
+                : `Redirecting in ${redirectSeconds} seconds...`}
+            </p>
           </div>
         </div>
       )}

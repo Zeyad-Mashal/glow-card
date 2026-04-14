@@ -38,20 +38,31 @@ const AllFoundations = async (
       ? categoriesIds.join(",")
       : categoriesIds || "";
 
-    const parts = [];
-    parts.push(`city=${encodeURIComponent(cityId || "")}`);
-    if (coords) {
-      parts.push(`lng=${encodeURIComponent(String(coords.lng))}`);
-      parts.push(`lat=${encodeURIComponent(String(coords.lat))}`);
-    }
-    parts.push(`region=${encodeURIComponent(regionId || "")}`);
-    parts.push(`categories=${encodeURIComponent(categoriesValue)}`);
-    parts.push(`pageNumber=${encodeURIComponent(String(pageNumber))}`);
-    // keep both keys to support backend variants
-    parts.push(`page=${encodeURIComponent(String(pageNumber))}`);
-    parts.push(`limit=${encodeURIComponent(String(limit))}`);
+    const lng =
+      coords != null && coords.lat != null && coords.lat !== ""
+        ? String(coords.lat)
+        : null;
+    const lat =
+      coords != null && coords.lng != null && coords.lng !== ""
+        ? String(coords.lng)
+        : null;
+    const hasLngLat =
+      lng != null &&
+      lat != null &&
+      !Number.isNaN(Number(lng)) &&
+      !Number.isNaN(Number(lat));
 
-    const queryString = parts.join("&");
+    const city = encodeURIComponent(cityId || "");
+    const region = encodeURIComponent(regionId || "");
+    const categories = encodeURIComponent(categoriesValue);
+    const page = encodeURIComponent(String(pageNumber));
+    const limitEnc = encodeURIComponent(String(limit));
+
+    let queryString = `city=${city}`;
+    if (hasLngLat) {
+      queryString += `&lng=${encodeURIComponent(lng)}&lat=${encodeURIComponent(lat)}`;
+    }
+    queryString += `&region=${region}&categories=${categories}&pageNumber=${page}&page=${page}&limit=${limitEnc}`;
 
     const response = await fetch(`${URL}?${queryString}`, {
       method: "GET",

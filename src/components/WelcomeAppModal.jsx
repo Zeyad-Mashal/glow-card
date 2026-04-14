@@ -2,10 +2,7 @@
 
 import React, { useCallback, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faGooglePlay,
-  faApple,
-} from "@fortawesome/free-brands-svg-icons";
+import { faGooglePlay, faApple } from "@fortawesome/free-brands-svg-icons";
 import "./welcome-app-modal.css";
 
 /** تاريخ آخر يوم تم فيه إغلاق النافذة — لا تُعرض مرة أخرى في نفس اليوم (توقيت الجهاز) */
@@ -38,11 +35,10 @@ function writeDismissedDate(dateKey) {
 /** Override with NEXT_PUBLIC_ANDROID_APP_URL / NEXT_PUBLIC_IOS_APP_URL in .env.local */
 const ANDROID_APP_URL =
   process.env.NEXT_PUBLIC_ANDROID_APP_URL ??
-  "https://play.google.com/store/apps/details?id=com.glowcard.app";
+  "https://play.google.com/store/apps/details?id=com.m3tech.glowcard";
 const IOS_APP_URL =
   process.env.NEXT_PUBLIC_IOS_APP_URL ??
-  "https://apps.apple.com/app/id0000000000";
-
+  "https://apps.apple.com/sa/app/glow-card/id6747254995?l=ar";
 const WelcomeAppModal = () => {
   const [open, setOpen] = useState(false);
 
