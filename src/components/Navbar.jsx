@@ -118,9 +118,7 @@ const Navbar = () => {
                     })
                   );
 
-                  const url = `/network?id=${selectedItem._id}`;
-
-                  window.location.href = url;
+                  window.location.reload();
                 }
               }}
             >
@@ -258,9 +256,7 @@ const Navbar = () => {
                   name: selectedItem.name,
                 })
               );
-              const url = `/network?id=${selectedItem._id}`;
-
-              window.location.href = url;
+              window.location.reload();
             }
           }}
         >

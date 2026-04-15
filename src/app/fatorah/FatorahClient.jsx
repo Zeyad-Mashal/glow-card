@@ -12,6 +12,7 @@ const FatorahClient = () => {
   const [showCouponInput, setShowCouponInput] = useState(false);
   const [couponApi, setCouponApi] = useState("");
   const [discount, setDiscount] = useState();
+  const [couponApplied, setCouponApplied] = useState(false);
   const [loading, setloading] = useState(false);
   const [error, setError] = useState("");
   const isCouponValid = couponApi.trim().length > 0;
@@ -19,6 +20,7 @@ const FatorahClient = () => {
   const [detailsOpen, setDetailsOpen] = useState(false);
   const detailsRef = useRef(null);
 
+  const [basePrice, setBasePrice] = useState(0);
   const [price, setPrice] = useState();
   const [userName, setUserName] = useState("");
   const [phone, setPhone] = useState("");
@@ -38,10 +40,12 @@ const FatorahClient = () => {
 
   useEffect(() => {
     const price = localStorage.getItem("price");
+    const numericPrice = Number(price) || 0;
     const token = localStorage.getItem("token");
     const cardType = localStorage.getItem("type");
     setToken(token);
-    setPrice(price);
+    setBasePrice(numericPrice);
+    setPrice(numericPrice);
     setCardType(cardType);
     if (!detailsRef.current) return;
 
@@ -54,11 +58,31 @@ const FatorahClient = () => {
   }, [detailsOpen]);
 
   const handleApplyCoupon = () => {
+    setError("");
+    setCouponApplied(false);
     const data = {
       coupon: couponApi,
     };
-    ApplayCoupon(setloading, setError, data, setDiscount, setPrice);
+    ApplayCoupon(
+      setloading,
+      setError,
+      data,
+      (value) => {
+        setDiscount(value);
+        setCouponApplied(true);
+      },
+      setPrice
+    );
   };
+
+  useEffect(() => {
+    if (!couponApi.trim()) {
+      setCouponApplied(false);
+      setDiscount(undefined);
+      setPrice(basePrice);
+      setError("");
+    }
+  }, [couponApi, basePrice]);
 
   const paymentGetway = () => {
     if (userName === "" && email === "" && phone === "") {
@@ -138,9 +162,27 @@ const FatorahClient = () => {
           <div className="detail1">
             <p>{selectedLang === "ar" ? "ملخص السلة" : "Cart Summary"}</p>
             <span>
-              {price} {selectedLang === "ar" ? "ر.س" : "SAR"}
+              {basePrice} {selectedLang === "ar" ? "ر.س" : "SAR"}
             </span>
           </div>
+          {couponApplied && (
+            <>
+              <div className="detail1 detail_discount">
+                <p>{selectedLang === "ar" ? "تم تفعيل الكوبون" : "Coupon Applied"}</p>
+                <span>{selectedLang === "ar" ? "تم بنجاح" : "Success"}</span>
+              </div>
+              <div className="detail1 detail_discount">
+                <p>{selectedLang === "ar" ? "نسبة الخصم" : "Discount Rate"}</p>
+                <span>%{discount}</span>
+              </div>
+              <div className="detail1 detail_discount">
+                <p>{selectedLang === "ar" ? "السعر بعد الخصم" : "Price After Discount"}</p>
+                <span>
+                  {price} {selectedLang === "ar" ? "ر.س" : "SAR"}
+                </span>
+              </div>
+            </>
+          )}
           <div className="detail1">
             <p>{selectedLang === "ar" ? "ضريبة القيمة المضافة" : "VAT"}</p>
             <span>15 {selectedLang === "ar" ? "ر.س" : "SAR"}</span>
@@ -186,11 +228,24 @@ const FatorahClient = () => {
                 <button
                   className="apply_button"
                   onClick={handleApplyCoupon}
-                  disabled={!isCouponValid}
+                  disabled={!isCouponValid || loading}
                 >
-                  {selectedLang === "ar" ? "تطبيق" : "Apply"}
+                  {loading
+                    ? selectedLang === "ar"
+                      ? "جاري التطبيق..."
+                      : "Applying..."
+                    : selectedLang === "ar"
+                    ? "تطبيق"
+                    : "Apply"}
                 </button>
                 {error && <p className="error">{error}</p>}
+                {couponApplied && (
+                  <p className="coupon_success">
+                    {selectedLang === "ar"
+                      ? `تم تفعيل الكوبون بنجاح - خصم ${discount}%`
+                      : `Coupon applied successfully - ${discount}% off`}
+                  </p>
+                )}
               </div>
             )}
           </div>

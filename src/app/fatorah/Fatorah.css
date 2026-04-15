@@ -55,6 +55,11 @@
   justify-content: space-between;
   border-bottom: 1px dashed #999;
 }
+.detail1.detail_discount p,
+.detail1.detail_discount span {
+  color: #1b7f3a;
+  font-weight: 700;
+}
 
 /* === الجزء السفلي: الإجمالي + كوبون === */
 .fatorah_content {
@@ -97,6 +102,7 @@
 .coupon_input_container {
   margin-top: 10px;
   display: flex;
+  flex-wrap: wrap;
   width: 100%;
 }
 
@@ -121,6 +127,14 @@
 .apply_button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+.coupon_success {
+  width: 100%;
+  margin-top: 8px;
+  margin-bottom: 0;
+  color: #1b7f3a;
+  font-weight: 700;
+  font-size: 0.95rem;
 }
 
 .toggle_details_btn {

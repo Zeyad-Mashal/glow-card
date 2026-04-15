@@ -4,11 +4,9 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import "./network.css";
 import getCategories from "@/API/Category/getCategories.api";
-import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import AllFoundations from "@/API/Foundation/AllFoundations";
 import { Lang } from "@/Lang/lang";
-import City from "@/API/City/City.api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { categoryIconForName } from "./networkFilters";
 import NearbyMapModal from "@/components/NearbyMapModal";
@@ -25,15 +23,9 @@ const NetworkClient = () => {
   const [filters, setFilters] = useState([]);
   const [search, setSearch] = useState("");
   const [lang, setLang] = useState("ar");
+  const [cityId, setCityId] = useState("");
   const [categoriesIds, setCategoriesIds] = useState([]);
-  const [citiesLoading, setCitiesLoading] = useState(false);
-  const [citiesError, setCitiesError] = useState(null);
-  const [allCities, setAllCities] = useState([]);
   const [mapOpen, setMapOpen] = useState(false);
-
-  const searchParams = useSearchParams();
-  const id = searchParams.get("id");
-  const viewAll = searchParams.get("view") === "all";
 
   const categoriesIdsRef = useRef(categoriesIds);
   useEffect(() => {
@@ -51,30 +43,13 @@ const NetworkClient = () => {
         selectedCategories !== undefined
           ? selectedCategories
           : categoriesIdsRef.current;
-
-      if (viewAll) {
-        const payload = await AllFoundations(
-          setLoading,
-          setError,
-          setFoundations,
-          "",
-          "",
-          ids,
-          pageToLoad,
-          PAGE_SIZE,
-        );
-        setHasNextPage((payload?.length ?? 0) >= PAGE_SIZE);
-        return;
-      }
-
-      let region = "";
-      let city = id || "";
+      const region = "";
 
       const payload = await AllFoundations(
         setLoading,
         setError,
         setFoundations,
-        city,
+        cityId,
         region,
         ids,
         pageToLoad,
@@ -82,27 +57,20 @@ const NetworkClient = () => {
       );
       setHasNextPage((payload?.length ?? 0) >= PAGE_SIZE);
     },
-    [id, viewAll],
+    [cityId],
   );
 
   useEffect(() => {
     setLang(localStorage.getItem("lang") || "ar");
-  }, []);
-
-  useEffect(() => {
-    if (id || viewAll) return;
     try {
       const raw = localStorage.getItem("user_city");
       if (!raw) return;
       const c = JSON.parse(raw);
-      if (c?.id && c?.name) {
-        const url = `/network?id=${c.id}`;
-        window.location.replace(url);
-      }
+      if (c?.id) setCityId(c.id);
     } catch {
       /* ignore */
     }
-  }, [id, viewAll]);
+  }, []);
 
   useEffect(() => {
     getAllCategories();
@@ -120,11 +88,11 @@ const NetworkClient = () => {
   useEffect(() => {
     setPageNumber(1);
     setHasNextPage(true);
-  }, [id, viewAll]);
+  }, [cityId]);
 
   useEffect(() => {
     getAllFoundations(undefined, pageNumber);
-  }, [pageNumber, id, viewAll, categoriesIds, getAllFoundations]);
+  }, [pageNumber, cityId, categoriesIds, getAllFoundations]);
 
   useEffect(() => {
     setFilters(
@@ -135,10 +103,6 @@ const NetworkClient = () => {
       })),
     );
   }, [allCategories]);
-
-  useEffect(() => {
-    City(setCitiesLoading, setCitiesError, setAllCities);
-  }, []);
 
   const toggleFilter = (fid) => {
     const updatedFilters = filters.map((f) =>
@@ -199,27 +163,8 @@ const NetworkClient = () => {
     displayedFoundations.length,
   ]);
 
-  const selectCity = (item) => {
-    localStorage.setItem(
-      "user_city",
-      JSON.stringify({ id: item._id, name: item.name }),
-    );
-    const url = `/network?id=${item._id}`;
-    window.location.href = url;
-  };
-
-  const selectAllCitiesView = () => {
-    window.location.href = "/network?view=all";
-  };
-
   const allCitiesLabel = lang === "ar" ? "الكل" : "All";
-  const citiesSectionLabel = lang === "ar" ? "المدن" : "Cities";
   const specialtiesLabel = lang === "ar" ? "التخصصات" : "Specialties";
-
-  const isCityTabActive = (cityItem) => {
-    if (viewAll) return false;
-    return cityItem._id === id;
-  };
 
   const categoryDisplayName = (cat) => {
     const n = cat?.name;
@@ -256,27 +201,6 @@ const NetworkClient = () => {
         dir={lang === "ar" ? "rtl" : "ltr"}
       >
         <div className="network_filters_inner">
-          <p className="network_filters_label">{citiesSectionLabel}</p>
-          <div className="network_city_tabs">
-            {citiesLoading && <span className="network_filters_muted">…</span>}
-            {citiesError && (
-              <span className="network_filters_muted">{citiesError}</span>
-            )}
-            {!citiesLoading &&
-              allCities.map((item) => (
-                <button
-                  key={item._id}
-                  type="button"
-                  className={`network_city_tab ${isCityTabActive(item) ? "network_city_tab_active" : ""}`}
-                  onClick={() => selectCity(item)}
-                >
-                  {item.name}
-                </button>
-              ))}
-          </div>
-
-          <div className="network_filters_divider" />
-
           <p className="network_filters_label">{specialtiesLabel}</p>
           <div className="network_spec_chips">
             <button
