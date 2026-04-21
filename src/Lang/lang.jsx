@@ -473,7 +473,7 @@ export const Lang = {
     membershipsPageDesc: "خمس عضويات، شبكة حصرية، توفير لا محدود",
     Features: "مميزاتنا",
     featuresSub: "وفّري على خدماتك الجمالية والمزودين الموثوق بهم",
-    featuresSub1: "الشبكة الطبية",
+    featuresSub1: "العيادات والمراكز",
     featuresSub2: "أنواع العضويات",
     featuresSub3: "البروفايل",
     featuresSub4: "نادي جلو",
@@ -506,7 +506,7 @@ export const Lang = {
     offers: "العروض",
     aboutus: "عن جلو كارد",
     aboutcompany: "بيانات الشركة",
-    join: "أضيف شركتك",
+    join: "أضف شركتك",
     joinPageTitle: "كارد جلو + عيادتك = عملاء جدد كل أسبوع",
     joinPageDesc:
       "انضم إلى أسرع شبكة نمواً في السعودية لعيادات الجمال والصحة — انضمام بدون رسوم، بدون التزامات مالية.",
