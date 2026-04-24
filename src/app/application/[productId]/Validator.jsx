@@ -71,7 +71,7 @@ const Validator = (formData) => {
       !mother.name ||
       !hasAtLeastThreeWords(mother.name) ||
       !mother.phone ||
-      !email.email ||
+      !mother.email ||
       !mother.address ||
       !mother.gender ||
       !mother.nationalID ||

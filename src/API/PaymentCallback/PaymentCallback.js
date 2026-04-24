@@ -84,7 +84,7 @@ async function resolvePendingPayId(token, lang, invoiceId, productId) {
         });
         if (byInvoice?._id) return byInvoice._id;
 
-        const byProduct = payments.find((payment) => {
+        const productMatches = payments.filter((payment) => {
             const paymentProductId =
                 payment?.product?._id ??
                 payment?.product?.id ??
@@ -95,7 +95,14 @@ async function resolvePendingPayId(token, lang, invoiceId, productId) {
                 ? String(paymentProductId) === productValue
                 : false;
         });
-        if (byProduct?._id) return byProduct._id;
+        if (productMatches.length) {
+            const latestByProduct = [...productMatches].sort((a, b) => {
+                const aDate = new Date(a?.createdAt ?? a?.updatedAt ?? 0).getTime();
+                const bDate = new Date(b?.createdAt ?? b?.updatedAt ?? 0).getTime();
+                return bDate - aDate;
+            })[0];
+            if (latestByProduct?._id) return latestByProduct._id;
+        }
     } catch {
         /* ignore */
     }
@@ -129,7 +136,9 @@ const PaymentCallback = async (setloading, setModel, setLoadingModel, setModelEr
                 const directPayId = extractPayId(result);
 
                 resolvePendingPayId(token, lang, invoiceId, productId).then((fallbackPayId) => {
-                    const finalPayId = fallbackPayId || directPayId;
+                    // The callback payId is tied to the latest checkout session.
+                    // Fallback to notComplete only when callback payload has no usable payId.
+                    const finalPayId = directPayId || fallbackPayId;
                     const next = activationPathFromCallback(productId, finalPayId);
 
                     try {

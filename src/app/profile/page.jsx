@@ -35,6 +35,16 @@ const Profile = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [cardInfo, setCardInfo] = useState([]);
   const [allCardsActivations, setAllCardsActivations] = useState([]);
+
+  const formatDate = (dateValue) => {
+    if (!dateValue) return "-";
+    const date = new Date(dateValue);
+    if (Number.isNaN(date.getTime())) return dateValue;
+    return date.toLocaleDateString(
+      selectedLanguage === "ar" ? "ar-SA-u-nu-latn" : "en-GB",
+    );
+  };
+
   useEffect(() => {
     setWindowWidth(window.innerWidth);
 
@@ -209,22 +219,67 @@ const Profile = () => {
                             </div>
                           </div>
                         </div>
-                        <h3>{card.type}</h3>
-                        <p>{card.name}</p>
+                        {/* <h3>{card.type}</h3>
+                        <p>{card.name}</p> */}
 
-                        <div className="card_info_item_date">
-                          <span className="codeNumber">
-                            {card.code?.match(/.{1,2}/g).join(" ")}
-                          </span>
-                          <p>Code Number</p>
-                        </div>
-                        <div className="card_info_item_date">
-                          <span>{card.activationDate}</span>
-                          <p>subscription date</p>
-                        </div>
-                        <div className="card_info_item_date">
-                          <span>{card.expiryDate}</span>
-                          <p>Expire date</p>
+                        <div className="membership_details_card">
+                          <h4 className="membership_details_title">
+                            {selectedLanguage === "ar"
+                              ? "تفاصيل العضوية"
+                              : "Membership Details"}
+                          </h4>
+                          <div className="membership_details_grid">
+                            <div className="membership_detail_item">
+                              <p className="membership_detail_label">
+                                {selectedLanguage === "ar"
+                                  ? "نوع العضوية"
+                                  : "Membership Type"}
+                              </p>
+                              <span>{card.type || "-"}</span>
+                            </div>
+                            <div className="membership_detail_item">
+                              <p className="membership_detail_label">
+                                {selectedLanguage === "ar"
+                                  ? "اسم العضو الكامل"
+                                  : "Full Name"}
+                              </p>
+                              <span>{card.name || "-"}</span>
+                            </div>
+                            <div className="membership_detail_item">
+                              <p className="membership_detail_label">
+                                {selectedLanguage === "ar"
+                                  ? "رقم الهوية"
+                                  : "National ID"}
+                              </p>
+                              <span>{card.nationalID || "-"}</span>
+                            </div>
+                            <div className="membership_detail_item">
+                              <p className="membership_detail_label">
+                                {selectedLanguage === "ar"
+                                  ? "رقم العضوية"
+                                  : "Membership Number"}
+                              </p>
+                              <span className="codeNumber">
+                                {card.code?.match(/.{1,2}/g).join(" ") || "-"}
+                              </span>
+                            </div>
+                            <div className="membership_detail_item">
+                              <p className="membership_detail_label">
+                                {selectedLanguage === "ar"
+                                  ? "تاريخ الاشتراك"
+                                  : "Subscription Date"}
+                              </p>
+                              <span>{formatDate(card.activationDate)}</span>
+                            </div>
+                            <div className="membership_detail_item">
+                              <p className="membership_detail_label">
+                                {selectedLanguage === "ar"
+                                  ? "تاريخ الانتهاء"
+                                  : "Expiry Date"}
+                              </p>
+                              <span>{formatDate(card.expiryDate)}</span>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -246,7 +301,7 @@ const Profile = () => {
                               goToActivate(
                                 item.product._id,
                                 item._id,
-                                item.product.type
+                                item.product.type,
                               )
                             }
                           >

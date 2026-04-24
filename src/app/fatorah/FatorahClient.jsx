@@ -85,12 +85,14 @@ const FatorahClient = () => {
   }, [couponApi, basePrice]);
 
   const paymentGetway = () => {
-    if (userName === "" && email === "" && phone === "") {
+    if (userName === "" || email === "" || phone === "") {
       alert("يجب ملئ جميع البيانات اولا");
+      return;
     }
     if (!token) {
       localStorage.setItem("redirectAfterLogin", window.location.href);
       router.push("/login");
+      return;
     }
     const data = {
       email,

@@ -239,7 +239,7 @@ const NetworkClient = () => {
             className="network_map_btn"
             onClick={() => setMapOpen(true)}
           >
-            <FontAwesomeIcon icon={faMapLocationDot} />
+            ww <FontAwesomeIcon icon={faMapLocationDot} />
             {lang === "ar" ? "الخريطة" : "Map"}
           </button>
         </div>

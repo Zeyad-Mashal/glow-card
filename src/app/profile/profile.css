@@ -268,14 +268,14 @@ body {
   font-size: 0.9rem;
 }
 
-.codeNumber {
+/* .codeNumber {
   background-color: #000;
   color: #fff;
   font-weight: bold;
   direction: ltr;
   padding: 0.4rem 0.8rem;
   border-radius: var(--radius);
-}
+} */
 
 /* تفاصيل البطاقة */
 .card_info_item {
@@ -391,6 +391,53 @@ body {
   padding: 1rem;
 }
 
+.membership_details_card {
+  width: 100%;
+  border: 1px solid #e8d7cf;
+  border-radius: var(--radius);
+  background: #fff;
+  padding: 1rem;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+}
+
+.membership_details_title {
+  font-size: 1.1rem;
+  margin-bottom: 0.8rem;
+  color: #704d3f;
+  font-weight: bold;
+}
+
+.membership_details_grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.membership_detail_item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  background: #faf6f4;
+  border: 1px solid #efdcd3;
+  border-radius: 12px;
+  padding: 0.7rem 0.8rem;
+}
+
+.membership_detail_label {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #8b6d61;
+  font-weight: 600;
+}
+
+.membership_detail_item > span {
+  font-size: 0.95rem;
+  color: #2e2e2e;
+  font-weight: 500;
+  word-break: break-word;
+}
+
 /* استجابة الموبايل */
 @media (max-width: 768px) {
   .profile_container {
@@ -434,5 +481,13 @@ body {
 
   .toast {
     margin-bottom: 3rem;
+  }
+
+  .membership_details_grid {
+    grid-template-columns: 1fr;
+  }
+
+  .membership_details_title {
+    font-size: 1rem;
   }
 }

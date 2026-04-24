@@ -168,21 +168,21 @@ const ApplicationClient = () => {
 
     let data = {};
     if (type === "Annual" || type === "Two-Year") {
-      data = familyData.father;
+      data = { ...familyData.father };
       data.spouse = {};
       data.members = [];
     } else if (type === "Newlywed") {
-      data = familyData.father;
-      data.spouse = familyData.mother;
+      data = { ...familyData.father };
+      data.spouse = { ...familyData.mother };
       data.spouse.relationship = "wife";
     } else {
-      data = familyData.father;
+      data = { ...familyData.father };
       data.members = [];
-      data.members[0] = familyData.mother;
+      data.members[0] = { ...familyData.mother };
       data.members[0].relationship = "wife";
-      data.members[1] = familyData.child1;
+      data.members[1] = { ...familyData.child1 };
       data.members[1].relationship = "son";
-      data.members[2] = familyData.child2;
+      data.members[2] = { ...familyData.child2 };
       data.members[2].relationship = "son";
     }
     data.type = type;
