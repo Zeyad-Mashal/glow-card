@@ -17,12 +17,14 @@ const STEP_TITLE_KEYS = [
 
 const ApplicationClient = () => {
   const router = useRouter();
+  const NOT_COMPLETE_URL = "https://glow-card.onrender.com/api/v1/card/notComplete";
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [redirectSeconds, setRedirectSeconds] = useState(5);
   const [type, setType] = useState("");
+  const [resolvingPayMeta, setResolvingPayMeta] = useState(true);
   const [lang, setLang] = useState(() => {
     if (typeof window === "undefined") return "ar";
     return localStorage.getItem("lang") || "ar";
@@ -43,14 +45,85 @@ const ApplicationClient = () => {
   }, []);
 
   useEffect(() => {
-    const storedType = normalizeMembershipType(localStorage.getItem("type"));
-    if (!storedType) {
-      router.push("/");
-    } else {
-      setType(storedType);
-      localStorage.setItem("type", storedType);
-    }
-  }, [router]);
+    const syncTypeAndProductFromPayId = async () => {
+      const token = localStorage.getItem("token");
+      const langLocal = localStorage.getItem("lang") || "ar";
+      const storedType = normalizeMembershipType(localStorage.getItem("type"));
+
+      // Start with localStorage value until we verify payment metadata.
+      if (storedType) {
+        setType(storedType);
+        localStorage.setItem("type", storedType);
+      }
+
+      if (!token || !payId) {
+        if (!storedType) {
+          router.push("/");
+        }
+        setResolvingPayMeta(false);
+        return;
+      }
+
+      try {
+        const response = await fetch(NOT_COMPLETE_URL, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `glowONW${token}`,
+            "accept-language": langLocal,
+          },
+        });
+
+        if (!response.ok) {
+          setResolvingPayMeta(false);
+          return;
+        }
+
+        const result = await response.json();
+        const payments = Array.isArray(result?.payments) ? result.payments : [];
+        const selectedPayment = payments.find(
+          (payment) => String(payment?._id || "") === String(payId),
+        );
+
+        if (!selectedPayment) {
+          setResolvingPayMeta(false);
+          return;
+        }
+
+        const payType = normalizeMembershipType(
+          selectedPayment?.product?.type ??
+            selectedPayment?.type ??
+            selectedPayment?.cardType,
+        );
+        const payProductId =
+          selectedPayment?.product?._id ??
+          selectedPayment?.product?.id ??
+          selectedPayment?.productId ??
+          (typeof selectedPayment?.product === "string"
+            ? selectedPayment.product
+            : null);
+
+        if (payType) {
+          setType(payType);
+          localStorage.setItem("type", payType);
+        }
+
+        // If URL productId doesn't match payment product, move to the correct activation route.
+        if (payProductId && String(payProductId) !== String(productId)) {
+          router.replace(
+            `/application/${encodeURIComponent(payProductId)}?payId=${encodeURIComponent(payId)}`,
+          );
+          return;
+        }
+      } catch {
+        /* ignore and keep existing fallback behavior */
+      } finally {
+        setResolvingPayMeta(false);
+      }
+    };
+
+    syncTypeAndProductFromPayId();
+  }, [router, payId, productId]);
 
   useEffect(() => {
     if (!showModal) return;
@@ -286,7 +359,11 @@ const ApplicationClient = () => {
         <h1>{langValue.appPageTitle}</h1>
         <h2>{langValue.appPageSubtitle}</h2>
 
-        {type && renderForm(roles[step], stepTitle)}
+        {resolvingPayMeta && (
+          <p>{lang === "ar" ? "جاري التحقق من بيانات الدفع..." : "Verifying payment details..."}</p>
+        )}
+
+        {!resolvingPayMeta && type && renderForm(roles[step], stepTitle)}
 
         {type === "Family" && (
           <div style={{ display: "flex", gap: "1rem" }}>
