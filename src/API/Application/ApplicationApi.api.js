@@ -15,7 +15,7 @@ const activateCardRequest = async (productId, payId, data, token, lang) => {
     });
 };
 
-const resolveFallbackPayId = async (token, lang, productId, invoiceId) => {
+const resolveFallbackPayId = async (token, lang, productId, invoiceId, tamaraOrderId) => {
     if (!token) return null;
 
     try {
@@ -30,21 +30,34 @@ const resolveFallbackPayId = async (token, lang, productId, invoiceId) => {
         if (!payments.length) return null;
 
         const invoiceValue = invoiceId != null ? String(invoiceId) : null;
-        if (invoiceValue) {
-            const byInvoice = payments.find((payment) => {
+        const orderValue = tamaraOrderId != null ? String(tamaraOrderId) : null;
+        if (invoiceValue || orderValue) {
+            const byInvoiceOrOrder = payments.find((payment) => {
                 const candidates = [
                     payment?.invoiceId,
                     payment?.invoice_id,
                     payment?.invoiceNumber,
                     payment?.paymentId,
                     payment?.payId,
+                    payment?.orderId,
+                    payment?.order_id,
+                    payment?.tamaraOrderId,
+                    payment?.checkoutId,
+                    payment?.checkout_id,
                 ]
                     .filter((value) => value != null)
                     .map((value) => String(value));
 
-                return candidates.includes(invoiceValue);
+                const invoiceMatched = invoiceValue
+                    ? candidates.includes(invoiceValue)
+                    : false;
+                const orderMatched = orderValue
+                    ? candidates.includes(orderValue)
+                    : false;
+
+                return invoiceMatched || orderMatched;
             });
-            if (byInvoice?._id) return byInvoice._id;
+            if (byInvoiceOrOrder?._id) return byInvoiceOrOrder._id;
         }
 
         const productValue = productId != null ? String(productId) : null;
@@ -78,6 +91,7 @@ const resolveFallbackPayId = async (token, lang, productId, invoiceId) => {
 const ApplicationApi = async (setLoading, setError, data, productId, setShowModal, payId) => {
     const token = localStorage.getItem("token");
     const invoiceId = localStorage.getItem("invoiceId");
+    const tamaraOrderId = localStorage.getItem("tamaraOrderId");
     setLoading(true)
     const lang = localStorage.getItem("lang")
     try {
@@ -86,7 +100,13 @@ const ApplicationApi = async (setLoading, setError, data, productId, setShowModa
 
         // If payId from callback is stale/invalid, retry once using notComplete.
         if (!finalResponse.ok && [400, 403, 404].includes(finalResponse.status)) {
-            const fallbackPayId = await resolveFallbackPayId(token, lang, productId, invoiceId);
+            const fallbackPayId = await resolveFallbackPayId(
+                token,
+                lang,
+                productId,
+                invoiceId,
+                tamaraOrderId
+            );
             if (fallbackPayId && String(fallbackPayId) !== String(payId || "")) {
                 finalResponse = await activateCardRequest(productId, fallbackPayId, data, token, lang);
                 finalResult = await finalResponse.json();

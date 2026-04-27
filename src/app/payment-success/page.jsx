@@ -26,7 +26,7 @@ const PaymentSuccessContent = () => {
     const proceed = async () => {
       const result = await ResolveTamaraActivation();
       if (!result.ok) {
-        setMessage("تعذر تجهيز بيانات التفعيل، سيتم تحويلك للبطاقات.");
+        setMessage("تعذر تجهيز بيانات التفعيل تلقائيًا، سيتم تحويلك للبطاقات.");
       } else {
         setMessage("تم الدفع بنجاح، سيتم تحويلك لصفحة تفعيل البطاقة.");
       }
