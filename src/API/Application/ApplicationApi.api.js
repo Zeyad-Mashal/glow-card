@@ -95,8 +95,20 @@ const ApplicationApi = async (setLoading, setError, data, productId, setShowModa
     setLoading(true)
     const lang = localStorage.getItem("lang")
     try {
+        console.log("[Activation][create] Initial request", {
+            productId,
+            payId,
+            type: data?.type,
+            invoiceId,
+            tamaraOrderId,
+        });
         let finalResponse = await activateCardRequest(productId, payId, data, token, lang);
         let finalResult = await finalResponse.json();
+        console.log("[Activation][create] Initial response", {
+            status: finalResponse.status,
+            ok: finalResponse.ok,
+            message: finalResult?.message,
+        });
 
         // If payId from callback is stale/invalid, retry once using notComplete.
         if (!finalResponse.ok && [400, 403, 404].includes(finalResponse.status)) {
@@ -107,9 +119,16 @@ const ApplicationApi = async (setLoading, setError, data, productId, setShowModa
                 invoiceId,
                 tamaraOrderId
             );
+            console.log("[Activation][create] Fallback payId", { fallbackPayId });
             if (fallbackPayId && String(fallbackPayId) !== String(payId || "")) {
                 finalResponse = await activateCardRequest(productId, fallbackPayId, data, token, lang);
                 finalResult = await finalResponse.json();
+                console.log("[Activation][create] Retry response", {
+                    status: finalResponse.status,
+                    ok: finalResponse.ok,
+                    message: finalResult?.message,
+                    retryPayId: fallbackPayId,
+                });
             }
         }
 

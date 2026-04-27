@@ -1,6 +1,6 @@
 const NOT_COMPLETE_URL = "https://glow-card.onrender.com/api/v1/card/notComplete";
-const RETRY_COUNT = 5;
-const RETRY_DELAY_MS = 1200;
+const RETRY_COUNT = 8;
+const RETRY_DELAY_MS = 1300;
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -35,12 +35,29 @@ const sortByLatest = (list) =>
     return String(b?._id || "").localeCompare(String(a?._id || ""));
   });
 
+const isNotCompletedPayment = (payment) => {
+  const status = String(
+    payment?.status ??
+      payment?.paymentStatus ??
+      payment?.state ??
+      payment?.payment_state ??
+      "",
+  ).toLowerCase();
+
+  return !["completed", "paid", "success", "approved", "done"].includes(status);
+};
+
 const ResolveTamaraActivation = async () => {
   const token = localStorage.getItem("token");
   const lang = localStorage.getItem("lang") || "ar";
   const pendingProductId = localStorage.getItem("pendingActivationProductId");
   const pendingType = localStorage.getItem("pendingActivationType");
   const tamaraOrderId = localStorage.getItem("tamaraOrderId");
+  console.log("[Tamara][resolver] Start", {
+    pendingProductId,
+    pendingType,
+    tamaraOrderId,
+  });
 
   if (!token) return { next: "/login", ok: false };
 
@@ -65,20 +82,40 @@ const ResolveTamaraActivation = async () => {
         )[0]
       : null;
 
-    const selected = byOrder || byProduct;
-    if (!selected?._id) return null;
+    const latestOpenPayment = sortByLatest(
+      payments.filter((payment) => isNotCompletedPayment(payment)),
+    )[0];
 
-    const productId = resolveProductFromPayment(selected) || pendingProductId;
+    const latestAnyPayment = sortByLatest(payments)[0];
+
+    const selected = byOrder || byProduct;
+    const finalSelected = selected || latestOpenPayment || latestAnyPayment;
+    if (!finalSelected?._id) return null;
+
+    const productId =
+      resolveProductFromPayment(finalSelected) || pendingProductId;
     if (!productId) return null;
+
+    const resolvedType =
+      pendingType ??
+      finalSelected?.product?.type ??
+      finalSelected?.type ??
+      finalSelected?.cardType;
 
     return {
       ok: true,
-      next: `/application/${encodeURIComponent(productId)}?payId=${encodeURIComponent(selected._id)}`,
+      payId: finalSelected._id,
+      type: resolvedType || null,
+      next: `/application/${encodeURIComponent(productId)}?payId=${encodeURIComponent(finalSelected._id)}`,
     };
   };
 
   try {
     for (let attempt = 0; attempt < RETRY_COUNT; attempt += 1) {
+      console.log("[Tamara][resolver] Fetch notComplete attempt", {
+        attempt: attempt + 1,
+        maxAttempts: RETRY_COUNT,
+      });
     const response = await fetch(NOT_COMPLETE_URL, {
       method: "GET",
       headers: {
@@ -98,11 +135,15 @@ const ResolveTamaraActivation = async () => {
 
     const result = await response.json();
     const payments = Array.isArray(result?.payments) ? result.payments : [];
+      console.log("[Tamara][resolver] notComplete response", {
+        paymentsCount: payments.length,
+      });
       if (payments.length) {
         const resolved = resolveFromPayments(payments);
         if (resolved) {
-          if (pendingType) {
-            localStorage.setItem("type", pendingType);
+          console.log("[Tamara][resolver] Resolved activation payload", resolved);
+          if (resolved.type) {
+            localStorage.setItem("type", resolved.type);
           }
           return resolved;
         }
@@ -112,8 +153,10 @@ const ResolveTamaraActivation = async () => {
         await sleep(RETRY_DELAY_MS);
       }
     }
+    console.log("[Tamara][resolver] Failed to resolve after retries");
     return { next: "/our_cards", ok: false };
   } catch {
+    console.log("[Tamara][resolver] Exception while resolving");
     return { next: "/our_cards", ok: false };
   }
 };

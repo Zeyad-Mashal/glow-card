@@ -24,7 +24,17 @@ const PaymentSuccessContent = () => {
     }
 
     const proceed = async () => {
+      console.log("[Tamara][payment-success] Incoming params", {
+        paymentStatus: status,
+        orderId,
+        pendingActivationProductId: localStorage.getItem(
+          "pendingActivationProductId",
+        ),
+        pendingActivationType: localStorage.getItem("pendingActivationType"),
+      });
+
       const result = await ResolveTamaraActivation();
+      console.log("[Tamara][payment-success] Resolve result", result);
       if (!result.ok) {
         setMessage("تعذر تجهيز بيانات التفعيل تلقائيًا، سيتم تحويلك للبطاقات.");
       } else {
