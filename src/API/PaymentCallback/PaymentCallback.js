@@ -1,3 +1,4 @@
+import normalizeMembershipType from "@/utils/normalizeMembershipType";
 const URL = "https://glow-card.onrender.com/api/v1/payment/callback";
 const NOT_COMPLETE_URL = "https://glow-card.onrender.com/api/v1/card/notComplete";
 
@@ -39,7 +40,7 @@ function resolveActivationType(result) {
             ? localStorage.getItem("pendingActivationType")
             : null;
 
-    return (
+    return normalizeMembershipType(
         result?.product?.type ??
         result?.type ??
         result?.cardType ??

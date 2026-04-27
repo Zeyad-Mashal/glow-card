@@ -5,6 +5,7 @@ import "./Fatorah.css";
 import ApplayCoupon from "@/API/Coupon/ApplayCoupon";
 import Payment from "@/API/Payment/Payment";
 import TamaraPayment from "@/API/Payment/TamaraPayment";
+import normalizeMembershipType from "@/utils/normalizeMembershipType";
 import { useSearchParams, useRouter } from "next/navigation";
 import ReactCountryFlag from "react-country-flag";
 import Select from "react-select";
@@ -98,9 +99,12 @@ const FatorahClient = () => {
     if (id) {
       try {
         localStorage.setItem("pendingActivationProductId", id);
-        const pendingType = cardType || localStorage.getItem("type");
+        const pendingType = normalizeMembershipType(
+          cardType || localStorage.getItem("type"),
+        );
         if (pendingType) {
           localStorage.setItem("pendingActivationType", pendingType);
+          localStorage.setItem("type", pendingType);
         }
       } catch {
         /* ignore */

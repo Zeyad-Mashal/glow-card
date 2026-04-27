@@ -16,6 +16,7 @@ import Link from "next/link";
 import { Lang } from "@/Lang/lang";
 import Image from "next/image";
 import GetCards from "@/API/GetCards/GetCards.api";
+import normalizeMembershipType from "@/utils/normalizeMembershipType";
 export default function CardDetailsClient() {
   const [selectedLanguage, setSelectedLanguage] = useState("ar");
   useEffect(() => {
@@ -59,14 +60,14 @@ export default function CardDetailsClient() {
 
   const goToApplication = (id, type, price) => {
     setNavigating(true);
-    localStorage.setItem("type", type);
+    localStorage.setItem("type", normalizeMembershipType(type));
     localStorage.setItem("price", price);
 
     router.push(`/fatorah?id=${id}`);
   };
 
   const goToCard = (id, type, price) => {
-    localStorage.setItem("type", type);
+    localStorage.setItem("type", normalizeMembershipType(type));
     localStorage.setItem("price", price);
     router.push(`/card?id=${id}`);
     console.log("test");

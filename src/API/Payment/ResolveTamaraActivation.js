@@ -1,3 +1,4 @@
+import normalizeMembershipType from "@/utils/normalizeMembershipType";
 const NOT_COMPLETE_URL = "https://glow-card.onrender.com/api/v1/card/notComplete";
 const RETRY_COUNT = 8;
 const RETRY_DELAY_MS = 1300;
@@ -51,7 +52,9 @@ const ResolveTamaraActivation = async () => {
   const token = localStorage.getItem("token");
   const lang = localStorage.getItem("lang") || "ar";
   const pendingProductId = localStorage.getItem("pendingActivationProductId");
-  const pendingType = localStorage.getItem("pendingActivationType");
+  const pendingType = normalizeMembershipType(
+    localStorage.getItem("pendingActivationType"),
+  );
   const tamaraOrderId = localStorage.getItem("tamaraOrderId");
   console.log("[Tamara][resolver] Start", {
     pendingProductId,
@@ -96,11 +99,12 @@ const ResolveTamaraActivation = async () => {
       resolveProductFromPayment(finalSelected) || pendingProductId;
     if (!productId) return null;
 
-    const resolvedType =
+    const resolvedType = normalizeMembershipType(
       pendingType ??
-      finalSelected?.product?.type ??
-      finalSelected?.type ??
-      finalSelected?.cardType;
+        finalSelected?.product?.type ??
+        finalSelected?.type ??
+        finalSelected?.cardType,
+    );
 
     return {
       ok: true,

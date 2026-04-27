@@ -6,6 +6,7 @@ import ApplicationApi from "@/API/Application/ApplicationApi.api";
 import Validator from "./Validator";
 import { useRouter } from "next/navigation";
 import { Lang } from "@/Lang/lang";
+import normalizeMembershipType from "@/utils/normalizeMembershipType";
 
 const STEP_TITLE_KEYS = [
   "appFormStepFather",
@@ -42,11 +43,12 @@ const ApplicationClient = () => {
   }, []);
 
   useEffect(() => {
-    const storedType = localStorage.getItem("type");
+    const storedType = normalizeMembershipType(localStorage.getItem("type"));
     if (!storedType) {
       router.push("/");
     } else {
       setType(storedType);
+      localStorage.setItem("type", storedType);
     }
   }, [router]);
 
@@ -185,7 +187,12 @@ const ApplicationClient = () => {
       data.members[2] = { ...familyData.child2 };
       data.members[2].relationship = "son";
     }
-    data.type = type;
+    data.type = normalizeMembershipType(type);
+    console.log("[Activation][application] Submitting payload", {
+      productId,
+      payId,
+      type: data.type,
+    });
     ApplicationApi(setLoading, setError, data, productId, setShowModal, payId);
   };
 

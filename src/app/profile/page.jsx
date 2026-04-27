@@ -6,6 +6,7 @@ import { Lang } from "@/Lang/lang";
 import GetCardInfo from "@/API/CardInfo/GetCardInfo";
 import ActivateCards from "@/API/ActivateCards/ActivateCards";
 import { useRouter } from "next/navigation";
+import normalizeMembershipType from "@/utils/normalizeMembershipType";
 
 const Profile = () => {
   const router = useRouter();
@@ -123,7 +124,7 @@ const Profile = () => {
   };
 
   const goToActivate = (productId, payId, type) => {
-    localStorage.setItem("type", type);
+    localStorage.setItem("type", normalizeMembershipType(type));
     router.push(`/application/${productId}?payId=${payId}`);
   };
 
