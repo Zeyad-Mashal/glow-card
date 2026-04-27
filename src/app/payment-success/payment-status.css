@@ -1,0 +1,59 @@
+.payment_status_page {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f5f6fa;
+  padding: 1rem;
+}
+
+.payment_status_card {
+  width: min(460px, 100%);
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+  padding: 2rem 1.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  align-items: center;
+  text-align: center;
+}
+
+.payment_status_card h2 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.payment_status_card p {
+  margin: 0;
+  color: #555;
+  line-height: 1.6;
+}
+
+.payment_status_icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.payment_status_card.success .payment_status_icon {
+  background: #e7f8eb;
+  color: #1f9d44;
+}
+
+.payment_status_card.failed .payment_status_icon {
+  background: #fde9e9;
+  color: #d12525;
+}
+
+.payment_status_card.canceled .payment_status_icon {
+  background: #eef1f6;
+  color: #4b6382;
+}

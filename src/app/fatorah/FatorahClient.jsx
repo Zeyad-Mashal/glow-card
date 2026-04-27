@@ -4,6 +4,7 @@ import React, { useState, useRef, useEffect } from "react";
 import "./Fatorah.css";
 import ApplayCoupon from "@/API/Coupon/ApplayCoupon";
 import Payment from "@/API/Payment/Payment";
+import TamaraPayment from "@/API/Payment/TamaraPayment";
 import { useSearchParams, useRouter } from "next/navigation";
 import ReactCountryFlag from "react-country-flag";
 import Select from "react-select";
@@ -84,24 +85,16 @@ const FatorahClient = () => {
     }
   }, [couponApi, basePrice]);
 
-  const paymentGetway = () => {
-    if (userName === "" || email === "" || phone === "") {
-      alert("يجب ملئ جميع البيانات اولا");
-      return;
-    }
-    if (!token) {
-      localStorage.setItem("redirectAfterLogin", window.location.href);
-      router.push("/login");
-      return;
-    }
-    const data = {
-      email,
-      name: userName,
-      phone,
-      productId: id,
-      coupon: couponApi || undefined,
-      totalPrice: price,
-    };
+  const buildPaymentPayload = () => ({
+    email,
+    name: userName,
+    phone,
+    productId: id,
+    coupon: couponApi || undefined,
+    totalPrice: price,
+  });
+
+  const ensurePaymentMeta = () => {
     if (id) {
       try {
         localStorage.setItem("pendingActivationProductId", id);
@@ -113,7 +106,33 @@ const FatorahClient = () => {
         /* ignore */
       }
     }
+  };
+
+  const validateBeforePayment = () => {
+    if (userName === "" || email === "" || phone === "") {
+      alert("يجب ملئ جميع البيانات اولا");
+      return false;
+    }
+    if (!token) {
+      localStorage.setItem("redirectAfterLogin", window.location.href);
+      router.push("/login");
+      return false;
+    }
+    return true;
+  };
+
+  const paymentGetway = () => {
+    if (!validateBeforePayment()) return;
+    const data = buildPaymentPayload();
+    ensurePaymentMeta();
     Payment(setloading, setError, data);
+  };
+
+  const tamaraPaymentGateway = () => {
+    if (!validateBeforePayment()) return;
+    const data = buildPaymentPayload();
+    ensurePaymentMeta();
+    TamaraPayment(setloading, setError, data);
   };
 
   const countries = [
@@ -156,7 +175,21 @@ const FatorahClient = () => {
   return (
     <div className="fatorah">
       <div className="fatorah_container">
-        <h1>{selectedLang === "ar" ? "تفاصيل الطلب" : "Order Details"}</h1>
+        <div
+          className="fatorah_page_header"
+          dir={selectedLang === "ar" ? "rtl" : "ltr"}
+        >
+          <h1 className="fatorah_page_title">
+            {selectedLang === "ar" ? "تفاصيل الطلب" : "Order Confirmation"}
+          </h1>
+          <img
+            className="fatorah_header_logo"
+            src="/images/logo.png"
+            alt=""
+            width={56}
+            height={56}
+          />
+        </div>
         <div
           ref={detailsRef}
           className={`fatorah_details ${detailsOpen ? "open" : ""}`}
@@ -326,8 +359,20 @@ const FatorahClient = () => {
           </div>
 
           <div className="payment_btn">
-            <button onClick={paymentGetway}>
+            <button onClick={paymentGetway} disabled={loading}>
               {selectedLang === "ar" ? "ادفع الان" : "Pay Now"}
+            </button>
+            <button
+              className="tamara_btn"
+              onClick={tamaraPaymentGateway}
+              disabled={loading}
+            >
+              <img src="/images/tamara-logo.svg" alt="Tamara" />
+              <span>
+                {selectedLang === "ar"
+                  ? "ادفع وقسطها مع تمارا"
+                  : "Pay in installments with Tamara"}
+              </span>
             </button>
           </div>
         </div>
