@@ -1,5 +1,6 @@
 import normalizeMembershipType from "@/utils/normalizeMembershipType";
 const NOT_COMPLETE_URL = "https://glow-card.onrender.com/api/v1/card/notComplete";
+const CALLBACK_URL = "https://glow-card.onrender.com/api/v1/payment/callback";
 const RETRY_COUNT = 8;
 const RETRY_DELAY_MS = 1300;
 
@@ -48,6 +49,25 @@ const isNotCompletedPayment = (payment) => {
   return !["completed", "paid", "success", "approved", "done"].includes(status);
 };
 
+const resolveProductIdFromCallback = (result, pendingProductId) =>
+  result?.product?._id ??
+  result?.product?.id ??
+  result?.productId ??
+  (typeof result?.product === "string" ? result.product : null) ??
+  pendingProductId;
+
+const resolvePayIdFromCallback = (result) =>
+  result?._id ??
+  result?.payId ??
+  result?.paymentId ??
+  result?.payment?._id ??
+  result?.data?._id;
+
+const resolveTypeFromCallback = (result, pendingType) =>
+  normalizeMembershipType(
+    result?.product?.type ?? result?.type ?? result?.cardType ?? pendingType,
+  );
+
 const ResolveTamaraActivation = async () => {
   const token = localStorage.getItem("token");
   const lang = localStorage.getItem("lang") || "ar";
@@ -63,6 +83,48 @@ const ResolveTamaraActivation = async () => {
   });
 
   if (!token) return { next: "/login", ok: false };
+
+  const resolveUsingPaymentCallback = async () => {
+    const identifiers = [
+      localStorage.getItem("invoiceId"),
+      tamaraOrderId,
+    ].filter(Boolean);
+
+    for (const identifier of identifiers) {
+      try {
+        const response = await fetch(
+          `${CALLBACK_URL}?invoiceId=${encodeURIComponent(identifier)}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              authorization: `glowONW${token}`,
+            },
+          },
+        );
+        if (!response.ok) continue;
+
+        const result = await response.json();
+        const productId = resolveProductIdFromCallback(result, pendingProductId);
+        const payId = resolvePayIdFromCallback(result);
+        const type = resolveTypeFromCallback(result, pendingType);
+
+        if (productId && payId) {
+          if (type) localStorage.setItem("type", type);
+          return {
+            ok: true,
+            payId,
+            type: type || null,
+            next: `/application/${encodeURIComponent(productId)}?payId=${encodeURIComponent(payId)}`,
+          };
+        }
+      } catch {
+        /* ignore and fallback to notComplete */
+      }
+    }
+
+    return null;
+  };
 
   const resolveFromPayments = (payments) => {
     const orderValue = tamaraOrderId != null ? String(tamaraOrderId) : null;
@@ -115,6 +177,12 @@ const ResolveTamaraActivation = async () => {
   };
 
   try {
+    const callbackResolved = await resolveUsingPaymentCallback();
+    if (callbackResolved) {
+      console.log("[Tamara][resolver] Resolved via payment callback", callbackResolved);
+      return callbackResolved;
+    }
+
     for (let attempt = 0; attempt < RETRY_COUNT; attempt += 1) {
       console.log("[Tamara][resolver] Fetch notComplete attempt", {
         attempt: attempt + 1,
