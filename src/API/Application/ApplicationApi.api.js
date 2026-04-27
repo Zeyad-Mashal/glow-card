@@ -1,3 +1,4 @@
+import normalizeMembershipType from "@/utils/normalizeMembershipType";
 const URL = "https://glow-card.onrender.com/api/v1/card/create/";
 const NOT_COMPLETE_URL = "https://glow-card.onrender.com/api/v1/card/notComplete";
 
@@ -88,6 +89,53 @@ const resolveFallbackPayId = async (token, lang, productId, invoiceId, tamaraOrd
     }
 };
 
+const resolveTypeByPayId = async (token, lang, payId, productId) => {
+    if (!token || !payId) return null;
+
+    try {
+        const response = await fetch(NOT_COMPLETE_URL, {
+            method: "GET",
+            headers: buildHeaders(token, lang),
+        });
+        if (!response.ok) return null;
+
+        const result = await response.json();
+        const payments = Array.isArray(result?.payments) ? result.payments : [];
+        if (!payments.length) return null;
+
+        const payValue = String(payId);
+        const productValue = productId != null ? String(productId) : null;
+
+        const matched = payments.find((payment) => {
+            if (String(payment?._id || "") !== payValue) return false;
+            if (!productValue) return true;
+
+            const paymentProductId =
+                payment?.product?._id ??
+                payment?.product?.id ??
+                payment?.productId ??
+                (typeof payment?.product === "string" ? payment.product : null);
+
+            return paymentProductId ? String(paymentProductId) === productValue : true;
+        });
+
+        if (!matched) return null;
+
+        const rawType =
+            matched?.product?.type ??
+            matched?.type ??
+            matched?.cardType ??
+            "";
+
+        return {
+            rawType: String(rawType || "").trim(),
+            normalizedType: normalizeMembershipType(rawType),
+        };
+    } catch {
+        return null;
+    }
+};
+
 const ApplicationApi = async (setLoading, setError, data, productId, setShowModal, payId) => {
     const token = localStorage.getItem("token");
     const invoiceId = localStorage.getItem("invoiceId");
@@ -95,14 +143,25 @@ const ApplicationApi = async (setLoading, setError, data, productId, setShowModa
     setLoading(true)
     const lang = localStorage.getItem("lang")
     try {
+        const payTypeMeta = await resolveTypeByPayId(token, lang, payId, productId);
+        const resolvedType =
+            payTypeMeta?.rawType ||
+            payTypeMeta?.normalizedType ||
+            normalizeMembershipType(data?.type);
+        const payload = {
+            ...data,
+            type: resolvedType,
+        };
+
         console.log("[Activation][create] Initial request", {
             productId,
             payId,
-            type: data?.type,
+            type: payload?.type,
+            payTypeMeta,
             invoiceId,
             tamaraOrderId,
         });
-        let finalResponse = await activateCardRequest(productId, payId, data, token, lang);
+        let finalResponse = await activateCardRequest(productId, payId, payload, token, lang);
         let finalResult = await finalResponse.json();
         console.log("[Activation][create] Initial response", {
             status: finalResponse.status,
@@ -121,13 +180,33 @@ const ApplicationApi = async (setLoading, setError, data, productId, setShowModa
             );
             console.log("[Activation][create] Fallback payId", { fallbackPayId });
             if (fallbackPayId && String(fallbackPayId) !== String(payId || "")) {
-                finalResponse = await activateCardRequest(productId, fallbackPayId, data, token, lang);
+                const fallbackTypeMeta = await resolveTypeByPayId(
+                    token,
+                    lang,
+                    fallbackPayId,
+                    productId
+                );
+                const fallbackPayload = {
+                    ...payload,
+                    type:
+                        fallbackTypeMeta?.rawType ||
+                        fallbackTypeMeta?.normalizedType ||
+                        payload?.type,
+                };
+                finalResponse = await activateCardRequest(
+                    productId,
+                    fallbackPayId,
+                    fallbackPayload,
+                    token,
+                    lang
+                );
                 finalResult = await finalResponse.json();
                 console.log("[Activation][create] Retry response", {
                     status: finalResponse.status,
                     ok: finalResponse.ok,
                     message: finalResult?.message,
                     retryPayId: fallbackPayId,
+                    retryType: fallbackPayload?.type,
                 });
             }
         }
