@@ -73,7 +73,7 @@ const FatorahClient = () => {
         setDiscount(value);
         setCouponApplied(true);
       },
-      setPrice
+      setPrice,
     );
   };
 
@@ -207,7 +207,11 @@ const FatorahClient = () => {
           {couponApplied && (
             <>
               <div className="detail1 detail_discount">
-                <p>{selectedLang === "ar" ? "تم تفعيل الكوبون" : "Coupon Applied"}</p>
+                <p>
+                  {selectedLang === "ar"
+                    ? "تم تفعيل الكوبون"
+                    : "Coupon Applied"}
+                </p>
                 <span>{selectedLang === "ar" ? "تم بنجاح" : "Success"}</span>
               </div>
               <div className="detail1 detail_discount">
@@ -215,7 +219,11 @@ const FatorahClient = () => {
                 <span>%{discount}</span>
               </div>
               <div className="detail1 detail_discount">
-                <p>{selectedLang === "ar" ? "السعر بعد الخصم" : "Price After Discount"}</p>
+                <p>
+                  {selectedLang === "ar"
+                    ? "السعر بعد الخصم"
+                    : "Price After Discount"}
+                </p>
                 <span>
                   {price} {selectedLang === "ar" ? "ر.س" : "SAR"}
                 </span>
@@ -246,8 +254,8 @@ const FatorahClient = () => {
                   ? "إلغاء"
                   : "Cancel"
                 : selectedLang === "ar"
-                ? "لديك كوبون تخفيض؟"
-                : "Have a coupon?"}
+                  ? "لديك كوبون تخفيض؟"
+                  : "Have a coupon?"}
             </button>
 
             {showCouponInput && (
@@ -274,8 +282,8 @@ const FatorahClient = () => {
                       ? "جاري التطبيق..."
                       : "Applying..."
                     : selectedLang === "ar"
-                    ? "تطبيق"
-                    : "Apply"}
+                      ? "تطبيق"
+                      : "Apply"}
                 </button>
                 {error && <p className="error">{error}</p>}
                 {couponApplied && (
@@ -303,8 +311,8 @@ const FatorahClient = () => {
                 ? "إخفاء التفاصيل ▲"
                 : "Hide Details ▲"
               : selectedLang === "ar"
-              ? "عرض التفاصيل ▼"
-              : "Show Details ▼"}
+                ? "عرض التفاصيل ▼"
+                : "Show Details ▼"}
           </button>
 
           <div className="payment_data">
@@ -330,7 +338,7 @@ const FatorahClient = () => {
                 <Select
                   options={countryOptions}
                   defaultValue={countryOptions.find(
-                    (opt) => opt.value === "+966"
+                    (opt) => opt.value === "+966",
                   )}
                   onChange={(selected) => setSelectedCode(selected.value)}
                   styles={{
@@ -371,7 +379,14 @@ const FatorahClient = () => {
               onClick={tamaraPaymentGateway}
               disabled={loading}
             >
-              <img src="/images/tamara-logo.svg" alt="Tamara" />
+              <img
+                src={
+                  selectedLang === "ar"
+                    ? "/images/tamara-ar.svg"
+                    : "/images/tamara-en.svg"
+                }
+                alt="Tamara"
+              />
               <span>
                 {selectedLang === "ar"
                   ? "ادفع وقسطها مع تمارا"

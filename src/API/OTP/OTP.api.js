@@ -19,7 +19,13 @@ const OTP = async (setloading, setError, data, router) => {
         if (response.ok) {
             localStorage.setItem("token", result.token);
             setloading(false);
-            router.push("/");
+            const redirectUrl = localStorage.getItem("redirectAfterLogin");
+            if (redirectUrl) {
+                localStorage.removeItem("redirectAfterLogin");
+                router.push(redirectUrl);
+            } else {
+                router.push("/");
+            }
             setTimeout(() => {
                 window.location.reload()
             }, 500);

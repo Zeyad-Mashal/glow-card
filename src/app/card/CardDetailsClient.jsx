@@ -59,11 +59,20 @@ export default function CardDetailsClient() {
   const [navigating, setNavigating] = useState(false);
 
   const goToApplication = (id, type, price) => {
-    setNavigating(true);
     localStorage.setItem("type", normalizeMembershipType(type));
     localStorage.setItem("price", price);
 
-    router.push(`/fatorah?id=${id}`);
+    const token = localStorage.getItem("token");
+    const fatorahUrl = `/fatorah?id=${id}`;
+
+    if (!token) {
+      localStorage.setItem("redirectAfterLogin", fatorahUrl);
+      router.push("/login");
+      return;
+    }
+
+    setNavigating(true);
+    router.push(fatorahUrl);
   };
 
   const goToCard = (id, type, price) => {
@@ -131,31 +140,61 @@ export default function CardDetailsClient() {
                 </span>
               </div> */}
             </div>
-            <button
-              onClick={() =>
-                cardDetails.type === "Custom"
-                  ? router.push("/request-card")
-                  : goToApplication(
-                      cardDetails._id,
-                      cardDetails.type,
-                      cardDetails.price
-                    )
-              }
-              disabled={navigating}
-            >
-              {navigating ? (
-                selectedLanguage === "ar" ? (
-                  "جارٍ التحميل..."
+            <div className="card_actions">
+              <button
+                onClick={() =>
+                  cardDetails.type === "Custom"
+                    ? router.push("/request-card")
+                    : goToApplication(
+                        cardDetails._id,
+                        cardDetails.type,
+                        cardDetails.price,
+                      )
+                }
+                disabled={navigating}
+              >
+                {navigating ? (
+                  selectedLanguage === "ar" ? (
+                    <span className="loader"></span>
+                  ) : (
+                    <span className="loader"></span>
+                  )
                 ) : (
-                  "Loading..."
-                )
-              ) : (
-                <>
-                  <FontAwesomeIcon icon={faArrowUpRightFromSquare} />{" "}
-                  {langValue["reqBtn"]}
-                </>
-              )}
-            </button>
+                  <>
+                    <FontAwesomeIcon icon={faArrowUpRightFromSquare} />{" "}
+                    {langValue["reqBtn"]}
+                  </>
+                )}
+              </button>
+              <button
+                onClick={() =>
+                  cardDetails.type === "Custom"
+                    ? router.push("/request-card")
+                    : goToApplication(
+                        cardDetails._id,
+                        cardDetails.type,
+                        cardDetails.price,
+                      )
+                }
+                disabled={navigating}
+              >
+                {selectedLanguage === "ar" ? (
+                  <Image
+                    src="/images/tamara-ar.svg"
+                    alt="Tamara"
+                    width={80}
+                    height={80}
+                  />
+                ) : (
+                  <Image
+                    src="/images/tamara-en.svg"
+                    alt="Tamara"
+                    width={80}
+                    height={80}
+                  />
+                )}
+              </button>
+            </div>
           </div>
         </div>
 
