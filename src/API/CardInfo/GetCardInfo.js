@@ -21,7 +21,7 @@ const GetCardInfo = async (setloading, setError, setCardInfo) => {
             if (response.status == 404) {
                 setError(result.message)
                 setloading(false);
-            } else if (response.status == 500) {
+            } else if (response.status == 400) {
                 console.log(result.message);
                 setError(result.message)
                 setloading(false);

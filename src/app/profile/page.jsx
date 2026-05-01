@@ -10,6 +10,7 @@ import normalizeMembershipType from "@/utils/normalizeMembershipType";
 
 const Profile = () => {
   const router = useRouter();
+  const familyTypes = new Set(["family", "newlywed"]);
 
   const [selectedLanguage, setSelectedLanguage] = useState("ar");
   const [phone, setPhone] = useState("");
@@ -36,6 +37,8 @@ const Profile = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [cardInfo, setCardInfo] = useState([]);
   const [allCardsActivations, setAllCardsActivations] = useState([]);
+  const [familySliderIndex, setFamilySliderIndex] = useState(0);
+  console.log(cardInfo);
 
   const formatDate = (dateValue) => {
     if (!dateValue) return "-";
@@ -86,28 +89,138 @@ const Profile = () => {
     InvitationCode(setLoading, setError, setCode);
   };
 
-  const images = [
-    "/images/cardfront.png",
-    "/images/card.jpeg",
-    "/images/cardfront.png",
-  ];
-
-  const [current, setCurrent] = useState(0);
-
-  const goToPrev = () => {
-    setCurrent((prev) => (prev - 1 + images.length) % images.length);
-  };
-
-  const goToNext = () => {
-    setCurrent((prev) => (prev + 1) % images.length);
-  };
-
-  const goToSlide = (index) => {
-    setCurrent(index);
-  };
-
   const getCardInfo = () => {
     GetCardInfo(setLoading, setError, setCardInfo);
+  };
+
+  const normalizedPhone = (value) => (value || "").toString().trim();
+  const normalizeType = (value) =>
+    (value || "").toString().trim().toLowerCase();
+  const formatCode = (value) => {
+    if (!value) return "-";
+    const codeValue = value.toString();
+    return codeValue.match(/.{1,2}/g)?.join(" ") || codeValue;
+  };
+
+  const buildPersonCard = (card, person, label, suffix) => ({
+    ...card,
+    name: person?.name || "-",
+    nationalID: person?.nationalID || "-",
+    phone: person?.phone || "-",
+    gender: person?.gender || "-",
+    dateOfBirth: person?.dateOfBirth || "-",
+    nationality: person?.nationality || "-",
+    relationship: person?.relationship || "",
+    code: person?.code || card.code,
+    personLabel: label,
+    sliderKey: `${card._id || card.code || "family"}-${suffix}`,
+  });
+
+  const buildFamilyCards = (card, currentPhone) => {
+    const ownerPhone = normalizedPhone(card.phone);
+    const spousePhone = normalizedPhone(card.spouse?.phone);
+    const memberByPhone =
+      card.members?.find(
+        (member) => normalizedPhone(member?.phone) === currentPhone,
+      ) || null;
+
+    if (ownerPhone && ownerPhone === currentPhone) {
+      const cards = [
+        buildPersonCard(
+          card,
+          card,
+          selectedLanguage === "ar" ? "العضو الأساسي" : "Primary Member",
+          "owner",
+        ),
+      ];
+
+      if (card.spouse) {
+        cards.push(
+          buildPersonCard(
+            card,
+            card.spouse,
+            selectedLanguage === "ar" ? "الزوج/الزوجة" : "Spouse",
+            "spouse",
+          ),
+        );
+      }
+
+      (card.members || []).forEach((member, index) => {
+        cards.push(
+          buildPersonCard(
+            card,
+            member,
+            selectedLanguage === "ar"
+              ? `فرد العائلة ${index + 1}`
+              : `Family Member ${index + 1}`,
+            `member-${member?._id || index}`,
+          ),
+        );
+      });
+
+      return cards;
+    }
+
+    if (spousePhone && spousePhone === currentPhone) {
+      return [
+        buildPersonCard(
+          card,
+          card.spouse,
+          selectedLanguage === "ar"
+            ? "بياناتك (زوج/زوجة)"
+            : "Your Card (Spouse)",
+          "spouse-only",
+        ),
+      ];
+    }
+
+    if (memberByPhone) {
+      return [
+        buildPersonCard(
+          card,
+          memberByPhone,
+          selectedLanguage === "ar"
+            ? "بياناتك (فرد عائلة)"
+            : "Your Card (Family Member)",
+          `member-only-${memberByPhone?._id || "member"}`,
+        ),
+      ];
+    }
+
+    return [];
+  };
+
+  const currentUserPhone = normalizedPhone(phone);
+  const regularMembershipCards = cardInfo.filter(
+    (card) => !familyTypes.has(normalizeType(card.type)),
+  );
+  const familyMembershipCards = cardInfo
+    .filter((card) => familyTypes.has(normalizeType(card.type)))
+    .flatMap((card) => buildFamilyCards(card, currentUserPhone));
+
+  useEffect(() => {
+    if (!familyMembershipCards.length) {
+      setFamilySliderIndex(0);
+      return;
+    }
+
+    if (familySliderIndex > familyMembershipCards.length - 1) {
+      setFamilySliderIndex(0);
+    }
+  }, [familyMembershipCards.length, familySliderIndex]);
+
+  const goFamilyPrev = () => {
+    if (!familyMembershipCards.length) return;
+    setFamilySliderIndex(
+      (prev) =>
+        (prev - 1 + familyMembershipCards.length) %
+        familyMembershipCards.length,
+    );
+  };
+
+  const goFamilyNext = () => {
+    if (!familyMembershipCards.length) return;
+    setFamilySliderIndex((prev) => (prev + 1) % familyMembershipCards.length);
   };
 
   const logout = () => {
@@ -192,7 +305,7 @@ const Profile = () => {
                 <h2>{langValue["cardInfo"]}</h2>
 
                 <div className="card_details_list">
-                  {cardInfo.map((card, index) => (
+                  {regularMembershipCards.map((card, index) => (
                     <div key={index} className="card_info">
                       <div className="card_info_item">
                         <div
@@ -205,12 +318,12 @@ const Profile = () => {
                           draggable={false}
                         >
                           <img
-                            src="/images/Silver Card@2x.png"
-                            alt={`Slide ${current}`}
+                            src={card.card?.images?.[0]}
+                            alt={`Card ${index + 1}`}
                           />
                           <div className="card_info_content">
                             <h2 style={{ direction: "ltr" }}>
-                              {card.code.match(/.{1,2}/g).join(" ")}
+                              {formatCode(card.code)}
                             </h2>
                             <h3>Name: {card.name}</h3>
                             <h3>Discount: {card.discount}</h3>
@@ -261,7 +374,7 @@ const Profile = () => {
                                   : "Membership Number"}
                               </p>
                               <span className="codeNumber">
-                                {card.code?.match(/.{1,2}/g).join(" ") || "-"}
+                                {formatCode(card.code)}
                               </span>
                             </div>
                             <div className="membership_detail_item">
@@ -286,6 +399,216 @@ const Profile = () => {
                     </div>
                   ))}
                 </div>
+
+                {familyMembershipCards.length > 0 && (
+                  <div className="family_slider_wrapper">
+                    <h3 className="family_slider_title">
+                      {selectedLanguage === "ar"
+                        ? "بطاقات عضوية الأزواج والعائلة"
+                        : "Family & Newlywed Membership Cards"}
+                    </h3>
+
+                    <div className="family_slider">
+                      {familyMembershipCards.length > 1 && (
+                        <button
+                          className="family_slider_btn"
+                          onClick={goFamilyPrev}
+                          aria-label={
+                            selectedLanguage === "ar" ? "السابق" : "Previous"
+                          }
+                        >
+                          ‹
+                        </button>
+                      )}
+
+                      <div className="card_info">
+                        <div className="card_info_item">
+                          <div className="card_info_image" draggable={false}>
+                            <img
+                              src={
+                                familyMembershipCards[familySliderIndex]?.card
+                                  ?.images?.[0]
+                              }
+                              alt="Family Membership Card"
+                            />
+                            <div className="card_info_content">
+                              <h2 style={{ direction: "ltr" }}>
+                                {formatCode(
+                                  familyMembershipCards[familySliderIndex].code,
+                                )}
+                              </h2>
+                              <h3>
+                                {familyMembershipCards[familySliderIndex]
+                                  .name || "-"}
+                              </h3>
+                              <h3>
+                                {selectedLanguage === "ar"
+                                  ? "الخصم"
+                                  : "Discount"}
+                                :{" "}
+                                {familyMembershipCards[familySliderIndex]
+                                  .discount || "-"}
+                              </h3>
+                              <div className="card_info_content_date">
+                                <p>
+                                  {selectedLanguage === "ar"
+                                    ? "تاريخ الانتهاء"
+                                    : "Ex Date"}
+                                  :{" "}
+                                  {formatDate(
+                                    familyMembershipCards[familySliderIndex]
+                                      .expiryDate,
+                                  )}
+                                </p>
+                                <p>
+                                  {selectedLanguage === "ar"
+                                    ? "تاريخ البداية"
+                                    : "Start Date"}
+                                  :{" "}
+                                  {formatDate(
+                                    familyMembershipCards[familySliderIndex]
+                                      .activationDate,
+                                  )}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="membership_details_card">
+                            <h4 className="membership_details_title">
+                              {selectedLanguage === "ar"
+                                ? "تفاصيل العضوية"
+                                : "Membership Details"}
+                            </h4>
+                            <div className="membership_details_grid">
+                              <div className="membership_detail_item">
+                                <p className="membership_detail_label">
+                                  {selectedLanguage === "ar"
+                                    ? "نوع العضوية"
+                                    : "Membership Type"}
+                                </p>
+                                <span>
+                                  {familyMembershipCards[familySliderIndex]
+                                    .type || "-"}
+                                </span>
+                              </div>
+                              <div className="membership_detail_item">
+                                <p className="membership_detail_label">
+                                  {selectedLanguage === "ar"
+                                    ? "نوع البطاقة"
+                                    : "Card Holder Type"}
+                                </p>
+                                <span>
+                                  {familyMembershipCards[familySliderIndex]
+                                    .personLabel || "-"}
+                                </span>
+                              </div>
+                              <div className="membership_detail_item">
+                                <p className="membership_detail_label">
+                                  {selectedLanguage === "ar"
+                                    ? "اسم العضو الكامل"
+                                    : "Full Name"}
+                                </p>
+                                <span>
+                                  {familyMembershipCards[familySliderIndex]
+                                    .name || "-"}
+                                </span>
+                              </div>
+                              <div className="membership_detail_item">
+                                <p className="membership_detail_label">
+                                  {selectedLanguage === "ar"
+                                    ? "رقم الهوية"
+                                    : "National ID"}
+                                </p>
+                                <span>
+                                  {familyMembershipCards[familySliderIndex]
+                                    .nationalID || "-"}
+                                </span>
+                              </div>
+                              <div className="membership_detail_item">
+                                <p className="membership_detail_label">
+                                  {selectedLanguage === "ar"
+                                    ? "رقم الجوال"
+                                    : "Phone"}
+                                </p>
+                                <span>
+                                  {familyMembershipCards[familySliderIndex]
+                                    .phone || "-"}
+                                </span>
+                              </div>
+                              <div className="membership_detail_item">
+                                <p className="membership_detail_label">
+                                  {selectedLanguage === "ar"
+                                    ? "رقم العضوية"
+                                    : "Membership Number"}
+                                </p>
+                                <span className="codeNumber">
+                                  {formatCode(
+                                    familyMembershipCards[familySliderIndex]
+                                      .code,
+                                  )}
+                                </span>
+                              </div>
+                              <div className="membership_detail_item">
+                                <p className="membership_detail_label">
+                                  {selectedLanguage === "ar"
+                                    ? "تاريخ الاشتراك"
+                                    : "Subscription Date"}
+                                </p>
+                                <span>
+                                  {formatDate(
+                                    familyMembershipCards[familySliderIndex]
+                                      .activationDate,
+                                  )}
+                                </span>
+                              </div>
+                              <div className="membership_detail_item">
+                                <p className="membership_detail_label">
+                                  {selectedLanguage === "ar"
+                                    ? "تاريخ الانتهاء"
+                                    : "Expiry Date"}
+                                </p>
+                                <span>
+                                  {formatDate(
+                                    familyMembershipCards[familySliderIndex]
+                                      .expiryDate,
+                                  )}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {familyMembershipCards.length > 1 && (
+                        <button
+                          className="family_slider_btn"
+                          onClick={goFamilyNext}
+                          aria-label={
+                            selectedLanguage === "ar" ? "التالي" : "Next"
+                          }
+                        >
+                          ›
+                        </button>
+                      )}
+                    </div>
+
+                    {familyMembershipCards.length > 1 && (
+                      <div className="family_slider_dots">
+                        {familyMembershipCards.map((item, index) => (
+                          <button
+                            key={item.sliderKey || index}
+                            className={`family_dot ${
+                              familySliderIndex === index ? "active" : ""
+                            }`}
+                            onClick={() => setFamilySliderIndex(index)}
+                            aria-label={`Go to slide ${index + 1}`}
+                          />
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             )}
 
