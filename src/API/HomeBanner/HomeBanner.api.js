@@ -12,8 +12,6 @@ const HomeBanner = async (setloading, setError, getAllBanners, lang, cityId) => 
         });
 
         const result = await response.json();
-        console.log(URL);
-
         if (response.ok) {
             setloading(false);
             getAllBanners(Array.isArray(result.ads) ? result.ads : []);
