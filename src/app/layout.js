@@ -1,5 +1,4 @@
 import CityPopup from "@/components/CityPopup";
-import WelcomeAppModal from "@/components/WelcomeAppModal";
 import "./globals.css";
 import ConditionalNavbar from "@/components/ConditionalNavbar";
 import GoogleProviderWrapper from "@/components/GoogleProviderWrapper";
@@ -23,7 +22,6 @@ export default function RootLayout({ children }) {
         <GoogleProviderWrapper>
           <ConditionalNavbar />
           <CityPopup />
-          <WelcomeAppModal />
           {children}
           <WhatsappButton />
         </GoogleProviderWrapper>
