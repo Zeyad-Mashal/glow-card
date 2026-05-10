@@ -45,9 +45,15 @@ export default function OtpClient() {
       setError("رقم الهاتف غير موجود.");
       return;
     }
+    const id = localStorage.getItem("loginOtpId");
+    if (!id) {
+      setError("انتهت الجلسة. من فضلك سجّل الدخول مرة أخرى.");
+      return;
+    }
     const data = {
       identifier: query,
       code: fullOtp,
+      id,
     };
     OTP(setLoading, setError, data, router);
   };

@@ -2,7 +2,7 @@ const URL = "https://glow-card.onrender.com/api/v1/auth/verify";
 
 const OTP = async (setloading, setError, data, router) => {
     setloading(true)
-    const lang = localStorage.getItem("lang")
+    const lang = localStorage.getItem("lang") || "ar";
     try {
         const response = await fetch(URL, {
             method: 'POST',
@@ -18,6 +18,7 @@ const OTP = async (setloading, setError, data, router) => {
 
         if (response.ok) {
             localStorage.setItem("token", result.token);
+            localStorage.removeItem("loginOtpId");
             setloading(false);
             const redirectUrl = localStorage.getItem("redirectAfterLogin");
             if (redirectUrl) {

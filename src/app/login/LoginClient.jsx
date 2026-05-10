@@ -66,9 +66,10 @@ export default function LoginClient() {
   }));
 
   const handleLogin = () => {
-    const fullPhone = `${phone}`;
+    const trimmed = phone.trim().replace(/\s/g, "");
+    const identifier = trimmed.replace(/^\++/, "");
     const data = {
-      identifier: fullPhone,
+      identifier,
       code: query ? query : "",
     };
 
