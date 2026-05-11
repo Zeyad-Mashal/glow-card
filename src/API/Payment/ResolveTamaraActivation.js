@@ -12,6 +12,29 @@ const resolveProductFromPayment = (payment) =>
   payment?.productId ??
   (typeof payment?.product === "string" ? payment.product : null);
 
+const isTamaraPayment = (payment) => {
+  const provider = String(
+    payment?.gateway ??
+      payment?.provider ??
+      payment?.paymentProvider ??
+      payment?.method ??
+      payment?.paymentMethod ??
+      "",
+  )
+    .trim()
+    .toLowerCase();
+
+  if (provider.includes("tamara")) return true;
+
+  return Boolean(
+    payment?.tamaraOrderId ??
+      payment?.orderId ??
+      payment?.order_id ??
+      payment?.checkoutId ??
+      payment?.checkout_id,
+  );
+};
+
 const resolveCandidateKeys = (payment) =>
   [
     payment?._id,
@@ -76,6 +99,7 @@ const ResolveTamaraActivation = async () => {
     localStorage.getItem("pendingActivationType"),
   );
   const tamaraOrderId = localStorage.getItem("tamaraOrderId");
+  const tamaraCheckoutId = localStorage.getItem("tamaraCheckoutId");
   console.log("[Tamara][resolver] Start", {
     pendingProductId,
     pendingType,
@@ -85,10 +109,11 @@ const ResolveTamaraActivation = async () => {
   if (!token) return { next: "/login", ok: false };
 
   const resolveUsingPaymentCallback = async () => {
-    const identifiers = [
-      localStorage.getItem("invoiceId"),
-      tamaraOrderId,
-    ].filter(Boolean);
+    const invoiceId = localStorage.getItem("invoiceId");
+    const identifiers = [tamaraOrderId, tamaraCheckoutId].filter(Boolean);
+    if (!identifiers.length && invoiceId) {
+      identifiers.push(invoiceId);
+    }
 
     for (const identifier of identifiers) {
       try {
@@ -127,10 +152,12 @@ const ResolveTamaraActivation = async () => {
   };
 
   const resolveFromPayments = (payments) => {
+    const tamaraPayments = payments.filter((payment) => isTamaraPayment(payment));
+    const sourcePayments = tamaraPayments.length ? tamaraPayments : payments;
     const orderValue = tamaraOrderId != null ? String(tamaraOrderId) : null;
     const byOrder = orderValue
       ? sortByLatest(
-          payments.filter((payment) =>
+          sourcePayments.filter((payment) =>
             resolveCandidateKeys(payment).includes(orderValue),
           ),
         )[0]
@@ -140,21 +167,14 @@ const ResolveTamaraActivation = async () => {
       pendingProductId != null ? String(pendingProductId) : null;
     const byProduct = productValue
       ? sortByLatest(
-          payments.filter((payment) => {
+          sourcePayments.filter((payment) => {
             const pid = resolveProductFromPayment(payment);
             return pid ? String(pid) === productValue : false;
           }),
         )[0]
       : null;
 
-    const latestOpenPayment = sortByLatest(
-      payments.filter((payment) => isNotCompletedPayment(payment)),
-    )[0];
-
-    const latestAnyPayment = sortByLatest(payments)[0];
-
-    const selected = byOrder || byProduct;
-    const finalSelected = selected || latestOpenPayment || latestAnyPayment;
+    const finalSelected = byOrder || byProduct;
     if (!finalSelected?._id) return null;
 
     const productId =

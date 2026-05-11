@@ -16,7 +16,38 @@ const activateCardRequest = async (productId, payId, data, token, lang) => {
     });
 };
 
-const resolveFallbackPayId = async (token, lang, productId, invoiceId, tamaraOrderId) => {
+const isTamaraPayment = (payment) => {
+    const provider = String(
+        payment?.gateway ??
+        payment?.provider ??
+        payment?.paymentProvider ??
+        payment?.method ??
+        payment?.paymentMethod ??
+        ""
+    )
+        .trim()
+        .toLowerCase();
+
+    if (provider.includes("tamara")) return true;
+
+    return Boolean(
+        payment?.tamaraOrderId ??
+        payment?.orderId ??
+        payment?.order_id ??
+        payment?.checkoutId ??
+        payment?.checkout_id
+    );
+};
+
+const resolveFallbackPayId = async (
+    token,
+    lang,
+    productId,
+    invoiceId,
+    tamaraOrderId,
+    tamaraCheckoutId,
+    pendingPaymentProvider
+) => {
     if (!token) return null;
 
     try {
@@ -29,11 +60,18 @@ const resolveFallbackPayId = async (token, lang, productId, invoiceId, tamaraOrd
         const result = await response.json();
         const payments = Array.isArray(result?.payments) ? result.payments : [];
         if (!payments.length) return null;
+        const sourcePayments =
+            pendingPaymentProvider === "tamara"
+                ? payments.filter((payment) => isTamaraPayment(payment))
+                : payments;
+        if (!sourcePayments.length) return null;
 
         const invoiceValue = invoiceId != null ? String(invoiceId) : null;
         const orderValue = tamaraOrderId != null ? String(tamaraOrderId) : null;
-        if (invoiceValue || orderValue) {
-            const byInvoiceOrOrder = payments.find((payment) => {
+        const checkoutValue =
+            tamaraCheckoutId != null ? String(tamaraCheckoutId) : null;
+        if (invoiceValue || orderValue || checkoutValue) {
+            const byInvoiceOrOrder = sourcePayments.find((payment) => {
                 const candidates = [
                     payment?.invoiceId,
                     payment?.invoice_id,
@@ -55,14 +93,17 @@ const resolveFallbackPayId = async (token, lang, productId, invoiceId, tamaraOrd
                 const orderMatched = orderValue
                     ? candidates.includes(orderValue)
                     : false;
+                const checkoutMatched = checkoutValue
+                    ? candidates.includes(checkoutValue)
+                    : false;
 
-                return invoiceMatched || orderMatched;
+                return invoiceMatched || orderMatched || checkoutMatched;
             });
             if (byInvoiceOrOrder?._id) return byInvoiceOrOrder._id;
         }
 
         const productValue = productId != null ? String(productId) : null;
-        const byProduct = payments.filter((payment) => {
+        const byProduct = sourcePayments.filter((payment) => {
             const paymentProductId =
                 payment?.product?._id ??
                 payment?.product?.id ??
@@ -140,6 +181,8 @@ const ApplicationApi = async (setLoading, setError, data, productId, setShowModa
     const token = localStorage.getItem("token");
     const invoiceId = localStorage.getItem("invoiceId");
     const tamaraOrderId = localStorage.getItem("tamaraOrderId");
+    const tamaraCheckoutId = localStorage.getItem("tamaraCheckoutId");
+    const pendingPaymentProvider = localStorage.getItem("pendingPaymentProvider");
     setLoading(true)
     const lang = localStorage.getItem("lang")
     try {
@@ -160,6 +203,8 @@ const ApplicationApi = async (setLoading, setError, data, productId, setShowModa
             payTypeMeta,
             invoiceId,
             tamaraOrderId,
+            tamaraCheckoutId,
+            pendingPaymentProvider,
         });
         let finalResponse = await activateCardRequest(productId, payId, payload, token, lang);
         let finalResult = await finalResponse.json();
@@ -176,7 +221,9 @@ const ApplicationApi = async (setLoading, setError, data, productId, setShowModa
                 lang,
                 productId,
                 invoiceId,
-                tamaraOrderId
+                tamaraOrderId,
+                tamaraCheckoutId,
+                pendingPaymentProvider
             );
             console.log("[Activation][create] Fallback payId", { fallbackPayId });
             if (fallbackPayId && String(fallbackPayId) !== String(payId || "")) {
@@ -212,6 +259,15 @@ const ApplicationApi = async (setLoading, setError, data, productId, setShowModa
         }
 
         if (finalResponse.ok) {
+            try {
+                localStorage.removeItem("pendingActivationProductId");
+                localStorage.removeItem("pendingActivationType");
+                localStorage.removeItem("pendingPaymentProvider");
+                localStorage.removeItem("tamaraOrderId");
+                localStorage.removeItem("tamaraCheckoutId");
+            } catch {
+                /* ignore */
+            }
             setShowModal(true)
             setLoading(false);
         } else {

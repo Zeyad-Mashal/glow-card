@@ -112,6 +112,16 @@ const FatorahClient = () => {
     }
   };
 
+  const markTamaraPaymentContext = () => {
+    try {
+      localStorage.setItem("pendingPaymentProvider", "tamara");
+      // Prevent mixing Tamara flow with a stale invoice-based flow.
+      localStorage.removeItem("invoiceId");
+    } catch {
+      /* ignore */
+    }
+  };
+
   const validateBeforePayment = () => {
     if (userName === "" || email === "" || phone === "") {
       alert("يجب ملئ جميع البيانات اولا");
@@ -136,6 +146,7 @@ const FatorahClient = () => {
     if (!validateBeforePayment()) return;
     const data = buildPaymentPayload();
     ensurePaymentMeta();
+    markTamaraPaymentContext();
     TamaraPayment(setloading, setError, data);
   };
 
