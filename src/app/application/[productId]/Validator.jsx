@@ -1,3 +1,5 @@
+import normalizeMembershipType from "@/utils/normalizeMembershipType";
+
 const Validator = (formData) => {
   const hasAtLeastThreeWords = (value) => {
     if (typeof value !== "string") return false;
@@ -9,7 +11,9 @@ const Validator = (formData) => {
 
   // تحقق إذا كانت البيئة هي بيئة المتصفح (client-side)
   if (typeof window !== "undefined") {
-    type = localStorage.getItem("type");
+    type =
+      normalizeMembershipType(localStorage.getItem("type")) ||
+      localStorage.getItem("type");
   }
 
   if (!type) return false; // إذا كانت `type` غير موجودة، نعيد false

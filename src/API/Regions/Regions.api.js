@@ -1,4 +1,6 @@
-const URL = "https://glow-card.onrender.com/api/v1/region/get/";
+import { getApiUrl } from "@/lib/getApiUrl";
+
+const URL = getApiUrl("/api/v1/region/get/");
 
 const Regions = async (setloading, setError, setRegions, id) => {
     setloading(true)

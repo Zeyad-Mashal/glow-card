@@ -3,7 +3,16 @@
 import React, { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import ResolveTamaraActivation from "@/API/Payment/ResolveTamaraActivation";
+import normalizeMembershipType from "@/utils/normalizeMembershipType";
 import "./payment-status.css";
+
+function firstParam(searchParams, keys) {
+  for (const key of keys) {
+    const value = searchParams.get(key);
+    if (value != null && String(value).trim() !== "") return value;
+  }
+  return null;
+}
 
 const PaymentSuccessContent = () => {
   const router = useRouter();
@@ -11,11 +20,37 @@ const PaymentSuccessContent = () => {
   const [message, setMessage] = useState("جاري تجهيز التفعيل...");
 
   useEffect(() => {
-    const status = searchParams.get("paymentStatus");
-    const orderId = searchParams.get("orderId");
+    const status = firstParam(searchParams, [
+      "paymentStatus",
+      "payment_status",
+      "status",
+    ]);
+    const orderId = firstParam(searchParams, [
+      "orderId",
+      "order_id",
+      "orderID",
+      "paymentOrderId",
+      "payment_order_id",
+    ]);
+    const checkoutId = firstParam(searchParams, [
+      "checkoutId",
+      "checkout_id",
+      "checkoutID",
+    ]);
 
     if (orderId) {
-      localStorage.setItem("tamaraOrderId", orderId);
+      try {
+        localStorage.setItem("tamaraOrderId", orderId);
+      } catch {
+        /* ignore */
+      }
+    }
+    if (checkoutId) {
+      try {
+        localStorage.setItem("tamaraCheckoutId", checkoutId);
+      } catch {
+        /* ignore */
+      }
     }
 
     if (status && status.toLowerCase() !== "approved") {
@@ -24,9 +59,20 @@ const PaymentSuccessContent = () => {
     }
 
     const proceed = async () => {
+      const pendingRaw = localStorage.getItem("pendingActivationType");
+      const pendingNorm = normalizeMembershipType(pendingRaw);
+      if (pendingNorm && pendingNorm !== pendingRaw) {
+        try {
+          localStorage.setItem("pendingActivationType", pendingNorm);
+          localStorage.setItem("type", pendingNorm);
+        } catch {
+          /* ignore */
+        }
+      }
       console.log("[Tamara][payment-success] Incoming params", {
         paymentStatus: status,
         orderId,
+        checkoutId,
         pendingActivationProductId: localStorage.getItem(
           "pendingActivationProductId",
         ),

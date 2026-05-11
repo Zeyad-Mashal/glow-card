@@ -41,6 +41,14 @@ const FatorahClient = () => {
   }, []);
 
   useEffect(() => {
+    const existingToken = String(localStorage.getItem("token") || "").trim();
+    if (!existingToken || existingToken === "null" || existingToken === "undefined") {
+      localStorage.setItem("redirectAfterLogin", window.location.href);
+      router.replace("/login");
+    }
+  }, [router]);
+
+  useEffect(() => {
     const price = localStorage.getItem("price");
     const numericPrice = Number(price) || 0;
     const token = localStorage.getItem("token");
@@ -86,14 +94,21 @@ const FatorahClient = () => {
     }
   }, [couponApi, basePrice]);
 
-  const buildPaymentPayload = () => ({
-    email,
-    name: userName,
-    phone,
-    productId: id,
-    coupon: couponApi || undefined,
-    totalPrice: price,
-  });
+  const buildPaymentPayload = () => {
+    const normalizedType = normalizeMembershipType(
+      cardType || localStorage.getItem("type"),
+    );
+    return {
+      email,
+      name: userName,
+      phone,
+      productId: id,
+      type: normalizedType,
+      membershipType: normalizedType,
+      coupon: couponApi || undefined,
+      totalPrice: price,
+    };
+  };
 
   const ensurePaymentMeta = () => {
     if (id) {
@@ -123,11 +138,12 @@ const FatorahClient = () => {
   };
 
   const validateBeforePayment = () => {
+    const freshToken = String(localStorage.getItem("token") || "").trim();
     if (userName === "" || email === "" || phone === "") {
       alert("يجب ملئ جميع البيانات اولا");
       return false;
     }
-    if (!token) {
+    if (!freshToken || freshToken === "null" || freshToken === "undefined") {
       localStorage.setItem("redirectAfterLogin", window.location.href);
       router.push("/login");
       return false;

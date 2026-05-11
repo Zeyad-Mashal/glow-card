@@ -1,10 +1,19 @@
 import normalizeMembershipType from "@/utils/normalizeMembershipType";
 const NOT_COMPLETE_URL = "https://glow-card.onrender.com/api/v1/card/notComplete";
 const CALLBACK_URL = "https://glow-card.onrender.com/api/v1/payment/callback";
-const RETRY_COUNT = 8;
-const RETRY_DELAY_MS = 1300;
+const RETRY_COUNT = 14;
+const RETRY_DELAY_MS = 1500;
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+/** معرّف سجل الدفع المرسل لـ create — قد لا يكون دائماً `._id` */
+const extractPaymentRowId = (payment) =>
+  payment?._id ??
+  payment?.id ??
+  payment?.paymentId ??
+  payment?.payId ??
+  payment?.payment_id ??
+  null;
 
 const resolveProductFromPayment = (payment) =>
   payment?.product?._id ??
@@ -35,6 +44,14 @@ const isTamaraPayment = (payment) => {
   );
 };
 
+const CALLBACK_QUERY_KEYS = [
+  "invoiceId",
+  "orderId",
+  "order_id",
+  "checkoutId",
+  "checkout_id",
+];
+
 const resolveCandidateKeys = (payment) =>
   [
     payment?._id,
@@ -48,6 +65,10 @@ const resolveCandidateKeys = (payment) =>
     payment?.tamaraOrderId,
     payment?.checkoutId,
     payment?.checkout_id,
+    payment?.reference,
+    payment?.orderReference,
+    payment?.merchantReference,
+    payment?.externalOrderId,
   ]
     .filter((value) => value != null)
     .map((value) => String(value));
@@ -116,35 +137,37 @@ const ResolveTamaraActivation = async () => {
     }
 
     for (const identifier of identifiers) {
-      try {
-        const response = await fetch(
-          `${CALLBACK_URL}?invoiceId=${encodeURIComponent(identifier)}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              authorization: `glowONW${token}`,
+      for (const key of CALLBACK_QUERY_KEYS) {
+        try {
+          const response = await fetch(
+            `${CALLBACK_URL}?${key}=${encodeURIComponent(identifier)}`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                authorization: `glowONW${token}`,
+              },
             },
-          },
-        );
-        if (!response.ok) continue;
+          );
+          if (!response.ok) continue;
 
-        const result = await response.json();
-        const productId = resolveProductIdFromCallback(result, pendingProductId);
-        const payId = resolvePayIdFromCallback(result);
-        const type = resolveTypeFromCallback(result, pendingType);
+          const result = await response.json();
+          const productId = resolveProductIdFromCallback(result, pendingProductId);
+          const payId = resolvePayIdFromCallback(result);
+          const type = resolveTypeFromCallback(result, pendingType);
 
-        if (productId && payId) {
-          if (type) localStorage.setItem("type", type);
-          return {
-            ok: true,
-            payId,
-            type: type || null,
-            next: `/application/${encodeURIComponent(productId)}?payId=${encodeURIComponent(payId)}`,
-          };
+          if (productId && payId) {
+            if (type) localStorage.setItem("type", type);
+            return {
+              ok: true,
+              payId,
+              type: type || null,
+              next: `/application/${encodeURIComponent(productId)}?payId=${encodeURIComponent(payId)}`,
+            };
+          }
+        } catch {
+          /* ignore and fallback to notComplete */
         }
-      } catch {
-        /* ignore and fallback to notComplete */
       }
     }
 
@@ -162,6 +185,15 @@ const ResolveTamaraActivation = async () => {
           ),
         )[0]
       : null;
+    const checkoutValue =
+      tamaraCheckoutId != null ? String(tamaraCheckoutId) : null;
+    const byCheckout = checkoutValue
+      ? sortByLatest(
+          sourcePayments.filter((payment) =>
+            resolveCandidateKeys(payment).includes(checkoutValue),
+          ),
+        )[0]
+      : null;
 
     const productValue =
       pendingProductId != null ? String(pendingProductId) : null;
@@ -174,25 +206,29 @@ const ResolveTamaraActivation = async () => {
         )[0]
       : null;
 
-    const finalSelected = byOrder || byProduct;
-    if (!finalSelected?._id) return null;
+    const latestSource = sortByLatest(sourcePayments)[0];
+    const finalSelected =
+      byOrder || byCheckout || byProduct || latestSource;
+    if (!finalSelected) return null;
+    const payRowId = extractPaymentRowId(finalSelected);
+    if (!payRowId) return null;
 
     const productId =
       resolveProductFromPayment(finalSelected) || pendingProductId;
     if (!productId) return null;
 
     const resolvedType = normalizeMembershipType(
-      pendingType ??
-        finalSelected?.product?.type ??
+      finalSelected?.product?.type ??
         finalSelected?.type ??
-        finalSelected?.cardType,
+        finalSelected?.cardType ??
+        pendingType,
     );
 
     return {
       ok: true,
-      payId: finalSelected._id,
+      payId: String(payRowId),
       type: resolvedType || null,
-      next: `/application/${encodeURIComponent(productId)}?payId=${encodeURIComponent(finalSelected._id)}`,
+      next: `/application/${encodeURIComponent(productId)}?payId=${encodeURIComponent(String(payRowId))}`,
     };
   };
 
@@ -246,9 +282,27 @@ const ResolveTamaraActivation = async () => {
       }
     }
     console.log("[Tamara][resolver] Failed to resolve after retries");
+    if (pendingProductId) {
+      if (pendingType) localStorage.setItem("type", pendingType);
+      return {
+        ok: true,
+        payId: null,
+        type: pendingType || null,
+        next: `/application/${encodeURIComponent(pendingProductId)}`,
+      };
+    }
     return { next: "/our_cards", ok: false };
   } catch {
     console.log("[Tamara][resolver] Exception while resolving");
+    if (pendingProductId) {
+      if (pendingType) localStorage.setItem("type", pendingType);
+      return {
+        ok: true,
+        payId: null,
+        type: pendingType || null,
+        next: `/application/${encodeURIComponent(pendingProductId)}`,
+      };
+    }
     return { next: "/our_cards", ok: false };
   }
 };

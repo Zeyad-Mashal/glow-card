@@ -45,6 +45,13 @@ const ApplicationClient = () => {
   }, []);
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      router.replace("/login");
+    }
+  }, [router]);
+
+  useEffect(() => {
     const syncTypeAndProductFromPayId = async () => {
       const token = localStorage.getItem("token");
       const langLocal = localStorage.getItem("lang") || "ar";
@@ -81,9 +88,24 @@ const ApplicationClient = () => {
 
         const result = await response.json();
         const payments = Array.isArray(result?.payments) ? result.payments : [];
-        const selectedPayment = payments.find(
-          (payment) => String(payment?._id || "") === String(payId),
-        );
+        const payValue = String(payId);
+        const selectedPayment = payments.find((payment) => {
+          const keys = [
+            payment?._id,
+            payment?.id,
+            payment?.paymentId,
+            payment?.payId,
+            payment?.payment_id,
+            payment?.orderId,
+            payment?.order_id,
+            payment?.tamaraOrderId,
+            payment?.checkoutId,
+            payment?.checkout_id,
+          ]
+            .filter((v) => v != null)
+            .map((v) => String(v));
+          return keys.includes(payValue);
+        });
 
         if (!selectedPayment) {
           setResolvingPayMeta(false);
@@ -239,6 +261,7 @@ const ApplicationClient = () => {
 
     if (!token) {
       window.location.href = "/login";
+      return;
     }
 
     let data = {};

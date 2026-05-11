@@ -1,3 +1,10 @@
+/**
+ * الأسماء الكنسية في النظام والـ API:
+ * Classic  → Annual
+ * Premium  → Two-Year
+ * Couples  → Newlywed
+ * Family   → Family
+ */
 const TYPE_ALIASES = {
   annual: "Annual",
   yearly: "Annual",
@@ -14,12 +21,38 @@ const TYPE_ALIASES = {
   "سنتينmembership": "Two-Year",
   "سنتينعضوية": "Two-Year",
 
+  /** Classic — الكنسي Annual */
+  classic: "Annual",
+  classical: "Annual",
+  "كلاسيك": "Annual",
+  "الكلاسيك": "Annual",
+  "عضويهكلاسيك": "Annual",
+  "عضويةكلاسيك": "Annual",
+
+  /** Premium — الكنسي Two-Year */
+  premium: "Two-Year",
+  premiummembership: "Two-Year",
+  "بريميوم": "Two-Year",
+  "البريميوم": "Two-Year",
+  "برميم": "Two-Year",
+  "برميوم": "Two-Year",
+  "عضويهبريميوم": "Two-Year",
+  "عضويةبريميوم": "Two-Year",
+
   newlywed: "Newlywed",
   couple: "Newlywed",
   couples: "Newlywed",
   spouse: "Newlywed",
+  spouses: "Newlywed",
+  "classiccouples": "Newlywed",
+  "premiumcouples": "Newlywed",
+  classiccouple: "Newlywed",
+  premiumcouple: "Newlywed",
   "زوج": "Newlywed",
   "زوجين": "Newlywed",
+  "ثنائي": "Newlywed",
+  "ثنائيه": "Newlywed",
+  "ثنائية": "Newlywed",
   "أزواج": "Newlywed",
   "ازواج": "Newlywed",
 

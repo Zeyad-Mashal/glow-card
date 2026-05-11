@@ -136,7 +136,7 @@ const Page = () => {
         langValue["RequestSuccess"] || "Request sent successfully!",
         {
           position: "top-right",
-        }
+        },
       );
       // Reset form after success
       setFullName("");

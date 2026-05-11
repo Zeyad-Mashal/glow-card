@@ -104,7 +104,7 @@ const Navbar = () => {
               onChange={(e) => {
                 const selectedName = e.target.value;
                 const selectedItem = allCities.find(
-                  (item) => item.name === selectedName
+                  (item) => item.name === selectedName,
                 );
 
                 if (selectedItem) {
@@ -115,7 +115,7 @@ const Navbar = () => {
                     JSON.stringify({
                       id: selectedItem._id,
                       name: selectedItem.name,
-                    })
+                    }),
                   );
 
                   window.location.reload();
@@ -243,7 +243,7 @@ const Navbar = () => {
           onChange={(e) => {
             const selectedName = e.target.value;
             const selectedItem = allCities.find(
-              (item) => item.name === selectedName
+              (item) => item.name === selectedName,
             );
 
             if (selectedItem) {
@@ -254,7 +254,7 @@ const Navbar = () => {
                 JSON.stringify({
                   id: selectedItem._id,
                   name: selectedItem.name,
-                })
+                }),
               );
               window.location.reload();
             }
