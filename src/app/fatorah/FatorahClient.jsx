@@ -42,7 +42,11 @@ const FatorahClient = () => {
 
   useEffect(() => {
     const existingToken = String(localStorage.getItem("token") || "").trim();
-    if (!existingToken || existingToken === "null" || existingToken === "undefined") {
+    if (
+      !existingToken ||
+      existingToken === "null" ||
+      existingToken === "undefined"
+    ) {
       localStorage.setItem("redirectAfterLogin", window.location.href);
       router.replace("/login");
     }
@@ -401,7 +405,7 @@ const FatorahClient = () => {
             <button onClick={paymentGetway} disabled={loading}>
               {selectedLang === "ar" ? "ادفع الان" : "Pay Now"}
             </button>
-            <button
+            {/* <button
               className="tamara_btn"
               onClick={tamaraPaymentGateway}
               disabled={loading}
@@ -419,7 +423,7 @@ const FatorahClient = () => {
                   ? "ادفع وقسطها مع تمارا"
                   : "Pay in installments with Tamara"}
               </span>
-            </button>
+            </button> */}
           </div>
         </div>
       </div>

@@ -166,7 +166,7 @@ export default function CardDetailsClient() {
                   </>
                 )}
               </button>
-              <button
+              {/* <button
                 onClick={() =>
                   cardDetails.type === "Custom"
                     ? router.push("/request-card")
@@ -193,7 +193,7 @@ export default function CardDetailsClient() {
                     height={80}
                   />
                 )}
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
