@@ -32,7 +32,7 @@ const FoundationClient = () => {
   const nextImage = () => {
     if (foundationDetails?.images?.length) {
       setCurrentImageIndex((prev) =>
-        prev === foundationDetails.images.length - 1 ? 0 : prev + 1
+        prev === foundationDetails.images.length - 1 ? 0 : prev + 1,
       );
     }
   };
@@ -40,7 +40,7 @@ const FoundationClient = () => {
   const prevImage = () => {
     if (foundationDetails?.images?.length) {
       setCurrentImageIndex((prev) =>
-        prev === 0 ? foundationDetails.images.length - 1 : prev - 1
+        prev === 0 ? foundationDetails.images.length - 1 : prev - 1,
       );
     }
   };
@@ -56,17 +56,17 @@ const FoundationClient = () => {
   }, [foundationDetails?.images]);
 
   const phoneNumber = () => {
-    const phone = foundationDetails.phone
+    const phone = foundationDetails.phone;
     if (phone?.includes("https://")) {
       return phone;
     }
     return `tel:${phone}`;
-  }
+  };
   const [lang, setLang] = useState("");
   useEffect(() => {
     const langValue = localStorage.getItem("lang") || "ar";
-    setLang(langValue)
-  }, [])
+    setLang(langValue);
+  }, []);
   return (
     <div className="foundation_details">
       <div className="foundation_details_container">
@@ -133,9 +133,15 @@ const FoundationClient = () => {
               return (
                 <a key={index} href={branch.map} target="_blanck">
                   {hasGoogle ? (
-                    <>الفرع {index + 1} : {branch.ar}</>
+                    <>
+                      الفرع {index + 1} : {branch.ar}
+                    </>
                   ) : (
-                    <>{lang === "ar" ? "جميع الفروع اختر الاقرب اليك" : "All branches choose the closest one to you"}</>
+                    <>
+                      {lang === "ar"
+                        ? "جميع الفروع اختر الاقرب اليك"
+                        : "All branches choose the closest one to you"}
+                    </>
                   )}
                 </a>
               );
@@ -143,7 +149,17 @@ const FoundationClient = () => {
           </div>
           <div className="foundation_details_header_info">
             <FontAwesomeIcon icon={faPhone} />
-            <p>للتواصل : <a href={phoneNumber()} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "underline" }}>{foundationDetails.phone}</a></p>
+            <p>
+              للتواصل :{" "}
+              <a
+                href={phoneNumber()}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ textDecoration: "underline" }}
+              >
+                {foundationDetails.phone}
+              </a>
+            </p>
           </div>
           <div className="foundation_details_header_info">
             <img src="/images/googleMap.png" alt="google map" loading="lazy" />

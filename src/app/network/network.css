@@ -9,6 +9,7 @@
   align-items: stretch;
   margin-top: 4rem;
   overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
 }
 
 .network_container {
@@ -354,9 +355,10 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   flex-wrap: wrap;
   gap: 1rem;
+  contain: layout style;
 }
 
 .network_item {
@@ -371,10 +373,13 @@
   border-radius: 16px;
   overflow: hidden;
   background-color: white;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   padding-bottom: 1rem;
   cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: box-shadow 0.2s ease;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 280px;
+  contain: layout style paint;
 }
 
 .network_item > a {
@@ -387,9 +392,15 @@
   box-sizing: border-box;
 }
 
-.network_item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+@media (hover: hover) {
+  .network_item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .network_item {
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
 }
 
 .network_item img {

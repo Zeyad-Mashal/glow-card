@@ -1,7 +1,11 @@
 "use client";
-import React, { useEffect, useState, useRef, useCallback } from "react";
-import AOS from "aos";
-import "aos/dist/aos.css";
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  useCallback,
+  useMemo,
+} from "react";
 import "./network.css";
 import getCategories from "@/API/Category/getCategories.api";
 import Link from "next/link";
@@ -12,10 +16,49 @@ import { categoryIconForName } from "./networkFilters";
 import NearbyMapModal from "@/components/NearbyMapModal";
 import { faMapLocationDot } from "@fortawesome/free-solid-svg-icons";
 
+const NETWORK_PAGE_KEY = "glow_network_page";
+
+const readInitialCityId = () => {
+  if (typeof window === "undefined") return "";
+  try {
+    const raw = localStorage.getItem("user_city");
+    if (!raw) return "";
+    const city = JSON.parse(raw);
+    return city?.id ? String(city.id) : "";
+  } catch {
+    return "";
+  }
+};
+
+const readInitialPage = () => {
+  if (typeof window === "undefined") return 1;
+  const fromUrl = parseInt(
+    new URLSearchParams(window.location.search).get("page") || "",
+    10,
+  );
+  if (Number.isFinite(fromUrl) && fromUrl > 0) return fromUrl;
+
+  const saved = sessionStorage.getItem(NETWORK_PAGE_KEY);
+  const fromStorage = parseInt(saved || "1", 10);
+  return Number.isFinite(fromStorage) && fromStorage > 0 ? fromStorage : 1;
+};
+
+const syncPageInUrl = (page) => {
+  if (typeof window === "undefined") return;
+  const params = new URLSearchParams(window.location.search);
+  if (page <= 1) params.delete("page");
+  else params.set("page", String(page));
+  const query = params.toString();
+  const nextUrl = query
+    ? `${window.location.pathname}?${query}`
+    : window.location.pathname;
+  window.history.replaceState(window.history.state, "", nextUrl);
+};
+
 const NetworkClient = () => {
   const PAGE_SIZE = 20;
   const [loading, setLoading] = useState(false);
-  const [pageNumber, setPageNumber] = useState(1);
+  const [pageNumber, setPageNumber] = useState(readInitialPage);
   const [hasNextPage, setHasNextPage] = useState(true);
   const [error, setError] = useState(null);
   const [foundations, setFoundations] = useState([]);
@@ -23,14 +66,36 @@ const NetworkClient = () => {
   const [filters, setFilters] = useState([]);
   const [search, setSearch] = useState("");
   const [lang, setLang] = useState("ar");
-  const [cityId, setCityId] = useState("");
+  const [cityId] = useState(readInitialCityId);
   const [categoriesIds, setCategoriesIds] = useState([]);
   const [mapOpen, setMapOpen] = useState(false);
 
   const categoriesIdsRef = useRef(categoriesIds);
+  const prevCityIdRef = useRef(cityId);
+
   useEffect(() => {
     categoriesIdsRef.current = categoriesIds;
   }, [categoriesIds]);
+
+  const goToPage = useCallback((page) => {
+    const next = Math.max(1, Number(page) || 1);
+    setPageNumber(next);
+    try {
+      sessionStorage.setItem(NETWORK_PAGE_KEY, String(next));
+    } catch {
+      /* ignore */
+    }
+    syncPageInUrl(next);
+  }, []);
+
+  const rememberPageBeforeDetails = useCallback(() => {
+    try {
+      sessionStorage.setItem(NETWORK_PAGE_KEY, String(pageNumber));
+      syncPageInUrl(pageNumber);
+    } catch {
+      /* ignore */
+    }
+  }, [pageNumber]);
 
   const langValue = Lang[lang];
 
@@ -62,14 +127,15 @@ const NetworkClient = () => {
 
   useEffect(() => {
     setLang(localStorage.getItem("lang") || "ar");
-    try {
-      const raw = localStorage.getItem("user_city");
-      if (!raw) return;
-      const c = JSON.parse(raw);
-      if (c?.id) setCityId(c.id);
-    } catch {
-      /* ignore */
-    }
+  }, []);
+
+  useEffect(() => {
+    const onPopState = () => {
+      const restored = readInitialPage();
+      setPageNumber(restored);
+    };
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
   }, []);
 
   useEffect(() => {
@@ -77,18 +143,13 @@ const NetworkClient = () => {
   }, []);
 
   useEffect(() => {
-    AOS.init({
-      duration: 320,
-      once: true,
-      offset: 16,
-      easing: "ease-out-cubic",
-    });
-  }, []);
-
-  useEffect(() => {
-    setPageNumber(1);
-    setHasNextPage(true);
-  }, [cityId]);
+    const prev = prevCityIdRef.current;
+    prevCityIdRef.current = cityId;
+    if (prev && cityId && prev !== cityId) {
+      goToPage(1);
+      setHasNextPage(true);
+    }
+  }, [cityId, goToPage]);
 
   useEffect(() => {
     getAllFoundations(undefined, pageNumber);
@@ -115,7 +176,7 @@ const NetworkClient = () => {
       .map((f) => f.id);
 
     setCategoriesIds(selectedIds);
-    setPageNumber(1);
+    goToPage(1);
     setHasNextPage(true);
   };
 
@@ -123,45 +184,36 @@ const NetworkClient = () => {
     const resetFilters = filters.map((f) => ({ ...f, checked: false }));
     setFilters(resetFilters);
     setCategoriesIds([]);
-    setPageNumber(1);
+    goToPage(1);
     setHasNextPage(true);
   };
 
-  const goNextPage = async () => {
+  const goNextPage = () => {
     if (loading || !hasNextPage) return;
-    const nextPage = pageNumber + 1;
-    setPageNumber(nextPage);
+    goToPage(pageNumber + 1);
   };
 
-  const goPrevPage = async () => {
+  const goPrevPage = () => {
     if (loading || pageNumber <= 1) return;
-    const prevPage = pageNumber - 1;
-    setPageNumber(prevPage);
+    goToPage(pageNumber - 1);
   };
 
-  const activeFilterIds = filters.filter((f) => f.checked).map((f) => f.id);
-  const displayedFoundations = foundations.filter((item) => {
-    const byFilter =
-      activeFilterIds.length === 0 ||
-      item.categories?.some((cat) => activeFilterIds.includes(cat._id));
-    const bySearch = item.name.toLowerCase().includes(search.toLowerCase());
-    return byFilter && bySearch;
-  });
+  const activeFilterIds = useMemo(
+    () => filters.filter((f) => f.checked).map((f) => f.id),
+    [filters],
+  );
 
-  useEffect(() => {
-    if (loading) return;
-    const t = window.setTimeout(() => {
-      AOS.refresh();
-    }, 0);
-    return () => window.clearTimeout(t);
-  }, [
-    loading,
-    foundations,
-    pageNumber,
-    search,
-    activeFilterIds.join(","),
-    displayedFoundations.length,
-  ]);
+  const displayedFoundations = useMemo(() => {
+    const query = search.trim().toLowerCase();
+    return foundations.filter((item) => {
+      const byFilter =
+        activeFilterIds.length === 0 ||
+        item.categories?.some((cat) => activeFilterIds.includes(cat._id));
+      const bySearch =
+        !query || (item.name || "").toLowerCase().includes(query);
+      return byFilter && bySearch;
+    });
+  }, [foundations, activeFilterIds, search]);
 
   const allCitiesLabel = lang === "ar" ? "الكل" : "All";
   const specialtiesLabel = lang === "ar" ? "التخصصات" : "Specialties";
@@ -254,12 +306,17 @@ const NetworkClient = () => {
                 <div
                   key={item._id ?? index}
                   className="network_item"
-                  data-aos="fade-up"
-                  data-aos-duration="320"
-                  data-aos-delay={Math.min(index * 24, 160)}
                 >
-                  <Link href={`/foundation-details?id=${item._id}`}>
-                    <img src={item.images[0]} alt={item.name} />
+                  <Link
+                    href={`/foundation-details?id=${item._id}`}
+                    onClick={rememberPageBeforeDetails}
+                  >
+                    <img
+                      src={item.images[0]}
+                      alt={item.name}
+                      loading="lazy"
+                      decoding="async"
+                    />
                     {distLabel && (
                       <p className="network_item_distance">
                         {lang === "ar" ? "المسافة: " : "Distance: "}
@@ -292,11 +349,7 @@ const NetworkClient = () => {
             })
           )}
           {!loading && displayedFoundations.length === 0 && (
-            <div
-              className="no-results"
-              data-aos="fade-up"
-              data-aos-duration="320"
-            >
+            <div className="no-results">
               <div className="no-results-icon">
                 <svg
                   width="120"

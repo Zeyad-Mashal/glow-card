@@ -17,7 +17,8 @@ const STEP_TITLE_KEYS = [
 
 const ApplicationClient = () => {
   const router = useRouter();
-  const NOT_COMPLETE_URL = "https://glow-card.onrender.com/api/v1/card/notComplete";
+  const NOT_COMPLETE_URL =
+    "https://glow-card.onrender.com/api/v1/card/notComplete";
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -209,7 +210,7 @@ const ApplicationClient = () => {
     const currentRole = roles[step];
     console.log(
       `${currentRole.charAt(0).toUpperCase() + currentRole.slice(1)} Data:`,
-      familyData[currentRole]
+      familyData[currentRole],
     );
 
     document.querySelectorAll(".input_field").forEach((input) => {
@@ -307,13 +308,18 @@ const ApplicationClient = () => {
       />
       {nameErrors[role] && <p className="input_error">{nameErrors[role]}</p>}
       <label>{langValue.appLabelPhone}</label>
-      <input
-        className="input_field"
-        type="text"
-        placeholder={langValue.appPhPhone}
-        name="phone"
-        onChange={(e) => handleChange(e, role)}
-      />
+      <div className="phone_container">
+        <span className="phone_code">+966</span>
+        <input
+          className="input_field"
+          type="text"
+          placeholder="5XX XXX XXX"
+          pattern="^5\d{8}$"
+          title="Please enter a valid Saudi phone number (starting with 5)"
+          name="phone"
+          onChange={(e) => handleChange(e, role)}
+        />
+      </div>
       <label>{langValue.appLabelEmail}</label>
       <input
         className="input_field"
@@ -383,7 +389,11 @@ const ApplicationClient = () => {
         <h2>{langValue.appPageSubtitle}</h2>
 
         {resolvingPayMeta && (
-          <p>{lang === "ar" ? "جاري التحقق من بيانات الدفع..." : "Verifying payment details..."}</p>
+          <p>
+            {lang === "ar"
+              ? "جاري التحقق من بيانات الدفع..."
+              : "Verifying payment details..."}
+          </p>
         )}
 
         {!resolvingPayMeta && type && renderForm(roles[step], stepTitle)}

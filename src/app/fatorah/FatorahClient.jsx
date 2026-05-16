@@ -400,7 +400,7 @@ const FatorahClient = () => {
             <button onClick={paymentGetway} disabled={loading}>
               {selectedLang === "ar" ? "ادفع الان" : "Pay Now"}
             </button>
-            <button
+            {/* <button
               type="button"
               className="tamara_btn"
               onClick={tamaraPaymentGateway}
@@ -419,7 +419,7 @@ const FatorahClient = () => {
                   ? "ادفع وقسطها مع تمارا"
                   : "Pay in installments with Tamara"}
               </span>
-            </button>
+            </button> */}
           </div>
         </div>
       </div>
