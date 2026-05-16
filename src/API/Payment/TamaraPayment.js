@@ -1,3 +1,5 @@
+import { markTamaraPaymentContext } from "@/utils/paymentProviderContext";
+
 const URL = "https://glow-card.onrender.com/api/v1/payment/pay/tamara";
 const TamaraPayment = async (setloading, setError, data) => {
     const token = localStorage.getItem("token");
@@ -16,11 +18,12 @@ const TamaraPayment = async (setloading, setError, data) => {
 
         if (response.ok) {
             if (result && result.checkoutUrl) {
+                markTamaraPaymentContext();
                 if (result.orderId) {
-                    localStorage.setItem("tamaraOrderId", result.orderId);
+                    localStorage.setItem("tamaraOrderId", String(result.orderId));
                 }
                 if (result.checkoutId) {
-                    localStorage.setItem("tamaraCheckoutId", result.checkoutId);
+                    localStorage.setItem("tamaraCheckoutId", String(result.checkoutId));
                 }
                 window.location.href = result.checkoutUrl
             } else {

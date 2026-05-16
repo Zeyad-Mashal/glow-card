@@ -6,6 +6,10 @@ import ApplayCoupon from "@/API/Coupon/ApplayCoupon";
 import Payment from "@/API/Payment/Payment";
 import TamaraPayment from "@/API/Payment/TamaraPayment";
 import normalizeMembershipType from "@/utils/normalizeMembershipType";
+import {
+  markPrimaryPaymentContext,
+  markTamaraPaymentContext,
+} from "@/utils/paymentProviderContext";
 import { useSearchParams, useRouter } from "next/navigation";
 import ReactCountryFlag from "react-country-flag";
 import Select from "react-select";
@@ -131,16 +135,6 @@ const FatorahClient = () => {
     }
   };
 
-  const markTamaraPaymentContext = () => {
-    try {
-      localStorage.setItem("pendingPaymentProvider", "tamara");
-      // Prevent mixing Tamara flow with a stale invoice-based flow.
-      localStorage.removeItem("invoiceId");
-    } catch {
-      /* ignore */
-    }
-  };
-
   const validateBeforePayment = () => {
     const freshToken = String(localStorage.getItem("token") || "").trim();
     if (userName === "" || email === "" || phone === "") {
@@ -159,6 +153,7 @@ const FatorahClient = () => {
     if (!validateBeforePayment()) return;
     const data = buildPaymentPayload();
     ensurePaymentMeta();
+    markPrimaryPaymentContext();
     Payment(setloading, setError, data);
   };
 
@@ -405,7 +400,8 @@ const FatorahClient = () => {
             <button onClick={paymentGetway} disabled={loading}>
               {selectedLang === "ar" ? "ادفع الان" : "Pay Now"}
             </button>
-            {/* <button
+            <button
+              type="button"
               className="tamara_btn"
               onClick={tamaraPaymentGateway}
               disabled={loading}
@@ -423,7 +419,7 @@ const FatorahClient = () => {
                   ? "ادفع وقسطها مع تمارا"
                   : "Pay in installments with Tamara"}
               </span>
-            </button> */}
+            </button>
           </div>
         </div>
       </div>

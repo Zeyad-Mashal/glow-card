@@ -1,4 +1,5 @@
 import normalizeMembershipType from "@/utils/normalizeMembershipType";
+import { isTamaraPaymentRecord } from "@/utils/paymentProviderContext";
 const NOT_COMPLETE_URL = "https://glow-card.onrender.com/api/v1/card/notComplete";
 const CALLBACK_URL = "https://glow-card.onrender.com/api/v1/payment/callback";
 const RETRY_COUNT = 14;
@@ -20,29 +21,6 @@ const resolveProductFromPayment = (payment) =>
   payment?.product?.id ??
   payment?.productId ??
   (typeof payment?.product === "string" ? payment.product : null);
-
-const isTamaraPayment = (payment) => {
-  const provider = String(
-    payment?.gateway ??
-      payment?.provider ??
-      payment?.paymentProvider ??
-      payment?.method ??
-      payment?.paymentMethod ??
-      "",
-  )
-    .trim()
-    .toLowerCase();
-
-  if (provider.includes("tamara")) return true;
-
-  return Boolean(
-    payment?.tamaraOrderId ??
-      payment?.orderId ??
-      payment?.order_id ??
-      payment?.checkoutId ??
-      payment?.checkout_id,
-  );
-};
 
 const CALLBACK_QUERY_KEYS = [
   "invoiceId",
@@ -175,7 +153,9 @@ const ResolveTamaraActivation = async () => {
   };
 
   const resolveFromPayments = (payments) => {
-    const tamaraPayments = payments.filter((payment) => isTamaraPayment(payment));
+    const tamaraPayments = payments.filter((payment) =>
+      isTamaraPaymentRecord(payment),
+    );
     const sourcePayments = tamaraPayments.length ? tamaraPayments : payments;
     const orderValue = tamaraOrderId != null ? String(tamaraOrderId) : null;
     const byOrder = orderValue

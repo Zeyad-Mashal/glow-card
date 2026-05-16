@@ -1,4 +1,8 @@
 import normalizeMembershipType from "@/utils/normalizeMembershipType";
+import {
+    filterPaymentsByProvider,
+    clearPaymentSessionKeys,
+} from "@/utils/paymentProviderContext";
 const URL = "https://glow-card.onrender.com/api/v1/card/create/";
 const NOT_COMPLETE_URL = "https://glow-card.onrender.com/api/v1/card/notComplete";
 const CALLBACK_URL = "https://glow-card.onrender.com/api/v1/payment/callback";
@@ -64,29 +68,6 @@ const sortPaymentsByLatest = (payments) =>
         return String(b?._id || "").localeCompare(String(a?._id || ""));
     });
 
-const isTamaraPayment = (payment) => {
-    const provider = String(
-        payment?.gateway ??
-        payment?.provider ??
-        payment?.paymentProvider ??
-        payment?.method ??
-        payment?.paymentMethod ??
-        ""
-    )
-        .trim()
-        .toLowerCase();
-
-    if (provider.includes("tamara")) return true;
-
-    return Boolean(
-        payment?.tamaraOrderId ??
-        payment?.orderId ??
-        payment?.order_id ??
-        payment?.checkoutId ??
-        payment?.checkout_id
-    );
-};
-
 const resolveFallbackPayIds = async (
     token,
     lang,
@@ -109,14 +90,10 @@ const resolveFallbackPayIds = async (
         const result = await response.json();
         const payments = Array.isArray(result?.payments) ? result.payments : [];
         if (!payments.length) return [];
-        const providerFilteredPayments =
-            pendingPaymentProvider === "tamara"
-                ? payments.filter((payment) => isTamaraPayment(payment))
-                : payments;
-        const sourcePayments =
-            providerFilteredPayments.length > 0
-                ? providerFilteredPayments
-                : payments;
+        const sourcePayments = filterPaymentsByProvider(
+            payments,
+            pendingPaymentProvider,
+        );
 
         const invoiceValue = invoiceId != null ? String(invoiceId) : null;
         const orderValue = tamaraOrderId != null ? String(tamaraOrderId) : null;
@@ -468,9 +445,7 @@ const ApplicationApi = async (setLoading, setError, data, productId, setShowModa
                 }
                 localStorage.removeItem("pendingActivationProductId");
                 localStorage.removeItem("pendingActivationType");
-                localStorage.removeItem("pendingPaymentProvider");
-                localStorage.removeItem("tamaraOrderId");
-                localStorage.removeItem("tamaraCheckoutId");
+                clearPaymentSessionKeys();
             } catch {
                 /* ignore */
             }

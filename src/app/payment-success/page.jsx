@@ -4,6 +4,7 @@ import React, { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import ResolveTamaraActivation from "@/API/Payment/ResolveTamaraActivation";
 import normalizeMembershipType from "@/utils/normalizeMembershipType";
+import { markTamaraPaymentContext } from "@/utils/paymentProviderContext";
 import "./payment-status.css";
 
 function firstParam(searchParams, keys) {
@@ -38,6 +39,9 @@ const PaymentSuccessContent = () => {
       "checkoutID",
     ]);
 
+    if (orderId || checkoutId) {
+      markTamaraPaymentContext();
+    }
     if (orderId) {
       try {
         localStorage.setItem("tamaraOrderId", orderId);

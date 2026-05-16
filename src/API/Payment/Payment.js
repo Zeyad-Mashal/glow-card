@@ -1,3 +1,5 @@
+import { markPrimaryPaymentContext } from "@/utils/paymentProviderContext";
+
 const URL = "https://glow-card.onrender.com/api/v1/payment/pay";
 const Payment = async (setloading, setError, data) => {
     const token = localStorage.getItem("token");
@@ -16,7 +18,10 @@ const Payment = async (setloading, setError, data) => {
 
         if (response.ok) {
             if (result && result.Url) {
-                localStorage.setItem("invoiceId", result.invoiceId)
+                markPrimaryPaymentContext();
+                if (result.invoiceId != null) {
+                    localStorage.setItem("invoiceId", String(result.invoiceId));
+                }
                 window.location.href = result.Url
             } else {
                 alert("error")

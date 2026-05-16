@@ -238,8 +238,8 @@ body {
 
 .card_info_content {
   position: absolute;
-  top: 25%;
-  left: 10%;
+  top: 15%;
+  left: 15%;
   width: 80%;
   display: flex;
   flex-direction: column;
@@ -253,8 +253,8 @@ body {
   direction: ltr;
 }
 
-.card_info_content h3 {
-  font-size: 1rem;
+.card_info_content > h3 {
+  font-size: 0.8rem;
   color: #fff;
 }
 
@@ -443,6 +443,34 @@ body {
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
+}
+
+.family_slider_groups {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.family_membership_group {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #e8d7cf;
+}
+
+.family_membership_group:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.family_membership_group_title {
+  font-size: 1rem;
+  color: #8b6d61;
+  font-weight: 600;
+  margin: 0;
 }
 
 .family_slider_title {

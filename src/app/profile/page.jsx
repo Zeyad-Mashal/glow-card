@@ -7,6 +7,7 @@ import GetCardInfo from "@/API/CardInfo/GetCardInfo";
 import ActivateCards from "@/API/ActivateCards/ActivateCards";
 import { useRouter } from "next/navigation";
 import normalizeMembershipType from "@/utils/normalizeMembershipType";
+import FamilyMembershipSlider from "./FamilyMembershipSlider";
 
 const Profile = () => {
   const router = useRouter();
@@ -37,8 +38,6 @@ const Profile = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [cardInfo, setCardInfo] = useState([]);
   const [allCardsActivations, setAllCardsActivations] = useState([]);
-  const [familySliderIndex, setFamilySliderIndex] = useState(0);
-  console.log(cardInfo);
 
   const formatDate = (dateValue) => {
     if (!dateValue) return "-";
@@ -194,33 +193,33 @@ const Profile = () => {
   const regularMembershipCards = cardInfo.filter(
     (card) => !familyTypes.has(normalizeType(card.type)),
   );
-  const familyMembershipCards = cardInfo
+  const familyMembershipGroups = cardInfo
     .filter((card) => familyTypes.has(normalizeType(card.type)))
-    .flatMap((card) => buildFamilyCards(card, currentUserPhone));
+    .map((card, index) => ({
+      id: card._id || card.code || `membership-${index}`,
+      type: normalizeType(card.type),
+      ownerCode: card.code,
+      members: buildFamilyCards(card, currentUserPhone),
+    }))
+    .filter((group) => group.members.length > 0);
 
-  useEffect(() => {
-    if (!familyMembershipCards.length) {
-      setFamilySliderIndex(0);
-      return;
+  const getMembershipGroupTitle = (group, index) => {
+    const isFamily = group.type === "family";
+    const label =
+      selectedLanguage === "ar"
+        ? isFamily
+          ? "عضوية عائلة"
+          : "عضوية أزواج"
+        : isFamily
+          ? "Family Membership"
+          : "Couples Membership";
+    const codeHint = group.ownerCode ? ` (${formatCode(group.ownerCode)})` : "";
+
+    if (familyMembershipGroups.length > 1) {
+      return `${label} ${index + 1}${codeHint}`;
     }
 
-    if (familySliderIndex > familyMembershipCards.length - 1) {
-      setFamilySliderIndex(0);
-    }
-  }, [familyMembershipCards.length, familySliderIndex]);
-
-  const goFamilyPrev = () => {
-    if (!familyMembershipCards.length) return;
-    setFamilySliderIndex(
-      (prev) =>
-        (prev - 1 + familyMembershipCards.length) %
-        familyMembershipCards.length,
-    );
-  };
-
-  const goFamilyNext = () => {
-    if (!familyMembershipCards.length) return;
-    setFamilySliderIndex((prev) => (prev + 1) % familyMembershipCards.length);
+    return `${label}${codeHint}`;
   };
 
   const logout = () => {
@@ -325,7 +324,7 @@ const Profile = () => {
                             <h2 style={{ direction: "ltr" }}>
                               {formatCode(card.code)}
                             </h2>
-                            <h3>Name: {card.name}</h3>
+                            <h3>{card.name}</h3>
                             <h3>Discount: {card.discount}</h3>
                             <div className="card_info_content_date">
                               <p>Ex Date: {card.expiryDate}</p>
@@ -400,7 +399,7 @@ const Profile = () => {
                   ))}
                 </div>
 
-                {familyMembershipCards.length > 0 && (
+                {familyMembershipGroups.length > 0 && (
                   <div className="family_slider_wrapper">
                     <h3 className="family_slider_title">
                       {selectedLanguage === "ar"
@@ -408,205 +407,23 @@ const Profile = () => {
                         : "Family & Newlywed Membership Cards"}
                     </h3>
 
-                    <div className="family_slider">
-                      {familyMembershipCards.length > 1 && (
-                        <button
-                          className="family_slider_btn"
-                          onClick={goFamilyPrev}
-                          aria-label={
-                            selectedLanguage === "ar" ? "السابق" : "Previous"
-                          }
-                        >
-                          ‹
-                        </button>
-                      )}
-
-                      <div className="card_info">
-                        <div className="card_info_item">
-                          <div className="card_info_image" draggable={false}>
-                            <img
-                              src={
-                                familyMembershipCards[familySliderIndex]?.card
-                                  ?.images?.[0]
-                              }
-                              alt="Family Membership Card"
-                            />
-                            <div className="card_info_content">
-                              <h2 style={{ direction: "ltr" }}>
-                                {formatCode(
-                                  familyMembershipCards[familySliderIndex].code,
-                                )}
-                              </h2>
-                              <h3>
-                                {familyMembershipCards[familySliderIndex]
-                                  .name || "-"}
-                              </h3>
-                              <h3>
-                                {selectedLanguage === "ar"
-                                  ? "الخصم"
-                                  : "Discount"}
-                                :{" "}
-                                {familyMembershipCards[familySliderIndex]
-                                  .discount || "-"}
-                              </h3>
-                              <div className="card_info_content_date">
-                                <p>
-                                  {selectedLanguage === "ar"
-                                    ? "تاريخ الانتهاء"
-                                    : "Ex Date"}
-                                  :{" "}
-                                  {formatDate(
-                                    familyMembershipCards[familySliderIndex]
-                                      .expiryDate,
-                                  )}
-                                </p>
-                                <p>
-                                  {selectedLanguage === "ar"
-                                    ? "تاريخ البداية"
-                                    : "Start Date"}
-                                  :{" "}
-                                  {formatDate(
-                                    familyMembershipCards[familySliderIndex]
-                                      .activationDate,
-                                  )}
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="membership_details_card">
-                            <h4 className="membership_details_title">
-                              {selectedLanguage === "ar"
-                                ? "تفاصيل العضوية"
-                                : "Membership Details"}
+                    <div className="family_slider_groups">
+                      {familyMembershipGroups.map((group, index) => (
+                        <div key={group.id} className="family_membership_group">
+                          {familyMembershipGroups.length > 1 && (
+                            <h4 className="family_membership_group_title">
+                              {getMembershipGroupTitle(group, index)}
                             </h4>
-                            <div className="membership_details_grid">
-                              <div className="membership_detail_item">
-                                <p className="membership_detail_label">
-                                  {selectedLanguage === "ar"
-                                    ? "نوع العضوية"
-                                    : "Membership Type"}
-                                </p>
-                                <span>
-                                  {familyMembershipCards[familySliderIndex]
-                                    .type || "-"}
-                                </span>
-                              </div>
-                              <div className="membership_detail_item">
-                                <p className="membership_detail_label">
-                                  {selectedLanguage === "ar"
-                                    ? "نوع البطاقة"
-                                    : "Card Holder Type"}
-                                </p>
-                                <span>
-                                  {familyMembershipCards[familySliderIndex]
-                                    .personLabel || "-"}
-                                </span>
-                              </div>
-                              <div className="membership_detail_item">
-                                <p className="membership_detail_label">
-                                  {selectedLanguage === "ar"
-                                    ? "اسم العضو الكامل"
-                                    : "Full Name"}
-                                </p>
-                                <span>
-                                  {familyMembershipCards[familySliderIndex]
-                                    .name || "-"}
-                                </span>
-                              </div>
-                              <div className="membership_detail_item">
-                                <p className="membership_detail_label">
-                                  {selectedLanguage === "ar"
-                                    ? "رقم الهوية"
-                                    : "National ID"}
-                                </p>
-                                <span>
-                                  {familyMembershipCards[familySliderIndex]
-                                    .nationalID || "-"}
-                                </span>
-                              </div>
-                              <div className="membership_detail_item">
-                                <p className="membership_detail_label">
-                                  {selectedLanguage === "ar"
-                                    ? "رقم الجوال"
-                                    : "Phone"}
-                                </p>
-                                <span>
-                                  {familyMembershipCards[familySliderIndex]
-                                    .phone || "-"}
-                                </span>
-                              </div>
-                              <div className="membership_detail_item">
-                                <p className="membership_detail_label">
-                                  {selectedLanguage === "ar"
-                                    ? "رقم العضوية"
-                                    : "Membership Number"}
-                                </p>
-                                <span className="codeNumber">
-                                  {formatCode(
-                                    familyMembershipCards[familySliderIndex]
-                                      .code,
-                                  )}
-                                </span>
-                              </div>
-                              <div className="membership_detail_item">
-                                <p className="membership_detail_label">
-                                  {selectedLanguage === "ar"
-                                    ? "تاريخ الاشتراك"
-                                    : "Subscription Date"}
-                                </p>
-                                <span>
-                                  {formatDate(
-                                    familyMembershipCards[familySliderIndex]
-                                      .activationDate,
-                                  )}
-                                </span>
-                              </div>
-                              <div className="membership_detail_item">
-                                <p className="membership_detail_label">
-                                  {selectedLanguage === "ar"
-                                    ? "تاريخ الانتهاء"
-                                    : "Expiry Date"}
-                                </p>
-                                <span>
-                                  {formatDate(
-                                    familyMembershipCards[familySliderIndex]
-                                      .expiryDate,
-                                  )}
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      {familyMembershipCards.length > 1 && (
-                        <button
-                          className="family_slider_btn"
-                          onClick={goFamilyNext}
-                          aria-label={
-                            selectedLanguage === "ar" ? "التالي" : "Next"
-                          }
-                        >
-                          ›
-                        </button>
-                      )}
-                    </div>
-
-                    {familyMembershipCards.length > 1 && (
-                      <div className="family_slider_dots">
-                        {familyMembershipCards.map((item, index) => (
-                          <button
-                            key={item.sliderKey || index}
-                            className={`family_dot ${
-                              familySliderIndex === index ? "active" : ""
-                            }`}
-                            onClick={() => setFamilySliderIndex(index)}
-                            aria-label={`Go to slide ${index + 1}`}
+                          )}
+                          <FamilyMembershipSlider
+                            members={group.members}
+                            selectedLanguage={selectedLanguage}
+                            formatCode={formatCode}
+                            formatDate={formatDate}
                           />
-                        ))}
-                      </div>
-                    )}
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 )}
               </div>
