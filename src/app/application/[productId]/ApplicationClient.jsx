@@ -3,7 +3,11 @@ import React, { useState, useEffect, useMemo } from "react";
 import "./application.css";
 import { useSearchParams, useParams } from "next/navigation";
 import ApplicationApi from "@/API/Application/ApplicationApi.api";
-import Validator from "./Validator";
+import {
+  validateApplicationForm,
+  validateRole,
+  buildValidationSummary,
+} from "./Validator";
 import { useRouter } from "next/navigation";
 import { Lang } from "@/Lang/lang";
 import normalizeMembershipType from "@/utils/normalizeMembershipType";
@@ -14,6 +18,8 @@ const STEP_TITLE_KEYS = [
   "appFormStepChild1",
   "appFormStepChild2",
 ];
+
+const ROLES = ["father", "mother", "child1", "child2"];
 
 const ApplicationClient = () => {
   const router = useRouter();
@@ -58,7 +64,6 @@ const ApplicationClient = () => {
       const langLocal = localStorage.getItem("lang") || "ar";
       const storedType = normalizeMembershipType(localStorage.getItem("type"));
 
-      // Start with localStorage value until we verify payment metadata.
       if (storedType) {
         setType(storedType);
         localStorage.setItem("type", storedType);
@@ -131,7 +136,6 @@ const ApplicationClient = () => {
           localStorage.setItem("type", payType);
         }
 
-        // If URL productId doesn't match payment product, move to the correct activation route.
         if (payProductId && String(payProductId) !== String(productId)) {
           router.replace(
             `/application/${encodeURIComponent(payProductId)}?payId=${encodeURIComponent(payId)}`,
@@ -139,7 +143,7 @@ const ApplicationClient = () => {
           return;
         }
       } catch {
-        /* ignore and keep existing fallback behavior */
+        /* ignore */
       } finally {
         setResolvingPayMeta(false);
       }
@@ -167,25 +171,40 @@ const ApplicationClient = () => {
 
   const [step, setStep] = useState(0);
   const [animation, setAnimation] = useState("fade-in");
-
   const [familyData, setFamilyData] = useState({
     father: {},
     mother: {},
     child1: {},
     child2: {},
   });
-  const [nameErrors, setNameErrors] = useState({});
+  const [fieldErrors, setFieldErrors] = useState({});
+  const [showValidationModal, setShowValidationModal] = useState(false);
+  const [validationSummary, setValidationSummary] = useState("");
 
-  const hasAtLeastThreeWords = (value) => {
-    if (typeof value !== "string") return false;
-    const words = value.trim().split(/\s+/).filter(Boolean);
-    return words.length >= 3;
+  const fieldErrorClass = (role, fieldName) =>
+    fieldErrors[role]?.[fieldName]
+      ? "input_field input_field_error"
+      : "input_field";
+
+  const renderFieldError = (role, fieldName) =>
+    fieldErrors[role]?.[fieldName] ? (
+      <p className="input_error">{fieldErrors[role][fieldName]}</p>
+    ) : null;
+
+  const clearRoleFieldError = (role, fieldName) => {
+    setFieldErrors((prev) => {
+      if (!prev[role]?.[fieldName]) return prev;
+      const nextRoleErrors = { ...prev[role] };
+      delete nextRoleErrors[fieldName];
+      const next = { ...prev };
+      if (Object.keys(nextRoleErrors).length === 0) {
+        delete next[role];
+      } else {
+        next[role] = nextRoleErrors;
+      }
+      return next;
+    });
   };
-
-  const nameErrorText =
-    lang === "ar"
-      ? "الاسم يجب أن يكون ثلاث كلمات على الأقل."
-      : "Name must contain at least 3 words.";
 
   const handleChange = (e, role) => {
     const { name, value } = e.target;
@@ -196,26 +215,35 @@ const ApplicationClient = () => {
         [name]: value,
       },
     }));
+    clearRoleFieldError(role, name);
+  };
 
-    if (name === "name") {
-      setNameErrors((prev) => ({
-        ...prev,
-        [role]:
-          value.trim() && !hasAtLeastThreeWords(value) ? nameErrorText : "",
-      }));
-    }
+  const applyRoleValidation = (role) => {
+    const { valid, errors } = validateRole(familyData, role, lang);
+    setFieldErrors((prev) => {
+      const next = { ...prev };
+      if (valid) {
+        delete next[role];
+      } else {
+        next[role] = errors;
+      }
+      return next;
+    });
+    return valid;
   };
 
   const handleNext = () => {
-    const currentRole = roles[step];
-    console.log(
-      `${currentRole.charAt(0).toUpperCase() + currentRole.slice(1)} Data:`,
-      familyData[currentRole],
-    );
+    const currentRole = ROLES[step];
+    if (!applyRoleValidation(currentRole)) {
+      setValidationSummary(
+        lang === "ar"
+          ? "يرجى إكمال جميع بيانات هذا العضو بشكل صحيح قبل المتابعة."
+          : "Please complete all fields for this member correctly before continuing.",
+      );
+      setShowValidationModal(true);
+      return;
+    }
 
-    document.querySelectorAll(".input_field").forEach((input) => {
-      input.value = "";
-    });
     setAnimation("fade-out");
     setTimeout(() => {
       setStep((prev) => prev + 1);
@@ -231,40 +259,7 @@ const ApplicationClient = () => {
     }, 500);
   };
 
-  const handlePayment = () => {
-    const isValidator = Validator(familyData);
-    if (!isValidator) {
-      const requiredRolesByType = {
-        Annual: ["father"],
-        "Two-Year": ["father"],
-        Newlywed: ["father", "mother"],
-        Family: ["father", "mother", "child1", "child2"],
-      };
-      const roleOrder = requiredRolesByType[type] || ["father"];
-      const invalidRole = roleOrder.find((role) => {
-        const currentName = familyData?.[role]?.name || "";
-        return currentName && !hasAtLeastThreeWords(currentName);
-      });
-
-      if (invalidRole) {
-        const roleIndex = roles.indexOf(invalidRole);
-        if (roleIndex >= 0) {
-          setStep(roleIndex);
-        }
-        setNameErrors((prev) => ({
-          ...prev,
-          [invalidRole]: nameErrorText,
-        }));
-      }
-      return;
-    }
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-      window.location.href = "/login";
-      return;
-    }
-
+  const buildSubmitPayload = () => {
     let data = {};
     if (type === "Annual" || type === "Two-Year") {
       data = { ...familyData.father };
@@ -285,99 +280,147 @@ const ApplicationClient = () => {
       data.members[2].relationship = "son";
     }
     data.type = normalizeMembershipType(type);
-    console.log("[Activation][application] Submitting payload", {
-      productId,
-      payId,
-      type: data.type,
-    });
+    return data;
+  };
+
+  const handlePayment = () => {
+    if (type === "Family" || type === "Newlywed") {
+      applyRoleValidation(ROLES[step]);
+    }
+
+    const validation = validateApplicationForm(familyData, type, lang);
+    if (!validation.valid) {
+      setFieldErrors(validation.roleErrors);
+      if (validation.firstInvalidRole) {
+        const roleIndex = ROLES.indexOf(validation.firstInvalidRole);
+        if (roleIndex >= 0) setStep(roleIndex);
+      }
+      setValidationSummary(buildValidationSummary(validation, lang));
+      setShowValidationModal(true);
+      return;
+    }
+
+    setFieldErrors({});
+    setShowValidationModal(false);
+    setValidationSummary("");
+    setError(null);
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+      window.location.href = "/login";
+      return;
+    }
+
+    const data = buildSubmitPayload();
     ApplicationApi(setLoading, setError, data, productId, setShowModal, payId);
   };
 
-  const roles = ["father", "mother", "child1", "child2"];
+  const renderForm = (role, title) => {
+    const person = familyData[role] || {};
 
-  const renderForm = (role, title) => (
-    <div className={`application_form ${animation}`}>
-      <h2>{title}</h2>
-      <label>{langValue.appLabelName}</label>
-      <input
-        className="input_field"
-        type="text"
-        placeholder={langValue.appPhName}
-        name="name"
-        onChange={(e) => handleChange(e, role)}
-      />
-      {nameErrors[role] && <p className="input_error">{nameErrors[role]}</p>}
-      <label>{langValue.appLabelPhone}</label>
-      <div className="phone_container">
-        <span className="phone_code">+966</span>
+    return (
+      <div key={role} className={`application_form ${animation}`}>
+        <h2>{title}</h2>
+        <label>{langValue.appLabelName}</label>
         <input
-          className="input_field"
+          className={fieldErrorClass(role, "name")}
           type="text"
-          placeholder="5XX XXX XXX"
-          pattern="^5\d{8}$"
-          title="Please enter a valid Saudi phone number (starting with 5)"
-          name="phone"
+          placeholder={langValue.appPhName}
+          name="name"
+          value={person.name || ""}
           onChange={(e) => handleChange(e, role)}
         />
-      </div>
-      <label>{langValue.appLabelEmail}</label>
-      <input
-        className="input_field"
-        type="text"
-        placeholder={langValue.appPhEmail}
-        name="email"
-        onChange={(e) => handleChange(e, role)}
-      />
-      <label>{langValue.appLabelGender}</label>
-      <select name="gender" onChange={(e) => handleChange(e, role)}>
-        <option value="">{langValue.appGenderPlaceholder}</option>
-        <option value="Male">{langValue.appGenderMale}</option>
-        <option value="Female">{langValue.appGenderFemale}</option>
-      </select>
-      <div className="form1">
-        <div className="form1_content">
-          <label>{langValue.appLabelAddress}</label>
+        {renderFieldError(role, "name")}
+        <label>{langValue.appLabelPhone}</label>
+        <div className="phone_container">
+          <span className="phone_code">+966</span>
           <input
-            className="input_field"
+            className={fieldErrorClass(role, "phone")}
             type="text"
-            placeholder={langValue.appPhAddress}
-            name="address"
+            placeholder="5XX XXX XXX"
+            pattern="^5\d{8}$"
+            title="Please enter a valid Saudi phone number (starting with 5)"
+            name="phone"
+            value={person.phone || ""}
             onChange={(e) => handleChange(e, role)}
           />
         </div>
-        <div className="form1_content">
-          <label>{langValue.appLabelNationalId}</label>
-          <input
-            className="input_field"
-            type="text"
-            placeholder={langValue.appPhNationalId}
-            name="nationalID"
-            onChange={(e) => handleChange(e, role)}
-          />
+        {renderFieldError(role, "phone")}
+        <label>{langValue.appLabelEmail}</label>
+        <input
+          className={fieldErrorClass(role, "email")}
+          type="email"
+          placeholder={langValue.appPhEmail}
+          name="email"
+          value={person.email || ""}
+          onChange={(e) => handleChange(e, role)}
+        />
+        {renderFieldError(role, "email")}
+        <label>{langValue.appLabelGender}</label>
+        <select
+          name="gender"
+          className={fieldErrorClass(role, "gender")}
+          value={person.gender || ""}
+          onChange={(e) => handleChange(e, role)}
+        >
+          <option value="">{langValue.appGenderPlaceholder}</option>
+          <option value="Male">{langValue.appGenderMale}</option>
+          <option value="Female">{langValue.appGenderFemale}</option>
+        </select>
+        {renderFieldError(role, "gender")}
+        <div className="form1">
+          <div className="form1_content">
+            <label>{langValue.appLabelAddress}</label>
+            <input
+              className={fieldErrorClass(role, "address")}
+              type="text"
+              placeholder={langValue.appPhAddress}
+              name="address"
+              value={person.address || ""}
+              onChange={(e) => handleChange(e, role)}
+            />
+            {renderFieldError(role, "address")}
+          </div>
+          <div className="form1_content">
+            <label>{langValue.appLabelNationalId}</label>
+            <input
+              className={fieldErrorClass(role, "nationalID")}
+              type="text"
+              placeholder={langValue.appPhNationalId}
+              name="nationalID"
+              value={person.nationalID || ""}
+              onChange={(e) => handleChange(e, role)}
+            />
+            {renderFieldError(role, "nationalID")}
+          </div>
         </div>
+        <div className="form1">
+          <div className="form1_content">
+            <label>{langValue.appLabelDob}</label>
+            <input
+              className={fieldErrorClass(role, "dateOfBirth")}
+              type="date"
+              name="dateOfBirth"
+              value={person.dateOfBirth || ""}
+              onChange={(e) => handleChange(e, role)}
+            />
+            {renderFieldError(role, "dateOfBirth")}
+          </div>
+        </div>
+        <label>{langValue.appLabelNationality}</label>
+        <input
+          className={fieldErrorClass(role, "nationality")}
+          type="text"
+          placeholder={langValue.appPhNationality}
+          name="nationality"
+          value={person.nationality || ""}
+          onChange={(e) => handleChange(e, role)}
+        />
+        {renderFieldError(role, "nationality")}
+        {error && <p className="input_error api_error">{error}</p>}
       </div>
-      <div className="form1">
-        <div className="form1_content">
-          <label>{langValue.appLabelDob}</label>
-          <input
-            className="input_field"
-            type="date"
-            name="dateOfBirth"
-            onChange={(e) => handleChange(e, role)}
-          />
-        </div>
-      </div>
-      <label>{langValue.appLabelNationality}</label>
-      <input
-        className="input_field"
-        type="text"
-        placeholder={langValue.appPhNationality}
-        name="nationality"
-        onChange={(e) => handleChange(e, role)}
-      />
-      {error}
-    </div>
-  );
+    );
+  };
 
   const stepTitle =
     langValue[STEP_TITLE_KEYS[step]] ?? langValue.appFormStepFather;
@@ -396,21 +439,26 @@ const ApplicationClient = () => {
           </p>
         )}
 
-        {!resolvingPayMeta && type && renderForm(roles[step], stepTitle)}
+        {!resolvingPayMeta && type && renderForm(ROLES[step], stepTitle)}
 
         {type === "Family" && (
           <div style={{ display: "flex", gap: "1rem" }}>
             {step > 0 && (
-              <button onClick={handleBack} className="back_button">
+              <button type="button" onClick={handleBack} className="back_button">
                 {langValue.appBtnBack}
               </button>
             )}
             {step < 3 ? (
-              <button onClick={handleNext} className="back_button">
+              <button type="button" onClick={handleNext} className="back_button">
                 {langValue.appBtnNext}
               </button>
             ) : (
-              <button onClick={handlePayment} className="back_button">
+              <button
+                type="button"
+                onClick={handlePayment}
+                className="back_button"
+                disabled={loading}
+              >
                 {loading ? langValue.appBtnLoading : langValue.appBtnActivate}
               </button>
             )}
@@ -418,14 +466,24 @@ const ApplicationClient = () => {
         )}
         {type === "Annual" && (
           <div style={{ display: "flex", gap: "1rem" }}>
-            <button onClick={handlePayment} className="back_button">
+            <button
+              type="button"
+              onClick={handlePayment}
+              className="back_button"
+              disabled={loading}
+            >
               {loading ? langValue.appBtnLoading : langValue.appBtnActivate}
             </button>
           </div>
         )}
         {type === "Two-Year" && (
           <div style={{ display: "flex", gap: "1rem" }}>
-            <button onClick={handlePayment} className="back_button">
+            <button
+              type="button"
+              onClick={handlePayment}
+              className="back_button"
+              disabled={loading}
+            >
               {loading ? langValue.appBtnLoading : langValue.appBtnActivate}
             </button>
           </div>
@@ -433,22 +491,46 @@ const ApplicationClient = () => {
         {type === "Newlywed" && (
           <div style={{ display: "flex", gap: "1rem" }}>
             {step > 0 && (
-              <button onClick={handleBack} className="back_button">
+              <button type="button" onClick={handleBack} className="back_button">
                 {langValue.appBtnBack}
               </button>
             )}
             {step < 1 ? (
-              <button onClick={handleNext} className="back_button">
+              <button type="button" onClick={handleNext} className="back_button">
                 {langValue.appBtnNext}
               </button>
             ) : (
-              <button onClick={handlePayment} className="back_button">
+              <button
+                type="button"
+                onClick={handlePayment}
+                className="back_button"
+                disabled={loading}
+              >
                 {loading ? langValue.appBtnLoading : langValue.appBtnActivate}
               </button>
             )}
           </div>
         )}
       </div>
+
+      {showValidationModal && (
+        <div className="modal">
+          <div className="modal_content activation_error_modal">
+            <div className="activation_error_icon">!</div>
+            <h2>
+              {lang === "ar" ? "بيانات غير مكتملة" : "Incomplete information"}
+            </h2>
+            <p className="validation_summary">{validationSummary}</p>
+            <button
+              type="button"
+              className="validation_modal_btn"
+              onClick={() => setShowValidationModal(false)}
+            >
+              {lang === "ar" ? "حسناً" : "OK"}
+            </button>
+          </div>
+        </div>
+      )}
 
       {showModal && (
         <div className="modal">
