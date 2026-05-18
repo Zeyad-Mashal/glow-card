@@ -67,6 +67,17 @@ const OurCards = () => {
                           "SAR"
                         )}
                       </span>
+                      <span className="original_price">
+                        {item.originalPrice}{" "}
+                        {selectedLanguage === "ar" ? (
+                          <img
+                            src="/images/reyal-gray.png"
+                            alt="reyal currency"
+                          />
+                        ) : (
+                          "SAR"
+                        )}
+                      </span>
                       <button>{langValue["reqBtn"] || "Request"}</button>
                     </div>
                   </div>

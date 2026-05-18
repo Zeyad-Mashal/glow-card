@@ -81,6 +81,18 @@
   color: #000;
   font-weight: bold;
 }
+.card_item_content .original_price  {
+  text-decoration: line-through;
+  color: #999;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0rem;
+}
+.card_item_content .original_price img {
+  width: 20px;
+  height: 20px;
+}
 .card_item_details {
     width: 100%;
     display: flex;
