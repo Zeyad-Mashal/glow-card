@@ -47,8 +47,8 @@ const OurCards = () => {
             ? "لا يوجد عروض الان"
             : "No Offers Found"
           : selectedLanguage === "ar"
-          ? "عروضنا"
-          : "Our Offers"}
+            ? "عروضنا"
+            : "Our Offers"}
       </h1>
       <div className="cards_list">
         {loading ? (
@@ -73,6 +73,17 @@ const OurCards = () => {
                     <span>
                       {item.price}{" "}
                       <img src="/images/reyal.png" alt="reyal currancy" />
+                    </span>
+                    <span className="original_price">
+                      {item.originalPrice}{" "}
+                      {selectedLanguage === "ar" ? (
+                        <img
+                          src="/images/reyal-gray.png"
+                          alt="reyal currency"
+                        />
+                      ) : (
+                        "SAR"
+                      )}
                     </span>
                     <button>
                       <Link href={`/card?id=${item._id}`}>
