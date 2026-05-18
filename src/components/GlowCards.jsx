@@ -52,7 +52,20 @@ const GlowCards = () => {
                       ) : (
                         " SAR"
                       )}
+
+                      <span className="original_price">
+                        {card.originalPrice}{" "}
+                        {selectedLanguage === "ar" ? (
+                          <img
+                            src="/images/reyal-gray.png"
+                            alt="reyal currency"
+                          />
+                        ) : (
+                          "SAR"
+                        )}
+                      </span>
                     </span>
+
                     <button>{langValue["cityBtn"]}</button>
                   </div>
                 </div>

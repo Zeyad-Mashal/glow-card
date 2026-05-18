@@ -67,6 +67,19 @@
   display: flex;
   gap: 0.5rem;
 }
+.original_price img {
+  width: 17px;
+  height: 17px;
+  margin-left: 0rem;
+}
+.card_item_btn .original_price {
+  text-decoration: line-through;
+  color: #999;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0rem;
+}
 .card_item_btn span img {
   width: 20px;
   height: 20px;
