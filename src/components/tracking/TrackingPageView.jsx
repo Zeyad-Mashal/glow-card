@@ -2,25 +2,39 @@
 
 import { useEffect } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
-
-function trackPageView() {
-  if (typeof window.fbq === "function") {
-    window.fbq("track", "PageView");
-  }
-  if (typeof window.snaptr === "function") {
-    window.snaptr("track", "PAGE_VIEW");
-  }
-  if (window.ttq && typeof window.ttq.page === "function") {
-    window.ttq.page();
-  }
-}
+import {
+  getCheckoutContextFromStorage,
+  trackInitiateCheckout,
+  trackPageView,
+  trackPurchase,
+} from "./events";
 
 export default function TrackingPageView() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    trackPageView();
+    const query = searchParams?.toString();
+    const pagePath = query ? `${pathname}?${query}` : pathname;
+    trackPageView(pagePath);
+
+    if (pathname === "/fatorah") {
+      trackInitiateCheckout(getCheckoutContextFromStorage(searchParams));
+      return;
+    }
+
+    if (pathname === "/payment-success" || pathname === "/payment-callback") {
+      const ctx = getCheckoutContextFromStorage(searchParams);
+      const orderId =
+        searchParams?.get("orderId") ||
+        searchParams?.get("order_id") ||
+        (typeof window !== "undefined"
+          ? localStorage.getItem("invoiceId") ||
+            localStorage.getItem("tamaraOrderId")
+          : null);
+
+      trackPurchase({ ...ctx, orderId });
+    }
   }, [pathname, searchParams]);
 
   return null;

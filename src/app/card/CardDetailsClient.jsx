@@ -17,6 +17,11 @@ import { Lang } from "@/Lang/lang";
 import Image from "next/image";
 import GetCards from "@/API/GetCards/GetCards.api";
 import normalizeMembershipType from "@/utils/normalizeMembershipType";
+import {
+  parseTrackingPrice,
+  trackAddToCart,
+  trackViewContent,
+} from "@/components/tracking/events";
 export default function CardDetailsClient() {
   const [selectedLanguage, setSelectedLanguage] = useState("ar");
   useEffect(() => {
@@ -58,9 +63,25 @@ export default function CardDetailsClient() {
 
   const [navigating, setNavigating] = useState(false);
 
+  useEffect(() => {
+    if (cardDetails?._id) {
+      trackViewContent({
+        contentId: cardDetails._id,
+        contentName: cardDetails.name,
+        value: parseTrackingPrice(cardDetails.price),
+      });
+    }
+  }, [cardDetails]);
+
   const goToApplication = (id, type, price) => {
     localStorage.setItem("type", normalizeMembershipType(type));
     localStorage.setItem("price", price);
+
+    trackAddToCart({
+      contentId: id,
+      contentName: normalizeMembershipType(type),
+      value: parseTrackingPrice(price),
+    });
 
     const token = localStorage.getItem("token");
     const fatorahUrl = `/fatorah?id=${id}`;

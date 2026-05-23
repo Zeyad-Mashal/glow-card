@@ -1,3 +1,5 @@
+import { trackCompleteRegistration } from "@/components/tracking/events";
+
 const URL = "https://glow-card.onrender.com/api/v1/auth/web/google";
 
 const Google = async (setError, data, router) => {
@@ -14,6 +16,7 @@ const Google = async (setError, data, router) => {
 
         if (response.ok) {
             localStorage.setItem("token", result.token);
+            trackCompleteRegistration();
             const redirectUrl = localStorage.getItem("redirectAfterLogin");
             if (redirectUrl) {
                 localStorage.removeItem("redirectAfterLogin");

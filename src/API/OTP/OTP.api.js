@@ -1,3 +1,5 @@
+import { trackCompleteRegistration } from "@/components/tracking/events";
+
 const URL = "https://glow-card.onrender.com/api/v1/auth/verify";
 
 const OTP = async (setloading, setError, data, router) => {
@@ -19,6 +21,7 @@ const OTP = async (setloading, setError, data, router) => {
         if (response.ok) {
             localStorage.setItem("token", result.token);
             localStorage.removeItem("loginOtpId");
+            trackCompleteRegistration();
             setloading(false);
             const redirectUrl = localStorage.getItem("redirectAfterLogin");
             if (redirectUrl) {

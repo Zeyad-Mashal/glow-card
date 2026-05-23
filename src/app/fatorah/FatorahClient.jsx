@@ -10,6 +10,11 @@ import {
   markPrimaryPaymentContext,
   markTamaraPaymentContext,
 } from "@/utils/paymentProviderContext";
+import {
+  parseTrackingPrice,
+  trackAddPaymentInfo,
+  trackInitiateCheckout,
+} from "@/components/tracking/events";
 import { useSearchParams, useRouter } from "next/navigation";
 import ReactCountryFlag from "react-country-flag";
 import Select from "react-select";
@@ -57,14 +62,25 @@ const FatorahClient = () => {
   }, [router]);
 
   useEffect(() => {
-    const price = localStorage.getItem("price");
-    const numericPrice = Number(price) || 0;
-    const token = localStorage.getItem("token");
-    const cardType = localStorage.getItem("type");
-    setToken(token);
+    const storedPrice = localStorage.getItem("price");
+    const numericPrice = Number(storedPrice) || 0;
+    const storedToken = localStorage.getItem("token");
+    const storedCardType = localStorage.getItem("type");
+    setToken(storedToken);
     setBasePrice(numericPrice);
     setPrice(numericPrice);
-    setCardType(cardType);
+    setCardType(storedCardType);
+
+    if (id && numericPrice > 0) {
+      trackInitiateCheckout({
+        contentId: id,
+        contentName: storedCardType,
+        value: parseTrackingPrice(numericPrice),
+      });
+    }
+  }, [id]);
+
+  useEffect(() => {
     if (!detailsRef.current) return;
 
     if (detailsOpen) {
@@ -152,6 +168,11 @@ const FatorahClient = () => {
   const paymentGetway = () => {
     if (!validateBeforePayment()) return;
     const data = buildPaymentPayload();
+    trackAddPaymentInfo({
+      contentId: id,
+      contentName: cardType,
+      value: parseTrackingPrice(price),
+    });
     ensurePaymentMeta();
     markPrimaryPaymentContext();
     Payment(setloading, setError, data);
@@ -160,6 +181,11 @@ const FatorahClient = () => {
   const tamaraPaymentGateway = () => {
     if (!validateBeforePayment()) return;
     const data = buildPaymentPayload();
+    trackAddPaymentInfo({
+      contentId: id,
+      contentName: cardType,
+      value: parseTrackingPrice(price),
+    });
     ensurePaymentMeta();
     markTamaraPaymentContext();
     TamaraPayment(setloading, setError, data);

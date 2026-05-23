@@ -2,6 +2,10 @@
 import React, { useEffect, useState } from "react";
 import "./payment_callBack.css";
 import PaymentCallback from "@/API/PaymentCallback/PaymentCallback";
+import {
+  getCheckoutContextFromStorage,
+  trackPurchase,
+} from "@/components/tracking/events";
 
 const Page = () => {
   const [model, setModel] = useState(false);
@@ -13,6 +17,16 @@ const Page = () => {
   useEffect(() => {
     PaymentCallback(setloading, setModel, setLoadingModel, setModelError);
   }, []);
+
+  useEffect(() => {
+    if (!model) return;
+
+    const orderId = localStorage.getItem("invoiceId");
+    trackPurchase({
+      ...getCheckoutContextFromStorage(),
+      orderId,
+    });
+  }, [model]);
 
   return (
     <div className="payment_callBack">
