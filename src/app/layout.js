@@ -1,7 +1,10 @@
+import { Suspense } from "react";
 import "./globals.css";
 import CityPopupRoot from "@/components/CityPopupRoot";
 import ConditionalNavbar from "@/components/ConditionalNavbar";
 import GoogleProviderWrapper from "@/components/GoogleProviderWrapper";
+import TrackingPageView from "@/components/tracking/TrackingPageView";
+import TrackingPixels from "@/components/tracking/TrackingPixels";
 import WhatsappButton from "@/components/WhatsappButton";
 
 export const metadata = {
@@ -19,6 +22,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="ar">
       <body>
+        <TrackingPixels />
+        <Suspense fallback={null}>
+          <TrackingPageView />
+        </Suspense>
         <GoogleProviderWrapper>
           <ConditionalNavbar />
           <CityPopupRoot />
