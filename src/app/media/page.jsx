@@ -95,7 +95,11 @@ const Page = () => {
           <a href="https://youtube.com" target="_blank" rel="noreferrer">
             <FaYoutube />
           </a>
-          <a href="https://instagram.com" target="_blank" rel="noreferrer">
+          <a
+            href="https://www.instagram.com/glowcard.sa?igsh=MTV1aW5vZDFyM2dycA%3D%3D&utm_source=qr"
+            target="_blank"
+            rel="noreferrer"
+          >
             <FaInstagram />
           </a>
           <a href="tel:+966542220888" target="_blank" rel="noreferrer">

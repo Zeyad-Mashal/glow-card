@@ -41,30 +41,35 @@ const GlowCards = () => {
                   data-aos-delay={index * 200}
                 >
                   <img src={card.images[0]} alt="" loading="lazy" />
-                  <h3>{card.name}</h3>
-                  <div className="card_item_btn">
-                    <span>
-                      {card.type === "Custom" ? "اطلب الان" : card.price}
-                      {card.type === "Custom" ? (
-                        ""
-                      ) : selectedLanguage === "ar" ? (
-                        <img src="/images/reyal.png" alt="reyal currancy" />
-                      ) : (
-                        " SAR"
-                      )}
-
-                      <span className="original_price">
-                        {card.originalPrice}{" "}
-                        {selectedLanguage === "ar" ? (
-                          <img
-                            src="/images/reyal-gray.png"
-                            alt="reyal currency"
-                          />
-                        ) : (
-                          "SAR"
-                        )}
+                  <h3 className="membership-card-title">{card.name}</h3>
+                  <div className="card_item_btn membership-price-footer">
+                    {card.type === "Custom" ? (
+                      <span className="membership-custom-label">
+                        اطلب الان
                       </span>
-                    </span>
+                    ) : (
+                      <div className="membership-price-block">
+                        <span className="membership-price-original">
+                          {card.originalPrice}{" "}
+                          {selectedLanguage === "ar" ? (
+                            <img
+                              src="/images/reyal-gray.png"
+                              alt="reyal currency"
+                            />
+                          ) : (
+                            "SAR"
+                          )}
+                        </span>
+                        <span className="membership-price-current">
+                          {card.price}{" "}
+                          {selectedLanguage === "ar" ? (
+                            <img src="/images/reyal.png" alt="reyal currancy" />
+                          ) : (
+                            "SAR"
+                          )}
+                        </span>
+                      </div>
+                    )}
 
                     <button>{langValue["cityBtn"]}</button>
                   </div>

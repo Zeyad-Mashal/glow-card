@@ -68,26 +68,31 @@ const OurCards = () => {
               <div className="card_item" key={index}>
                 <img src={item.images} alt="glow card image" />
                 <div className="card_item_content">
-                  <h2>{item.name}</h2>
-                  <div className="card_item_details">
-                    <span>
-                      {item.price}{" "}
-                      <img src="/images/reyal.png" alt="reyal currancy" />
-                    </span>
-                    <span className="original_price">
-                      {item.originalPrice}{" "}
-                      {selectedLanguage === "ar" ? (
-                        <img
-                          src="/images/reyal-gray.png"
-                          alt="reyal currency"
-                        />
-                      ) : (
-                        "SAR"
-                      )}
-                    </span>
+                  <h2 className="membership-card-title">{item.name}</h2>
+                  <div className="card_item_details membership-price-footer">
+                    <div className="membership-price-block">
+                      <span className="membership-price-original">
+                        {item.originalPrice}{" "}
+                        {selectedLanguage === "ar" ? (
+                          <img
+                            src="/images/reyal-gray.png"
+                            alt="reyal currency"
+                          />
+                        ) : (
+                          "SAR"
+                        )}
+                      </span>
+                      <span className="membership-price-current">
+                        {item.price}{" "}
+                        {selectedLanguage === "ar" ? (
+                          <img src="/images/reyal.png" alt="reyal currancy" />
+                        ) : (
+                          "SAR"
+                        )}
+                      </span>
+                    </div>
                     <button>
                       <Link href={`/card?id=${item._id}`}>
-                        {" "}
                         {langValue["reqBtn"]}
                       </Link>
                     </button>

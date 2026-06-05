@@ -145,8 +145,18 @@ export default function CardDetailsClient() {
 
           <div className="card_content">
             <h1>{cardDetails.name}</h1>
-            <div className="card_discount">
-              <p>
+            <div className="card_discount membership-price-block membership-price-block--hero">
+              {cardDetails.originalPrice ? (
+                <span className="membership-price-original membership-price-original--hero">
+                  {cardDetails.originalPrice}
+                  {selectedLanguage === "ar" ? (
+                    <img src="/images/reyal-gray.png" alt="reyal currency" />
+                  ) : (
+                    " SAR"
+                  )}
+                </span>
+              ) : null}
+              <p className="membership-price-current membership-price-current--hero">
                 {cardDetails.price}
                 {selectedLanguage === "ar" ? (
                   <img src="/images/reyal.png" alt="reyal currency" />
@@ -281,11 +291,30 @@ export default function CardDetailsClient() {
                       alt="related cards"
                     />
                     <div className="card_item_content">
-                      <h3>{card.name}</h3>
-                      <p>
-                        {card.price}{" "}
-                        {selectedLanguage === "ar" ? "ريال" : " SAR"}
-                      </p>
+                      <h3 className="membership-card-title">{card.name}</h3>
+                      <div className="membership-price-block">
+                        {card.originalPrice ? (
+                          <span className="membership-price-original">
+                            {card.originalPrice}{" "}
+                            {selectedLanguage === "ar" ? (
+                              <img
+                                src="/images/reyal-gray.png"
+                                alt="reyal currency"
+                              />
+                            ) : (
+                              "SAR"
+                            )}
+                          </span>
+                        ) : null}
+                        <span className="membership-price-current">
+                          {card.price}{" "}
+                          {selectedLanguage === "ar" ? (
+                            <img src="/images/reyal.png" alt="reyal currency" />
+                          ) : (
+                            "SAR"
+                          )}
+                        </span>
+                      </div>
                     </div>
                   </div>
                 );

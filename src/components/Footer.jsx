@@ -92,21 +92,21 @@ const Footer = () => {
         {/* 🌐 Social Media Links */}
         <div className="footer_social">
           <a
-            href="https://www.snapchat.com/add/glow_card"
+            href="https://www.snapchat.com/add/glowcard.sa?share_id=pn_pLmelTps&locale=ar-AE"
             target="_blank"
             rel="noreferrer"
           >
             <FontAwesomeIcon icon={faSnapchat} />
           </a>
           <a
-            href="https://www.instagram.com/glow.card.ksa/"
+            href="https://www.instagram.com/glowcard.sa?igsh=MTV1aW5vZDFyM2dycA%3D%3D&utm_source=qr"
             target="_blank"
             rel="noreferrer"
           >
             <FontAwesomeIcon icon={faInstagram} />
           </a>
           <a
-            href="https://www.tiktok.com/@glow_card"
+            href="https://www.tiktok.com/@glowcard.sa?_r=1&_t=ZS-96vXglSjg3x"
             target="_blank"
             rel="noreferrer"
           >

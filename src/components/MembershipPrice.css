@@ -1,0 +1,143 @@
+.membership-card-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #000;
+  margin: 0;
+  text-align: right;
+  width: 100%;
+}
+
+.membership-price-footer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.membership-price-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.1rem;
+  line-height: 1.15;
+}
+
+.membership-price-original {
+  text-decoration: line-through;
+  color: #9b7777;
+  font-size: 0.95rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.membership-price-original img {
+  width: 0.85em;
+  height: 0.85em;
+  max-width: 13px;
+  max-height: 13px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.membership-price-current {
+  color: #2d5a3f;
+  font-size: 2rem;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  line-height: 1;
+}
+
+.membership-price-current img {
+  width: 0.7em;
+  height: 0.7em;
+  max-width: 18px;
+  max-height: 18px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.membership-custom-label {
+  color: #2d5a3f;
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.membership-price-footer > button,
+.membership-price-footer button {
+  flex-shrink: 0;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 0.65rem 1.15rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.membership-price-block--hero {
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.membership-price-original--hero {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 1rem;
+}
+
+.membership-price-current--hero {
+  color: #fff;
+  font-size: 2rem;
+  background-color: transparent;
+  padding: 0;
+}
+
+.membership-price-current--hero img {
+  width: 0.7em;
+  height: 0.7em;
+  max-width: 20px;
+  max-height: 20px;
+  object-fit: contain;
+  flex-shrink: 0;
+  filter: brightness(0) invert(1);
+}
+
+.membership-price-original--hero img {
+  width: 0.85em;
+  height: 0.85em;
+  max-width: 14px;
+  max-height: 14px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+@media screen and (max-width: 789px) {
+  .membership-card-title {
+    font-size: 1rem;
+  }
+
+  .membership-price-current {
+    font-size: 1.45rem;
+  }
+
+  .membership-price-original {
+    font-size: 0.8rem;
+  }
+
+  .membership-price-footer > button,
+  .membership-price-footer button {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+    border-radius: 8px;
+  }
+
+  .membership-price-current--hero {
+    font-size: 1.5rem;
+  }
+}
