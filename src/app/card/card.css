@@ -51,7 +51,7 @@
 .card_content {
   display: flex;
   justify-content: center;
-  align-items: flex-end;
+  align-items: center;
   flex-direction: column;
   gap: 2rem;
 }
@@ -81,7 +81,7 @@
 }
 .card_actions {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
   gap: 0.75rem;
   width: 100%;
@@ -333,12 +333,25 @@ pre {
   }
 } 
 
+@media screen and (min-width: 790px) {
+  .card_content {
+    align-items: flex-end;
+  }
+
+  .card_actions {
+    justify-content: flex-end;
+  }
+}
+
 @media screen and (max-width: 789px) {
   .card_details {
-    padding: 1rem 2rem;
-    width: 95%;
+    padding: 1rem 1.5rem;
+    width: 100%;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     margin-top: 2rem;
+    box-sizing: border-box;
   }
   .card_details img {
     width: 90%;
@@ -351,17 +364,37 @@ pre {
     height: 180px;
   }
   .card_content {
-    gap: 0;
+    display: grid;
+    justify-items: center;
+    gap: 0.75rem;
+    align-self: stretch;
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+    box-sizing: border-box;
   }
   .card_content h1 {
     font-size: 1.5rem;
     margin-top: 1rem;
+    text-align: center;
+    width: 100%;
   }
-  .card_content button {
-    margin-top: 1rem;
+  .card_discount {
+    align-items: center;
+    width: auto;
+    max-width: 100%;
+    text-align: center;
   }
   .card_actions {
+    display: contents;
+  }
+
+  .card_actions button {
+    display: inline-flex;
+    align-items: center;
     justify-content: center;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
   }
   .steps {
     flex-direction: column;

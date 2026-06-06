@@ -87,25 +87,28 @@
 }
 
 .membership-price-original--hero {
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.85);
   font-size: 1rem;
+  font-weight: 600;
 }
 
 .membership-price-current--hero {
-  color: #fff;
-  font-size: 2rem;
-  background-color: transparent;
-  padding: 0;
+  color: #2d5a3f;
+  font-size: 2.75rem;
+  font-weight: 800;
+  background-color: #fff;
+  padding: 10px 20px;
+  border-radius: 20px;
+  line-height: 1;
 }
 
 .membership-price-current--hero img {
-  width: 0.7em;
-  height: 0.7em;
-  max-width: 20px;
-  max-height: 20px;
+  width: 0.65em;
+  height: 0.65em;
+  max-width: 24px;
+  max-height: 24px;
   object-fit: contain;
   flex-shrink: 0;
-  filter: brightness(0) invert(1);
 }
 
 .membership-price-original--hero img {
@@ -137,7 +140,18 @@
     border-radius: 8px;
   }
 
+  .membership-price-block--hero {
+    align-items: center;
+    width: 100%;
+    text-align: center;
+  }
+
   .membership-price-current--hero {
-    font-size: 1.5rem;
+    font-size: 2rem;
+    padding: 8px 16px;
+  }
+
+  .membership-price-original--hero {
+    font-size: 0.85rem;
   }
 }

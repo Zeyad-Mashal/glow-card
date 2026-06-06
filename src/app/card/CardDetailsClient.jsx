@@ -156,14 +156,14 @@ export default function CardDetailsClient() {
                   )}
                 </span>
               ) : null}
-              <p className="membership-price-current membership-price-current--hero">
+              <span className="membership-price-current membership-price-current--hero">
                 {cardDetails.price}
                 {selectedLanguage === "ar" ? (
                   <img src="/images/reyal.png" alt="reyal currency" />
                 ) : (
                   " SAR"
                 )}
-              </p>
+              </span>
               {/* <div className="card_discount_text">
                 <img src="/images/discount.png" alt="" />
                 <span>
@@ -190,6 +190,11 @@ export default function CardDetailsClient() {
                   ) : (
                     <span className="loader"></span>
                   )
+                ) : selectedLanguage === "ar" ? (
+                  <>
+                    {langValue["reqBtn"]}{" "}
+                    <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+                  </>
                 ) : (
                   <>
                     <FontAwesomeIcon icon={faArrowUpRightFromSquare} />{" "}
