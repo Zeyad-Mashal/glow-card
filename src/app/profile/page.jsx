@@ -282,6 +282,13 @@ const Profile = () => {
               >
                 {langValue["logout"]}
               </div>
+              {regularMembershipCards.length > 0 && (
+                <span className="glow_code">
+                  {selectedLanguage === "ar"
+                    ? "كود خصم يور جيم ( GLOW )"
+                    : "PureGym discount code (GLOW)"}
+                </span>
+              )}
             </div>
           </div>
         )}

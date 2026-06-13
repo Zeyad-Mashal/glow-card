@@ -4,12 +4,20 @@ import "./glowclubmobile.css";
 import Image from "next/image";
 import { Lang } from "@/Lang/lang";
 const items = [
-  { id: 1, title: "Glow Card", discount: "15%", code: "GLOW15" },
-  { id: 2, title: "Glow Card", discount: "15%", code: "GLOW15" },
-  { id: 3, title: "Glow Card", discount: "15%", code: "GLOW15" },
-  { id: 4, title: "Glow Card", discount: "15%", code: "GLOW15" },
-  { id: 5, title: "Glow Card", discount: "15%", code: "GLOW15" },
-  { id: 6, title: "Glow Card", discount: "15%", code: "GLOW15" },
+  {
+    id: 1,
+    title: "نون",
+    discount: "10%",
+    code: "GLO10",
+    image: "/images/noon.jpeg",
+  },
+  {
+    id: 2,
+    title: "Ziebart",
+    discount: "خصم 40% علي التلميع و التظليل و يطبق الخصم بالفرع",
+    code: "https://www.ziebart.com.sa/ar/branches",
+    image: "/images/ziebart.png",
+  },
 ];
 
 export default function GlowClubPage() {
@@ -56,7 +64,12 @@ export default function GlowClubPage() {
                   <h3>{item.title}</h3>
                   <p>{item.discount}</p>
                 </div>
-                <img src="/images/logo.png" alt="Glow Logo" />
+                <Image
+                  src={item.image}
+                  alt="Glow Logo"
+                  width={150}
+                  height={150}
+                />
               </div>
             ))}
           </div>

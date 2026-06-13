@@ -80,7 +80,9 @@
   font-weight: bold;
   color: #002c59;
 }
-
+.popup_card:nth-child(1) > .coupon_code {
+  font-size: 0.8rem;
+}
 /* ======= Popup Styles ======= */
 .popup_overlay {
   position: fixed;
