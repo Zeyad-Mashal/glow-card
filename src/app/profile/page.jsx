@@ -285,7 +285,7 @@ const Profile = () => {
               {regularMembershipCards.length > 0 && (
                 <span className="glow_code">
                   {selectedLanguage === "ar"
-                    ? "كود خصم يور جيم ( GLOW )"
+                    ? "كود خصم بيور جيم ( GLOW )"
                     : "PureGym discount code (GLOW)"}
                 </span>
               )}

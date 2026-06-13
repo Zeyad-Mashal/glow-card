@@ -14,7 +14,7 @@ const items = [
   {
     id: 2,
     title: "Ziebart",
-    discount: "خصم 40% علي التلميع و التظليل و يطبق الخصم بالفرع",
+    discount: "خصم 40% علي التلميع و التظليل (يطبق الخصم بالفرع)",
     code: "https://www.ziebart.com.sa/ar/branches",
     image: "/images/ziebart.png",
   },
