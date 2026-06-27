@@ -14,7 +14,7 @@ export default function Home() {
 
   return (
     <>
-      <WelcomeAppModal />
+      {/* <WelcomeAppModal /> */}
       <Hero />
       <Banner />
       <Banner2 />

@@ -47,6 +47,7 @@ const Banner = () => {
 
   return (
     <div className="banner">
+      
       {isLang === "ar"
         ? banners.slice(0, 4).map((item, index) => {
             return (
@@ -72,6 +73,7 @@ const Banner = () => {
               </a>
             );
           })}
+
     </div>
   );
 };

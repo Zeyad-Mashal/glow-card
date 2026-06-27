@@ -7,6 +7,14 @@ const nextConfig = {
         domains: ['glow-card.vercel.app'], // or your actual CDN/image hosting domain
         unoptimized: true,
     },
+    async rewrites() {
+        return [
+            {
+                source: '/api/v1/:path*',
+                destination: 'https://glow-card.onrender.com/api/v1/:path*',
+            },
+        ];
+    },
 };
 
 // Wrap config with Flowbite React

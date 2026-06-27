@@ -19,14 +19,14 @@ const Hero = () => {
       <div className="hero_container">
         <div className="hero_overlay" aria-hidden="true" />
         <div className="hero_content">
-          <h1 data-aos="zoom-in-up" data-aos-delay="100">
+          {/*<h1 data-aos="zoom-in-up" data-aos-delay="100">
             {langValue["hero"]}
-          </h1>
+          </h1>*/}
           <div className="hero_cta" data-aos="zoom-in-up" data-aos-delay="200">
             <Link href={"/our_cards"} className="hero_btn">
               {langValue["heroBtn"]}
             </Link>
-            <p className="hero_trust">{langValue["heroTrust"]}</p>
+            {/*<p className="hero_trust">{langValue["heroTrust"]}</p>*/}
           </div>
         </div>
       </div>
@@ -49,6 +49,9 @@ const Hero = () => {
             </div>
           </div>
         </div>
+      </div>
+      <div className="hero_banner">
+        <img src="/images/hero-banner1.png" alt="Hero Banner" />
       </div>
     </div>
   );

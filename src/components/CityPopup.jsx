@@ -26,7 +26,17 @@ const CityPopup = () => {
     if (savedCity) {
       setSelectedCity(savedCity);
     } else {
-      setShowPopup(true);
+      const riyadhCity = JSON.stringify({
+        id: "69d18f0ede880d01856c6f68",
+        name: "الرياض",
+      });
+      try {
+        localStorage.setItem("user_city", riyadhCity);
+      } catch (err) {
+        console.warn("Failed to save default city:", err);
+      }
+      setSelectedCity(riyadhCity);
+      window.location.reload();
     }
     getAllCities();
   }, []);

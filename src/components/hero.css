@@ -1,4 +1,4 @@
-/* الهيرو + التيكر = شاشة واحدة كاملة بدون سكرول عمودي داخل القسم */
+/* الهيرو — يأخذ ارتفاعه من المحتوى على الديسكتوب */
 .hero {
   width: 100%;
   max-width: 100%;
@@ -6,14 +6,13 @@
   display: flex;
   flex-direction: column;
   margin-top: 4.5rem;
-  height: calc(100svh - 4.5rem);
-  max-height: calc(100svh - 4.5rem);
-  overflow: hidden;
+  height: auto;
+  overflow: visible;
 }
 
 .hero_container {
-  flex: 1 1 auto;
-  min-height: 0;
+  flex: 0 0 auto;
+  min-height: min(85vh, 650px);
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -21,18 +20,19 @@
   align-items: center;
   padding: 0 clamp(0.75rem, 3vw, 1.5rem);
   position: relative;
-  background-image: url("/images/glow card pics-06.png");
+  background-image: url("/images/hero-image.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+
 }
 
-.hero_overlay {
+/* .hero_overlay {
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.4);
   pointer-events: none;
-}
+} */
 
 .hero_content {
   position: relative;
@@ -46,6 +46,10 @@
   color: #fff;
   box-sizing: border-box;
   padding: 0.5rem 0;
+  height: 100%;
+      position:absolute;
+      bottom: 30px;
+      right: 240px;
 }
 
 .hero_content h1 {
@@ -85,6 +89,8 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 0.5rem;
+  position: absolute;
+  bottom: 10px;
 }
 
 .hero_cta .hero_btn {
@@ -156,7 +162,14 @@
   opacity: 0.85;
   user-select: none;
 }
-
+.hero_banner {
+  width: 100%;
+  min-height: 420px;
+  background-image: url("/images/hero-banner1.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
 @keyframes hero_ticker_scroll {
   from {
     transform: translate3d(0, 0, 0);
@@ -166,25 +179,38 @@
   }
 }
 
-/* شريط علوي أصغر على الديسكتوب */
+/* ديسكتوب: شريط علوي أصغر + كل المحتوى يظهر بالكامل */
 @media (min-width: 1027px) {
   .hero {
     margin-top: 3.75rem;
-    height: calc(100svh - 3.75rem);
-    max-height: calc(100svh - 3.75rem);
+    height: auto;
+    max-height: none;
+    overflow: visible;
+  }
+
+  .hero_container {
+    min-height: min(88vh, 700px);
+  }
+
+  .hero_banner {
+    min-height: 480px;
   }
 }
 
 /* موبايل: عمودي في المنتصف */
 @media (max-width: 767px) {
   .hero {
-    height: calc(100svh - 25rem);
+    height: auto;
+    width: 100%;
+    overflow: hidden;
   }
   .hero_container {
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 0.5rem 1rem;
+    position: relative;
+  background-image: url("/images/hero-image-mob.png");
   }
 
   .hero_content {
@@ -192,6 +218,8 @@
     text-align: center;
     width: 100%;
     max-width: 100%;
+    position: absolute;
+    bottom: 0px;
   }
 
   .hero_content h1 {
@@ -200,7 +228,12 @@
   }
 
   .hero_cta {
-    align-items: center;
+    justify-content:center;
+    align-items: flex-end;
+    width: 100%;
+    padding: 0 10px;
+    position: absolute;
+    bottom: 15px;
   }
 
   .hero_ticker_segment {
